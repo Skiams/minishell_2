@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/05 13:31:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/03/05 19:28:33 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,11 @@ bool	ft_is_whitespace(char *str, int i);
 // DEBUG
 
 void	print_tokens(t_token *token_lst);
+
+// CLEAN
+
+void	ft_free_data(t_data *data);
+void	*ft_free_ptr(void *ptr);
+void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
 
 #endif
