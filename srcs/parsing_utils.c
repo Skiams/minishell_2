@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/02/29 14:33:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/05 18:02:40 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_del_edge_spaces(char *str)
 		i++;
 	while ((str[len] >= 9 && str[len] <= 13) || str[len] == 32)
 			len--;
-	new_str = ft_substr(str, i, len - i);
+	new_str = ft_substr(str, i, len - i + 1);
 	return (new_str);
 }
 
