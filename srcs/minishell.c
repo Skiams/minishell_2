@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/02/29 16:00:40 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/05 14:12:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
+	ft_printf("Coucou Antoine, c'etait une blague\n");
 	ft_memset(&data, 0, sizeof(t_data));
 	while (1)
 	{
