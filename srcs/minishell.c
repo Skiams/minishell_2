@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/05 18:07:50 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/06 19:51:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,16 @@ static void	ft_first_check(t_data *data)
 	str = ft_del_edge_spaces(data->input);
 	// if (!str)
 	// 	return un truc d'erreur t'sais;
+	dprintf (2, "input : %s\n", str);
 	while (str[i] != '\0')
 	{
 		if (!ft_is_whitespace(str, i) && str[i])
 		{
+			dprintf (2, "i = %d\n", i);
 			token_tp = ft_define_token_type(str, i);
+			dprintf(2, "token type = %d\n", token_tp);
 			i = ft_add_token(data, str, token_tp, i);
+			dprintf (2, "i = %d\n", i);
 		}
 		else
 			i++;
@@ -56,6 +60,7 @@ int	main(int argc, char **argv)
 	{
 		data.input = readline("entre un truc batard : ");
 		ft_parsing(data.input, &data);
+		ft_free_data(&data);
 	}
 	return (0);
 }
