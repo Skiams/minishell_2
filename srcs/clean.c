@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/05 19:32:03 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/06 14:32:45 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,18 @@ void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 	{
 		temp = (*token_lst)->next;
 		(*del)((*token_lst)->value);
-		(*del)((*token_lst)->type);
 		free (*token_lst);
 		*token_lst = temp;
 	}
 	*token_lst = NULL;
 }
-void	*ft_free_ptr(void *ptr)
+void	ft_free_ptr(void *ptr)
 {
 	if (ptr)
 	{
 		free(ptr);
 		ptr = NULL;
 	}
-	return (NULL);
 }
 
  void	ft_free_data(t_data *data)
@@ -43,5 +41,5 @@ void	*ft_free_ptr(void *ptr)
 	if (data && data->input)
 		ft_free_ptr(data->input);
 	if (data && data->token_list)
-		ft_token_lstclear(&data->token_list, ft_free_ptr(&data->token_list));
+		ft_token_lstclear(&data->token_list, &ft_free_ptr);
 }
