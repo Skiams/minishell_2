@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/05 18:02:40 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:55:15 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ char	*ft_del_edge_spaces(char *str)
 bool	ft_is_whitespace(char *str, int i)
 {
 	if ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		return (true);
+	else
+		return (false);
+}
+
+bool	ft_is_sep(char *str, int i)
+{
+	int	type;
+
+	type = ft_define_token_type(str, i);
+	if (type > 0 && type < 6)
 		return (true);
 	else
 		return (false);

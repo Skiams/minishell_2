@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/06 19:51:20 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/07 17:10:30 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 	i += len;
 	new_token = ft_lstnew_token(value, type);
 	ft_lstadd_back_token(token_lst, new_token);
-	return (i - 1);
+	return (i);
 }
 
 int	ft_add_word(t_token **token_lst, char *str, int i)
@@ -36,12 +36,13 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 	char	*value;
 	t_token	*new_token;
 
-	dprintf(2, "i pour ajout de mot = %d\n", i);
 	start = i;
 	len = 0;
-	while (!ft_is_whitespace(str, i++)) 
+	while (str[i] && !ft_is_whitespace(str, i) && !ft_is_sep(str, i)) 
+	{
+		i++;
 		len++;
-	dprintf(2, "len = %d et i = %d\n", len, i);
+	}
 	value = ft_substr(str, start, len);
 	new_token = ft_lstnew_token(value, WORD);
 	ft_lstadd_back_token(token_lst, new_token);
@@ -56,7 +57,7 @@ int	ft_add_token(t_data *data, char *str, int type, int i)
 	else
 		i = ft_add_word(&data->token_list, str, i);
 	dprintf(2, "i a la sortie de add token = %d\n", i - 1);
-	return (i - 1);
+	return (i);
 }
 
 int	ft_define_token_type(char *str, int i)
