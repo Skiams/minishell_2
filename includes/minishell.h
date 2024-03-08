@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/06 17:05:44 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/07 16:59:56 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_token	*ft_lstlast_token(t_token *token);
 char	*ft_del_edge_spaces(char *str);
 bool 	ft_is_only_space(char *str);
 bool	ft_is_whitespace(char *str, int i);
+bool	ft_is_sep(char *str, int i);
 
 // DEBUG
 
