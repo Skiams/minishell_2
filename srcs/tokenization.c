@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/08 13:24:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/08 13:29:12 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 
 	start = i;
 	len = 0;
-	while (str[i] && !ft_is_whitespace(str, i) && !ft_is_sep(str, i)) 
+	while (str[i] && !ft_is_whitespace(str, i) && !ft_is_sep(str, i))
+	{
+		i++;
 		len++;
+	}
 	value = ft_substr(str, start, len);
 	new_token = ft_lstnew_token(value, WORD);
 	ft_lstadd_back_token(token_lst, new_token);
