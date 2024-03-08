@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/07 16:59:56 by skiam            ###   ########.fr       */
+/*   Updated: 2024/03/08 17:43:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ typedef enum e_token_tp
 {
 	APPEND = 1,
 	HEREDOC,
-	PIPE,
 	RED_IN,
 	RED_OUT,
+	PIPE,
+	WHITESPACE,
 	WORD,
 }	t_token_tp;
 
@@ -66,6 +67,14 @@ int		ft_define_token_type(char *str, int i);
 t_token	*ft_lstnew_token(char *value, t_token_tp type);
 void	ft_lstadd_back_token(t_token **token_lst, t_token *new_token);
 t_token	*ft_lstlast_token(t_token *token);
+void	ft_tokenization(t_data *data);
+
+// PARSING COMMANDS
+
+void	ft_set_cmd(t_data *data, t_token **token_lst);
+t_cmd	*ft_lstnew_cmd(void);
+t_cmd	*ft_lstlast_cmd(t_cmd *cmd);
+void	ft_lstadd_back_cmd(t_cmd **cmd_lst, t_cmd *new_cmd);
 
 // UTILS
 

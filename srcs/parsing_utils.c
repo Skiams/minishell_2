@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/07 16:55:15 by skiam            ###   ########.fr       */
+/*   Updated: 2024/03/08 15:59:38 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	ft_is_sep(char *str, int i)
 	int	type;
 
 	type = ft_define_token_type(str, i);
-	if (type > 0 && type < 6)
+	if (type > 0 && type < 7)
 		return (true);
 	else
 		return (false);
