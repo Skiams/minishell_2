@@ -1,14 +1,16 @@
-NAME		=	Minishell
+NAME		=	minishell
 
 CC			=	cc -Wall -Wextra -Werror -g3
 
 SRCS		=	srcs/minishell.c\
 				srcs/clean.c\
 				srcs/error_handle.c\
-				srcs/parcells.c\
+				srcs/lst_token.c\
 				srcs/parsing_utils.c\
 				srcs/debug/debug.c\
 				srcs/tokenization.c\
+				srcs/parsing_cmd.c\
+				srcs/lst_cmd.c
 
 OBJS		=	${SRCS:.c=.o}
 
