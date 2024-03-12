@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/08 17:43:15 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/12 14:09:33 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef enum e_token_tp
 	RED_IN,
 	RED_OUT,
 	PIPE,
-	WHITESPACE,
 	WORD,
 }	t_token_tp;
 
@@ -56,6 +55,7 @@ typedef struct s_data
 {
 	char	*input;
 	t_token	*token_list;
+	t_cmd	*cmd_list;
 }	t_data;
 
 // TOKENIZATION
@@ -68,10 +68,11 @@ t_token	*ft_lstnew_token(char *value, t_token_tp type);
 void	ft_lstadd_back_token(t_token **token_lst, t_token *new_token);
 t_token	*ft_lstlast_token(t_token *token);
 void	ft_tokenization(t_data *data);
+bool	check_syntax(t_data *data, char *str);
 
 // PARSING COMMANDS
 
-void	ft_set_cmd(t_data *data, t_token **token_lst);
+bool	ft_set_cmd(t_data *data, t_token **token_lst);
 t_cmd	*ft_lstnew_cmd(void);
 t_cmd	*ft_lstlast_cmd(t_cmd *cmd);
 void	ft_lstadd_back_cmd(t_cmd **cmd_lst, t_cmd *new_cmd);
@@ -83,14 +84,16 @@ bool 	ft_is_only_space(char *str);
 bool	ft_is_whitespace(char *str, int i);
 bool	ft_is_sep(char *str, int i);
 
-// DEBUG
-
-void	print_tokens(t_token *token_lst);
-
 // CLEAN
 
 void	ft_free_data(t_data *data);
 void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
+
+// DEBUG
+
+void	print_tokens(t_token *token_lst);
+void	print_cmd(t_cmd *cmd_lst);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/08 15:57:54 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/11 14:37:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 
 int	ft_add_token(t_data *data, char *str, int type, int i)
 {
-	if (type > 0 && type < 7)
+	if (type > 0 && type < 6)
 		i = ft_add_sep(&data->token_list, type, str, i);
 	else
 		i = ft_add_word(&data->token_list, str, i);
@@ -60,8 +60,6 @@ int	ft_add_token(t_data *data, char *str, int type, int i)
 
 int	ft_define_token_type(char *str, int i)
 {
-	if ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		return (WHITESPACE);
 	if (str[i] == '|')
 		return (PIPE);
 	if (str[i] == '<' && str[i + 1] == '<')
