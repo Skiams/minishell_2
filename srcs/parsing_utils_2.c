@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handle.c                                     :+:      :+:    :+:   */
+/*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 13:18:10 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 18:53:36 by ahayon           ###   ########.fr       */
+/*   Created: 2024/03/13 12:10:40 by ahayon            #+#    #+#             */
+/*   Updated: 2024/03/13 13:15:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_error_handle(int err_code, char *str, int fd)
+int		ft_check_end_quotes(char *str, int i)
 {
-	(void)fd;
-	if (err_code == 1)
+	while (str[i] && str[i] != '\'' && str[i] != '"')
+		i++;
+	if (str[i] == '\'' || str[i] == '"')
 	{
-		ft_putstr_fd("bash: syntax error near unexpected token", 1);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\n", 2);
+		i++;
+		return (i);
 	}
+	else
+		return (0);
 }
 
-void	ft_error_quotes()
+bool	ft_check_quotes(char *str, int i)
 {
-	ft_putstr_fd("minishell: Syntax error: Unterminated quoted string\n");
+	while (str[i])
+	{
+		if (str[i] == '\'' && str[i] == '"')
+			return (true);
+		i++;
+	}
+	return (false);
 }

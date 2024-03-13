@@ -7,10 +7,14 @@ SRCS		=	srcs/minishell.c\
 				srcs/error_handle.c\
 				srcs/lst_token.c\
 				srcs/parsing_utils.c\
+				srcs/parsing_utils_2.c\
 				srcs/debug/debug.c\
 				srcs/tokenization.c\
 				srcs/parsing_cmd.c\
-				srcs/lst_cmd.c
+				srcs/lst_cmd.c\
+				srcs/built-in/ft_echo.c\
+				srcs/check_syntax.c\
+				srcs/singletons.c\
 
 OBJS		=	${SRCS:.c=.o}
 

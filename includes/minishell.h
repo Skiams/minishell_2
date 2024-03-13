@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/12 14:09:33 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/13 14:14:14 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_define_token_type(char *str, int i);
 t_token	*ft_lstnew_token(char *value, t_token_tp type);
 void	ft_lstadd_back_token(t_token **token_lst, t_token *new_token);
 t_token	*ft_lstlast_token(t_token *token);
-void	ft_tokenization(t_data *data);
+bool	ft_tokenization(t_data *data);
 bool	check_syntax(t_data *data, char *str);
 
 // PARSING COMMANDS

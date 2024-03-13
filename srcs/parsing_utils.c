@@ -6,13 +6,13 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/08 15:59:38 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/13 16:29:59 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-bool	ft_is_only_space(char *str)
+bool	ft_is_only_whitespace(char *str)
 {
 	int	i;
 
@@ -59,4 +59,20 @@ bool	ft_is_sep(char *str, int i)
 		return (true);
 	else
 		return (false);
+}
+
+int	ft_define_token_type(char *str, int i)
+{
+	if (str[i] == '|')
+		return (PIPE);
+	if (str[i] == '<' && str[i + 1] == '<')
+		return (HEREDOC);
+	if (str[i] == '>' && str[i + 1] == '>')
+		return (APPEND);
+	if (str[i] == '<')
+		return (RED_IN);
+	if (str[i] == '>')
+		return (RED_OUT);
+	else
+		return (WORD);
 }

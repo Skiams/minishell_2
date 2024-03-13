@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handle.c                                     :+:      :+:    :+:   */
+/*   singletons.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/20 13:18:10 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 18:53:36 by ahayon           ###   ########.fr       */
+/*   Created: 2024/03/13 16:44:24 by ahayon            #+#    #+#             */
+/*   Updated: 2024/03/13 16:48:27 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_error_handle(int err_code, char *str, int fd)
+int	ft_exit_code(int exit_code, int mode)
 {
-	(void)fd;
-	if (err_code == 1)
-	{
-		ft_putstr_fd("bash: syntax error near unexpected token", 1);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("\n", 2);
-	}
-}
+	static int	code = 0;
 
-void	ft_error_quotes()
-{
-	ft_putstr_fd("minishell: Syntax error: Unterminated quoted string\n");
+	if (mode == 1)
+		code = exit_code;
+	if (mode == 2)
+		return (code);
+	return (code);
 }
