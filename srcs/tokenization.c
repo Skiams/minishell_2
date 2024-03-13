@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/11 14:37:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/13 16:17:34 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,20 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 
 	start = i;
 	len = 0;
-	while (str[i] && !ft_is_sep(str, i))
+	if (str[i] && ft_check_quotes(str, i))
 	{
-		i++;
-		len++;
+		i = ft_check_end_quotes(str, i);
+		if (i == 0)
+			return (ft_error_quotes(str[i]), -1);
+		len =  i - start;
+	}
+	else
+	{
+		while (str[i] && !ft_is_sep(str, i) && !ft_check_quotes(str, i))
+		{
+			i++;
+			len++;
+		}
 	}
 	value = ft_substr(str, start, len);
 	new_token = ft_lstnew_token(value, WORD);
@@ -58,23 +68,8 @@ int	ft_add_token(t_data *data, char *str, int type, int i)
 	return (i);
 }
 
-int	ft_define_token_type(char *str, int i)
-{
-	if (str[i] == '|')
-		return (PIPE);
-	if (str[i] == '<' && str[i + 1] == '<')
-		return (HEREDOC);
-	if (str[i] == '>' && str[i + 1] == '>')
-		return (APPEND);
-	if (str[i] == '<')
-		return (RED_IN);
-	if (str[i] == '>')
-		return (RED_OUT);
-	else
-		return (WORD);
-}
 
-void	ft_tokenization(t_data *data)
+bool	ft_tokenization(t_data *data)
 {
 	int		i;
 	int		token_tp;
@@ -88,6 +83,9 @@ void	ft_tokenization(t_data *data)
 		token_tp = ft_define_token_type(str, i);
 		dprintf(2, "token type = %d\n", token_tp);
 		i = ft_add_token(data, str, token_tp, i);
+		if (i == -1)
+			return (false);
 	}
 	ft_free_ptr(str);
+	return (true);
 }
