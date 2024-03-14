@@ -6,16 +6,16 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 15:14:01 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/12 13:35:57 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/14 13:16:40 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static bool	ft_cmd_word(t_data *data, t_token **token_lst)
-{
+// static bool	ft_cmd_word(t_data *data, t_token **token_lst)
+// {
 	
-}
+// }
 static bool	ft_new_cmd(t_data *data, t_token **token_lst)
 {
 	t_cmd	*new_cmd;
