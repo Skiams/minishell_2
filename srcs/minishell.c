@@ -6,11 +6,13 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 18:40:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/14 15:42:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	sig_exit;
 
 // static bool	ft_first_check(t_data *data)
 // {
@@ -35,7 +37,7 @@ static bool	ft_parsing(char *str, t_data *data)
 	return (true);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
@@ -45,8 +47,10 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		data.input = readline("entre un truc batard : ");
-		if (ft_parsing(data.input, &data))
-			// if (ft_set_cmd(&data, data.token_list))
+		if (!data.input )
+		ft_parsing(data.input, &data);
+			(ft_putstr_fd("exit\n", 1), exit(1));
+		// if (ft_parsing(data.input, &data))
 			// 	//gogo gadgeto exe;
 		ft_free_data(&data);
 	}
