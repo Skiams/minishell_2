@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/06 14:32:45 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:08:16 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 {
@@ -27,6 +27,7 @@ void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 	}
 	*token_lst = NULL;
 }
+
 void	ft_free_ptr(void *ptr)
 {
 	if (ptr)
@@ -36,7 +37,7 @@ void	ft_free_ptr(void *ptr)
 	}
 }
 
- void	ft_free_data(t_data *data)
+void	ft_free_data(t_data *data)
 {
 	if (data && data->input)
 		ft_free_ptr(data->input);

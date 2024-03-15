@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/14 15:42:41 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 14:03:21 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static bool	ft_parsing(char *str, t_data *data)
 	// 	return (false);
 	if (!ft_tokenization(data))
 		return (false);
-	if (!check_syntax(data, str))
-		return (false);
+	if (!ft_check_syntax(data))
+		return (dprintf(2, "syntax failed\n"), false);
 	print_tokens(data->token_list);
 	//ft_set_cmd(data, data->token_list);
 	return (true);
@@ -41,15 +41,16 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
+	(void)env;
 	(void)argc;
 	(void)argv;
 	ft_memset(&data, 0, sizeof(t_data));
 	while (1)
 	{
 		data.input = readline("entre un truc batard : ");
-		if (!data.input )
+		if (!data.input)
+						(ft_putstr_fd("exit\n", 1), exit(1));
 		ft_parsing(data.input, &data);
-			(ft_putstr_fd("exit\n", 1), exit(1));
 		// if (ft_parsing(data.input, &data))
 			// 	//gogo gadgeto exe;
 		ft_free_data(&data);

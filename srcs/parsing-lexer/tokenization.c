@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 16:17:34 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:11:22 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 {
@@ -38,22 +38,26 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 
 	start = i;
 	len = 0;
-	if (str[i] && ft_check_quotes(str, i))
+	if (str[i] && (str[i] == '\'' || str[i] == '"'))
 	{
-		i = ft_check_end_quotes(str, i);
+		i = ft_check_end_quotes(str, i, str[i]);
 		if (i == 0)
-			return (ft_error_quotes(str[i]), -1);
-		len =  i - start;
+			return (ft_error_quotes(), -1);
+		len = i - start;
 	}
 	else
 	{
-		while (str[i] && !ft_is_sep(str, i) && !ft_check_quotes(str, i))
+		while (str[i] && !ft_is_sep(str, i)
+			&& (str[i] != '\'' && str[i] != '"'))
 		{
+			dprintf(2, "on rentre dans la boucle\n");
 			i++;
 			len++;
 		}
 	}
+	dprintf(2, "len = %d\n", len);
 	value = ft_substr(str, start, len);
+	dprintf(2, "value = %s\n", value);
 	new_token = ft_lstnew_token(value, WORD);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
@@ -63,11 +67,12 @@ int	ft_add_token(t_data *data, char *str, int type, int i)
 {
 	if (type > 0 && type < 6)
 		i = ft_add_sep(&data->token_list, type, str, i);
-	else
+	else if (type == 6)
 		i = ft_add_word(&data->token_list, str, i);
+	else
+		i++;
 	return (i);
 }
-
 
 bool	ft_tokenization(t_data *data)
 {
@@ -81,8 +86,9 @@ bool	ft_tokenization(t_data *data)
 	while (str[i] != '\0')
 	{
 		token_tp = ft_define_token_type(str, i);
-		dprintf(2, "token type = %d\n", token_tp);
 		i = ft_add_token(data, str, token_tp, i);
+		dprintf(2, "index = %d\n", i);
+		dprintf(2, "token type = %d\n", token_tp);
 		if (i == -1)
 			return (false);
 	}

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/05 17:05:41 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:13:23 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	ft_is_echo_n(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-' && str[i + 1] == 'n')
@@ -22,6 +22,7 @@ bool	ft_is_echo_n(char *str)
 	else
 		return (false);
 }
+
 void	ft_echo(char **args)
 {
 	int	i;

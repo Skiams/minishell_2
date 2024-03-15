@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils_2.c                                  :+:      :+:    :+:   */
+/*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 12:10:40 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 13:15:13 by ahayon           ###   ########.fr       */
+/*   Created: 2024/02/20 13:18:10 by ahayon            #+#    #+#             */
+/*   Updated: 2024/03/15 17:08:58 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int		ft_check_end_quotes(char *str, int i)
+void	ft_syntax_error(char *str)
 {
-	while (str[i] && str[i] != '\'' && str[i] != '"')
-		i++;
-	if (str[i] == '\'' || str[i] == '"')
-	{
-		i++;
-		return (i);
-	}
-	else
-		return (0);
+	ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("'\n", 2);
 }
 
-bool	ft_check_quotes(char *str, int i)
+void	ft_error_quotes(void)
 {
-	while (str[i])
-	{
-		if (str[i] == '\'' && str[i] == '"')
-			return (true);
-		i++;
-	}
-	return (false);
+	ft_putstr_fd("minishell: Syntax error: Unterminated quoted string\n", 2);
 }
