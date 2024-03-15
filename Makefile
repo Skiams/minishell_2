@@ -2,19 +2,19 @@ NAME		=	minishell
 
 CC			=	cc -Wall -Wextra -Werror -g3
 
-SRCS		=	srcs/minishell.c\
-				srcs/clean.c\
-				srcs/error_handle.c\
-				srcs/lst_token.c\
-				srcs/parsing_utils.c\
-				srcs/parsing_utils_2.c\
-				srcs/debug/debug.c\
-				srcs/tokenization.c\
-				srcs/parsing_cmd.c\
-				srcs/lst_cmd.c\
+SRCS		=	srcs/main.c\
+				srcs/parsing-lexer/tokenization.c\
+				srcs/parsing-lexer/lst_token.c\
+				srcs/parsing-lexer/check_syntax.c\
+				srcs/parsing-lexer/parsing_utils.c\
+				srcs/parsing-lexer/parsing_utils_2.c\
+				srcs/parsing-command/parsing_cmd.c\
+				srcs/parsing-command/lst_cmd.c\
 				srcs/built-in/ft_echo.c\
-				srcs/check_syntax.c\
-				srcs/singletons.c\
+				srcs/errors/error_handle.c\
+				srcs/clean_exit/clean.c\
+				srcs/clean_exit/singletons.c\
+				srcs/debug/debug.c
 
 OBJS		=	${SRCS:.c=.o}
 

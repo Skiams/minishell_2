@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:44:24 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 16:48:27 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:08:32 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_exit_code(int exit_code, int mode)
 {

@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:21:55 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/14 17:33:40 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:09:33 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	ft_lsttoken_size(t_token *token)
 {
@@ -26,6 +26,7 @@ int	ft_lsttoken_size(t_token *token)
 	}
 	return (count);
 }
+
 t_token	*ft_lstlast_token(t_token *token)
 {
 	if (!token)

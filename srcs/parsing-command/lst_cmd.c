@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:54:11 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/08 15:36:08 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 17:13:37 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_cmd	*ft_lstnew_cmd(void)
 {

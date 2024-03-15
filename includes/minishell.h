@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 14:14:14 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 16:51:58 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum e_token_tp
 	RED_OUT,
 	PIPE,
 	WORD,
+	WHITESPACE,
 }	t_token_tp;
 
 typedef struct s_cmd
@@ -68,7 +69,9 @@ t_token	*ft_lstnew_token(char *value, t_token_tp type);
 void	ft_lstadd_back_token(t_token **token_lst, t_token *new_token);
 t_token	*ft_lstlast_token(t_token *token);
 bool	ft_tokenization(t_data *data);
-bool	check_syntax(t_data *data, char *str);
+int		ft_check_syntax(t_data *data);
+bool	ft_check_quotes(char *str, int i);
+int		ft_check_end_quotes(char *str, int i, char c);
 
 // PARSING COMMANDS
 
@@ -84,11 +87,17 @@ bool 	ft_is_only_space(char *str);
 bool	ft_is_whitespace(char *str, int i);
 bool	ft_is_sep(char *str, int i);
 
-// CLEAN
+// ERRORS
+
+void	ft_error_quotes();
+void	ft_syntax_error(char *str);
+
+// CLEAN & EXIT
 
 void	ft_free_data(t_data *data);
 void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
+int		ft_exit_code(int exit_code, int mode);
 
 // DEBUG
 

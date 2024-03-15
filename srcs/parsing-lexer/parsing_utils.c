@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/13 16:29:59 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/15 15:37:08 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 bool	ft_is_only_whitespace(char *str)
 {
@@ -55,7 +55,7 @@ bool	ft_is_sep(char *str, int i)
 	int	type;
 
 	type = ft_define_token_type(str, i);
-	if (type > 0 && type < 7)
+	if ((type > 0 && type < 6) || str[i] == 32 || str[i] == 9)
 		return (true);
 	else
 		return (false);
@@ -73,6 +73,8 @@ int	ft_define_token_type(char *str, int i)
 		return (RED_IN);
 	if (str[i] == '>')
 		return (RED_OUT);
+	if (str[i] == 32 || str[i] == 9)
+		return (WHITESPACE);
 	else
 		return (WORD);
 }
