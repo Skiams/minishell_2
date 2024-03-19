@@ -6,13 +6,39 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/19 15:14:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/19 18:54:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
+bool	ft_check_dollar(t_env *env, t_token *token_lst)
+{
+	int	i;
+
+	i = 0;
+	while (token_lst->value[i] != '\0')
+	{
+		if (token_lst->value[i] == '$')
+		{
+			while (token_lst->value[i] != '\0')
+			{
+				
+			}
+		}
+	}
+}
+void	ft_replace_token_var(t_env *env, t_token *token_lst)
+{
+	char	*tmp_var;
+
+	
+	while (token_lst)
+	{
+		if (token_lst->value[0] == '$' && )
+	}
+}
+int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
 {
 	int		len;
 	char	*value;
@@ -88,6 +114,7 @@ bool	ft_tokenization(t_data *data)
 		i = ft_add_token(data, str, token_tp, i);
 		//dprintf(2, "index = %d\n", i);
 		//dprintf(2, "token type = %d\n", token_tp);
+		print_tokens(data->token_list);
 		if (i == -1)
 			return (false);
 	}
