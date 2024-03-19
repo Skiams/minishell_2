@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/15 14:03:21 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/19 15:12:17 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	ft_parsing(char *str, t_data *data)
 		return (false);
 	if (!ft_check_syntax(data))
 		return (dprintf(2, "syntax failed\n"), false);
-	print_tokens(data->token_list);
+	//print_tokens(data->token_list);
 	//ft_set_cmd(data, data->token_list);
 	return (true);
 }
@@ -45,6 +45,8 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	ft_memset(&data, 0, sizeof(t_data));
+	data.env = ft_get_env(&data, env);
+	print_env(data.env);
 	while (1)
 	{
 		data.input = readline("entre un truc batard : ");

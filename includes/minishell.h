@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/15 16:51:58 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/19 13:42:22 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ typedef enum e_token_tp
 	WHITESPACE,
 }	t_token_tp;
 
+typedef struct s_env
+{
+	char			*var;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
+
+
 typedef struct s_cmd
 {
 	char			*value;
@@ -57,6 +66,7 @@ typedef struct s_data
 	char	*input;
 	t_token	*token_list;
 	t_cmd	*cmd_list;
+	t_env	*env;
 }	t_data;
 
 // TOKENIZATION
@@ -72,6 +82,13 @@ bool	ft_tokenization(t_data *data);
 int		ft_check_syntax(t_data *data);
 bool	ft_check_quotes(char *str, int i);
 int		ft_check_end_quotes(char *str, int i, char c);
+
+// ENV
+
+t_env	*ft_get_env(t_data *data, char **env);
+t_env	*ft_lstnew_env(char *var, char *value);
+void	ft_lstadd_back_env(t_env **env_lst, t_env *new_env);
+t_env	*ft_lstlast_env(t_env *env);
 
 // PARSING COMMANDS
 
@@ -103,6 +120,7 @@ int		ft_exit_code(int exit_code, int mode);
 
 void	print_tokens(t_token *token_lst);
 void	print_cmd(t_cmd *cmd_lst);
+void	print_env(t_env *env_lst);
 
 
 #endif

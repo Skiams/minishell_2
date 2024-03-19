@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:28:44 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/15 13:51:18 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/19 13:34:19 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,30 @@
 
 void	print_tokens(t_token *token_lst)
 {
-	int	i;
+	t_token	*tmp;
+	int		i;
 
+	tmp = token_lst;
 	i = 1;
-	while (token_lst)
+	while (tmp)
 	{
-		printf("Token %d / type = %d / value = %s\n",
-			i, token_lst->type, token_lst->value);
-		token_lst = token_lst->next;
+		dprintf(2, "Token %d / type = %d / value = %s\n",
+			i, tmp->type, tmp->value);
+		tmp = tmp->next;
 		i++;
+	}
+}
+
+void	print_env(t_env *env_lst)
+{
+	t_env	*tmp;
+
+	tmp = env_lst;
+	while (tmp)
+	{
+		dprintf(2, "env var = %s / value = %s\n",
+			tmp->var, tmp->value);
+		tmp = tmp->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/15 17:11:22 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/19 15:14:11 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,13 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 		while (str[i] && !ft_is_sep(str, i)
 			&& (str[i] != '\'' && str[i] != '"'))
 		{
-			dprintf(2, "on rentre dans la boucle\n");
 			i++;
 			len++;
 		}
 	}
-	dprintf(2, "len = %d\n", len);
+	//dprintf(2, "len = %d\n", len);
 	value = ft_substr(str, start, len);
-	dprintf(2, "value = %s\n", value);
+	//dprintf(2, "value = %s\n", value);
 	new_token = ft_lstnew_token(value, WORD);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
@@ -87,8 +86,8 @@ bool	ft_tokenization(t_data *data)
 	{
 		token_tp = ft_define_token_type(str, i);
 		i = ft_add_token(data, str, token_tp, i);
-		dprintf(2, "index = %d\n", i);
-		dprintf(2, "token type = %d\n", token_tp);
+		//dprintf(2, "index = %d\n", i);
+		//dprintf(2, "token type = %d\n", token_tp);
 		if (i == -1)
 			return (false);
 	}

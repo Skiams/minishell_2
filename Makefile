@@ -3,6 +3,8 @@ NAME		=	minishell
 CC			=	cc -Wall -Wextra -Werror -g3
 
 SRCS		=	srcs/main.c\
+				srcs/env/get_env.c\
+				srcs/env/lst_env.c\
 				srcs/parsing-lexer/tokenization.c\
 				srcs/parsing-lexer/lst_token.c\
 				srcs/parsing-lexer/check_syntax.c\
