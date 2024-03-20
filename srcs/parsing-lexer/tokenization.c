@@ -6,40 +6,12 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/20 21:17:26 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/20 23:08:07 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// bool	ft_check_dollar(t_env *env, t_token *token_lst)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (token_lst->value[i] != '\0')
-// 	{
-// 		if (token_lst->value[i] == '$')
-// 		{
-// 			while (token_lst->value[i] != '\0' && token_lst->value[i] != '$')
-// 			{
-				
-// 			}
-// 		}
-// 		else
-// 			i++;
-// 	}
-// }
-// void	ft_replace_token_var(t_env *env, t_token *token_lst)
-// {
-// 	char	*tmp_var;
-
-	
-// 	while (token_lst)
-// 	{
-		
-// 	}
-// }
 int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
 {
 	int		len;
@@ -69,7 +41,7 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 	len = 0;
 	while (str[i] && !ft_is_sep(str, i))
 	{
-		if (str[i] && (str[i] == 39 || str[i] == 34))
+		if (str[i] && (str[i] == '\'' || str[i] == '"'))
 		{
 			start_quote = i;
 			i = ft_check_end_quotes(str, i, str[i]);
@@ -88,7 +60,7 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 		}
 	}
 	value = ft_substr(str, start, len);
-	//dprintf(2, "value = %s\n", value);
+	
 	new_token = ft_lstnew_token(value, WORD);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);

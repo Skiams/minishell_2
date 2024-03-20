@@ -10,6 +10,7 @@ SRCS		=	srcs/main.c\
 				srcs/parsing-lexer/check_syntax.c\
 				srcs/parsing-lexer/parsing_utils.c\
 				srcs/parsing-lexer/parsing_utils_2.c\
+				srcs/expand/expand.c\
 				srcs/parsing-command/parsing_cmd.c\
 				srcs/parsing-command/lst_cmd.c\
 				srcs/built-in/ft_echo.c\
