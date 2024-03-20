@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/19 13:42:22 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/20 23:18:06 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ bool	ft_tokenization(t_data *data);
 int		ft_check_syntax(t_data *data);
 bool	ft_check_quotes(char *str, int i);
 int		ft_check_end_quotes(char *str, int i, char c);
+
+// EXPAND
+
+bool	ft_check_env_var(char *tmp_var, t_env *env);
+void	ft_check_expand(t_data *data);
 
 // ENV
 
