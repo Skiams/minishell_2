@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/19 17:42:47 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/20 19:50:50 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static bool	ft_parsing(char *str, t_data *data)
 	// 	return (false);
 	if (!ft_tokenization(data))
 		return (false);
-	if (!ft_check_syntax(data))
+	dprintf(2, "on sort de la tokenization\n");
+	if (ft_check_syntax(data) != 0)
 		return (false);
-	print_tokens(data->token_list);
 	//ft_set_cmd(data, data->token_list);
 	return (true);
 }
@@ -55,6 +55,7 @@ int	main(int argc, char **argv, char **env)
 		ft_parsing(data.input, &data);
 		// if (ft_parsing(data.input, &data))
 			// 	//gogo gadgeto exe;
+		print_tokens(data.token_list);
 		ft_free_data(&data);
 	}
 	return (0);
