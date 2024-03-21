@@ -6,58 +6,58 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/20 23:42:44 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/21 18:52:47 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_check_env_var(char *tmp_var, t_env *env)
+void	ft_replace_env_var(t_data *data, t_token *token, char *new_value)
+{
+	
+}
+bool	ft_check_env_var(char *tmp_var, t_token *token, t_data *data)
 {
 	t_env	*tmp_env;
 
-	tmp_env = env;
+	tmp_env = data->env;
 	while (tmp_env)
 	{
 		if (ft_strncmp(tmp_var, tmp_env->var, ft_strlen(tmp_var)) == 0)
-			return (true);
+			ft_replace_env_var(data, token, tmp_env->value);
 		tmp_env = tmp_env->next;
 	}
 	return (false);
 }
-void	ft_check_expand(t_data *data)
+bool	ft_check_expand(t_data *data)
 {
 	int		i;
 	int		j;
 	char	*tmp_var;
-	t_token	*token;
+//	t_token	*token;
 	
-	token = data->token_list;
-	dprintf(2, "on est dans le check expand\n");
-	while (token)
+//	token = data->token_list;
+	while (data->token_list)
 	{
 		i = 0;
-		dprintf(2, "token type = %d, value = %s\n", token->type, token->value);
-		while (token->value[i] != '\0')
+		while (data->token_list->value[i] != '\0')
 		{
-			//dprintf(2, "on parcourt la value du token\n");
-			if (token->value[i] == '$')
+			if (data->token_list->value[i] == '$')
 			{
-				dprintf(2, "on est tombe sur le $\n");
 				i++;
 				j = i;
-				while (token->value[i] != '\0' && token->value[i] != '$')
+				while (data->token_list->value[i] != '\0' && data->token_list->value[i] != '$')
 					i++;
-				tmp_var = ft_substr(token->value, j, i - j);
+				tmp_var = ft_substr(data->token_list->value, j, i - j);
+				// if (!tmp_var)
+				// 	tsais;
 				dprintf(2, "tmp_var = %s\n", tmp_var);
-				if (ft_check_env_var(tmp_var, data->env) == true)
-				{
-					dprintf(2, "ca a trouve la variable %s\n", tmp_var);
-				}
+				if (!ft_check_env_var(tmp_var, data->token_list, data))
+					return (false);
 			}
 			else
 				i++;
 		}
-		token = token->next;
+		data->token_list = data->token_list->next;
 	}
 }

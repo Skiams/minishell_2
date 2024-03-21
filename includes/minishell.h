@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/20 23:18:06 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/21 16:35:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ typedef enum e_token_tp
 	WORD,
 	WHITESPACE,
 }	t_token_tp;
+
+typedef struct s_garb_env
+{
+	void				*ptr;
+	struct s_garb_env	*next;
+}	t_garb_env;
+
+typedef struct s_garb_global
+{
+	void					*ptr;
+	struct s_garb_global	*next;
+}	t_garb_global;
+
 
 typedef struct s_env
 {
