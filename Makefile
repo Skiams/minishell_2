@@ -5,6 +5,10 @@ CC			=	cc -Wall -Wextra -Werror -g3
 SRCS		=	srcs/main.c\
 				srcs/env/get_env.c\
 				srcs/env/lst_env.c\
+				srcs/built-in/ft_echo.c\
+				srcs/built-in/ft_env.c\
+				srcs/built-in/ft_export.c\
+				srcs/built-in/ft_unset.c\
 				srcs/parsing-lexer/tokenization.c\
 				srcs/parsing-lexer/lst_token.c\
 				srcs/parsing-lexer/check_syntax.c\
@@ -13,7 +17,6 @@ SRCS		=	srcs/main.c\
 				srcs/expand/expand.c\
 				srcs/parsing-command/parsing_cmd.c\
 				srcs/parsing-command/lst_cmd.c\
-				srcs/built-in/ft_echo.c\
 				srcs/errors/error_handle.c\
 				srcs/clean_exit/clean.c\
 				srcs/clean_exit/singletons.c\

@@ -1,47 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/05 16:42:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/27 22:20:58 by skiam            ###   ########.fr       */
+/*   Created: 2024/03/27 16:19:09 by skiam             #+#    #+#             */
+/*   Updated: 2024/03/27 16:19:24 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-static bool	ft_is_echo_n(char *str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;
 
 	i = 0;
-	if (str[i] == '-' && str[i + 1] == 'n')
-		return (true);
-	else
-		return (false);
-}
-
-void	ft_echo(char **args)
-{
-	int	i;
-	int	n;
-
-	i = 1;
-	n = 0;
-	if (args[i] && ft_is_echo_n(args[i]))
+	if (s1[i] && s2[i])
 	{
-		i++;
-		n = 1;
+		while (s1[i] && s2[i])
+		{
+			if (s1[i] - s2[i])
+				return (s1[i] - s2[i]);
+			++i;
+		}
+		return (s1[i] - s2[i]);
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], 1);
-		if (args[i + 1])
-			ft_putchar_fd(' ', 1);
-		i++;
-	}
-	if (n == 0)
-		ft_putchar_fd('\n', 1);
+	return (s1[i] - s2[i]);
 }
