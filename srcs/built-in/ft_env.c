@@ -1,47 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/05 16:42:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/27 22:20:58 by skiam            ###   ########.fr       */
+/*   Created: 2024/03/25 12:59:18 by skiam             #+#    #+#             */
+/*   Updated: 2024/03/27 21:34:25 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	ft_is_echo_n(char *str)
+int ft_env(t_data *data)
 {
-	int	i;
+    t_env   *env;
 
-	i = 0;
-	if (str[i] == '-' && str[i + 1] == 'n')
-		return (true);
-	else
-		return (false);
-}
-
-void	ft_echo(char **args)
-{
-	int	i;
-	int	n;
-
-	i = 1;
-	n = 0;
-	if (args[i] && ft_is_echo_n(args[i]))
-	{
-		i++;
-		n = 1;
-	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], 1);
-		if (args[i + 1])
-			ft_putchar_fd(' ', 1);
-		i++;
-	}
-	if (n == 0)
-		ft_putchar_fd('\n', 1);
+    env = data->env;
+    while (env)
+    {
+        ft_putstr_fd(env->var, 1);
+        ft_putstr_fd("=", 1);
+        ft_putstr_fd(env->value, 1);
+        ft_putstr_fd("\n", 1);
+        env = env->next;
+    }
+    return(ft_exit_code(0, ADD));
 }

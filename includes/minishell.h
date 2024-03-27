@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/21 16:35:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/03/27 22:21:41 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@
 # include "libft/libft.h"
 # include "printf/srcs/ft_printf.h" 
 
+# define ADD 1
+# define GET 2
+# define FREE 3
+# define FREELST 4
+# define DATALST 5
+# define ENVLST 6
+
+
 typedef enum e_token_tp
 {
 	APPEND = 1,
@@ -42,11 +50,11 @@ typedef struct s_garb_env
 	struct s_garb_env	*next;
 }	t_garb_env;
 
-typedef struct s_garb_global
+typedef struct s_garb_data
 {
 	void					*ptr;
-	struct s_garb_global	*next;
-}	t_garb_global;
+	struct s_garb_data	*next;
+}	t_garb_data;
 
 
 typedef struct s_env
@@ -114,6 +122,16 @@ bool	ft_set_cmd(t_data *data, t_token **token_lst);
 t_cmd	*ft_lstnew_cmd(void);
 t_cmd	*ft_lstlast_cmd(t_cmd *cmd);
 void	ft_lstadd_back_cmd(t_cmd **cmd_lst, t_cmd *new_cmd);
+
+// BUILT-INS
+
+void	ft_order_export_env(t_env **export_env);
+int 	ft_display_export(t_data *data);
+int 	ft_export(t_data *data, char **args);
+void	ft_echo(char **args);
+int 	ft_env(t_data *data);
+int		ft_unset(t_data *data, char **args);
+
 
 // UTILS
 
