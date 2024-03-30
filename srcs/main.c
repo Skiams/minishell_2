@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/28 16:43:18 by skiam            ###   ########.fr       */
+/*   Updated: 2024/03/30 19:32:27 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	ft_memset(&data, 0, sizeof(t_data));
 	data.env = ft_get_env(&data, env);
+	// if (ft_exit_code == 1)
+	// 	return (ft_free_data(&data), 1);
+	// a rajouter pour le get_env ?
 	while (1)
 	{
 		data.input = readline("minishell: ");
