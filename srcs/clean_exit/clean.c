@@ -6,12 +6,28 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/27 20:35:09 by skiam            ###   ########.fr       */
+/*   Updated: 2024/03/30 21:27:53 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	ft_free_env(t_env **env, void (*del)(void *))
+{
+	t_env	*temp;
+
+	if (!env || !del)
+		return ;
+	while (*env)
+	{
+		temp = (*env)->next;
+		(*del)((*env)->var);
+		(*del)((*env)->value);
+		free (*env);
+		*env = temp;
+	}
+	*env = NULL;
+}
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 {
 	t_token	*temp;
@@ -43,6 +59,10 @@ void	ft_free_data(t_data *data)
 		ft_free_ptr(data->input);
 	if (data && data->token_list)
 		ft_token_lstclear(&data->token_list, &ft_free_ptr);
+	if (data && data->env)
+		ft_free_env(&data->env, &ft_free_ptr);
+	if (data)
+		free(data);
 }
 
 // int    ft_garbage(int rule, void *p, int whichlst)
