@@ -6,13 +6,27 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/01 16:49:29 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/01 22:33:22 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_check_export_case(char *str)
+static bool	ft_var_is_in_env(t_data *data, char *str)
+{
+	t_env	*tmp;
+
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(str, tmp->var == 0))
+			return (true);
+		tmp = tmp->next;
+	}
+	return (false);
+}
+
+static int	ft_check_export_case(char *str)
 {
 	int	i;
 	
@@ -88,11 +102,12 @@ int ft_display_export(t_data *data)
     return(ft_exit_code(1, ADD));
 }
 
-bool	ft_add_var_value(t_data *data, char *str, t_env *newel)
+static bool	ft_add_var_value(t_data *data, char *str)
 {
 	char	*var;
 	char	*value;
 	int		i;
+	t_env	*newel;
 
 	i = 0;
 	while (str[i] != '=')
@@ -108,12 +123,12 @@ bool	ft_add_var_value(t_data *data, char *str, t_env *newel)
 	return (true);
 }
 
-bool	ft_add_var_env(t_data *data, char *str, int code)
+static bool	ft_add_var_env(t_data *data, char *str, int code)
 {
 	t_env	*newel;
 	char	*value;
 	
-	if (code == 1)
+	if (code == 1 && !ft_var_is_in_env(data, str))
 	{
 		newel = ft_lstnew_env(str, NULL);
 		if (!newel)
@@ -123,9 +138,10 @@ bool	ft_add_var_env(t_data *data, char *str, int code)
 	//possible de faire else if (code == 2 && !ft_add_var_value) -> return false?
 	else if (code == 2)
 	{
-		if (!ft_add_var_value(data, str, newel, 1))
+		if (!ft_add_var_value(data, str))
 			return (false);
 	}
+	else if (code == 3)
 	return (true);
 }
 
@@ -152,10 +168,11 @@ int ft_export(t_data *data, char **args)
 				ft_exit_code(2, ADD);
 				break ;
 			}
-			else if (!ft_isalpha(args[i][0]) && args[i][0] != '_')
+			else if (!ft_isalpha(args[i][0]) && args[i][0] != '_' && code != 0)
 				ft_error_export(args[i]);
-			else if (code == 0)
-				return (ft_exit_code(1, ADD));
+		//	else if (code == 0)
+		//		ft_exit_code(1, ADD);
+		// normalement gere dans error export
 			else if (code >= 1 && code <= 3)
 			{
 				if (!ft_add_var_env(data, args[i], code))
