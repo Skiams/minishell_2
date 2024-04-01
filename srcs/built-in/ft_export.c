@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/03/30 22:44:50 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/01 16:49:29 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_check_export_case(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
+		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
 			return (ft_error_export(str), 0);
 		else if (str[i] == '=' && str[i - 1] == '+')
 			return (3);
@@ -74,6 +74,7 @@ int ft_display_export(t_data *data)
     ft_order_export_env(&sorted_env);
     while (sorted_env)
     {
+		ft_putstr_fd("export ", 1);
         ft_putstr_fd(sorted_env->var, 1);
         if (sorted_env->value != NULL)
         {
@@ -84,15 +85,30 @@ int ft_display_export(t_data *data)
         ft_putstr_fd("\n", 1);
         sorted_env = sorted_env->next;
     }
-    return(ft_exit_code(0, ADD));
+    return(ft_exit_code(1, ADD));
 }
 
-static bool	ft_add_var_value(t_data *data, char *str)
+bool	ft_add_var_value(t_data *data, char *str, t_env *newel)
 {
-	
+	char	*var;
+	char	*value;
+	int		i;
+
+	i = 0;
+	while (str[i] != '=')
+		i++;
+	var = ft_substr(str, 0, i);
+	value = ft_substr(str, i + 1, ft_strlen(str) - i + 1); 
+	if (!var || !value)
+		return (false);
+	newel = ft_lstnew_env(var, value);
+	if (!newel)
+		return (false);
+	ft_lstadd_back_env(data->env, newel);
+	return (true);
 }
 
-static bool	ft_add_var_env(t_data *data, char *str, int code)
+bool	ft_add_var_env(t_data *data, char *str, int code)
 {
 	t_env	*newel;
 	char	*value;
@@ -104,19 +120,18 @@ static bool	ft_add_var_env(t_data *data, char *str, int code)
 			return (false);
 		ft_lstadd_back_env(&data->env, newel);
 	}
-	if (code == 2)
+	//possible de faire else if (code == 2 && !ft_add_var_value) -> return false?
+	else if (code == 2)
 	{
-		value = 
-		newel = ft_lstnew_env(str, );
-		if (!newel)
+		if (!ft_add_var_value(data, str, newel, 1))
 			return (false);
-		ft_lstadd_back_env(&data->env, newel);
 	}
 	return (true);
 }
 
 int ft_export(t_data *data, char **args)
 {
+	//demander comment les retours d'erreur peuvent etre geres en cas de fail de  malloc
     int i;
 	int	code;
 
@@ -141,10 +156,13 @@ int ft_export(t_data *data, char **args)
 				ft_error_export(args[i]);
 			else if (code == 0)
 				return (ft_exit_code(1, ADD));
-			else if (ft_check_export_case(args[i]) == 0)
-				return (ft_exit_code(1, ADD));
+			else if (code >= 1 && code <= 3)
+			{
+				if (!ft_add_var_env(data, args[i], code))
+					return (ft_exit_code(1, ADD));
+			}
 			i++;
 		}
-		return (ft_exit_code(0, GET));
 	}
+	return (ft_exit_code(0, GET));
 }
