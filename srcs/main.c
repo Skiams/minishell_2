@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/03 20:42:00 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/03 21:37:58 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		data.input = readline("minishell: ");
-		if (!data.input)
-						(ft_putstr_fd("exit\n", 1), exit(1));
+		// if (!data.input)
+		// 				(ft_putstr_fd("exit\n", 1), exit(1));
 		ft_parsing(data.input, &data);
 		// if (ft_parsing(data.input, &data))
 			// 	//gogo gadgeto exe;
