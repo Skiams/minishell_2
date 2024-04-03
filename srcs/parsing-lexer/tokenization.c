@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/20 23:08:07 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/03 21:36:25 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
 	else
 		len = 1;
 	value = ft_substr(str, i, len);
+	if (!value)
+		return (-1);
 	i += len;
 	new_token = ft_lstnew_token(value, type);
+	if (!new_token)
+		return (-1);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
 }
@@ -50,6 +54,7 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 			else
 			{
 				dprintf(2, "len = %d / i = %d / start = %d\n", len, i, start);
+				// a clean
 				len += i - start_quote;
 			}
 		}
@@ -60,8 +65,11 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 		}
 	}
 	value = ft_substr(str, start, len);
-	
+	if (!value)
+		return (-1);
 	new_token = ft_lstnew_token(value, WORD);
+	if (!new_token)
+		return (-1);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
 }
