@@ -8,6 +8,7 @@ SRCS		=	srcs/main.c\
 				srcs/built-in/ft_echo.c\
 				srcs/built-in/ft_env.c\
 				srcs/built-in/ft_export.c\
+				srcs/built-in/ft_export_utils.c\
 				srcs/built-in/ft_unset.c\
 				srcs/parsing-lexer/tokenization.c\
 				srcs/parsing-lexer/lst_token.c\
@@ -15,8 +16,6 @@ SRCS		=	srcs/main.c\
 				srcs/parsing-lexer/parsing_utils.c\
 				srcs/parsing-lexer/parsing_utils_2.c\
 				srcs/expand/expand.c\
-				srcs/parsing-command/parsing_cmd.c\
-				srcs/parsing-command/lst_cmd.c\
 				srcs/errors/error_handle.c\
 				srcs/clean_exit/clean.c\
 				srcs/clean_exit/singletons.c\

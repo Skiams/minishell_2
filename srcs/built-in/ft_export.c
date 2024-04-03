@@ -6,103 +6,33 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/01 22:33:22 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/03 20:54:37 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	ft_var_is_in_env(t_data *data, char *str)
+bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
 {
 	t_env	*tmp;
-
+	
 	tmp = data->env;
 	while (tmp)
 	{
-		if (ft_strcmp(str, tmp->var == 0))
-			return (true);
-		tmp = tmp->next;
-	}
-	return (false);
-}
-
-static int	ft_check_export_case(char *str)
-{
-	int	i;
-	
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
-			return (ft_error_export(str), 0);
-		else if (str[i] == '=' && str[i - 1] == '+')
-			return (3);
-		else if (str[i] == '=')
-			return (2);
-		i++;
-	}
-	return (1);
-}
-void	ft_error_export(char *str)
-{
-	int	i;
-
-	i = 0;
-	ft_putstr_fd("minishell: export: '", 2);
-	while (str[i++])
-		write(2, &str[i], 1);
-	ft_putstr_fd("': not a valid identifier\n", 2);
-	ft_exit_code(1, ADD);
-}
-
-void	ft_order_export_env(t_env **export_env)
-{
-	t_env	*node;
-	char	*tmp;
-
-	if (!*export_env)
-		return ;
-	node = *export_env;
-	while (node->next)
-	{
-		if (ft_strcmp(node->var, node->next->var) > 0)
+		if (ft_strcmp(var, tmp->var) == 0 && code == 2)
+			tmp->value = value;
+			//demander comment faire ca si il faut free ou pas
+		else if	((ft_strcmp(var, tmp->var) == 0 && code == 3))
 		{
-			tmp = node->next->var;
-			node->next->var = node->var;
-			node->var = tmp;
-			tmp = node->next->value;
-			node->next->value = node->value;
-			node->value = tmp;
-			node = *export_env;
+			//demander comment faire ca si il faut free ou pas
 		}
 		else
-			node = node->next;
-	}	
+			tmp = tmp->next;
+	}
+	return (true);
 }
 
-int ft_display_export(t_data *data)
-{
-    t_env   *sorted_env;
-    
-    sorted_env = data->env;
-    ft_order_export_env(&sorted_env);
-    while (sorted_env)
-    {
-		ft_putstr_fd("export ", 1);
-        ft_putstr_fd(sorted_env->var, 1);
-        if (sorted_env->value != NULL)
-        {
-            ft_putstr_fd("=\"", 1);
-            ft_putstr_fd(sorted_env->value, 1);
-			ft_putstr_fd("\"", 1);
-        }
-        ft_putstr_fd("\n", 1);
-        sorted_env = sorted_env->next;
-    }
-    return(ft_exit_code(1, ADD));
-}
-
-static bool	ft_add_var_value(t_data *data, char *str)
+bool	ft_add_var_and_value(t_data *data, char *str, int code)
 {
 	char	*var;
 	char	*value;
@@ -110,23 +40,42 @@ static bool	ft_add_var_value(t_data *data, char *str)
 	t_env	*newel;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i] && str[i] != '=')
 		i++;
 	var = ft_substr(str, 0, i);
 	value = ft_substr(str, i + 1, ft_strlen(str) - i + 1); 
 	if (!var || !value)
 		return (false);
-	newel = ft_lstnew_env(var, value);
-	if (!newel)
-		return (false);
-	ft_lstadd_back_env(data->env, newel);
+	if (code == 2)
+	{
+		if (!ft_var_is_in_env(data, var))
+		{
+			newel = ft_lstnew_env(var, value);
+			if (!newel)
+				return (false);
+			ft_lstadd_back_env(&data->env, newel);
+		}
+		else if (!ft_add_value_only(data, var, value, 2))
+			return (false);
+	}
+	else if (code == 3)
+	{
+		if (!ft_var_is_in_env(data, var))
+		{
+			newel = ft_lstnew_env(var, value);
+			if (!newel)
+				return (false);
+			ft_lstadd_back_env(&data->env, newel);
+		}
+		else if (!ft_add_value_only(data, var, value, 3))
+			return (false);
+	}
 	return (true);
 }
 
 static bool	ft_add_var_env(t_data *data, char *str, int code)
 {
 	t_env	*newel;
-	char	*value;
 	
 	if (code == 1 && !ft_var_is_in_env(data, str))
 	{
@@ -138,10 +87,14 @@ static bool	ft_add_var_env(t_data *data, char *str, int code)
 	//possible de faire else if (code == 2 && !ft_add_var_value) -> return false?
 	else if (code == 2)
 	{
-		if (!ft_add_var_value(data, str))
+		if (!ft_add_var_and_value(data, str, 2))
 			return (false);
 	}
 	else if (code == 3)
+	{
+		if (!ft_add_var_and_value(data, str, 3))
+			return (false);
+	}
 	return (true);
 }
 
@@ -177,6 +130,7 @@ int ft_export(t_data *data, char **args)
 			{
 				if (!ft_add_var_env(data, args[i], code))
 					return (ft_exit_code(1, ADD));
+					//exit direct avec autre signe d'erreur pour quitter direct ?
 			}
 			i++;
 		}
