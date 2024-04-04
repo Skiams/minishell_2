@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/03 20:48:24 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/04 15:51:24 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void	ft_free_data(t_data *data);
 void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
 int		ft_exit_code(int exit_code, int mode);
+void	ft_clean_all(t_data *data);
 
 // DEBUG
 
