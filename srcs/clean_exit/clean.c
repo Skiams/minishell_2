@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/30 21:27:53 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/04 15:43:53 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ void	ft_free_data(t_data *data)
 		ft_free_ptr(data->input);
 	if (data && data->token_list)
 		ft_token_lstclear(&data->token_list, &ft_free_ptr);
+}
+
+void	ft_clean_all(t_data *data)
+{
+	ft_free_data(data);
 	if (data && data->env)
 		ft_free_env(&data->env, &ft_free_ptr);
 	if (data)

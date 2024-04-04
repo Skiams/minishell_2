@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/03 21:37:58 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/04 15:52:27 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	ft_memset(&data, 0, sizeof(t_data));
 	data.env = ft_get_env(&data, env);
+	// if (env)
+	// 	data.env = ft_get_env(&data, env);
+	// else
+	// 	data.env = NULL;
 	// if (ft_exit_code(0, GET) == 1)
 	// 	return (ft_free_data(&data), 1);
 	// a rajouter pour le get_env ?
@@ -57,8 +61,9 @@ int	main(int argc, char **argv, char **env)
 		ft_parsing(data.input, &data);
 		// if (ft_parsing(data.input, &data))
 			// 	//gogo gadgeto exe;
-		print_tokens(data.token_list);
+		//print_tokens(data.token_list);
 		ft_free_data(&data);
 	}
-	return (0);
+	ft_clean_all(&data);
+	return (ft_exit_code(0, GET));
 }
