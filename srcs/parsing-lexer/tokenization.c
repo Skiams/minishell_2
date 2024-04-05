@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/19 15:14:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/03 21:36:25 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
+int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
 {
 	int		len;
 	char	*value;
@@ -23,8 +23,12 @@ int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 	else
 		len = 1;
 	value = ft_substr(str, i, len);
+	if (!value)
+		return (-1);
 	i += len;
 	new_token = ft_lstnew_token(value, type);
+	if (!new_token)
+		return (-1);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
 }
@@ -33,31 +37,39 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 {
 	int		len;
 	int		start;
+	int		start_quote;
 	char	*value;
 	t_token	*new_token;
 
 	start = i;
 	len = 0;
-	if (str[i] && (str[i] == '\'' || str[i] == '"'))
+	while (str[i] && !ft_is_sep(str, i))
 	{
-		i = ft_check_end_quotes(str, i, str[i]);
-		if (i == 0)
-			return (ft_error_quotes(), -1);
-		len = i - start;
-	}
-	else
-	{
-		while (str[i] && !ft_is_sep(str, i)
-			&& (str[i] != '\'' && str[i] != '"'))
+		if (str[i] && (str[i] == '\'' || str[i] == '"'))
+		{
+			start_quote = i;
+			i = ft_check_end_quotes(str, i, str[i]);
+			if (i == 0)
+				return (ft_error_quotes(), -1);
+			else
+			{
+				dprintf(2, "len = %d / i = %d / start = %d\n", len, i, start);
+				// a clean
+				len += i - start_quote;
+			}
+		}
+		else
 		{
 			i++;
 			len++;
 		}
 	}
-	//dprintf(2, "len = %d\n", len);
 	value = ft_substr(str, start, len);
-	//dprintf(2, "value = %s\n", value);
+	if (!value)
+		return (-1);
 	new_token = ft_lstnew_token(value, WORD);
+	if (!new_token)
+		return (-1);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
 }
@@ -86,8 +98,6 @@ bool	ft_tokenization(t_data *data)
 	{
 		token_tp = ft_define_token_type(str, i);
 		i = ft_add_token(data, str, token_tp, i);
-		//dprintf(2, "index = %d\n", i);
-		//dprintf(2, "token type = %d\n", token_tp);
 		if (i == -1)
 			return (false);
 	}

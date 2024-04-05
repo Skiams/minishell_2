@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:43:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/15 17:09:59 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/05 15:37:31 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,24 @@ int	ft_check_syntax(t_data *data)
 	while (token)
 	{
 		if (!token->prev && token->type == PIPE)
-			return (ft_syntax_error(token->value), ft_exit_code(2, 1));
-		else if (token->type < PIPE || (token->type == PIPE
+			return (ft_syntax_error(token->value), ft_exit_code(2, ADD));
+		if (token->type < PIPE || (token->type == PIPE
 				&& token->prev && token->prev->type == PIPE))
 		{
-			if (token->next->type < PIPE)
+			if (token->next && token->next->type < WORD)
+			{
 				return (ft_syntax_error(token->next->value),
-					ft_exit_code(2, 1));
+					ft_exit_code(2, ADD));
+			}
+			if (!token->next && token->type == PIPE)
+			{
+				return (ft_syntax_error(token->value),
+					ft_exit_code(2, ADD));				
+			}
 		}
-		else if (token->type < PIPE && !token->next)
-			return (ft_syntax_error("newline"), ft_exit_code(2, 1));
+		if (token->type < PIPE && !token->next)
+			return (ft_syntax_error("newline"), ft_exit_code(2, ADD));
+		token = token->next;
 	}
 	return (0);
 }

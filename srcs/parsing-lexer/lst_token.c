@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:21:55 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/15 17:09:33 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/05 14:55:11 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ void	ft_lstadd_back_token(t_token **token_lst, t_token *new_token)
 	if (lastelem == NULL)
 		*token_lst = new_token;
 	else
+	{
 		lastelem->next = new_token;
+		new_token->prev = lastelem;
+	}
 }
 
 t_token	*ft_lstnew_token(char *value, t_token_tp type)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:24 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/18 13:59:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/05 14:59:59 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	ft_lstadd_back_env(t_env **env_lst, t_env *new_env)
 	if (lastelem == NULL)
 		*env_lst = new_env;
 	else
+	{
 		lastelem->next = new_env;
+		new_env->prev = lastelem;
+	}
 }
 
 t_env	*ft_lstnew_env(char *var, char *value)
