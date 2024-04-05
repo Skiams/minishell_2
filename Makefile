@@ -16,7 +16,21 @@ SRCS		=	srcs/main.c\
 				srcs/errors/error_handle.c\
 				srcs/clean_exit/clean.c\
 				srcs/clean_exit/singletons.c\
-				srcs/debug/debug.c
+				srcs/debug/debug.c\
+				srcs/exec/get_path.c\
+				srcs/exec/handle_access.c\
+				srcs/exec/handle_errors.c\
+				srcs/exec/handle_path.c\
+				srcs/exec/handle_processes.c\
+				srcs/exec/handle_quotes_and_slash.c\
+				srcs/exec/handle_spaces_and_slashes.c\
+				srcs/exec/here_doc.c\
+				srcs/exec/exec.c\
+				srcs/exec/print_errors.c\
+				srcs/exec/size_functions.c\
+				srcs/exec/split.c\
+				srcs/exec/string_functions.c\
+				srcs/exec/wait_and_close.c\
 
 OBJS		=	${SRCS:.c=.o}
 

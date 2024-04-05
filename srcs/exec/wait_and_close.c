@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_access.c                                    :+:      :+:    :+:   */
+/*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:17:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 18:24:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_handle_no_file_or_dir(char *argv)
+void	ft_close_processes(t_pipex *pipex)
 {
-	ft_putstr_fd(argv, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
-	exit (127);
+	close(pipex->prev_pipe[0]);
+	close(pipex->prev_pipe[1]);
+	close(pipex->curr_pipe[0]);
+	close(pipex->curr_pipe[1]);
 }
 
-void	ft_handle_directory(t_pipex *pipex, char *argv, char **path)
+void	ft_waitpid(t_pipex *pipex)
 {
-	ft_free(pipex, argv, path, "Is a directory\n");
-	exit (126);
-}
+	int	status;
 
-void	ft_handle_rights(t_pipex *pipex, char *argv, char **path, char *tmp2)
-{
-	if (tmp2)
-		free (tmp2);
-	ft_free(pipex, argv, path, "Permission denied\n");
-	exit (126);
+	ft_close_processes(pipex);
+	while (errno != ECHILD)
+	{
+		if (pipex->pid1 == waitpid(-1, &status, 0))
+		{
+			if (WIFEXITED(status))
+				pipex->code_status = WEXITSTATUS(status);
+		}
+	}
 }
