@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:24:40 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:39:24 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
 void	ft_close_processes(t_pipex *pipex)
 {

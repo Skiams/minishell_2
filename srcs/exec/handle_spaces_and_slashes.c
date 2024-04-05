@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_spaces_and_slashes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:19:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:39:01 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
 int	ft_is_space_only(char *str)
 {

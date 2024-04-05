@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:32:17 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/03 14:08:16 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 20:01:21 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../minishell.h"
 
-int	ft_strchr_gnl(t_list *node)
+int	ft_strchr_gnl(t_gnl *node)
 {
 	int	i;
 
@@ -32,13 +32,13 @@ int	ft_strchr_gnl(t_list *node)
 	return (0);
 }
 
-void	ft_lstadd_back(t_list **list, char *buff)
+void	ft_lstadd_back_gnl(t_gnl **list, char *buff)
 {
-	t_list	*last_node;
-	t_list	*new_node;
+	t_gnl	*last_node;
+	t_gnl	*new_node;
 
-	last_node = ft_lstlast(*list);
-	new_node = malloc(sizeof(t_list));
+	last_node = ft_lstlast_gnl(*list);
+	new_node = malloc(sizeof(t_gnl));
 	if (!new_node)
 		return ;
 	if (!last_node)
@@ -49,7 +49,7 @@ void	ft_lstadd_back(t_list **list, char *buff)
 	new_node->next = NULL;
 }
 
-void	ft_lstcreate(t_list **list, int fd)
+void	ft_lstcreate_gnl(t_gnl **list, int fd)
 {
 	int		read_bytes;
 	char	*buff;
@@ -66,37 +66,37 @@ void	ft_lstcreate(t_list **list, int fd)
 			return ;
 		}
 		buff[read_bytes] = '\0';
-		ft_lstadd_back(list, buff);
+		ft_lstadd_back_gnl(list, buff);
 	}
 }
 
-char	*get_line(t_list *node)
+char	*get_line_gnl(t_gnl *node)
 {
 	int		str_size;
 	char	*line;
 
 	if (!node)
 		return (NULL);
-	str_size = ft_lstsize(node);
+	str_size = ft_lstsize_gnl(node);
 	line = malloc(str_size + 1);
 	if (!line)
 		return (NULL);
-	ft_strcpy(node, line);
+	ft_strcpy_gnl(node, line);
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list = NULL;
+	static t_gnl	*list = NULL;
 	char			*next_line;
 
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);
-	ft_lstcreate(&list, fd);
+	ft_lstcreate_gnl(&list, fd);
 	if (!list)
 		return (NULL);
-	next_line = get_line(list);
-	ft_lstclean(&list);
+	next_line = get_line_gnl(list);
+	ft_lstclean_gnl(&list);
 	return (next_line);
 }
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:17:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:40:34 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
-static char	*ft_strncmp(char **env, char *str, int n)
+static char	*ft_strncmp_exec(char **env, char *str, int n)
 {
 	int	i;
 	int	j;
@@ -39,10 +39,10 @@ static char	*ft_strncmp(char **env, char *str, int n)
 
 void	ft_get_path(t_pipex *pipex, char **env)
 {
-	pipex->env_path = ft_strncmp(env, "PATH=", 5);
+	pipex->env_path = ft_strncmp_exec(env, "PATH=", 5);
 	if (pipex->env_path)
 	{
-		pipex->cmd_path = ft_split(pipex->env_path);
+		pipex->cmd_path = ft_split_exec(pipex->env_path);
 		if (!pipex->cmd_path)
 			return ;
 	}

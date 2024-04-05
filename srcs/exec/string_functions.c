@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   string_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:24:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:39:21 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -54,16 +54,16 @@ char	*ft_strdup(char *s)
 	return (str);
 }
 
-int	ft_strchr(char *str, char c)
-{
-	int	i;
+// int	ft_strchr(char *str, char c)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == c)
-			return (1);
-		i += 1;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (str[i] == c)
+// 			return (1);
+// 		i += 1;
+// 	}
+// 	return (0);
+// }

@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   size_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:15:31 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:22:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:53:06 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
-int	ft_strlen(char *str)
-{
-	int	i;
+// int	ft_strlen(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i] != '\0')
-		i += 1;
-	return (i);
-}
+// 	i = 0;
+// 	while (str[i] != '\0')
+// 		i += 1;
+// 	return (i);
+// }
 
 int	ft_count_words(char *str)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;

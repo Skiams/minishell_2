@@ -34,6 +34,8 @@ SRCS		=	srcs/main.c\
 				srcs/exec/split.c\
 				srcs/exec/string_functions.c\
 				srcs/exec/wait_and_close.c\
+				includes/get_next_line/get_next_line.c\
+				includes/get_next_line/get_next_line_utils.c\
 
 OBJS		=	${SRCS:.c=.o}
 

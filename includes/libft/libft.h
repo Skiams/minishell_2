@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:51:46 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/27 16:20:13 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/05 19:33:24 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
-char	*ft_strchr(char *s, int c);
+int		ft_strchr(char *str, char c);
 char	*ft_strdup(char *s);
 size_t	ft_strlcat(char *dst, char *src, size_t size);
 size_t	ft_strlcpy(char *dst, char *src, size_t size);
