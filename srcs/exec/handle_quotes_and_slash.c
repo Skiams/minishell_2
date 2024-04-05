@@ -1,34 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_access.c                                    :+:      :+:    :+:   */
+/*   handle_quotes_and_slash.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:17:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 18:19:32 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_handle_no_file_or_dir(char *argv)
+char	*ft_handle_quotes_and_slash(char *argv)
 {
-	ft_putstr_fd(argv, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	if (!argv)
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * ft_strlen(argv) + 1);
+	if (!str)
+		return (NULL);
+	while (argv[i] != '\0')
+	{
+		while (argv[i] == '\'' || argv[i] == '\"' || argv[i] == '\\')
+			i += 1;
+		str[j] = argv[i];
+		j += 1;
+		i += 1;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
+void	ft_handle_quotes_error(char **argv, t_pipex *pipex)
+{
+	ft_putstr_fd(*argv, 2);
+	free(*argv);
+	ft_free_tab(pipex->cmd_path);
 	exit (127);
-}
-
-void	ft_handle_directory(t_pipex *pipex, char *argv, char **path)
-{
-	ft_free(pipex, argv, path, "Is a directory\n");
-	exit (126);
-}
-
-void	ft_handle_rights(t_pipex *pipex, char *argv, char **path, char *tmp2)
-{
-	if (tmp2)
-		free (tmp2);
-	ft_free(pipex, argv, path, "Permission denied\n");
-	exit (126);
 }

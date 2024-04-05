@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/03/19 15:27:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 18:17:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
 
 static char	*ft_strncmp(char **env, char *str, int n)
 {
@@ -38,7 +37,7 @@ static char	*ft_strncmp(char **env, char *str, int n)
 	return (NULL);
 }
 
-void	ft_get_env(t_pipex *pipex, char **env)
+void	ft_get_path(t_pipex *pipex, char **env)
 {
 	pipex->env_path = ft_strncmp(env, "PATH=", 5);
 	if (pipex->env_path)
