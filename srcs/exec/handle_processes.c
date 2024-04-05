@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:19:12 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:38:55 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
 void	ft_handle_here_doc(t_pipex *pipex, char **argv)
 {
@@ -57,7 +57,7 @@ void	ft_exec_cmds(t_pipex *pipex, char **argv, char **env)
 	char	*cmds_path;
 
 	i = 0;
-	cmds = ft_split(argv[pipex->i + 2]);
+	cmds = ft_split_exec(argv[pipex->i + 2]);
 	if (!cmds)
 	{
 		ft_free_tab(pipex->cmd_path);

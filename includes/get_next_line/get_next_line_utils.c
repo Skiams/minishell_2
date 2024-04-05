@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:57:18 by eltouma           #+#    #+#             */
-/*   Updated: 2023/09/18 15:57:44 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 20:01:54 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../minishell.h"
 
-t_list	*ft_lstlast(t_list *node)
+t_gnl	*ft_lstlast_gnl(t_gnl *node)
 {
 	if (!node)
 		return (NULL);
@@ -21,7 +21,7 @@ t_list	*ft_lstlast(t_list *node)
 	return (node);
 }
 
-int	ft_lstsize(t_list *node)
+int	ft_lstsize_gnl(t_gnl *node)
 {
 	int	i;
 	int	j;
@@ -45,7 +45,7 @@ int	ft_lstsize(t_list *node)
 	return (j);
 }
 
-void	ft_strcpy(t_list *node, char *line)
+void	ft_strcpy_gnl(t_gnl *node, char *line)
 {
 	int	i;
 	int	j;
@@ -71,9 +71,9 @@ void	ft_strcpy(t_list *node, char *line)
 	line[j] = '\0';
 }
 
-void	ft_dealloc(t_list **list, t_list *node_rest, char *rest)
+void	ft_dealloc_gnl(t_gnl **list, t_gnl *node_rest, char *rest)
 {
-	t_list	*tmp;
+	t_gnl	*tmp;
 
 	if (!*list)
 		return ;
@@ -94,10 +94,10 @@ void	ft_dealloc(t_list **list, t_list *node_rest, char *rest)
 	}
 }
 
-void	ft_lstclean(t_list **list)
+void	ft_lstclean_gnl(t_gnl **list)
 {
-	t_list	*node_rest;
-	t_list	*last_node;
+	t_gnl	*node_rest;
+	t_gnl	*last_node;
 	int		i;
 	int		j;
 	char	*rest;
@@ -107,10 +107,10 @@ void	ft_lstclean(t_list **list)
 	if (!*list)
 		return ;
 	rest = malloc(BUFFER_SIZE + 1);
-	node_rest = malloc(sizeof(t_list));
+	node_rest = malloc(sizeof(t_gnl));
 	if (!rest || !node_rest)
 		return ;
-	last_node = ft_lstlast(*list);
+	last_node = ft_lstlast_gnl(*list);
 	while (last_node->content[i] != '\0' && last_node->content[i] != '\n')
 		i += 1;
 	while (last_node->content[i] != '\0' && last_node->content[++i])
@@ -118,5 +118,5 @@ void	ft_lstclean(t_list **list)
 	rest[j] = '\0';
 	node_rest->content = rest;
 	node_rest->next = NULL;
-	ft_dealloc(list, node_rest, rest);
+	ft_dealloc_gnl(list, node_rest, rest);
 }

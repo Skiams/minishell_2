@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/04 15:51:24 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/05 19:56:05 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include "libft/libft.h"
-# include "printf/srcs/ft_printf.h" 
+# include "printf/srcs/ft_printf.h"
+# include "get_next_line/get_next_line.h"
+# include "pipex.h"
 
 # define ADD 1
 # define GET 2

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 18:46:11 by eltouma           #+#    #+#             */
-/*   Updated: 2023/06/14 15:54:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:51:47 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdint.h>
 # include <unistd.h>
 
-int	ft_printf(const char *last, ...);
-int	ft_print_address(uintptr_t n);
-int	ft_putchar(char c);
+int	ft_printf(int fd, const char *last, ...);
+int	ft_print_address(int fd, uintptr_t n);
+int	ft_putchar(int fd, char c);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:25:35 by eltouma           #+#    #+#             */
-/*   Updated: 2024/03/20 22:52:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:47:44 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,20 @@
 #  define BUFFER_SIZE 10
 # endif
 
-typedef struct s_list
+typedef struct s_gnl
 {
 	char			*content;
-	struct s_list	*next;
-}					t_list;
+	struct s_gnl	*next;
+}					t_gnl;
 
 char	*get_next_line(int fd);
-int		ft_strchr_gnl(t_list *node);
-void	ft_lstadd_back(t_list **list, char *buff);
-t_list	*ft_lstlast(t_list *node);
-void	ft_lstcreate(t_list **list, int fd);
-char	*get_line(t_list *node);
-int		ft_lstsize(t_list *node);
-void	ft_strcpy(t_list *node, char *line);
-void	ft_lstclean(t_list **list);
-void	ft_dealloc(t_list **list, t_list *node, char *rest);
+int		ft_strchr_gnl(t_gnl *node);
+void	ft_lstadd_back_gnl(t_gnl **list, char *buff);
+t_gnl	*ft_lstlast_gnl(t_gnl *node);
+void	ft_lstcreate_gnl(t_gnl **list, int fd);
+char	*get_line_gnl(t_gnl *node);
+int		ft_lstsize_gnl(t_gnl *node);
+void	ft_strcpy_gnl(t_gnl *node, char *line);
+void	ft_lstclean_gnl(t_gnl **list);
+void	ft_dealloc_gnl(t_gnl **list, t_gnl *node, char *rest);
 #endif

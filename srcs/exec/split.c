@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:24:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:39:16 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
 static char	*ft_fill_tab(char *str)
 {
@@ -65,7 +65,7 @@ void	*ft_free_tab(char **tab)
 	return (NULL);
 }
 
-char	**ft_split(char *str)
+char	**ft_split_exec(char *str)
 {
 	int		j;
 	char	**tab;

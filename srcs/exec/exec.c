@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 18:17:22 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:38:34 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../../includes/minishell.h"
 
-void	*ft_memset(void *s, int c, unsigned int n)
-{
-	unsigned char	*pipex;
+// void	*ft_memset(void *s, int c, unsigned int n)
+// {
+// 	unsigned char	*pipex;
 
-	pipex = s;
-	while (n > 0)
-	{
-		*(pipex + n - 1) = c;
-		n -= 1;
-	}
-	return (pipex);
-}
+// 	pipex = s;
+// 	while (n > 0)
+// 	{
+// 		*(pipex + n - 1) = c;
+// 		n -= 1;
+// 	}
+// 	return (pipex);
+// }
 
 void	ft_handle_multi_pipes(t_pipex *pipex, char **argv, char **env)
 {
