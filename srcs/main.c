@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/04 15:52:27 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/04 17:06:21 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char **argv, char **env)
 		ft_parsing(data.input, &data);
 		// if (ft_parsing(data.input, &data))
 			// 	//gogo gadgeto exe;
-		//print_tokens(data.token_list);
+		print_tokens(data.token_list);
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);
