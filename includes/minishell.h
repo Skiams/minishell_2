@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/05 19:56:05 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/08 16:00:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 # define ADD 1
 # define GET 2
 # define FREE 3
-# define FREELST 4
-# define DATALST 5
-# define ENVLST 6
+// # define FREELST 4
+// # define DATALST 5
+// # define ENVLST 6
 
 
 typedef enum e_token_tp
@@ -143,7 +143,7 @@ int		ft_unset(t_data *data, char **args);
 // UTILS
 
 char	*ft_del_edge_spaces(char *str);
-bool 	ft_is_only_space(char *str);
+bool 	ft_is_only_spacetab(char *str);
 bool	ft_is_whitespace(char *str, int i);
 bool	ft_is_sep(char *str, int i);
 

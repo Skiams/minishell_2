@@ -6,20 +6,20 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/20 20:18:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/08 17:40:43 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_is_only_whitespace(char *str)
+bool	ft_is_only_spacetab(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if ((str[i] < 9 || str[i] > 13) || str[i] != 32)
+		if (str[i] != 9 && str[i] != 32)
 			return (false);
 		i++;
 	}
@@ -34,11 +34,13 @@ char	*ft_del_edge_spaces(char *str)
 
 	i = 0;
 	len = ft_strlen(str) - 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while (str[i] == 9 || str[i] == 32)
 		i++;
-	while ((str[len] >= 9 && str[len] <= 13) || str[len] == 32)
+	while (str[len] == 9 || str[len] == 32)
 			len--;
 	new_str = ft_substr(str, i, len - i + 1);
+	if (!new_str)
+		return (ft_exit_code(12, ADD), NULL);
 	return (new_str);
 }
 
