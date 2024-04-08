@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/30 18:47:45 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/08 20:16:51 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static bool	ft_lstinit_env(t_env **env, char *var, char *value)
 	ft_lstadd_back_env(env, new_env_var);
 	return (true);
 }
+
 t_env	*ft_get_env(t_data *data, char **env)
 {
 	char	*tmp_var;
