@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 19:38:55 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/08 19:23:15 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,17 +75,19 @@ void	ft_exec_cmds(t_pipex *pipex, char **argv, char **env)
 
 void	ft_handle_outfile(t_pipex *pipex, char **argv)
 {
+	int	flag;
+
 	if (pipex->here_doc)
-		pipex->outfile = open(argv[pipex->argc - 1],
-				O_WRONLY | O_CREAT | O_APPEND, 0755);
+		flag = O_APPEND;
 	else
-		pipex->outfile = open(argv[pipex->argc - 1],
-				O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		flag = O_TRUNC;
+	pipex->outfile = open(argv[pipex->argc - 1],
+			O_WRONLY | O_CREAT | flag, 0755);
 	if (pipex->outfile == -1)
 		ft_handle_file_error(&argv[pipex->argc - 1], pipex);
 	if (dup2(pipex->outfile, STDOUT_FILENO) == -1)
 		ft_handle_dup2_error(pipex);
-	if (close(pipex->outfile) == 1)
+	if (close(pipex->outfile) == -1)
 		ft_handle_close_error(pipex);
 	if (close(pipex->curr_pipe[1]) == -1)
 		ft_handle_close_error(pipex);
