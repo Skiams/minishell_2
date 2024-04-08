@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
 /*   Updated: 2024/04/08 20:16:51 by eltouma          ###   ########.fr       */
@@ -11,6 +11,17 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// char	**ft_lstenv_to_tab(t_env *env)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (env)
+// 	{
+		
+// 	}
+// }
 
 static bool	ft_lstinit_env(t_env **env, char *var, char *value)
 {

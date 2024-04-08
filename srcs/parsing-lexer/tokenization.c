@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/03 21:36:25 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/08 17:04:38 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
 		len = 1;
 	value = ft_substr(str, i, len);
 	if (!value)
-		return (-1);
+		return (ft_exit_code(12, ADD), -1);
 	i += len;
 	new_token = ft_lstnew_token(value, type);
 	if (!new_token)
-		return (-1);
+		return (ft_exit_code(12, ADD), -1);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
 }
@@ -66,10 +66,10 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 	}
 	value = ft_substr(str, start, len);
 	if (!value)
-		return (-1);
+		return (ft_exit_code(12, ADD), -1);
 	new_token = ft_lstnew_token(value, WORD);
 	if (!new_token)
-		return (-1);
+		return (ft_exit_code(12, ADD), -1);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
 }
@@ -94,6 +94,9 @@ bool	ft_tokenization(t_data *data)
 	token_tp = 0;
 	i = 0;
 	str = ft_del_edge_spaces(data->input);
+	if (!str)
+		return (false);
+	//if (str[0] == )
 	while (str[i] != '\0')
 	{
 		token_tp = ft_define_token_type(str, i);
