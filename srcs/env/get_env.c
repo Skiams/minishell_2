@@ -6,22 +6,63 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/08 20:16:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/09 18:11:03 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// char	**ft_lstenv_to_tab(t_env *env)
-// {
-// 	int	i;
+char	*ft_strjoin_c(char *s1, char *s2, char c)
+{
+	char	*res;
+	size_t	i;
+	size_t	j;
+	
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (!res)
+		return (NULL);
+	while (s1[j] != '\0')
+		res[i++] = s1[j++];
+	res[i++] = c;
+	j = 0;
+	while (s2[j] != '\0')
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
+}
 
-// 	i = 0;
-// 	while (env)
-// 	{
-		
-// 	}
-// }
+char	**ft_lst_to_tab(t_data *data)
+{
+	int		i;
+	int		j;
+	t_env	*tmp;
+	char	**tab;
+	
+	tmp = data->env;
+	i = 0;
+	j = -1;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	tab = malloc(sizeof(char **) * (i + 1));
+	if (!tab)
+		return (ft_exit_code(12, ADD), NULL);
+	tmp = data->env;
+	while (j++ < i && tmp)
+	{
+		tab[j] = ft_strjoin_c(tmp->var, tmp->value, '=');
+		if (!tab[j])
+			return (ft_exit_code(12, ADD), NULL);
+		tmp = tmp->next;
+	}
+	return (tab);
+}
 
 static bool	ft_lstinit_env(t_env **env, char *var, char *value)
 {

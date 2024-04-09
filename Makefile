@@ -1,6 +1,6 @@
 NAME		=	minishell
 
-CC			=	cc -Wall -Wextra -Werror -g3
+CC			=	cc -Wall -Wextra -Werror -g
 
 SRCS		=	srcs/main.c\
 				srcs/env/get_env.c\
@@ -19,6 +19,7 @@ SRCS		=	srcs/main.c\
 				srcs/errors/error_handle.c\
 				srcs/clean_exit/clean.c\
 				srcs/clean_exit/singletons.c\
+				srcs/commands/cmds.c\
 				srcs/debug/debug.c\
 				srcs/exec/get_path.c\
 				srcs/exec/handle_access.c\
