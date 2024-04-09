@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/04 15:43:53 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/09 20:02:39 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_free_env(t_env **env, void (*del)(void *))
 {
 	t_env	*temp;
 
-	if (!env || !del)
+	if (!*env || !*del)
 		return ;
 	while (*env)
 	{
@@ -24,6 +24,7 @@ void	ft_free_env(t_env **env, void (*del)(void *))
 		(*del)((*env)->var);
 		(*del)((*env)->value);
 		free (*env);
+		*env = NULL;
 		*env = temp;
 	}
 	*env = NULL;
@@ -32,13 +33,14 @@ void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 {
 	t_token	*temp;
 
-	if (!token_lst || !del)
+	if (!*token_lst || !*del)
 		return ;
 	while (*token_lst)
 	{
 		temp = (*token_lst)->next;
 		(*del)((*token_lst)->value);
 		free (*token_lst);
+		*token_lst = NULL; 
 		*token_lst = temp;
 	}
 	*token_lst = NULL;
@@ -46,6 +48,8 @@ void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 
 void	ft_free_ptr(void *ptr)
 {
+	if (!ptr)
+		return ;
 	if (ptr)
 	{
 		free(ptr);
@@ -67,7 +71,10 @@ void	ft_clean_all(t_data *data)
 	if (data && data->env)
 		ft_free_env(&data->env, &ft_free_ptr);
 	if (data)
+	{
 		free(data);
+		data = NULL;
+	}
 }
 
 // int    ft_garbage(int rule, void *p, int whichlst)

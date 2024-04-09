@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:28:44 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/20 19:36:32 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/09 19:49:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,20 @@ void	print_env(t_env *env_lst)
 			tmp->var, tmp->value);
 		tmp = tmp->next;
 	}
+}
+
+void	print_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab)
+	{
+		dprintf(2, "%s\n", tab[i]);
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
 
 // void	print_cmd(t_cmd *cmd_lst)
