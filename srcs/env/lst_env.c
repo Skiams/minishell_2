@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:56:24 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/05 14:59:59 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/09 22:58:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ t_env	*ft_lstnew_env(char *var, char *value)
 {
 	t_env	*newel;
 
-	newel = malloc(sizeof(t_env));
+	// newel = malloc(sizeof(t_env));
+	newel = ft_garbage(GAR_ADD, malloc(sizeof(t_env)));
 	if (!newel)
 		return (NULL);
 	newel->value = value;

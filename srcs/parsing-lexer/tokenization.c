@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/08 17:04:38 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/10 00:42:34 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
 		len = 2;
 	else
 		len = 1;
-	value = ft_substr(str, i, len);
+	// value = ft_substr(str, i, len);
+	value = ft_garbage(GAR_ADD, ft_substr(str, i, len));
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
 	i += len;
@@ -64,7 +65,8 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 			len++;
 		}
 	}
-	value = ft_substr(str, start, len);
+	// value = ft_substr(str, start, len);
+	value = ft_garbage(GAR_ADD, ft_substr(str, start, len));
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
 	new_token = ft_lstnew_token(value, WORD);
@@ -104,6 +106,7 @@ bool	ft_tokenization(t_data *data)
 		if (i == -1)
 			return (false);
 	}
-	ft_free_ptr(str);
+	// ft_free_ptr(str);
+	ft_garbage(GAR_FREE, str);
 	return (true);
 }

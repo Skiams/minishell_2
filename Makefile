@@ -19,6 +19,7 @@ SRCS		=	srcs/main.c\
 				srcs/errors/error_handle.c\
 				srcs/clean_exit/clean.c\
 				srcs/clean_exit/singletons.c\
+				srcs/clean_exit/garbage_collector.c\
 				srcs/commands/cmds.c\
 				srcs/debug/debug.c\
 				srcs/exec/get_path.c\

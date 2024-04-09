@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/09 19:47:43 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/10 01:29:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,21 @@ char	**ft_get_cmds(t_data *data)
 			i++;
 		tmp = tmp->next;
 	}
-	tab = (char **)malloc(sizeof(char *) * (i + 1));
+	// tab = (char **)malloc(sizeof(char *) * (i + 1));
+	tab = ft_garbage(GAR_ADD, (char **)malloc(sizeof(char *) * (i + 1)));
 	if (!tab)
 		return (ft_exit_code(12, ADD), NULL);
 	tmp = data->token_list;
 	while (j < i && tmp)
 	{
-		tab[j] = ft_substr(tmp->value, 0, ft_strlen(tmp->value));
+		// tab[j] = ft_substr(tmp->value, 0, ft_strlen(tmp->value));
+		tab[j] = ft_garbage(GAR_ADD, ft_substr(tmp->value, 0, ft_strlen(tmp->value)));
+		if (!tab[j])
+			return (ft_exit_code(12, ADD), NULL);
 		while (tmp->next && tmp->type != PIPE && tmp->next->type != PIPE)
 		{
-			tab[j] = ft_strjoin_c(tab[j], tmp->next->value, 32);
+			// tab[j] = ft_strjoin_c(tab[j], tmp->next->value, 32);
+			tab[j] = ft_garbage(GAR_ADD, ft_strjoin_c(tab[j], tmp->next->value, 32));
 			if (!tab[j])
 				return (ft_exit_code(12, ADD), NULL);
 			tmp = tmp->next;
