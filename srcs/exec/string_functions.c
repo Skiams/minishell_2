@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/10 13:12:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 18:29:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	size = ft_strlen(s1) + ft_strlen(s2);
-	// str = (char *)malloc(sizeof(char) * (size + 1));
-	str = ft_garbage(ADD, (char *)malloc(sizeof(char) * (size + 1)));
+	str = (char *)malloc(sizeof(char) * (size + 1));
 	if (!str)
 		return (NULL);
 	while (s1[i] != '\0')
@@ -45,8 +44,7 @@ char	*ft_strdup(char *s)
 	char	*str;
 
 	i = 0;
-	// str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
-	str = ft_garbage(ADD, (char *)malloc(sizeof(char) * ft_strlen(s) + 1));
+	str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
 	while (s[i] != '\0')
 	{
 		str[i] = s[i];
@@ -55,17 +53,3 @@ char	*ft_strdup(char *s)
 	str[i] = '\0';
 	return (str);
 }
-
-// int	ft_strchr(char *str, char c)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] == c)
-// 			return (1);
-// 		i += 1;
-// 	}
-// 	return (0);
-// }

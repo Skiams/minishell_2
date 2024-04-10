@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:21:55 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 13:12:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 18:32:43 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ t_token	*ft_lstnew_token(char *value, t_token_tp type)
 {
 	t_token	*newel;
 
-	// newel = malloc(sizeof(t_token));
-	newel = ft_garbage(ADD, malloc(sizeof(t_token)));
+	newel = malloc(sizeof(t_token));
 	if (!newel)
 		return (NULL);
 	newel->value = value;
