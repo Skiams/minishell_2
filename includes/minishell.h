@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 13:13:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 19:08:16 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,16 @@
 # include "get_next_line/get_next_line.h"
 # include "pipex.h"
 
-# define ADD 1
-# define GET 2
-# define FREE 3
+typedef enum e_rule
+{
+	ADD,
+	GET,
+	MALLOC,
+	FREE,
+	FREEALL,
+	DATALST,
+	ENVLST,
+}	t_rule;
 
 typedef enum e_token_tp
 {
@@ -42,18 +49,10 @@ typedef enum e_token_tp
 	WHITESPACE,
 }	t_token_tp;
 
-typedef enum e_gar
-{
-	//ADD,
-	// FREE,
-	FREE_ALL,
-}	t_gar;
-
-
 typedef struct s_garbage
 {
-	void	*ptr;
-	struct s_garbage *next;
+	void	*addr;
+	size_t	size;
 }	t_garbage;
 
 typedef struct s_env
@@ -77,7 +76,6 @@ typedef struct s_data
 	char	*input;
 	t_token	*token_list;
 	t_env	*env;
-	t_garbage	*garbage;
 }	t_data;
 
 // TOKENIZATION
@@ -145,12 +143,23 @@ void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
 int		ft_exit_code(int exit_code, int mode);
 void	ft_clean_all(t_data *data);
-void	*ft_garbage(int rule, void *p);
+//void	*ft_garbage(int rule, void *p);
 
 // DEBUG
 
 void	print_tokens(t_token *token_lst);
 void	print_tab(char **tab);
 void	print_env(t_env *env_lst);
+
+// GARBAGE TEST
+
+t_garbage	*mlcp(void *addr, size_t size);
+void    *ft_garbage(t_garbage *p, int rule, int whichlst, t_data *data);
+void	ft_list_remove_if(t_list **begin_list, t_garbage *p, int (*cmp)());
+void	ft_list_remove(t_list **begin_list, t_list **lst, t_list **prev);
+int	ft_check(void *data, void *data_ref);
+void	del(void *content);
+t_list	*ft_lstnew_malloc(size_t size);
+t_list	*ft_lstnew_add(void *addr);
 
 #endif

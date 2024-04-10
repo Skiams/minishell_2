@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 13:11:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 15:29:19 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ t_env	*ft_get_env(t_data *data, char **env)
 		// dprintf(2, "oui3\n");
 		// tmp_value = ft_substr(env[i], k, (j - k));
 		tmp_value = ft_garbage(ADD, ft_substr(env[i], k, (j - k)));
-		// dprintf(2, "oui4\n");
 		if (!tmp_value)
 			return (NULL);
 		if (!ft_lstinit_env(&data->env, tmp_var, tmp_value) || !tmp_var || !tmp_value)

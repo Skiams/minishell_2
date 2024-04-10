@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 13:12:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 17:15:22 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	i = 0;
 	ft_memset(&data, 0, sizeof(t_data));
-	// dprintf(2, "oui\n");
 	data.env = ft_get_env(&data, env);
-	// dprintf(2, "non\n");
 	// if (env)
 	// 	data.env = ft_get_env(&data, env);
 	// else
@@ -53,7 +51,6 @@ int	main(int argc, char **argv, char **env)
 	while (i < 2)
 	{
 		data.input = readline("minishell: ");
-		
 		// if (!data.input)
 		// 				(ft_putstr_fd("exit\n", 1), exit(1));
 		ft_parsing(data.input, &data);
@@ -68,7 +65,6 @@ int	main(int argc, char **argv, char **env)
 		dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		i += 1;
 	}
-	//ft_clean_all(&data);
 	ft_garbage(FREE_ALL, NULL);
 	return (ft_exit_code(0, GET));
 }
