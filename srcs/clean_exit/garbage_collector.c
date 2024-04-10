@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:46:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/10 13:12:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 17:49:36 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,43 @@ void	ft_lstclear_garbage(t_garbage **lst)
 		free(*lst);
 		*lst = temp;
 	}
-	// free((*lst)->ptr);
-	// free(*lst);
 	*lst = NULL;
 }
 
-// t_garbage	*ft_lstlast_garbage(t_garbage *lst)
-// {
-// 	if (!lst)
-// 		return (NULL);
-// 	while (lst->next)
-// 		lst = lst->next;
-// 	return (lst);
-// }
-
-void	ft_list_remove_if(t_garbage **begin_list, void *data_ref)
+void    ft_list_remove_if(t_garbage **lst, void *data_ref)
 {
-	t_garbage	*node;
+        t_garbage       *prev;
+        t_garbage       *current;
 
-	if (!*begin_list)
-		return ;
-	node = *begin_list;
-	if (!ft_strcmp(data_ref, node->ptr))
-	{
-		*begin_list = node->next;
-		free(node);
-		ft_list_remove_if(begin_list, data_ref);
-	}
-	else
-	{
-		node = *begin_list;
-		ft_list_remove_if(&node->next, data_ref);
-	}
+        if (!*lst)
+                return ;
+        prev = NULL;
+        current = *lst;
+        while (current->next != NULL)
+        {       
+                if (!ft_strcmp(data_ref, current->ptr))
+                {
+                        if (!prev)
+                                *lst = current->next;
+                        prev->next = current->next;
+                        free(current);
+                        break ;
+                }       
+                prev = current;
+                current = current->next;
+        }
 }
 
 t_garbage	*ft_lstnew_garbage(void *content)
 {
-	t_garbage	*newel;
+	t_garbage	*new_node;
 
-	newel = malloc(sizeof(t_garbage));
-	if (!newel)
+	new_node = malloc(sizeof(t_garbage));
+	if (!new_node)
 		return (NULL);
-	newel->ptr = content;
-	newel->next = NULL;
-	return (newel);
+	new_node->ptr = content;
+	new_node->next = NULL;
+	return (new_node);
 }
 
 void	*ft_lstadd_back_garbage(t_garbage **lst, t_garbage *new)
@@ -100,12 +93,9 @@ void    *ft_garbage(int rule, void *p)
 		return (NULL);
 	if (rule == ADD)
 		return(ft_lstadd_back_garbage(&garbage, new));
-		//ft_lstadd_back_garbage(&garbage, new);
 	if (rule == FREE)
 		ft_list_remove_if(&garbage, p);
 	if (rule == FREE_ALL)
-	{
 		ft_lstclear_garbage(&garbage);
-	}
 	return (NULL);
 }

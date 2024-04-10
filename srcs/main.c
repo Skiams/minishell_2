@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 13:12:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 15:40:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **env)
 	// 	return (ft_free_data(&data), 1);
 	// a rajouter pour le get_env ?
 	tab = NULL;
-	while (i < 2)
+	while (i < 3)
 	{
 		data.input = readline("minishell: ");
 		
@@ -59,6 +59,7 @@ int	main(int argc, char **argv, char **env)
 		ft_parsing(data.input, &data);
 		//print_tokens(data.token_list);
 		tab = ft_get_cmds(&data);
+		ft_garbage(FREE, NULL);
 		if (!tab)
 			break;
 		//print_tab(tab);
@@ -70,5 +71,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	//ft_clean_all(&data);
 	ft_garbage(FREE_ALL, NULL);
+	//ft_clean_all(&data);
 	return (ft_exit_code(0, GET));
 }
