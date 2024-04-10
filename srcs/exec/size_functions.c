@@ -6,21 +6,11 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:15:31 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 19:53:06 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/10 18:30:18 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// int	ft_strlen(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (str[i] != '\0')
-// 		i += 1;
-// 	return (i);
-// }
 
 int	ft_count_words(char *str)
 {
