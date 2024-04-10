@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/09 22:59:00 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:12:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_handle_quotes_and_slash(char *argv)
 	if (!argv)
 		return (NULL);
 	// str = (char *)malloc(sizeof(char) * ft_strlen(argv) + 1);
-	str = ft_garbage(GAR_ADD,(char *)malloc(sizeof(char) * ft_strlen(argv) + 1));
+	str = ft_garbage(ADD,(char *)malloc(sizeof(char) * ft_strlen(argv) + 1));
 	if (!str)
 		return (NULL);
 	while (argv[i] != '\0')

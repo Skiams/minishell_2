@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 01:33:57 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:11:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strjoin_c(char *s1, char *s2, char c)
 	if (!s1 || !s2)
 		return (NULL);
 	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
-	// res = ft_garbage(GAR_ADD, (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2)));
+//	res = ft_garbage(ADD, (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2)));
 	if (!res)
 		return (NULL);
 	while (s1[j] != '\0')
@@ -52,14 +52,14 @@ char	**ft_lst_to_tab(t_data *data)
 		i++;
 	}
 	// tab = malloc(sizeof(char **) * (i + 1));
-	tab = ft_garbage(GAR_ADD, malloc(sizeof(char **) * (i + 1)));
+	tab = ft_garbage(ADD, malloc(sizeof(char **) * (i + 1)));
 	if (!tab)
 		return (ft_exit_code(12, ADD), NULL);
 	tmp = data->env;
 	while (j++ < i && tmp)
 	{
 		// tab[j] = ft_strjoin_c(tmp->var, tmp->value, '=');
-		tab[j] = ft_garbage(GAR_ADD, ft_strjoin_c(tmp->var, tmp->value, '='));
+		tab[j] = ft_garbage(ADD, ft_strjoin_c(tmp->var, tmp->value, '='));
 		if (!tab[j])
 			return (ft_exit_code(12, ADD), NULL);
 		tmp = tmp->next;
@@ -94,7 +94,7 @@ t_env	*ft_get_env(t_data *data, char **env)
 		while (env[i][j] && env[i][j] != '=')
 			j++;
 		// tmp_var = ft_substr(env[i], k, j);
-		tmp_var = ft_garbage(GAR_ADD, ft_substr(env[i], k, j));
+		tmp_var = ft_garbage(ADD, ft_substr(env[i], k, j));
 		// dprintf(2, "oui2\n");
 		if (!tmp_var)
 			return (NULL);
@@ -104,7 +104,7 @@ t_env	*ft_get_env(t_data *data, char **env)
 			j++;
 		// dprintf(2, "oui3\n");
 		// tmp_value = ft_substr(env[i], k, (j - k));
-		tmp_value = ft_garbage(GAR_ADD, ft_substr(env[i], k, (j - k)));
+		tmp_value = ft_garbage(ADD, ft_substr(env[i], k, (j - k)));
 		// dprintf(2, "oui4\n");
 		if (!tmp_value)
 			return (NULL);

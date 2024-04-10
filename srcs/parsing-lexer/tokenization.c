@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 00:42:34 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:12:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
 	else
 		len = 1;
 	// value = ft_substr(str, i, len);
-	value = ft_garbage(GAR_ADD, ft_substr(str, i, len));
+	value = ft_garbage(ADD, ft_substr(str, i, len));
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
 	i += len;
@@ -66,7 +66,7 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 		}
 	}
 	// value = ft_substr(str, start, len);
-	value = ft_garbage(GAR_ADD, ft_substr(str, start, len));
+	value = ft_garbage(ADD, ft_substr(str, start, len));
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
 	new_token = ft_lstnew_token(value, WORD);
@@ -107,6 +107,6 @@ bool	ft_tokenization(t_data *data)
 			return (false);
 	}
 	// ft_free_ptr(str);
-	ft_garbage(GAR_FREE, str);
+	ft_garbage(FREE, str);
 	return (true);
 }

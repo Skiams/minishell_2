@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 01:23:31 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:12:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int	main(int argc, char **argv, char **env)
 		i += 1;
 	}
 	//ft_clean_all(&data);
-	ft_garbage(GAR_FREE_ALL, NULL);
+	ft_garbage(FREE_ALL, NULL);
 	return (ft_exit_code(0, GET));
 }

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/09 22:59:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:12:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*ft_fill_tab(char *str)
 		return (NULL);
 	size = ft_count_size_of_word(str);
 	// s = (char *)malloc(sizeof(char) * size + 1);
-	s = ft_garbage(GAR_ADD, (char *)malloc(sizeof(char) * size + 1));
+	s = ft_garbage(ADD, (char *)malloc(sizeof(char) * size + 1));
 	if (!s)
 		return (NULL);
 	while (str[i] != '\0' && str[i] != 58 && str[i] != 32
@@ -43,7 +43,7 @@ static char	**ft_return_tab(char *str)
 	if (!str)
 		return (NULL);
 	// tab = (char **)malloc(sizeof(char *) * (ft_count_words(str) + 1));
-	tab = ft_garbage(GAR_ADD, (char **)malloc(sizeof(char *) * (ft_count_words(str) + 1)));
+	tab = ft_garbage(ADD, (char **)malloc(sizeof(char *) * (ft_count_words(str) + 1)));
 	if (!tab)
 		return (NULL);
 	return (tab);

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 01:38:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:12:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@
 // 	if (ptr)
 // 	{
 // 		//free(ptr);
-// 		ft_garbage(GAR_FREE, ptr);
+// 		ft_garbage(FREE, ptr);
 // 		//ptr = NULL;
 // 	}
 // }

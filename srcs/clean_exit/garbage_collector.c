@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:46:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/10 01:28:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:12:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_lstclear_garbage(t_garbage **lst)
 		return ;
 	while ((*lst)->next)
 	{
-        free((*lst)->ptr);
+		free((*lst)->ptr);
 		temp = (*lst)->next;
 		free(*lst);
 		*lst = temp;
@@ -73,42 +73,39 @@ t_garbage	*ft_lstnew_garbage(void *content)
 
 void	*ft_lstadd_back_garbage(t_garbage **lst, t_garbage *new)
 {
-    t_garbage   *head;
-	
-    head = *lst;
-    if (*lst)
-    {
-        while ((*lst)->next != NULL)
-            *lst = (*lst)->next;
-        (*lst)->next = new;
+	t_garbage   *head;
+
+	head = *lst;
+	if (*lst)
+	{
+		while ((*lst)->next != NULL)
+			*lst = (*lst)->next;
+		(*lst)->next = new;
 		*lst = head;
-    }
-    else
+	}
+	else
 		*lst = new;
-    return (new->ptr);
+	return (new->ptr);
 }
 
 void    *ft_garbage(int rule, void *p)
 {
-    static t_garbage	*garbage = NULL;
-    t_garbage   *new;
+	static t_garbage	*garbage = NULL;
+	t_garbage   *new;
 
-    if (!p && (rule == GAR_ADD || rule == GAR_FREE))
-        return (NULL);
-    new = ft_lstnew_garbage(p);
-    if (!new)
-        return (NULL);
-    if (rule == GAR_ADD)
-	{ 
-        return(ft_lstadd_back_garbage(&garbage, new));
-	}
-    if (rule == GAR_FREE)
+	if (!p && (rule == ADD || rule == FREE))
+		return (NULL);
+	new = ft_lstnew_garbage(p);
+	if (!new)
+		return (NULL);
+	if (rule == ADD)
+		return(ft_lstadd_back_garbage(&garbage, new));
+		//ft_lstadd_back_garbage(&garbage, new);
+	if (rule == FREE)
+		ft_list_remove_if(&garbage, p);
+	if (rule == FREE_ALL)
 	{
-        ft_list_remove_if(&garbage, p);
+		ft_lstclear_garbage(&garbage);
 	}
-    if (rule == GAR_FREE_ALL)
-	{
-        ft_lstclear_garbage(&garbage);
-	}
-    return (NULL);
+	return (NULL);
 }

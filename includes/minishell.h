@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 01:00:20 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:13:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef enum e_token_tp
 
 typedef enum e_gar
 {
-	GAR_ADD,
-	GAR_FREE,
-	GAR_FREE_ALL,
+	//ADD,
+	// FREE,
+	FREE_ALL,
 }	t_gar;
 
 
