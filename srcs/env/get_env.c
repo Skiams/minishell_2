@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 19:47:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/11 00:15:44 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,13 @@ t_env	*ft_get_env(t_data *data, char **env)
 		k = j;
 		while (env[i][j] != '\0')
 			j++;
-		// dprintf(2, "oui3\n");
-		// tmp_value = ft_substr(env[i], k, (j - k));
 		tmp_value = ft_substr(env[i], k, (j - k));
 		if (!tmp_value)
 			return (NULL);
 		if (!ft_lstinit_env(&data->env, tmp_var, tmp_value) || !tmp_var || !tmp_value)
-			ft_exit_code(1, ADD);
+			ft_exit_code(12, ADD);
 		// est-ce qu'il faut exit ou pas la ?
 		i++;
-		
 	}
 	return (data->env);
 }

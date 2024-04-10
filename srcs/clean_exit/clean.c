@@ -3,31 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 19:43:14 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/11 00:07:56 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_free_env(t_env **env, void (*del)(void *))
+// void	ft_free_env(t_env **env, void (*del)(void *))
+// {
+// 	t_env	*temp;
+
+// 	if (!*env || !*del)
+// 		return ;
+// 	temp = *env;
+// 	while (temp->next != NULL)
+// 	{
+// 		(*del)(temp->var);
+// 		(*del)(temp->value);
+// 		temp = temp->next;
+// 		free (temp->prev);
+// 		temp->prev = NULL;
+// 	}
+// 	temp = NULL;
+// }
+
+void	ft_free_env(t_env *env)
 {
 	t_env	*temp;
 
-	if (!*env || !*del)
+	if (!env)
 		return ;
-	temp = *env;
-	while (temp->next != NULL)
+	while (env != NULL)
 	{
-		(*del)(temp->var);
-		(*del)(temp->value);
-		temp = temp->next;
-		free (temp->prev);
-		temp->prev = NULL;
+		temp = env->next;
+		if (env->var != NULL)
+			free(env->var);
+		if (env->value != NULL)
+			free(env->value);
+		free(env);
+		env = temp;
 	}
-	temp = NULL;
+	env = NULL;
 }
 
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
@@ -60,15 +79,18 @@ void	ft_free_ptr(void *ptr)
 
 void	ft_free_data(t_data *data)
 {
-	if (!data->token_list)
-		return ;
+	if (data && data->input)
+		ft_free_ptr(data->input);
 	if (data && data->token_list)
 		ft_token_lstclear(&data->token_list, &ft_free_ptr);
 }
 
 void	ft_clean_all(t_data *data)
 {
-	ft_free_data(data);
+	//ft_free_data(data);
  	if (data && data->env)
-		ft_free_env(&data->env, &ft_free_ptr);
+		ft_free_env(data->env);
+	rl_clear_history();
+	// if (data)
+	// 	free(data);
 }

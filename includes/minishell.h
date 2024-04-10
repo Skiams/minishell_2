@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 19:41:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/11 00:21:50 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,6 @@ typedef enum e_token_tp
 	WORD,
 	WHITESPACE,
 }	t_token_tp;
-
-typedef struct s_garbage
-{
-	void	*addr;
-	size_t	size;
-}	t_garbage;
 
 typedef struct s_env
 {
@@ -138,12 +132,12 @@ void	ft_syntax_error(char *str);
 
 // CLEAN & EXIT
 
+void	ft_free_env(t_env *env);
 void	ft_free_data(t_data *data);
 void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
 int		ft_exit_code(int exit_code, int mode);
 void	ft_clean_all(t_data *data);
-//void	*ft_garbage(int rule, void *p);
 
 // DEBUG
 
@@ -151,15 +145,5 @@ void	print_tokens(t_token *token_lst);
 void	print_tab(char **tab);
 void	print_env(t_env *env_lst);
 
-// GARBAGE TEST
-
-t_garbage	*mlcp(void *addr, size_t size);
-void    *ft_garbage(t_garbage *p, int rule, int whichlst, t_data *data);
-void	ft_list_remove_if(t_list **begin_list, t_garbage *p, int (*cmp)());
-void	ft_list_remove(t_list **begin_list, t_list **lst, t_list **prev);
-int	ft_check(void *data, void *data_ref);
-void	del(void *content);
-t_list	*ft_lstnew_malloc(size_t size);
-t_list	*ft_lstnew_add(void *addr);
 
 #endif

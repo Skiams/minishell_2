@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 18:32:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/11 00:05:01 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,7 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 			if (i == 0)
 				return (ft_error_quotes(), -1);
 			else
-			{
-				dprintf(2, "len = %d / i = %d / start = %d\n", len, i, start);
-				// a clean
 				len += i - start_quote;
-			}
 		}
 		else
 		{
@@ -96,13 +92,12 @@ bool	ft_tokenization(t_data *data)
 	str = ft_del_edge_spaces(data->input);
 	if (!str)
 		return (false);
-	//if (str[0] == )
 	while (str[i] != '\0')
 	{
 		token_tp = ft_define_token_type(str, i);
 		i = ft_add_token(data, str, token_tp, i);
 		if (i == -1)
-			return (false);
+			return (ft_free_ptr(str), false);
 	}
 	ft_free_ptr(str);
 	return (true);
