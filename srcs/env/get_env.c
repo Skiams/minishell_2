@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 15:35:46 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/10 18:22:35 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,15 @@ char	**ft_lst_to_tab(t_data *data)
 		tmp = tmp->next;
 		i++;
 	}
-	//tab = malloc(sizeof(char **) * (i + 1));
-	tab = ft_garbage(ADD, malloc(sizeof(char **) * (i + 1)));
+	tab = malloc(sizeof(char **) * (i + 1));
+	//tab = ft_garbage(ADD, malloc(sizeof(char **) * (i + 1)));
 	if (!tab)
 		return (ft_exit_code(12, ADD), NULL);
 	tmp = data->env;
 	while (j++ < i && tmp)
 	{
-		// tab[j] = ft_strjoin_c(tmp->var, tmp->value, '=');
-		tab[j] = ft_garbage(ADD, ft_strjoin_c(tmp->var, tmp->value, '='));
+		tab[j] = ft_strjoin_c(tmp->var, tmp->value, '=');
+		//tab[j] = ft_garbage(ADD, ft_strjoin_c(tmp->var, tmp->value, '='));
 		if (!tab[j])
 			return (ft_exit_code(12, ADD), NULL);
 		tmp = tmp->next;
