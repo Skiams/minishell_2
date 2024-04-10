@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/08 17:40:43 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/10 13:12:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*ft_del_edge_spaces(char *str)
 		i++;
 	while (str[len] == 9 || str[len] == 32)
 			len--;
-	new_str = ft_substr(str, i, len - i + 1);
+	// new_str = ft_substr(str, i, len - i + 1);
+	new_str = ft_garbage(ADD, ft_substr(str, i, len - i + 1));
 	if (!new_str)
 		return (ft_exit_code(12, ADD), NULL);
 	return (new_str);

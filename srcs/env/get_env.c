@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/09 18:11:03 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/10 13:11:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	*ft_strjoin_c(char *s1, char *s2, char c)
 	if (!s1 || !s2)
 		return (NULL);
 	res = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
+//	res = ft_garbage(ADD, (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2)));
 	if (!res)
 		return (NULL);
 	while (s1[j] != '\0')
@@ -50,13 +51,15 @@ char	**ft_lst_to_tab(t_data *data)
 		tmp = tmp->next;
 		i++;
 	}
-	tab = malloc(sizeof(char **) * (i + 1));
+	// tab = malloc(sizeof(char **) * (i + 1));
+	tab = ft_garbage(ADD, malloc(sizeof(char **) * (i + 1)));
 	if (!tab)
 		return (ft_exit_code(12, ADD), NULL);
 	tmp = data->env;
 	while (j++ < i && tmp)
 	{
-		tab[j] = ft_strjoin_c(tmp->var, tmp->value, '=');
+		// tab[j] = ft_strjoin_c(tmp->var, tmp->value, '=');
+		tab[j] = ft_garbage(ADD, ft_strjoin_c(tmp->var, tmp->value, '='));
 		if (!tab[j])
 			return (ft_exit_code(12, ADD), NULL);
 		tmp = tmp->next;
@@ -90,16 +93,26 @@ t_env	*ft_get_env(t_data *data, char **env)
 		k = 0;
 		while (env[i][j] && env[i][j] != '=')
 			j++;
-		tmp_var = ft_substr(env[i], k, j);
+		// tmp_var = ft_substr(env[i], k, j);
+		tmp_var = ft_garbage(ADD, ft_substr(env[i], k, j));
+		// dprintf(2, "oui2\n");
+		if (!tmp_var)
+			return (NULL);
 		j++;
 		k = j;
 		while (env[i][j] != '\0')
 			j++;
-		tmp_value = ft_substr(env[i], k, (j - k));
+		// dprintf(2, "oui3\n");
+		// tmp_value = ft_substr(env[i], k, (j - k));
+		tmp_value = ft_garbage(ADD, ft_substr(env[i], k, (j - k)));
+		// dprintf(2, "oui4\n");
+		if (!tmp_value)
+			return (NULL);
 		if (!ft_lstinit_env(&data->env, tmp_var, tmp_value) || !tmp_var || !tmp_value)
 			ft_exit_code(1, ADD);
 		// est-ce qu'il faut exit ou pas la ?
 		i++;
+		
 	}
 	return (data->env);
 }

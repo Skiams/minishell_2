@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/09 16:53:39 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/10 13:13:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ typedef enum e_token_tp
 	WHITESPACE,
 }	t_token_tp;
 
+typedef enum e_gar
+{
+	//ADD,
+	// FREE,
+	FREE_ALL,
+}	t_gar;
+
+
+typedef struct s_garbage
+{
+	void	*ptr;
+	struct s_garbage *next;
+}	t_garbage;
+
 typedef struct s_env
 {
 	char			*var;
@@ -63,6 +77,7 @@ typedef struct s_data
 	char	*input;
 	t_token	*token_list;
 	t_env	*env;
+	t_garbage	*garbage;
 }	t_data;
 
 // TOKENIZATION
@@ -130,6 +145,7 @@ void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
 int		ft_exit_code(int exit_code, int mode);
 void	ft_clean_all(t_data *data);
+void	*ft_garbage(int rule, void *p);
 
 // DEBUG
 
