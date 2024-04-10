@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 17:15:22 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/10 19:48:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static bool	ft_parsing(char *str, t_data *data)
 	if (ft_check_syntax(data) != 0)
 		return (false);
 	//ft_check_expand(data);
-	
+
 	return (true);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
-	char 	**tab;
+	//	char 	**tab;
 	int		i;
-	
+
 	(void)argc;
 	(void)argv;
 	i = 0;
@@ -47,24 +47,21 @@ int	main(int argc, char **argv, char **env)
 	// if (ft_exit_code(0, GET) == 1)
 	// 	return (ft_free_data(&data), 1);
 	// a rajouter pour le get_env ?
-	tab = NULL;
-	while (i < 2)
+	//	tab = NULL;
+	while (i < 3)
 	{
 		data.input = readline("minishell: ");
 		// if (!data.input)
 		// 				(ft_putstr_fd("exit\n", 1), exit(1));
 		ft_parsing(data.input, &data);
-		//print_tokens(data.token_list);
-		tab = ft_get_cmds(&data);
-		if (!tab)
-			break;
-		//print_tab(tab);
-		// if (ft_parsing(data.input, &data))
-			// 	//gogo gadgeto exe;
-		//ft_free_data(&data);
+		//tab = ft_get_cmds(&data);
+		//	if (!tab)
+		//		break ;
 		dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
+		ft_free_data(&data);
 		i += 1;
 	}
-	ft_garbage(FREE_ALL, NULL);
+	//	ft_free_tab(tab);
+	ft_clean_all(&data);
 	return (ft_exit_code(0, GET));
 }

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 21:46:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/10 19:09:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/10 19:49:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,92 +109,3 @@
 // 	}
 // 	return (NULL);
 // }
-
-static void	*ft_garbage_add_mlc(t_data *data, t_list **mlc, int rule, t_garbage *p)
-{
-	t_list	*head;
-	t_list	*tmp;
-
-	head = *mlc;
-	if (rule == MALLOC)
-		tmp = ft_lstnew_malloc(p->size);
-	else
-		tmp = ft_lstnew_add(p->addr);
-	if (!tmp)
-		return (write(2, "minishell: Cannot allocate memory\n", 35),
-			ft_exit_code(12, ADD), NULL);
-	if (*mlc)
-	{
-		while ((*mlc)->next)
-			(*mlc) = (*mlc)->next;
-		(*mlc)->next = tmp;
-		*mlc = head;
-	}
-	else
-		*mlc = tmp;
-	free(p);
-	return (tmp->content);
-}
-
-static void	ft_clearlst(int lst, t_list **mlc, t_list **mlc_env)
-{
-	if (lst == DATALST)
-		ft_lstclear(mlc, del);
-	else if (lst == ENVLST)
-		ft_lstclear(mlc_env, del);
-}
-
-static void	ft_clearall(t_list **mlc, t_list **mlc_env)
-{
-	ft_lstclear(mlc, del);
-	ft_lstclear(mlc_env, del);
-}
-
-/*
-size == 1 => signifie regle ADD select
-*/
-t_garbage	*mlcp(void *addr, size_t size)
-{
-	t_garbage	*param;
-
-	if (!addr && size == 0)
-		return (NULL);
-	param = malloc(sizeof(t_garbage));
-	if (!param)
-	{
-		if (size == 1 && addr)
-			free(addr);
-		return (NULL);
-	}
-	param->addr = addr;
-	param->size = size;
-	return (param);
-}
-
-void    *ft_garbage(t_garbage *p, int rule, int whichlst, t_data *data)
-{
-	static t_list	*lst_data;
-	static t_list	*lst_env;
-
-	if (!p && (rule == ADD || rule == FREE))
-		return (NULL);
-    if (rule == ADD) 
-	{
-		if (whichlst = DATALST)
-		{
-			//ajoute le pointeur a liste chainee
-			lst_data = p;
-			if (!lst_data)
-		
-        // si alloc faile pour creer node => free(p) + garbagge (3 , NULL) + exit
-    }
-    else if (rule == FREE)
-        //free le pointeur passe en parametre => supprimer le node de la liste chainee + free le ptr
-        free(p); // => dans lst
-    else if (rule == FREELST)
-        free la whichlist entiere
-    else // rule == 4
-        //free toutes les liste chainee
-        free(lst);
-    return (0);
-}
