@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int	sig_exit;
+int	g_sig_exit;
 
 static bool	ft_parsing(char *str, t_data *data)
 {
@@ -33,8 +33,9 @@ static bool	ft_parsing(char *str, t_data *data)
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	data;
 	int		i;
+	t_data	data;
+	//	char 	**tab;
 
 	(void)argc;
 	(void)argv;

@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:43:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/05 15:37:31 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:47:34 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int	ft_check_syntax(t_data *data)
 					ft_exit_code(2, ADD));
 			}
 			if (!token->next && token->type == PIPE)
-			{
-				return (ft_syntax_error(token->value),
-					ft_exit_code(2, ADD));				
-			}
+				return (ft_syntax_error(token->value), ft_exit_code(2, ADD));
 		}
 		if (token->type < PIPE && !token->next)
 			return (ft_syntax_error("newline"), ft_exit_code(2, ADD));

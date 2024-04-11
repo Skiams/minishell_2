@@ -60,7 +60,7 @@ void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 		temp = (*token_lst)->next;
 		(*del)((*token_lst)->value);
 		free (*token_lst);
-		*token_lst = NULL; 
+		*token_lst = NULL;
 		*token_lst = temp;
 	}
 	*token_lst = NULL;
@@ -89,12 +89,12 @@ void	ft_free_data(t_data *data)
 
 void	ft_clean_all(t_data *data)
 {
-	//ft_free_data(data);
- 	if (data && data->env)
+//	ft_free_data(data);
+	if (data && data->env)
 		ft_free_env(data->env);
 	rl_clear_history();
-	// if (data)
-	// 	free(data);
+//	if (data)
+//		free(data);
 	if (data && data->cmds)
 		ft_free_tab(data->cmds);
 }

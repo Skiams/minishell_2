@@ -6,13 +6,13 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 00:05:01 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:48:09 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int		ft_add_sep(t_token **token_lst, int type, char *str, int i)
+int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 {
 	int		len;
 	char	*value;

@@ -17,8 +17,8 @@ char	**ft_get_cmds(t_data *data)
 	char	**tab;
 	t_token	*tmp;
 	int		i;
-	int		j;
-	
+	int		j;	
+
 	tmp = data->token_list;
 	if (!tmp)
 		return (NULL);

@@ -17,7 +17,7 @@ char	*ft_strjoin_c(char *s1, char *s2, char c)
 	char	*res;
 	size_t	i;
 	size_t	j;
-	
+
 	i = 0;
 	j = 0;
 	if (!s1 || !s2)
@@ -41,7 +41,7 @@ char	**ft_lst_to_tab(t_data *data)
 	int		j;
 	t_env	*tmp;
 	char	**tab;
-	
+
 	tmp = data->env;
 	i = 0;
 	j = -1;
@@ -66,7 +66,7 @@ char	**ft_lst_to_tab(t_data *data)
 
 static bool	ft_lstinit_env(t_env **env, char *var, char *value)
 {
-	t_env *new_env_var;
+	t_env	*new_env_var;
 
 	new_env_var = ft_lstnew_env(var, value);
 	if (!new_env_var)
@@ -102,7 +102,8 @@ t_env	*ft_get_env(t_data *data, char **env)
 		tmp_value = ft_substr(env[i], k, (j - k));
 		if (!tmp_value)
 			return (NULL);
-		if (!ft_lstinit_env(&data->env, tmp_var, tmp_value) || !tmp_var || !tmp_value)
+		if (!ft_lstinit_env(&data->env, tmp_var, tmp_value)
+			|| !tmp_var || !tmp_value)
 			ft_exit_code(12, ADD);
 		// est-ce qu'il faut exit ou pas la ?
 		i++;
