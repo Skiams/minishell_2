@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 16:20:33 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/11 19:35:46 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	**ft_get_cmds(t_data *data)
 	char	**tab;
 	t_token	*tmp;
 	int		i;
-	int		j;	
+	int		j;
+	char	*str;
 
 	tmp = data->token_list;
 	if (!tmp)
@@ -41,9 +42,11 @@ char	**ft_get_cmds(t_data *data)
 			return (ft_exit_code(12, ADD), NULL);
 		while (tmp->next && tmp->type != PIPE && tmp->next->type != PIPE)
 		{
-			tab[j] = ft_strjoin_c(tab[j], tmp->next->value, 32);
-			if (!tab[j])
+			str = ft_strjoin_c(tab[j], tmp->next->value, 32);
+			if (!str)
 				return (ft_exit_code(12, ADD), NULL);
+			free(tab[j]);
+			tab[j] = str;
 			tmp = tmp->next;
 		}
 		if (tmp->next != NULL && tmp->next->type == PIPE)

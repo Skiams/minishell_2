@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 17:19:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/11 18:39:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_data
 {
 	char	*input;
 	char	**cmds;
+	char	**env_exec;
 	t_token	*token_list;
 	t_env	*env;
 }	t_data;
