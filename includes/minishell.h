@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 16:05:53 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/11 17:19:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,5 @@ void	ft_clean_all(t_data *data);
 void	print_tokens(t_token *token_lst);
 void	print_tab(char **tab);
 void	print_env(t_env *env_lst);
-
 
 #endif
