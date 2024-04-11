@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 18:54:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/11 16:57:44 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	**ft_get_cmds(t_data *data)
 	char	**tab;
 	t_token	*tmp;
 	int		i;
-	int		j;
-	
+	int		j;	
+
 	tmp = data->token_list;
 	i = 1;
 	j = 0;

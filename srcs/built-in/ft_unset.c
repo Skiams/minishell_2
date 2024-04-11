@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 13:58:07 by skiam             #+#    #+#             */
-/*   Updated: 2024/03/27 22:25:52 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:56:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	ft_unset(t_data *data, char **args)
 	i = 1;
 	while (args[i])
 	{
-        if (args[1][0] == '-')
-        {
+		if (args[1][0] == '-')
+		{
 			ft_putstr_fd("minishell: unset: -", 1);
-            write(1, &args[1][1], 1);
-            ft_putstr_fd(" invalid option", 1);
-            ft_exit_code(2, ADD);
-            break ;
-        }
+			write(1, &args[1][1], 1);
+			ft_putstr_fd(" invalid option", 1);
+			ft_exit_code(2, ADD);
+			break ;
+		}
 		else
 			ft_remove_var(data->env, args[i]);
 		ft_exit_code(0, ADD);

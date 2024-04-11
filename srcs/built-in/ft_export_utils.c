@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/03 20:55:00 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:52:16 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	ft_var_is_in_env(t_data *data, char *str)
 int	ft_check_export_case(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{
@@ -43,6 +43,7 @@ int	ft_check_export_case(char *str)
 	}
 	return (1);
 }
+
 void	ft_error_export(char *str)
 {
 	int	i;
@@ -80,24 +81,24 @@ void	ft_order_export_env(t_env **export_env)
 	}	
 }
 
-int ft_display_export(t_data *data)
+int	ft_display_export(t_data *data)
 {
-    t_env   *sorted_env;
-    
-    sorted_env = data->env;
-    ft_order_export_env(&sorted_env);
-    while (sorted_env)
-    {
+	t_env	*sorted_env;
+
+	sorted_env = data->env;
+	ft_order_export_env(&sorted_env);
+	while (sorted_env)
+	{
 		ft_putstr_fd("export ", 1);
-        ft_putstr_fd(sorted_env->var, 1);
-        if (sorted_env->value != NULL)
-        {
-            ft_putstr_fd("=\"", 1);
-            ft_putstr_fd(sorted_env->value, 1);
+		ft_putstr_fd(sorted_env->var, 1);
+		if (sorted_env->value != NULL)
+		{
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(sorted_env->value, 1);
 			ft_putstr_fd("\"", 1);
-        }
-        ft_putstr_fd("\n", 1);
-        sorted_env = sorted_env->next;
-    }
-    return(ft_exit_code(1, ADD));
+		}
+		ft_putstr_fd("\n", 1);
+		sorted_env = sorted_env->next;
+	}
+	return (ft_exit_code(1, ADD));
 }

@@ -6,13 +6,13 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 00:11:56 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:41:51 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	sig_exit;
+int	g_sig_exit;
 
 static bool	ft_parsing(char *str, t_data *data)
 {
@@ -25,15 +25,14 @@ static bool	ft_parsing(char *str, t_data *data)
 	if (ft_check_syntax(data) != 0)
 		return (false);
 	//ft_check_expand(data);
-
 	return (true);
 }
 
 int	main(int argc, char **argv, char **env)
 {
+	int		i;
 	t_data	data;
 	//	char 	**tab;
-	int		i;
 
 	(void)argc;
 	(void)argv;
