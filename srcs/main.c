@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 16:41:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/11 16:07:27 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ static bool	ft_parsing(char *str, t_data *data)
 	if (ft_check_syntax(data) != 0)
 		return (false);
 	//ft_check_expand(data);
+	data->cmds = ft_get_cmds(data);
+	if (!data->cmds)
+		return (false);
 	return (true);
 }
 
@@ -53,9 +56,6 @@ int	main(int argc, char **argv, char **env)
 		// if (!data.input)
 		// 				(ft_putstr_fd("exit\n", 1), exit(1));
 		ft_parsing(data.input, &data);
-		//tab = ft_get_cmds(&data);
-		//	if (!tab)
-		//		break ;
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);
 		i += 1;
