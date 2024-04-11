@@ -10,6 +10,7 @@ SRCS		=	srcs/main.c\
 				srcs/built-in/ft_export.c\
 				srcs/built-in/ft_export_utils.c\
 				srcs/built-in/ft_unset.c\
+				srcs/built-in/ft_pwd.c\
 				srcs/parsing-lexer/tokenization.c\
 				srcs/parsing-lexer/lst_token.c\
 				srcs/parsing-lexer/check_syntax.c\

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 16:07:27 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/11 21:20:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **env)
 	// 	return (ft_free_data(&data), 1);
 	// a rajouter pour le get_env ?
 	//	tab = NULL;
+	ft_pwd(&data);
 	while (i < 3)
 	{
 		data.input = readline("minishell: ");
