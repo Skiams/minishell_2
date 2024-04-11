@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 00:07:56 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:37:55 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	ft_free_data(t_data *data)
 		ft_free_ptr(data->input);
 	if (data && data->token_list)
 		ft_token_lstclear(&data->token_list, &ft_free_ptr);
+	if (data && data->cmds)
+		ft_free_tab(data->cmds);
 }
 
 void	ft_clean_all(t_data *data)
@@ -93,4 +95,6 @@ void	ft_clean_all(t_data *data)
 	rl_clear_history();
 	// if (data)
 	// 	free(data);
+	if (data && data->cmds)
+		ft_free_tab(data->cmds);
 }

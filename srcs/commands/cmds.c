@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 18:54:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/11 16:20:33 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	**ft_get_cmds(t_data *data)
 	int		j;
 	
 	tmp = data->token_list;
+	if (!tmp)
+		return (NULL);
 	i = 1;
 	j = 0;
 	while (tmp)
@@ -28,7 +30,7 @@ char	**ft_get_cmds(t_data *data)
 			i++;
 		tmp = tmp->next;
 	}
-	tab = (char **)malloc(sizeof(char *) * (i + 1));
+	tab = malloc(sizeof(char **) * (i + 1));
 	if (!tab)
 		return (ft_exit_code(12, ADD), NULL);
 	tmp = data->token_list;
@@ -50,5 +52,6 @@ char	**ft_get_cmds(t_data *data)
 			tmp = tmp->next;
 		j++;
 	}
+	tab[j] = NULL;
 	return (tab);
 }

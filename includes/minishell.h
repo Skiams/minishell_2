@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 00:21:50 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:05:53 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
+	char	**cmds;
 	t_token	*token_list;
 	t_env	*env;
 }	t_data;
