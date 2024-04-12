@@ -22,6 +22,7 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+	#include <sys/types.h>
 # include "libft/libft.h"
 # include "printf/srcs/ft_printf.h"
 # include "get_next_line/get_next_line.h"
@@ -72,8 +73,10 @@ typedef struct s_data
 	char	*input;
 	char	**cmds;
 	char	**env_exec;
+	int	status;
 	t_token	*token_list;
 	t_env	*env;
+	t_pipex	*pipex;
 }	t_data;
 
 // TOKENIZATION
@@ -120,6 +123,7 @@ int		ft_display_export(t_data *data);
 void	ft_echo(char **args);
 int		ft_env(t_data *data);
 int		ft_unset(t_data *data, char **args);
+int		ft_pwd(t_data *data);
 
 // UTILS
 

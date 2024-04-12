@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/08 19:23:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/12 15:29:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_exec_cmds(t_pipex *pipex, char **argv, char **env)
 	execve(cmds_path, cmds, env);
 	perror(cmds_path);
 	free(cmds_path);
+	ft_free_tab(cmds);
 	ft_free_tab(pipex->cmd_path);
 	exit (1);
 }
