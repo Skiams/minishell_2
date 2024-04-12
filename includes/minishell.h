@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 18:39:15 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/12 15:15:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "printf/srcs/ft_printf.h"
 # include "get_next_line/get_next_line.h"
 # include "pipex.h"
+
+extern int	g_sig_exit;
 
 typedef enum e_rule
 {
@@ -131,6 +133,11 @@ char	*ft_strjoin_c(char *s1, char *s2, char c);
 
 void	ft_error_quotes(void);
 void	ft_syntax_error(char *str);
+
+// SIGNALS
+
+void	ft_cc_handler(int sig);
+void	ft_handle_signal();
 
 // CLEAN & EXIT
 
