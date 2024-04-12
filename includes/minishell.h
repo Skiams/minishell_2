@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/12 15:15:57 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:18:33 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ typedef struct s_env
 	struct s_env	*prev;
 }	t_env;
 
+typedef struct s_cmds
+{
+	char	*cmd;
+	char	**args;
+	struct s_cmds	*next;
+	struct s_cmds	*prev;
+}	t_cmds;
+
+
 typedef struct s_token
 {
 	char			*value;
@@ -71,10 +80,10 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	char	**cmds;
 	char	**env_exec;
 	int	status;
 	t_token	*token_list;
+	t_cmds	*cmd_list;
 	t_env	*env;
 	t_pipex	*pipex;
 }	t_data;
@@ -98,6 +107,10 @@ int		ft_check_end_quotes(char *str, int i, char c);
 bool	ft_check_env_var(char *tmp_var, t_env *env);
 void	ft_check_expand(t_data *data);
 
+// COMMANDS
+
+bool	ft_get_cmds(t_data *data, t_token **token_lst);
+
 // ENV
 
 t_env	*ft_get_env(t_data *data, char **env);
@@ -105,10 +118,6 @@ t_env	*ft_lstnew_env(char *var, char *value);
 void	ft_lstadd_back_env(t_env **env_lst, t_env *new_env);
 t_env	*ft_lstlast_env(t_env *env);
 char	**ft_lst_to_tab(t_data *data);
-
-// EXEC
-
-char	**ft_get_cmds(t_data *data);
 
 // BUILT-INS
 
