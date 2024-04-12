@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 19:16:34 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/12 18:07:19 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
 {
 	t_token	*temp;
 
+	temp = NULL;
 	if (!*token_lst || !*del)
 		return ;
 	while (*token_lst)
