@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/27 22:20:58 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/15 14:09:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_echo(char **args)
 
 	i = 1;
 	n = 0;
+	if (!*args)
+		return ;
 	if (args[i] && ft_is_echo_n(args[i]))
 	{
 		i++;

@@ -6,29 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 16:19:09 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/09 14:33:06 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/15 13:36:46 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-// int	ft_strcmp(const char *s1, const char *s2)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (s1[i] && s2[i])
-// 	{
-// 		while (s1[i] && s2[i])
-// 		{
-// 			if (s1[i] - s2[i])
-// 				return (s1[i] - s2[i]);
-// 			++i;
-// 		}
-// 		return (s1[i] - s2[i]);
-// 	}
-// 	return (s1[i] - s2[i]);
-// }
 
 int	ft_strcmp(const char *argv, const char *str)
 {

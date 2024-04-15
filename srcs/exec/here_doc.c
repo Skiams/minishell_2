@@ -6,23 +6,11 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 19:39:04 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/15 13:08:44 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// int	ft_strcmp(char *argv, char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!argv || !str)
-// 		return (1);
-// 	while (str[i] != '\0' && argv[i] != '\0' && argv[i] == str[i])
-// 		i += 1;
-// 	return (argv[i] - str[i]);
-// }
 
 void	ft_exec_here_doc(t_pipex *pipex, char **argv)
 {
