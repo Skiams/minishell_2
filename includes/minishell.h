@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/12 18:18:33 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/15 12:47:04 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,13 @@ int		ft_check_end_quotes(char *str, int i, char c);
 
 bool	ft_check_env_var(char *tmp_var, t_env *env);
 void	ft_check_expand(t_data *data);
+void	lst_add_back_cmd(t_cmds **cmd_lst, t_cmds *cmd);
+t_cmds	*lst_new_cmd(void);
 
 // COMMANDS
 
 bool	ft_get_cmds(t_data *data, t_token **token_lst);
+t_cmds	*lst_last_cmds(t_cmds *cmd);
 
 // ENV
 
@@ -158,6 +161,7 @@ void	ft_free_env(t_env *env);
 void	ft_free_data(t_data *data);
 void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
+void	ft_lstclear_cmd(t_cmds **cmd_lst, void (*del)(void *));
 int		ft_exit_code(int exit_code, int mode);
 void	ft_clean_all(t_data *data);
 
