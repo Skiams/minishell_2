@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 12:47:04 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/15 19:34:20 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ t_cmds	*lst_new_cmd(void);
 // COMMANDS
 
 bool	ft_get_cmds(t_data *data, t_token **token_lst);
-t_cmds	*lst_last_cmds(t_cmds *cmd);
+t_cmds	*ft_last_cmd(t_cmds *cmd);
+bool	ft_set_args(t_cmds *last_cmd, t_token **token_list);
 
 // ENV
 
@@ -170,5 +171,6 @@ void	ft_clean_all(t_data *data);
 void	print_tokens(t_token *token_lst);
 void	print_tab(char **tab);
 void	print_env(t_env *env_lst);
+void	print_cmds(t_cmds *cmd_list);
 
 #endif
