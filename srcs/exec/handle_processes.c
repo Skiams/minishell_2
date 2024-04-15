@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/15 20:07:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/15 20:25:22 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,23 +129,11 @@ void	ft_handle_processes(t_pipex *pipex, char **argv, char **env)
 
 void	ft_is_only_one_cmd(t_data *data)
 {
-	ft_printf(2, "coucou1\n");
 	if (!data)
 		return ;
-	ft_printf(2, "coucou3\n");
-//	data->cmd_list->args[0] = "pwd"; 
 	if (!data->cmd_list)
-	{
-		ft_printf(2, "coucou\n");
 		return ;
-	}
 	if (ft_is_a_built_in(data->cmd_list->cmd))
-	{
-		ft_printf(2, "ft_is_only_one_cmd()\n");
 		ft_exec_built_in(data);
-	}
 	return ;
-//	else
-//		ft_exec_one_cmd(data);
-		
 }
