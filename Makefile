@@ -11,6 +11,7 @@ SRCS		=	srcs/main.c\
 				srcs/clean_exit/clean.c\
 				srcs/clean_exit/singletons.c\
 				srcs/commands/cmds.c\
+				srcs/commands/cmd_args.c\
 				srcs/commands/lst_cmds.c\
 				srcs/debug/debug.c\
 				srcs/env/get_env.c\

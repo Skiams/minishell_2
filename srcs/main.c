@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 19:34:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/15 20:20:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static bool	ft_parsing(char *str, t_data *data)
 	if (ft_check_syntax(data) != 0)
 		return (false);
 	//ft_check_expand(data);
-	//ft_get_cmds(data, &data->token_list);
-	// data->cmds = ft_get_cmds(data);
+	if (!ft_get_cmds(data, &data->token_list))
+		return (false);
 	return (true);
 }
 
@@ -60,6 +60,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		ft_parsing(data.input, &data);
 		ft_is_only_one_cmd(&data);
+		//print_cmds(data.cmd_list);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);
 	}
