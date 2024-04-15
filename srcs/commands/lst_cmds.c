@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:54:36 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/12 18:09:57 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/15 12:50:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ t_cmds	*lst_last_cmds(t_cmds *cmd)
 	return (cmd);
 }
 
-void	lstdelone_cmd(t_cmds *cmd, void (*del)(void *))
+static void	ft_lstdelone_cmd(t_cmds *cmd, void (*del)(void *))
 {
 	if (cmd->cmd)
 		(*del)(cmd->cmd);
 	if (cmd->args)
-		free_tab(cmd->args);
+		ft_free_tab(cmd->args);
 	(*del)(cmd);
 }
 
-void	lstclear_cmd(t_cmds **cmd_lst, void (*del)(void *))
+void	ft_lstclear_cmd(t_cmds **cmd_lst, void (*del)(void *))
 {
 	t_cmds	*temp;
 
@@ -69,7 +69,7 @@ void	lstclear_cmd(t_cmds **cmd_lst, void (*del)(void *))
 	while (*cmd_lst)
 	{
 		temp = (*cmd_lst)->next;
-		lstdelone_cmd(*cmd_lst, del);
+		ft_lstdelone_cmd(*cmd_lst, del);
 		*cmd_lst = temp;
 	}
 }
