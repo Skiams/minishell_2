@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 23:55:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/15 12:47:04 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include "printf/srcs/ft_printf.h"
 # include "get_next_line/get_next_line.h"
 # include "pipex.h"
+
+extern int	g_sig_exit;
 
 typedef enum e_rule
 {
@@ -58,6 +60,15 @@ typedef struct s_env
 	struct s_env	*prev;
 }	t_env;
 
+typedef struct s_cmds
+{
+	char	*cmd;
+	char	**args;
+	struct s_cmds	*next;
+	struct s_cmds	*prev;
+}	t_cmds;
+
+
 typedef struct s_token
 {
 	char			*value;
@@ -69,10 +80,10 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	char	**cmds;
 	char	**env_exec;
 	int	status;
 	t_token	*token_list;
+	t_cmds	*cmd_list;
 	t_env	*env;
 	t_pipex	*pipex;
 }	t_data;
@@ -95,6 +106,13 @@ int		ft_check_end_quotes(char *str, int i, char c);
 
 bool	ft_check_env_var(char *tmp_var, t_env *env);
 void	ft_check_expand(t_data *data);
+void	lst_add_back_cmd(t_cmds **cmd_lst, t_cmds *cmd);
+t_cmds	*lst_new_cmd(void);
+
+// COMMANDS
+
+bool	ft_get_cmds(t_data *data, t_token **token_lst);
+t_cmds	*lst_last_cmds(t_cmds *cmd);
 
 // ENV
 
@@ -103,10 +121,6 @@ t_env	*ft_lstnew_env(char *var, char *value);
 void	ft_lstadd_back_env(t_env **env_lst, t_env *new_env);
 t_env	*ft_lstlast_env(t_env *env);
 char	**ft_lst_to_tab(t_data *data);
-
-// EXEC
-
-char	**ft_get_cmds(t_data *data);
 
 // BUILT-INS
 
@@ -136,12 +150,18 @@ char	*ft_strjoin_c(char *s1, char *s2, char c);
 void	ft_error_quotes(void);
 void	ft_syntax_error(char *str);
 
+// SIGNALS
+
+void	ft_cc_handler(int sig);
+void	ft_handle_signal();
+
 // CLEAN & EXIT
 
 void	ft_free_env(t_env *env);
 void	ft_free_data(t_data *data);
 void	ft_free_ptr(void *ptr);
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *));
+void	ft_lstclear_cmd(t_cmds **cmd_lst, void (*del)(void *));
 int		ft_exit_code(int exit_code, int mode);
 void	ft_clean_all(t_data *data);
 
