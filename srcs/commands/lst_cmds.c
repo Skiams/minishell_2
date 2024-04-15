@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:54:36 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 12:50:49 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/15 16:53:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	lst_add_back_cmd(t_cmds **cmd_lst, t_cmds *cmd)
 	}
 }
 
-t_cmds	*lst_last_cmds(t_cmds *cmd)
+t_cmds	*ft_last_cmd(t_cmds *cmd)
 {
 	while (cmd->next)
 		cmd = cmd->next;

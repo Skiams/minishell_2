@@ -6,27 +6,75 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 12:48:17 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/15 20:16:03 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// static bool	set_new_cmd(t_data *data, t_token **token_lst)
-// {
-// 	t_cmds	*new_cmd;
+static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
+{
+	t_cmds	*last_cmd;
+	t_token	*tmp;
 
-// 	if (!(*token_lst)->prev || (*token_lst)->type == PIPE)
-// 	{
-// 		new_cmd = lst_new_cmd();
-// 		if (!new_cmd)
-// 			return (false);
-// 		lst_add_back_cmd(&data->cmd_list, new_cmd);
-// 		if ((*token_lst)->type == PIPE)
-// 			(*token_lst) = (*token_lst)->next;
-// 	}
-// 	return (true);
-// }
+	tmp = *token_list;
+	while (tmp && tmp->type == WORD)
+	{
+		last_cmd = ft_last_cmd(*cmd_list);
+		// last_cmd = ft_last_cmd(*cmd_list);
+		if (!tmp->prev || (tmp->prev && tmp->prev->type == PIPE)
+		 || !last_cmd->cmd)
+		{
+			last_cmd->cmd = ft_strdup(tmp->value);
+			ft_printf(2, "cmd = %s\n", last_cmd->cmd);
+			if (!last_cmd->cmd)
+				return (ft_exit_code(12, ADD), false);
+			tmp = tmp->next;
+		}
+		else if (last_cmd && !last_cmd->args && !ft_set_args(last_cmd, &tmp))
+			return (false);
+	}
+	*token_list = tmp;
+	return (true);
+}
+static bool	ft_set_new_cmd(t_data *data, t_token **token_lst)
+{
+	t_cmds	*new_cmd;
+
+	if (!(*token_lst)->prev || (*token_lst)->type == PIPE)
+	{
+		new_cmd = lst_new_cmd();
+		if (!new_cmd)
+			return (ft_exit_code(12, ADD), false);
+		lst_add_back_cmd(&data->cmd_list, new_cmd);
+		if ((*token_lst)->type == PIPE)
+			*token_lst = (*token_lst)->next;
+	}
+	return (true);
+}
+
+bool	ft_get_cmds(t_data *data, t_token **token_lst)
+{
+	t_token	*tmp;
+
+	tmp = *token_lst;
+	while (tmp)
+	{
+		ft_printf(2, "oui nous sommes dans ft_get_cmds bonjour\n");
+		if (!ft_set_new_cmd(data, &tmp))
+			return (false);
+		if ((!tmp->prev && tmp->type == WORD) || (tmp->prev && tmp->type == WORD
+		 && (tmp->prev->type == PIPE || tmp->prev->type == WORD)))
+		{
+			ft_printf(2, "bouh\n");
+			if (!ft_cmd_word(&data->cmd_list, &tmp))
+				return (false);
+		}
+		else
+			break ;
+	}
+	return (true);
+}
 
 // bool	ft_get_cmds(t_data *data, t_token **token_lst)
 // {
