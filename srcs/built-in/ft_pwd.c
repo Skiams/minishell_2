@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 20:28:40 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/11 23:56:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:20:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void    ft_waitpid2(t_data *data)
 {
+// A MODIFIER
 	int     status;
 
 	ft_close_processes(data->pipex);

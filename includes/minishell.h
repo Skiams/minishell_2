@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 19:34:20 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/15 20:20:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
+	char	**cmds_exec;
 	char	**env_exec;
 	int	status;
 	t_token	*token_list;
@@ -137,6 +138,12 @@ void	ft_echo(char **args);
 int		ft_env(t_data *data);
 int		ft_unset(t_data *data, char **args);
 int		ft_pwd(t_data *data);
+
+// EXEC
+
+int	ft_is_a_built_in(char *str);
+void    ft_exec_built_in(t_data *data);
+void	ft_is_only_one_cmd(t_data *data);
 
 // UTILS
 
