@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 14:19:37 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 15:17:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 		 || !last_cmd->cmd)
 		{
 			last_cmd->cmd = ft_strdup(tmp->value);
-			ft_printf(2, "cmd = %s\n", last_cmd->cmd);
+//			ft_printf(2, "cmd = %s\n", last_cmd->cmd);
 			if (!last_cmd->cmd)
 				return (ft_exit_code(12, ADD), false);
 			tmp = tmp->next;

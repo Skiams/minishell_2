@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/15 20:25:22 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/16 16:43:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,7 @@ void	ft_is_only_one_cmd(t_data *data)
 		return ;
 	if (ft_is_a_built_in(data->cmd_list->cmd))
 		ft_exec_built_in(data);
+//	else
+//		ft_exec_one_not_buit_in_cmd(data);
 	return ;
 }
