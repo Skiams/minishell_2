@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 19:38:43 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/16 14:52:37 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_handle_no_file_or_dir(char *argv)
 {
 	ft_putstr_fd(argv, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
 	exit (127);
 }
