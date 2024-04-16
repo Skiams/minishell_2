@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 20:20:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/16 11:15:20 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	main(int argc, char **argv, char **env)
 		data.env = ft_get_env(&data, env);
 	else
 		data.env = NULL;
-	// if (ft_exit_code(0, GET) == 1)
-	// 	return (ft_free_data(&data), 1);
+	if (ft_exit_code(0, GET) == 1)
+		return (ft_free_data(&data), 1);
 	// a rajouter pour le get_env ?
 	//	tab = NULL;
 	while (1)
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		ft_parsing(data.input, &data);
 		ft_is_only_one_cmd(&data);
-		//print_cmds(data.cmd_list);
+		print_cmds(data.cmd_list);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);
 	}

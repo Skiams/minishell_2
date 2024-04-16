@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:15:47 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 20:04:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 11:51:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,17 @@ bool	ft_set_args(t_cmds *last_cmd, t_token **token_list)
 	t_token	*tmp;
 	int		nb;
 	int		i;
+	int		j;
 	
+	j = 0;
 	i = 0;
 	tmp = *token_list;
 	nb = ft_count_args(tmp);
-	last_cmd->args = malloc(sizeof(char *) * nb + 2);
+	last_cmd->args = malloc(sizeof(char *) * (nb + 2));
 	if (!last_cmd->args)
 		return (ft_exit_code(12, ADD), false);
+	while (j++ <= nb)
+    	last_cmd->args[j] = NULL;
 	last_cmd->args[i] = ft_strdup(last_cmd->cmd);
 	if (!last_cmd->args[i])
 		return (ft_exit_code(12, ADD), false);
@@ -66,6 +70,7 @@ bool	ft_set_args(t_cmds *last_cmd, t_token **token_list)
 	// 	*token_list = (*token_list)->next;
 	// }
 	if (!ft_add_args(&tmp, last_cmd, &i))
+		return (false);
 	last_cmd->args[i] = NULL;
 	*token_list = tmp;
 	return (true);
