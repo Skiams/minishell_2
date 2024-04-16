@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:15:47 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 11:51:13 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 15:18:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_count_args(t_token *token_list)
 {
-	ft_printf(2, "count args\n");	
+//	ft_printf(2, "count args\n");	
 	t_token	*tmp;
 	int	i;
 
