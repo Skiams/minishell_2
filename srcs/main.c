@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 11:15:20 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 14:08:26 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int argc, char **argv, char **env)
 	i = 0;
 	g_sig_exit = 0;
 	ft_memset(&data, 0, sizeof(t_data));
-	//data.env = ft_get_env(&data, env);
 	if (env)
 		data.env = ft_get_env(&data, env);
 	else
@@ -48,7 +47,6 @@ int	main(int argc, char **argv, char **env)
 	if (ft_exit_code(0, GET) == 1)
 		return (ft_free_data(&data), 1);
 	// a rajouter pour le get_env ?
-	//	tab = NULL;
 	while (1)
 	{
 		ft_handle_signal();
