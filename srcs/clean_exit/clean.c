@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 12:48:00 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 14:51:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void	ft_free_data(t_data *data)
 		data->token_list = NULL;
 	}
 	if (data && data->cmd_list)
+	{
 		ft_lstclear_cmd(&data->cmd_list, &ft_free_ptr);
+		data->cmd_list = NULL;
+	}
 }
 
 void	ft_clean_all(t_data *data)
