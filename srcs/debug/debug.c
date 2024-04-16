@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:28:44 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 14:53:41 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/16 14:59:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	print_tokens(t_token *token_lst)
 	i = 1;
 	while (tmp)
 	{
+		dprintf(2, "Token %d / type = %d / value = %s\n",
+		dprintf(2, "Token %d / type = %d / value = %s\n",
 		dprintf(2, "Token %d / type = %d / value = %s\n",
 			i, tmp->type, tmp->value);
 		tmp = tmp->next;
