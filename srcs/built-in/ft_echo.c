@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 14:09:29 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/16 16:13:40 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,17 @@ static bool	ft_is_echo_n(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '-' && str[i + 1] == 'n')
+	if (str[i] == '-')
+	{
+		i++;
+		while (str[i])
+		{
+			if (str[i] != 'n')
+				return (false);
+			i++;
+		}
 		return (true);
+	}
 	else
 		return (false);
 }
@@ -32,7 +41,7 @@ void	ft_echo(char **args)
 	n = 0;
 	if (!*args)
 		return ;
-	if (args[i] && ft_is_echo_n(args[i]))
+	while (args[i] && ft_is_echo_n(args[i]))
 	{
 		i++;
 		n = 1;
