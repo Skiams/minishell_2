@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 20:16:03 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 11:09:08 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 	while (tmp && tmp->type == WORD)
 	{
 		last_cmd = ft_last_cmd(*cmd_list);
-		// last_cmd = ft_last_cmd(*cmd_list);
 		if (!tmp->prev || (tmp->prev && tmp->prev->type == PIPE)
 		 || !last_cmd->cmd)
 		{
@@ -60,13 +59,11 @@ bool	ft_get_cmds(t_data *data, t_token **token_lst)
 	tmp = *token_lst;
 	while (tmp)
 	{
-		ft_printf(2, "oui nous sommes dans ft_get_cmds bonjour\n");
 		if (!ft_set_new_cmd(data, &tmp))
 			return (false);
 		if ((!tmp->prev && tmp->type == WORD) || (tmp->prev && tmp->type == WORD
 		 && (tmp->prev->type == PIPE || tmp->prev->type == WORD)))
 		{
-			ft_printf(2, "bouh\n");
 			if (!ft_cmd_word(&data->cmd_list, &tmp))
 				return (false);
 		}
