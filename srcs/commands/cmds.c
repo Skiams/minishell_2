@@ -6,12 +6,35 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 11:09:08 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 14:19:37 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static bool	ft_no_arg_cmd(t_data *data)
+{
+	t_cmds	*temp;
+
+	if (!data || !data->cmd_list)
+		return (false);
+	temp = data->cmd_list;
+	while (temp)
+	{
+		if (temp->cmd && !temp->args)
+		{
+			temp->args = malloc(sizeof(char *) * 2);
+			if (!temp->args)
+				return (false);
+			temp->args[0] = ft_strdup(temp->cmd);
+			if (!temp->args[0])
+				return (false);
+			temp->args[1] = NULL;
+		}
+		temp = temp->next;
+	}
+	return (true);
+}
 static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 {
 	t_cmds	*last_cmd;
@@ -67,9 +90,12 @@ bool	ft_get_cmds(t_data *data, t_token **token_lst)
 			if (!ft_cmd_word(&data->cmd_list, &tmp))
 				return (false);
 		}
+		//else if (tmp->type < PIPE)
 		else
 			break ;
 	}
+	if (!ft_no_arg_cmd(data))
+		return (false);
 	return (true);
 }
 
