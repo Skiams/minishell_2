@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/11 23:59:41 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/16 18:56:41 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include "structures.h"
+# include "minishell.h"
 # include "printf/srcs/ft_printf.h"
 # include "get_next_line/get_next_line.h"
 
@@ -28,25 +30,9 @@
 # define CORRECT_ARGV		" Please enter correct arguments:\n"
 # define ARROW	"\t→ "
 
-typedef struct s_pipex
-{
-	int		curr_pipe[2];
-	int		prev_pipe[2];
-	int		i;
-	int		argc;
-	int		here_doc;
-	int		is_here_doc;
-	int		infile;
-	int		outfile;
-	int		code_status;
-	pid_t	pid1;
-	pid_t	pid2;
-	char	*env_path;
-	char	**cmd_path;
-}		t_pipex;
-
+int		ft_exec(t_data *data, int argc, char **argv, char **env);
 void	ft_exec_here_doc(t_pipex *pipex, char **argv);
-void	ft_handle_processes(t_pipex *pipex, char **argv, char **env);
+void	ft_handle_processes(t_data *data, t_pipex *pipex, char **argv, char **env);
 void	ft_close_processes(t_pipex *pipex);
 void	ft_waitpid(t_pipex *pipex);
 
@@ -59,7 +45,7 @@ char	*ft_strdup(char *s);
 void	ft_get_path(t_pipex *pipex, char **env);
 char	*ft_strjoin(char *s1, char *s2);
 
-void	ft_print_missing_param(void);
+void	ft_print_wrong_param(void);
 void	ft_print_header(void);
 void	ft_print_footer(void);
 

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 15:56:20 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 18:17:19 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,81 +23,13 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 	#include <sys/types.h>
+# include "structures.h"
 # include "libft/libft.h"
 # include "printf/srcs/ft_printf.h"
 # include "get_next_line/get_next_line.h"
 # include "pipex.h"
 
 extern int	g_sig_exit;
-
-typedef enum e_rule
-{
-	ADD,
-	GET,
-	MALLOC,
-	FREE,
-	FREEALL,
-	DATALST,
-	ENVLST,
-}	t_rule;
-
-typedef enum e_token_tp
-{
-	APPEND = 1,
-	HEREDOC,
-	RED_IN,
-	RED_OUT,
-	PIPE,
-	WORD,
-	WHITESPACE,
-}	t_token_tp;
-
-typedef struct s_env
-{
-	char			*var;
-	char			*value;
-	struct s_env	*next;
-	struct s_env	*prev;
-}	t_env;
-
-typedef struct s_redir
-{
-	int				type;
-	char			*path;
-	char			**values;
-	struct s_redir	*next;
-	struct s_redir	*prev;	
-}	t_redir;
-
-typedef struct s_cmds
-{
-	t_redir	*redir_list;
-	char	*cmd;
-	char	**args;
-	struct s_cmds	*next;
-	struct s_cmds	*prev;
-}	t_cmds;
-
-
-typedef struct s_token
-{
-	char			*value;
-	t_token_tp		type;
-	struct s_token	*next;
-	struct s_token	*prev;
-}	t_token;
-
-typedef struct s_data
-{
-	char	*input;
-	char	**cmds_exec;
-	char	**env_exec;
-	int	status;
-	t_token	*token_list;
-	t_cmds	*cmd_list;
-	t_env	*env;
-	t_pipex	*pipex;
-}	t_data;
 
 // TOKENIZATION
 
@@ -154,7 +86,7 @@ int		ft_pwd(t_data *data);
 
 int	ft_is_a_built_in(char *str);
 void    ft_exec_built_in(t_data *data);
-void	ft_is_only_one_cmd(t_data *data);
+void	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, t_pipex *pipex);
 
 // UTILS
 
