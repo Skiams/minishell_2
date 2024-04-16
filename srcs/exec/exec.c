@@ -6,13 +6,14 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/15 13:26:37 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/16 19:09:48 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/pipex.h"
 
-void	ft_handle_multi_pipes(t_pipex *pipex, char **argv, char **env)
+static void	ft_handle_multi_pipes(t_data *data, t_pipex *pipex, char **argv, char **env)
 {
 	while (pipex->i < pipex->argc - 3)
 	{
@@ -22,7 +23,7 @@ void	ft_handle_multi_pipes(t_pipex *pipex, char **argv, char **env)
 		if (pipex->pid1 == -1)
 			ft_handle_fork_error(pipex);
 		if (pipex->pid1 == 0)
-			ft_handle_processes(pipex, argv, env);
+			ft_handle_processes(data, pipex, argv, env);
 		else if (pipex->pid1 > 0)
 		{
 			close(pipex->prev_pipe[0]);
@@ -34,20 +35,21 @@ void	ft_handle_multi_pipes(t_pipex *pipex, char **argv, char **env)
 	}
 }
 
-int	ft_exec(int argc, char **argv, char **env)
+int	ft_exec(t_data *data, int argc, char **argv, char **env)
 {
 	t_pipex	pipex;
 
 	ft_memset(&pipex, 0, sizeof(t_pipex));
 	pipex.argc = argc;
 	ft_exec_here_doc(&pipex, argv);
-	if (argc < 5 || (pipex.here_doc && argc < 6))
-		ft_print_missing_param();
 	ft_get_path(&pipex, env);
-	if (pipe(pipex.prev_pipe) == -1)
+	if (pipex.argc == 1)
+		ft_is_only_one_cmd(data, data->cmd_list, &pipex);
+	else if (pipe(pipex.prev_pipe) == -1)
+	{
 		ft_handle_pipe_error(&pipex);
-	ft_handle_multi_pipes(&pipex, argv, env);
-	ft_close_processes(&pipex);
+		ft_handle_multi_pipes(data, &pipex, argv, env);
+	}
 	ft_free_tab(pipex.cmd_path);
 	pipex.i = 0;
 	while (pipex.i++ < argc - 3)

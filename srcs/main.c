@@ -6,11 +6,12 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 14:08:26 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/16 19:12:03 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include "../includes/pipex.h"
 
 int	g_sig_exit;
 
@@ -35,10 +36,11 @@ int	main(int argc, char **argv, char **env)
 	int		i;
 	t_data	data;
 
-	(void)argc;
 	(void)argv;
 	i = 0;
 	g_sig_exit = 0;
+	if (argc != 1)
+		ft_print_wrong_param();
 	ft_memset(&data, 0, sizeof(t_data));
 	if (env)
 		data.env = ft_get_env(&data, env);
@@ -57,7 +59,8 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		}
 		ft_parsing(data.input, &data);
-		ft_is_only_one_cmd(&data);
+		ft_exec(&data, argc, argv, env);
+//		ft_is_only_one_cmd(&data, data.cmd_list, &pipex);
 		print_cmds(data.cmd_list);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);
