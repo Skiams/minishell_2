@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/05 19:40:34 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/17 12:24:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ static char	*ft_strncmp_exec(char **env, char *str, int n)
 	return (NULL);
 }
 
-void	ft_get_path(t_pipex *pipex, char **env)
+void	ft_get_path(t_cmds *cmds, char **env)
 {
-	pipex->env_path = ft_strncmp_exec(env, "PATH=", 5);
-	if (pipex->env_path)
+	cmds->env_path = ft_strncmp_exec(env, "PATH=", 5);
+	if (cmds->env_path)
 	{
-		pipex->cmd_path = ft_split_exec(pipex->env_path);
-		if (!pipex->cmd_path)
+		cmds->cmd_path = ft_split_exec(cmds->env_path);
+		if (!cmds->cmd_path)
 			return ;
 	}
 	else
-		pipex->cmd_path = NULL;
+		cmds->cmd_path = NULL;
 }

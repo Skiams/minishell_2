@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 18:17:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:56:27 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int		ft_display_export(t_data *data);
 void	ft_echo(char **args);
 int		ft_env(t_data *data);
 int		ft_unset(t_data *data, char **args);
-int		ft_pwd(t_data *data);
+int		ft_pwd(t_cmds *cmds);
 
 // EXEC
 
-int	ft_is_a_built_in(char *str);
-void    ft_exec_built_in(t_data *data);
-void	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, t_pipex *pipex);
+//int	ft_is_a_built_in(char *str);
+//void    ft_exec_built_in(t_cmds *cmds);
+//void	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, t_pipex *pipexi, char **env);
 
 // UTILS
 
