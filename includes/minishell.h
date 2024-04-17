@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/17 12:56:27 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:28:38 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include <stdbool.h>
 # include <signal.h>
 # include <sys/wait.h>
@@ -81,6 +82,7 @@ void	ft_echo(char **args);
 int		ft_env(t_data *data);
 int		ft_unset(t_data *data, char **args);
 int		ft_pwd(t_cmds *cmds);
+void	ft_exit(t_data *data, t_cmds *cmd);
 
 // EXEC
 
