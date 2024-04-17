@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_built_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/17 12:54:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 19:00:30 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_is_a_built_in(char *str)
 	if (!ft_strcmp(str, "echo"))
 		return (1);
 	if (!ft_strcmp(str, "pwd"))
+		return (1);
+	if (!ft_strcmp(str, "exit"))
 		return (1);
 	return (0);
 }
