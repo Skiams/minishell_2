@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/17 13:07:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:22:09 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	main(int argc, char **argv, char **env)
 		}
 		ft_parsing(data.input, &data);
 		ft_exec(&data, data.cmd_list, argc, argv, env);
-//		ft_is_only_one_cmd(&data, data.cmd_list, &pipex);
 		print_cmds(data.cmd_list);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);

@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/17 16:25:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 23:27:36 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ void	ft_waitpid_only_one_cmd(t_cmds *cmds)
 {
 	int	status;
 
-//	ft_close_processes2(cmds);
 	while (errno != ECHILD)
 	{
 		if (cmds->pid1 == waitpid(-1, &status, 0))
 		{
 			if (WIFEXITED(status))
-				cmds->code_status = WEXITSTATUS(status);
+				ft_exit_code(WEXITSTATUS(status), ADD);
 		}
 	}
 }
