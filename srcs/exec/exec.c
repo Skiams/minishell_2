@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/17 16:26:00 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 23:28:41 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static void	ft_handle_multi_pipes(t_data *data, t_pipex *pipex, char **argv, cha
 	}
 }
 
-int    ft_is_only_one_cmd(t_cmds *cmds, char **env)
+int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	char	*cmds_path;
 
 	if (!cmds)
 		return (0);
 	if (!cmds->cmd)
-		return (0);
+		return  (0);
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_exec_built_in(cmds);
@@ -55,12 +55,13 @@ int    ft_is_only_one_cmd(t_cmds *cmds, char **env)
 			ft_handle_fork_error2(cmds);
 		if (cmds->pid1 == 0)
 		{
-			cmds_path = ft_get_cmd_path2(cmds, cmds->cmd, cmds->args);
+			cmds_path = ft_get_cmd_path2(data, cmds, cmds->cmd, cmds->args);
 			execve(cmds_path, cmds->args, env);
 			ft_printf(2, "Attention tout le monde ! Je fail\n");
 			perror(cmds_path);
 			free(cmds_path);
 			ft_free_tab(cmds->args);
+			ft_exit_code(1, ADD);
 			exit (1);
 		}
 		else if (cmds->pid1 > 0)
@@ -69,7 +70,7 @@ int    ft_is_only_one_cmd(t_cmds *cmds, char **env)
 			while (cmds->i++ < cmds->argc)
 				ft_waitpid_only_one_cmd(cmds);
 		}
-		return (cmds->code_status);
+		return (ft_exit_code(0, GET));
 	}
 }
 
@@ -82,7 +83,7 @@ int	ft_exec(t_data *data, t_cmds *cmds, int argc, char **argv, char **env)
 	//	ft_exec_here_doc(&pipex, argv);
 	ft_get_path(cmds, env);
 	if (cmds->argc == 1)
-		ft_is_only_one_cmd(cmds, env);
+		ft_is_only_one_cmd(data, cmds, env);
 	else if (pipe(pipex.prev_pipe) == -1)
 	{
 		ft_handle_pipe_error(&pipex);
