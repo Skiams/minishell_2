@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/17 19:04:27 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/17 23:40:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 
 	code = 0;
 	if (!cmd->next && !cmd->prev)
-		ft_pustr_fd("exit\n", 1);
+		ft_putstr_fd("exit\n", 1);
 	if (cmd->prev || cmd->next)
 		return ;
 	if (cmd->args[1] && !ft_is_number(cmd->args[1]))
