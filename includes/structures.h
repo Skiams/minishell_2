@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 18:19:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 13:45:54 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,37 @@ typedef struct s_redir
 typedef struct s_pipex
 {
 	int		curr_pipe[2];
-	int             prev_pipe[2];
-	int             i;
-	int             argc;
-	int             here_doc;
-	int             is_here_doc;
-	int             infile;
-	int             outfile;
-	int             code_status;
-	pid_t   pid1;
-	pid_t   pid2;
-	char    *env_path;
-	char    **cmd_path;
-}               t_pipex;
-
+	int		prev_pipe[2];
+	int		i;
+	int		argc;
+	int		here_doc;
+	int		is_here_doc;
+	int		infile;
+	int		outfile;
+	int		code_status;
+	pid_t	pid1;
+	pid_t	pid2;
+	char	**argv;
+	char	*env_path;
+	char	**cmd_path;
+}		t_pipex;
 
 typedef struct s_cmds
 {
 	t_redir	*redir_list;
+	char	*env_path;
+	char	**cmd_path;
 	char	*cmd;
 	char	**args;
+	int		curr_pipe[2];
+	int		prev_pipe[2];
+	int		argc;
+	int		i;
+	int		here_doc;
+	int		is_here_doc;
+	int		code_status;
+	pid_t	pid1;
+	pid_t	pid2;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
 	t_pipex	*pipex;
@@ -93,9 +104,9 @@ typedef struct s_data
 	char	*input;
 	char	**cmds_exec;
 	char	**env_exec;
-	int	status;
-	int	infile;
-	int	outfile;
+	int		status;
+	int		infile;
+	int		outfile;
 	t_token	*token_list;
 	t_cmds	*cmd_list;
 	t_env	*env;

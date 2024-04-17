@@ -6,17 +6,17 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 20:28:40 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/16 17:17:28 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:58:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_data *data)
+int	ft_pwd(t_cmds *cmds)
 {
 	char	*working_dir;
 
-	(void)data;
+	(void)cmds;
 	working_dir = getcwd(NULL, 0);
 	if (!working_dir)
 	{

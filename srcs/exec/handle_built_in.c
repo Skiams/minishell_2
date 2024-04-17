@@ -6,27 +6,27 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/16 19:05:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:54:55 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_exec_built_in(t_data *data)
+void	ft_exec_built_in(t_cmds *cmds)
 {
-	if (!ft_strcmp(data->cmd_list->cmd, "echo")) 
-		ft_echo(data->cmd_list->args);
-	if (!ft_strcmp(data->cmd_list->cmd, "pwd")) 
-		ft_pwd(data);
+	if (!ft_strcmp(cmds->cmd, "echo"))
+		ft_echo(cmds->args);
+	if (!ft_strcmp(cmds->cmd, "pwd"))
+		ft_pwd(cmds);
 }
 
 int	ft_is_a_built_in(char *str)
 {
 	if (!str)
 		return (0);
-	if (!ft_strcmp(str, "echo")) 
+	if (!ft_strcmp(str, "echo"))
 		return (1);
-	if (!ft_strcmp(str, "pwd")) 
+	if (!ft_strcmp(str, "pwd"))
 		return (1);
 	return (0);
 }

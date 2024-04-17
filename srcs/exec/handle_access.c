@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/16 14:52:37 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 12:33:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,13 @@ void	ft_handle_rights(t_pipex *pipex, char *argv, char **path, char *tmp2)
 	if (tmp2)
 		free (tmp2);
 	ft_free(pipex, argv, path, "Permission denied\n");
+	exit (126);
+}
+
+void	ft_handle_rights2(t_cmds *cmds, char *argv, char **path, char *tmp2)
+{
+	if (tmp2)
+		free (tmp2);
+	ft_free2(cmds, argv, path, "Permission denied\n");
 	exit (126);
 }

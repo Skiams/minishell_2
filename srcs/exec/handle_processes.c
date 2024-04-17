@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/16 18:33:13 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/17 11:13:01 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,6 @@ void	ft_handle_outfile(t_pipex *pipex, char **argv)
 		ft_handle_slash_error(&argv[pipex->argc - 1], pipex);
 }
 
-void	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, t_pipex *pipex)
-{
-	if (!data)
-		return ;
-	if (!data->cmd_list)
-		return ;
-	if (ft_is_a_built_in(cmds->cmd))
-		ft_exec_built_in(data);
-	else
-		ft_exec_cmds(pipex, cmds->args, &pipex->env_path);
-}
-
 void	ft_handle_processes(t_data *data, t_pipex *pipex, char **argv, char **env)
 {
 	(void)data;
@@ -138,4 +126,3 @@ void	ft_handle_processes(t_data *data, t_pipex *pipex, char **argv, char **env)
 	ft_waitpid(pipex);
 	ft_exec_cmds(pipex, argv, env);
 }
-
