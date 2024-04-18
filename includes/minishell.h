@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/17 12:56:27 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 17:41:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_cmds	*lst_new_cmd(void);
 
 bool	ft_get_cmds(t_data *data, t_token **token_lst);
 t_cmds	*ft_last_cmd(t_cmds *cmd);
+int		ft_lstsize_cmd(t_cmds *cmd);
 bool	ft_set_args(t_cmds *last_cmd, t_token **token_list);
 bool	ft_redir_cmd(t_cmds **cmd_lst, t_token **token_lst);
 

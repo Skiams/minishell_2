@@ -6,7 +6,7 @@
 /*   By: ahayon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:11:23 by ahayon            #+#    #+#             */
-/*   Updated: 2023/05/30 14:19:26 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/18 17:42:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
 	if (!s)
 		return ;
-	i = 0;
-	while (s && s[i] != '\0')
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+	write(fd, s, ft_strlen(s));
 }
