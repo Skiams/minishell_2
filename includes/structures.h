@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/17 13:45:54 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 20:06:40 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_cmds
 
 typedef struct s_token
 {
+	int				quote_type;
 	char			*value;
 	t_token_tp		type;
 	struct s_token	*next;
