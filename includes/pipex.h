@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
 /*   Updated: 2024/04/18 19:37:51 by eltouma          ###   ########.fr       */
@@ -32,6 +32,8 @@
 
 int     	ft_is_a_built_in(char *str);
 void    ft_exec_built_in(t_cmds *cmds);
+int     ft_is_a_built_in(char *str);
+void    ft_exec_built_in(t_data *data,t_cmds *cmds);
 void	ft_close_processes2(t_cmds *cmds);
 void	ft_waitpid_only_one_cmd(t_cmds *cmds);
 void	ft_waitpid2(t_cmds *cmds);

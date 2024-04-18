@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 17:41:31 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 20:19:03 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 # include <stdbool.h>
 # include <signal.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-	#include <sys/types.h>
+# include <sys/types.h>
 # include "structures.h"
 # include "libft/libft.h"
 # include "printf/srcs/ft_printf.h"
@@ -44,6 +45,7 @@ bool	ft_tokenization(t_data *data);
 int		ft_check_syntax(t_data *data);
 bool	ft_check_quotes(char *str, int i);
 int		ft_check_end_quotes(char *str, int i, char c);
+bool	ft_clean_quotes(t_data *data);
 
 // EXPAND
 
@@ -82,12 +84,7 @@ void	ft_echo(char **args);
 int		ft_env(t_data *data);
 int		ft_unset(t_data *data, char **args);
 int		ft_pwd(t_cmds *cmds);
-
-// EXEC
-
-//int	ft_is_a_built_in(char *str);
-//void    ft_exec_built_in(t_cmds *cmds);
-//void	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, t_pipex *pipexi, char **env);
+void	ft_exit(t_data *data, t_cmds *cmd);
 
 // UTILS
 

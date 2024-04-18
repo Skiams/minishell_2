@@ -59,8 +59,10 @@ void	print_cmds(t_cmds *cmd_list)
 {
 	t_cmds	*tmp;
 	int		i;
+	int		j;
 	
 	i = 0;
+	j = 1;
 	tmp = cmd_list;
 	while (tmp)
 	{
@@ -69,9 +71,11 @@ void	print_cmds(t_cmds *cmd_list)
 		while (tmp->args[i])
 		{
 			dprintf(2, "cmd->args[%d] = %s\n", i, tmp->args[i]);
+
 			i++;
 		}
 		tmp = tmp->next;
+		j++;
 	}
 }
 // void	print_cmd(t_cmd *cmd_lst)

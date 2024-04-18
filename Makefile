@@ -8,6 +8,7 @@ SRCS		=	srcs/main.c\
 				srcs/built-in/ft_export.c\
 				srcs/built-in/ft_export_utils.c\
 				srcs/built-in/ft_unset.c\
+				srcs/built-in/ft_exit.c\
 				srcs/clean_exit/clean.c\
 				srcs/clean_exit/singletons.c\
 				srcs/commands/cmds.c\
