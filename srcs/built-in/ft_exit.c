@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/17 23:40:33 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 13:52:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static void	ft_exit_errors(int code, char *str)
 		ft_exit_code(2, ADD);
 	}
 	else if (code == 2)
-		ft_putstr_fd("minishell: exit: too many arguments", 2);
+	{
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		ft_exit_code(1, ADD);
+	}
 }
 
 static bool	ft_is_number(char *str)
@@ -62,7 +65,7 @@ static int	ft_get_status(char *nb)
 	{
 		res = (res * 10) + (nb[i] - '0');
 		if ((sign == 1 && res > LLONG_MAX)
-		|| (sign == -1 && res < LLONG_MIN - 1))
+		|| (sign == -1 && res - 1 > LLONG_MAX))
 			return (-1);
 		i++;
 	}
@@ -71,9 +74,6 @@ static int	ft_get_status(char *nb)
 
 void	ft_exit(t_data *data, t_cmds *cmd)
 {
-	int	code;
-
-	code = 0;
 	if (!cmd->next && !cmd->prev)
 		ft_putstr_fd("exit\n", 1);
 	if (cmd->prev || cmd->next)
@@ -84,48 +84,19 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 		if (cmd->prev || cmd->next)
 			return ;
 	}
-	else if (cmd->args[1] && ft_get_status(cmd->args[1]) == -1)
+	else if (cmd->args[1] && ft_is_number(cmd->args[1]))
 	{
-		ft_exit_errors(1, cmd->args[1]);
+		if (ft_get_status(cmd->args[1]) == -1)
+			ft_exit_errors(1, cmd->args[1]);
+		else
+			(ft_exit_code(ft_get_status(cmd->args[1]), ADD));
+		//dprintf(2, "exit code = %d\n", ft_exit_code(0, GET));
 		if (cmd->prev || cmd->next)
 			return ;
 	}
-	else if (cmd->args[2])
+	else if (cmd->args && cmd->args[2])
 		return (ft_exit_errors(2, cmd->args[1]));
 	ft_clean_all(data);
+	//dprintf(2, "exit code = %d\n", ft_exit_code(0, GET));
 	exit (ft_exit_code(0, GET));
 }
-
-
-	// if (cmd->args[1] && !ft_isnumber(cmd->args[1]))
-	// {
-	// 	if (!cmd->next && !cmd->prev)
-	// 		ft_putstr_fd("exit\n", 2);
-	// 	ft_putstr_fd("minishell: exit: ", 2);
-	// 	ft_putstr_fd(cmd->args[1], 2);
-	// 	ft_putstr_fd(": numeric argument required\n", 2);
-	// 	if (cmd->next || cmd->prev)
-	// 	{
-	// 		if (!cmd->next)
-	// 			ft_exit_code(2, ADD);
-	// 		return ;
-	// 	} 
-	// }
-	// if ((!cmd->next && !cmd->prev)|| (!cmd->next && cmd->prev
-	// && !cmd->args[2]))
-	// {
-	// 	ft_putstr_fd("exit\n", 1);
-	// 	if (cmd->args[1] && !ft_isnumber(cmd->args[1]))
-	// 	{
-	// 		ft_putstr_fd("minishell: exit: ", 2);
-	// 		ft_putstr_fd(cmd->args[1], 2);
-	// 		ft_putstr_fd(": numeric argument required\n", 2);
-	// 		ft_exit_code(2, ADD);
-	// 	}
-	// 	else if (cmd->args[1] && ft_isnumber(cmd->args))
-	// }
-	// else if (cmd->args[2])
-	// {
-	// 	ft_putstr_fd("minishell: exit: too many arguments", 2);
-		
-	// }

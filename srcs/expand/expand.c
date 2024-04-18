@@ -6,11 +6,16 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 18:05:50 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/18 20:02:31 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// bool	ft_expand(t_data *data)
+// {
+	
+// }
 
 // static bool	ft_replace_env_var(t_data *data, t_token *token, char *new_value)
 // {

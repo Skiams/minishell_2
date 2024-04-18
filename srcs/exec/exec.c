@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/17 23:28:41 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 13:26:52 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		return  (0);
 	if (ft_is_a_built_in(cmds->cmd))
 	{
-		ft_exec_built_in(cmds);
+		ft_exec_built_in(data, cmds);
 		return (0);
 	}
 	else
