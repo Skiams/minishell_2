@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/18 19:37:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 21:15:47 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define ARROW	"\t→ "
 
 int     	ft_is_a_built_in(char *str);
-void    ft_exec_built_in(t_cmds *cmds);
+void    ft_exec_built_in(t_data *data, t_cmds *cmds);
 int     ft_is_a_built_in(char *str);
 void    ft_exec_built_in(t_data *data,t_cmds *cmds);
 void	ft_close_processes2(t_cmds *cmds);

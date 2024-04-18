@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/18 21:00:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 21:17:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	ft_handle_outfile(t_pipex *pipex, char **argv)
 void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
 {
    //     char    *cmds_path;
-	(void)data;
 
        // if (!cmds)
        //        return (0);
@@ -135,7 +134,7 @@ void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
                 return ;
         if (ft_is_a_built_in(cmds->cmd))
         {
-                ft_exec_built_in(cmds);
+                ft_exec_built_in(data, cmds);
                 return ;
         }
         else
@@ -176,7 +175,6 @@ void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
 
 void	ft_handle_last_cmd(t_data *data, t_cmds *cmds)
 {
-	(void)data;
 
        // if (!cmds)
        //        return (0);
@@ -184,7 +182,7 @@ void	ft_handle_last_cmd(t_data *data, t_cmds *cmds)
                 return ;
 	if (ft_is_a_built_in(cmds->cmd))
 	{
-		ft_exec_built_in(cmds);
+		ft_exec_built_in(data, cmds);
 		return ;
 	}
 	else
