@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 13:52:49 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/18 15:56:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,3 +100,4 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 	//dprintf(2, "exit code = %d\n", ft_exit_code(0, GET));
 	exit (ft_exit_code(0, GET));
 }
+

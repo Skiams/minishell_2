@@ -6,18 +6,11 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:31:34 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/16 18:58:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/18 15:59:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	ft_putstr_fd(char *str, int fd)
-{
-	if (!str)
-		return ;
-	write(fd, str, ft_strlen(str));
-}
 
 void	ft_print_header(void)
 {

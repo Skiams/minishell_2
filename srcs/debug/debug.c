@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:28:44 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 12:52:45 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/18 16:39:00 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ void	print_cmds(t_cmds *cmd_list)
 	while (tmp)
 	{
 		i = 0;
-		dprintf(2, "cmd %d = %s\n", j,  tmp->cmd);
+		dprintf(2, "cmds->cmd = %s\n", tmp->cmd);
 		while (tmp->args[i])
 		{
-			dprintf(2, "cmd args[%d] = %s\n", i, tmp->args[i]);
+			dprintf(2, "cmd->args[%d] = %s\n", i, tmp->args[i]);
+
 			i++;
 		}
 		tmp = tmp->next;

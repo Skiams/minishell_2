@@ -6,12 +6,13 @@
 /*   By: ahayon <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:58:16 by ahayon            #+#    #+#             */
-/*   Updated: 2023/05/26 13:53:17 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/18 16:11:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
 int	ft_lstsize(t_list *lst)
 {
 	int	count;
@@ -26,3 +27,4 @@ int	ft_lstsize(t_list *lst)
 	}
 	return (count);
 }
+*/

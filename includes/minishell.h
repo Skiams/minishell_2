@@ -23,7 +23,7 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-	#include <sys/types.h>
+# include <sys/types.h>
 # include "structures.h"
 # include "libft/libft.h"
 # include "printf/srcs/ft_printf.h"
@@ -58,6 +58,7 @@ t_cmds	*lst_new_cmd(void);
 
 bool	ft_get_cmds(t_data *data, t_token **token_lst);
 t_cmds	*ft_last_cmd(t_cmds *cmd);
+int		ft_lstsize_cmd(t_cmds *cmd);
 bool	ft_set_args(t_cmds *last_cmd, t_token **token_list);
 bool	ft_redir_cmd(t_cmds **cmd_lst, t_token **token_lst);
 
