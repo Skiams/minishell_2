@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/18 21:15:47 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/19 17:18:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 int     	ft_is_a_built_in(char *str);
 void    ft_exec_built_in(t_data *data, t_cmds *cmds);
 int     ft_is_a_built_in(char *str);
-void    ft_exec_built_in(t_data *data,t_cmds *cmds);
 void	ft_close_processes2(t_cmds *cmds);
 void	ft_waitpid_only_one_cmd(t_cmds *cmds);
 void	ft_waitpid2(t_cmds *cmds);
@@ -52,7 +51,7 @@ int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
 void	ft_handle_first_cmd(t_data *data, t_cmds *cmds);
 void	ft_exec_cmds2(t_data *data, t_cmds *cmds, char **argv, char **env);
 
-int		ft_exec(t_data *data, t_cmds *cmds, int argc, char **argv, char **env);
+int		ft_exec(t_data *data, t_cmds *cmds, char **env);
 void	ft_exec_cmds(t_pipex *pipex, char **argv, char **env);
 void	ft_exec_here_doc(t_pipex *pipex, char **argv);
 void	ft_handle_processes(t_data *data, t_pipex *pipex, char **argv, char **env);

@@ -72,6 +72,7 @@ fclean:		clean
 			rm -f ${NAME}
 			make fclean -C $(LIBFT) && make fclean -C $(PRINTF)
 
-re:			fclean all
+re:			fclean
+			make all
 
 .PHONY:		all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 20:06:40 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/19 15:54:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_data
 	t_token	*token_list;
 	t_cmds	*cmd_list;
 	t_env	*env;
+	t_redir	*redir;
 }	t_data;
 
 #endif

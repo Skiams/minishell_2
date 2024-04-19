@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 20:55:30 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/19 17:39:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,35 @@ static bool	ft_parsing(char *str, t_data *data)
 	return (true);
 }
 
+void	ft_init_struct(t_env *env, t_cmds *cmds, t_token *token, t_redir *redir)
+{
+/*	t_env	env;
+	t_redir	redir;
+	t_cmds	cmds;
+	t_token	token;
+*/
+//	ft_memset(data, 0, sizeof(t_data));
+	ft_memset(env, 0, sizeof(t_env));
+	ft_memset(redir, 0, sizeof(t_redir));
+	ft_memset(cmds, 0, sizeof(t_cmds));
+	ft_memset(token, 0, sizeof(t_token));
+}
+
 int	main(int argc, char **argv, char **env)
 {
-	int		i;
 	t_data	data;
+	t_env	data_env;
+	t_redir	redir;
+	t_cmds	cmds;
+	t_token	token;
+
 
 	(void)argv;
-	i = 0;
 	g_sig_exit = 0;
 	if (argc != 1)
 		ft_print_wrong_param();
 	ft_memset(&data, 0, sizeof(t_data));
+	ft_init_struct(&data_env, &cmds, &token, &redir);
 	if (env)
 		data.env = ft_get_env(&data, env);
 	else
@@ -59,10 +77,11 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		}
 		//print_env(data.env);
-		ft_parsing(data.input, &data);
-		ft_exec(&data, data.cmd_list, argc, argv, env);
-		print_tokens(data.token_list);
-		print_cmds(data.cmd_list);
+		if (!ft_parsing(data.input, &data))
+			break ;
+		ft_exec(&data, data.cmd_list, env);
+//		print_tokens(data.token_list);
+//		print_cmds(data.cmd_list);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);
 	}
