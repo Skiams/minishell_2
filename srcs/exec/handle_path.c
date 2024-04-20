@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 15:28:06 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 21:46:48 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@ void	ft_free(t_pipex *pipex, char *argv, char **path, char *error)
 
 void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char *error)
 {
+	(void)cmds;
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
-	ft_free_tab(cmds->cmd_path);
+	while (cmds && cmds != NULL)
+	{
+		ft_free_tab(cmds->cmd_path);
+		cmds = cmds->next;
+	}
 	ft_clean_all(data);
 }
 
