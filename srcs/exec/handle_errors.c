@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/17 15:36:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:12:28 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_handle_fork_error2(t_cmds *cmds)
 {
 	ft_putstr_fd("fork failed\n", 2);
 	ft_close_processes2(cmds);
-	waitpid(cmds->pid1, NULL, 0);
+	waitpid(cmds->pid, NULL, 0);
 	ft_free_tab(cmds->cmd_path);
 	exit (1);
 }

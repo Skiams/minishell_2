@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/19 19:24:07 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:34:58 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,13 @@ void	ft_exec_cmds(t_pipex *pipex, char **argv, char **env)
 
 void	ft_exec_cmds2(t_data *data, t_cmds *cmds, char **argv, char **env)
 {
-//	int		i;
-//	char	**cmds;
 	char	*cmds_path;
 	(void)argv;
 
 
-	ft_printf(2, "exec_cmds() ici cmd : %s\n", cmds->cmd);
-//	cmds = ft_split_exec(argv[cmds->i + 2]);
-//	if (!cmds)
-//	{
-//		ft_free_tab(cmds->cmd_path);
-//		exit (1);
-//	}
 	cmds_path = ft_get_cmd_path2(data, cmds, cmds->cmd, cmds->args);
-	ft_putstr_fd("je rentre la\n", 2);
 	execve(cmds_path, cmds->args, env);
-//	ft_printf(2, "Attention tout le monde ! Je fail meme avec plusieurs commandes !\n");
+	ft_printf(2, "Attention tout le monde ! Je fail meme avec plusieurs commandes !\n");
 	perror(cmds_path);
 	free(cmds_path);
 	ft_free_tab(cmds->cmd_path);
@@ -127,17 +117,12 @@ void	ft_handle_outfile(t_pipex *pipex, char **argv)
 		ft_handle_slash_error(&argv[pipex->argc - 1], pipex);
 }
 
-void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
+void     ft_handle_first_cmd(t_cmds *cmds)
 {
-	(void)data;
         if (!cmds->cmd)
                 return ;
         else
         {
-	//	if (close(cmds->prev_pipe[1]) == -1)
-	//		ft_handle_close_error2(cmds);
-	//	if (close(cmds->curr_pipe[0]) == -1)
-	//		ft_handle_close_error2(cmds);
 		if (close(cmds->prev_pipe[0]) == -1)
 			ft_handle_close_error2(cmds);
 		if (dup2(cmds->curr_pipe[1], 1) == -1)
@@ -145,14 +130,11 @@ void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
 		if (close(cmds->curr_pipe[1]) == -1)
 			ft_handle_close_error2(cmds);
         }
-//	cmds = cmds->next;
 }
 
-void	ft_handle_last_cmd(t_data *data, t_cmds *cmds)
+void	ft_handle_last_cmd(t_cmds *cmds)
 {
-	(void)data;
-	ft_printf(2, "handle_last_cmd() argc: %d\n", cmds->argc);
-    if (!cmds->cmd)
+    	if (!cmds->cmd)
                 return ;
 	else
 	{
@@ -169,35 +151,12 @@ void	ft_handle_processes2(t_data *data, t_cmds *cmds, char **argv, char **env)
 {
 	(void)argv;
 
-	ft_printf(2, "handle_processes() ici argc : %d\n", cmds->argc);
-	ft_printf(2, "handle_processes() cmds : %s\n", cmds->cmd);
-//	ft_printf(2, "handle_processes() cmds->next : %s\n", cmds->next);
-//	if (cmds->i == 0)
 	if (cmds && !cmds->prev)
-		ft_handle_first_cmd(NULL, cmds);
-	else
-//	if (cmds->next == NULL)
-		ft_handle_last_cmd(NULL, cmds);
-	ft_close_processes2(cmds);
+		ft_handle_first_cmd(cmds);
+	else if (cmds->next == NULL)
+		ft_handle_last_cmd(cmds);
+	ft_waitpid2(cmds);
 	ft_exec_cmds2(data, cmds, argv, env);
-/*
-	else if (cmds->i == cmds->argc - 4)
-		ft_handle_outfile(cmds, argv);
-	else
-	{
-		if (dup2(cmds->prev_pipe[0], STDIN_FILENO) == -1)
-			ft_handle_dup2_error(cmds);
-		if (dup2(cmds->curr_pipe[1], STDOUT_FILENO) == -1)
-			ft_handle_dup2_error(cmds);
-		if (ft_is_space_only(argv[cmds->i + cmds->is_here_doc]))
-			ft_handle_space_error(&argv[cmds->i + cmds->is_here_doc], cmds);
-		if (ft_is_slash_only(argv[cmds->i + cmds->is_here_doc]))
-			ft_handle_slash_error(&argv[cmds->i + cmds->is_here_doc], cmds);
-	}
-	ft_close_processes(cmds);
-	ft_waitpid(cmds);
-	ft_exec_cmds(cmds, argv, env);
-*/
 }
 
 void	ft_handle_processes(t_data *data, t_pipex *pipex, char **argv, char **env)

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/19 19:22:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:28:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	ft_free(t_pipex *pipex, char *argv, char **path, char *error)
 	ft_free_tab(pipex->cmd_path);
 }
 
-void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char **args, char *error)
+void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char *error)
 {
-	(void)cmds;
-	(void)args;
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
@@ -122,17 +120,9 @@ static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args,
 {
 	char	*tmp;
 	char	*tmp2;
-	int	j = 0;
-
-	dprintf(2, "caca : %s\n", cmd);
-	for (size_t i = 0; cmds->cmd_path[i] ; i++)
-	{
-		dprintf(2, "%s cmds->cmd_path[%zu] : %s\n",cmd, i, cmds->cmd_path[i]);
-	}
 	
 	while (cmds->cmd_path && cmds->cmd_path[i])
 	{
-		dprintf(2, "j : %d\n", j++);
 		tmp = ft_strjoin(cmds->cmd_path[i++], "/");
 		if (!tmp)
 			return (NULL);
@@ -149,8 +139,7 @@ static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args,
 		}
 		free(tmp2);
 	}
-	ft_printf(2, "handle_path() cmd %s\n", cmds->cmd);
-	ft_free2(data, cmds, cmd, args, "command not found\n");
+	ft_free2(data, cmds, cmd, "command not found\n");
 	exit (ft_exit_code(127, ADD));
 }
 

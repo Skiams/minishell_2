@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/17 23:18:40 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:27:17 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,23 @@ void	ft_handle_rights(t_pipex *pipex, char *argv, char **path, char *tmp2)
 
 void	ft_handle_rights2(t_data *data, t_cmds *cmds, char *cmd, char **args, char *tmp2)
 {
+	(void)args;
 	if (tmp2)
 		free (tmp2);
-	ft_free2(data, cmds, cmd, args, "Permission denied\n");
+	ft_free2(data, cmds, cmd, "Permission denied\n");
 	exit (ft_exit_code(126, ADD));
 }
 
 void	ft_handle_no_file_or_dir2(t_data *data, t_cmds *cmds, char *cmd, char **args)
 {
-	ft_free2(data, cmds, cmd, args, ": No such file or directory 😮\n");
+	(void)args;
+	ft_free2(data, cmds, cmd, ": No such file or directory 😮\n");
 	exit (ft_exit_code(127, ADD));
 }
 
 void	ft_handle_directory2(t_data *data, t_cmds *cmds, char *cmd, char **args)
 {
-	ft_free2(data, cmds, cmd, args, "Is a directory\n");
+	(void)args;
+	ft_free2(data, cmds, cmd, "Is a directory\n");
 	exit (ft_exit_code(126, ADD));
 }

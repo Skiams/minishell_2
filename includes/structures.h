@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/19 15:54:40 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:11:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,7 @@ typedef struct s_cmds
 	int		here_doc;
 	int		is_here_doc;
 	int		code_status;
-	pid_t	pid1;
-	pid_t	pid2;
+	pid_t	pid;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
 	t_pipex	*pipex;
