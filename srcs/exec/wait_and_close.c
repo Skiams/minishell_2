@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/18 19:14:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:10:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_waitpid2(t_cmds *cmds)
 	ft_close_processes2(cmds);
 	while (errno != ECHILD)
 	{
-		if (cmds->pid1 == waitpid(-1, &status, 0))
+		if (cmds->pid == waitpid(-1, &status, 0))
 		{
 			if (WIFEXITED(status))
 				ft_exit_code(WEXITSTATUS(status), ADD);
@@ -64,7 +64,7 @@ void	ft_waitpid_only_one_cmd(t_cmds *cmds)
 
 	while (errno != ECHILD)
 	{
-		if (cmds->pid1 == waitpid(-1, &status, 0))
+		if (cmds->pid == waitpid(-1, &status, 0))
 		{
 			if (WIFEXITED(status))
 				ft_exit_code(WEXITSTATUS(status), ADD);

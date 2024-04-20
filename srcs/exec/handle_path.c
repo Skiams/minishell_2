@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/17 23:20:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 15:28:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	ft_free(t_pipex *pipex, char *argv, char **path, char *error)
 	ft_free_tab(pipex->cmd_path);
 }
 
-void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char **args, char *error)
+void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char *error)
 {
-	(void)cmds;
-	(void)args;
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
@@ -122,7 +120,7 @@ static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args,
 {
 	char	*tmp;
 	char	*tmp2;
-
+	
 	while (cmds->cmd_path && cmds->cmd_path[i])
 	{
 		tmp = ft_strjoin(cmds->cmd_path[i++], "/");
@@ -141,7 +139,7 @@ static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args,
 		}
 		free(tmp2);
 	}
-	ft_free2(data, cmds, cmd, args, "command not found\n");
+	ft_free2(data, cmds, cmd, "command not found\n");
 	exit (ft_exit_code(127, ADD));
 }
 
