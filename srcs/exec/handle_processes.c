@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 21:49:10 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 22:55:51 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,13 @@ void	ft_handle_processes2(t_data *data, t_cmds *cmds, char **argv, char **env)
 		ft_handle_first_cmd(cmds);
 	else if (cmds->next == NULL)
 		ft_handle_last_cmd(cmds);
+	else
+	{
+		if (dup2(cmds->prev_pipe[0], STDIN_FILENO) == -1)
+			ft_handle_dup2_error2(cmds);
+		if (dup2(cmds->curr_pipe[1], STDOUT_FILENO) == -1)
+			ft_handle_dup2_error2(cmds);
+	}
 	ft_waitpid2(cmds);
 	ft_exec_cmds2(data, cmds, argv, env);
 }
