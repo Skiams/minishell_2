@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 15:34:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 21:49:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ void	ft_exec_cmds2(t_data *data, t_cmds *cmds, char **argv, char **env)
 	ft_printf(2, "Attention tout le monde ! Je fail meme avec plusieurs commandes !\n");
 	perror(cmds_path);
 	free(cmds_path);
-	ft_free_tab(cmds->cmd_path);
+	while (cmds && cmds != NULL)
+	{
+		ft_free_tab(cmds->cmd_path);
+		cmds = cmds->next;
+	}
 	ft_clean_all(data);
 	ft_exit_code(1, ADD);
 	exit (1);

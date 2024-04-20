@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 15:36:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/20 21:43:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static void	ft_handle_multi_pipes2(t_data *data, t_cmds *cmds, char **argv, char
 				cmds->next->prev_pipe[0] = cmds->curr_pipe[0];
 				cmds->next->prev_pipe[1] = cmds->curr_pipe[1];
 			}
+			ft_free_tab(cmds->cmd_path);
 			if (cmds->next == NULL)
 				break;
 		}
 		cmds = cmds->next;
 	}
-	ft_free_tab(cmds->cmd_path);
 	cmds = tmp;
 	cmds->i = 0;
 	while (cmds->i++ < cmds->argc)
@@ -83,6 +83,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 			while (cmds->i++ < cmds->argc)
 				ft_waitpid_only_one_cmd(cmds);
 		}
+		ft_free_tab(cmds->cmd_path);
 		return (ft_exit_code(0, GET));
 	}
 }
@@ -110,6 +111,6 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_pipe_error2(cmds);
 		ft_handle_multi_pipes2(data, cmds, &cmds->cmd, env);
 	}
-	ft_free_tab(cmds->cmd_path);
+//	ft_free_tab(cmds->cmd_path);
 	return (ft_exit_code(0, GET));
 }
