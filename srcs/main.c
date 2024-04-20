@@ -25,7 +25,9 @@ static bool	ft_parsing(char *str, t_data *data)
 		return (false);
 	if (ft_check_syntax(data) != 0)
 		return (false);
-	//ft_check_expand(data);
+	print_tokens(data->token_list);
+	//if (!ft_expand(data))
+	//	return (false);
 	if (!ft_get_cmds(data, &data->token_list))
 		return (false);
 	return (true);
@@ -76,12 +78,11 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
-		//print_env(data.env);
 		if (!ft_parsing(data.input, &data))
 			break ;
 		ft_exec(&data, data.cmd_list, env);
-//		print_tokens(data.token_list);
-//		print_cmds(data.cmd_list);
+		print_tokens(data.token_list);
+		print_cmds(data.cmd_list);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);
 	}
