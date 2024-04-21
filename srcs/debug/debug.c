@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:28:44 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/19 18:34:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/21 22:45:19 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,42 @@ void	print_tab(char **tab)
 void	print_cmds(t_cmds *cmd_list)
 {
 	t_cmds	*tmp;
-	int		ii;
-	int		j;
+	int		i;
 	
-	ii = 0;
-	j = 1;
 	tmp = cmd_list;
 	while (tmp)
 	{
-		ii = 0;
+		i = 0;
 		dprintf(2, "cmds->cmd = %s\n", tmp->cmd);
 		dprintf(2, "cmds->argc = %d\n", tmp->argc);
-		while (tmp->args[ii])
+		while (tmp->args[i])
 		{
-			dprintf(2, "cmd->args[%d] = %s\n", ii, tmp->args[ii]);
-			ii++;
+			dprintf(2, "cmd->args[%d] = %s\n", i, tmp->args[i]);
+			i++;
 		}
 		tmp = tmp->next;
-		j++;
 	}
 }
+
+void	print_redir(t_redir *redir)
+{
+	t_redir	*tmp;
+	int	i;
+
+	tmp = redir;
+	while (redir)
+	{
+		i = 0;
+		dprintf(2, "redir->type = %d\n", tmp->type);
+		dprintf(2, "redir->argc = %s\n", tmp->path);
+		while (tmp->values[i++])
+			dprintf(2, "cmd->values[%d] = %s\n", i, tmp->values[i]);
+		tmp = tmp->next;
+
+	}
+	
+}
+
 // void	print_cmd(t_cmd *cmd_lst)
 // {
 // 	int	i;

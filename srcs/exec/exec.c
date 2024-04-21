@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 21:43:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/21 22:42:47 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,5 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_pipe_error2(cmds);
 		ft_handle_multi_pipes2(data, cmds, &cmds->cmd, env);
 	}
-//	ft_free_tab(cmds->cmd_path);
 	return (ft_exit_code(0, GET));
 }
