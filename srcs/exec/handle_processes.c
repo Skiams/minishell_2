@@ -52,11 +52,9 @@ void	ft_handle_infile(t_pipex *pipex, char **argv)
 
 void	ft_exec_cmds(t_pipex *pipex, char **argv, char **env)
 {
-	int		i;
 	char	**cmds;
 	char	*cmds_path;
 
-	i = 0;
 	cmds = ft_split_exec(argv[pipex->i + 2]);
 	if (!cmds)
 	{
