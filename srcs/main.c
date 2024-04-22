@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		ft_handle_signal();
-		data.input = readline("minishell$ ");
+		data.input = readline("1️⃣   minishell$ ");
 		if (!data.input)
 		{
 			ft_putstr_fd("exit\n", 1);
@@ -80,10 +80,10 @@ int	main(int argc, char **argv, char **env)
 		}
 		if (!ft_parsing(data.input, &data))
 			break ;
-		ft_exec(&data, data.cmd_list, env);
+		ft_exec(&data, data.cmd_list, env, data.redir_list);
 //		print_tokens(data.token_list);
 //		print_cmds(data.cmd_list);
-		print_redir(data.redir);
+		print_redir(data.redir_list);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
 		ft_free_data(&data);
 	}

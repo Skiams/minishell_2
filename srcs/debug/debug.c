@@ -85,9 +85,9 @@ void	print_redir(t_redir *redir)
 	{
 		i = 0;
 		dprintf(2, "redir->type = %d\n", tmp->type);
-		dprintf(2, "redir->argc = %s\n", tmp->path);
-		while (tmp->values[i++])
-			dprintf(2, "cmd->values[%d] = %s\n", i, tmp->values[i]);
+		dprintf(2, "redir->path = %s\n", tmp->path);
+		while (tmp->args[i++])
+			dprintf(2, "cmd->args[%d] = %s\n", i, tmp->args[i]);
 		tmp = tmp->next;
 
 	}

@@ -47,7 +47,7 @@ typedef struct s_redir
 {
 	int				type;
 	char			*path;
-	char			**values;
+	char			**args;
 	struct s_redir	*next;
 	struct s_redir	*prev;	
 }	t_redir;
@@ -72,7 +72,7 @@ typedef struct s_pipex
 
 typedef struct s_cmds
 {
-	t_redir	*redir_list;
+	t_redir	*redirections;
 	char	*env_path;
 	char	**cmd_path;
 	char	*cmd;
@@ -109,8 +109,8 @@ typedef struct s_data
 	int		outfile;
 	t_token	*token_list;
 	t_cmds	*cmd_list;
+	t_redir	*redir_list;
 	t_env	*env;
-	t_redir	*redir;
 }	t_data;
 
 #endif

@@ -51,7 +51,7 @@ int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
 void	ft_handle_first_cmd(t_cmds *cmds);
 void	ft_exec_cmds2(t_data *data, t_cmds *cmds, char **argv, char **env);
 
-int		ft_exec(t_data *data, t_cmds *cmds, char **env);
+int		ft_exec(t_data *data, t_cmds *cmds, char **env, t_redir *redir);
 void	ft_exec_cmds(t_pipex *pipex, char **argv, char **env);
 void	ft_exec_here_doc(t_pipex *pipex, char **argv);
 void	ft_handle_processes(t_data *data, t_pipex *pipex, char **argv, char **env);

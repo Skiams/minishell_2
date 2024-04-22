@@ -78,7 +78,8 @@ void	ft_exec_cmds2(t_data *data, t_cmds *cmds, char **argv, char **env)
 
 	cmds_path = ft_get_cmd_path2(data, cmds, cmds->cmd, cmds->args);
 	execve(cmds_path, cmds->args, env);
-	ft_printf(2, "Attention tout le monde ! Je fail meme avec plusieurs commandes !\n");
+	ft_putstr_fd("Attention tout le monde ! Je fail meme avec plusieurs commandes !\n", 2);
+	ft_putstr_fd("minishell: ", 2);
 	perror(cmds_path);
 	free(cmds_path);
 	while (cmds && cmds != NULL)
