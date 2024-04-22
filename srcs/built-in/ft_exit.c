@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 15:56:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/22 13:35:53 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,11 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 			ft_exit_errors(1, cmd->args[1]);
 		else
 			(ft_exit_code(ft_get_status(cmd->args[1]), ADD));
-		//dprintf(2, "exit code = %d\n", ft_exit_code(0, GET));
 		if (cmd->prev || cmd->next)
 			return ;
 	}
-	else if (cmd->args && cmd->args[2])
+	else if (cmd->args && cmd->args[1] && cmd->args[2])
 		return (ft_exit_errors(2, cmd->args[1]));
 	ft_clean_all(data);
-	//dprintf(2, "exit code = %d\n", ft_exit_code(0, GET));
 	exit (ft_exit_code(0, GET));
 }
-
