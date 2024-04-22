@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/11 16:52:16 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/22 14:36:00 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	ft_check_export_case(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
-			return (ft_error_export(str), 0);
-		else if (str[i] == '=' && str[i - 1] == '+')
+		if (str[i] == '=' && str[i - 1] == '+')
 			return (3);
+		else if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
+			return (ft_error_export(str), 0);
 		else if (str[i] == '=')
 			return (2);
 		i++;
@@ -50,8 +50,11 @@ void	ft_error_export(char *str)
 
 	i = 0;
 	ft_putstr_fd("minishell: export: '", 2);
-	while (str[i++])
+	while (str[i])
+	{
 		write(2, &str[i], 1);
+		i++;
+	}
 	ft_putstr_fd("': not a valid identifier\n", 2);
 	ft_exit_code(1, ADD);
 }

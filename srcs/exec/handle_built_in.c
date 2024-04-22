@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/19 17:23:21 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/22 14:18:48 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 		ft_exit(data, cmds);
 	if (!ft_strcmp(cmds->cmd, "env"))
 		ft_env(data);
+	if (!ft_strcmp(cmds->cmd, "export"))
+		ft_export(data, cmds->args);
 }
 
 int	ft_is_a_built_in(char *str)
@@ -35,6 +37,8 @@ int	ft_is_a_built_in(char *str)
 	if (!ft_strcmp(str, "exit"))
 		return (1);
 	if (!ft_strcmp(str, "env"))
+		return (1);
+	if (!ft_strcmp(str, "export"))
 		return (1);
 	return (0);
 }

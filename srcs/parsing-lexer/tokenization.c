@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 20:30:25 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/22 18:53:54 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@ int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 	return (i);
 }
 
-int	ft_add_word(t_token **token_lst, char *str, int i)
+int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 {
 	int		len;
 	int		start;
 	int		start_quote;
 	char	*value;
 	t_token	*new_token;
+	int		dollar_nb;
 
+	dollar_nb = 0;
 	start = i;
 	len = 0;
 	while (str[i] && !ft_is_sep(str, i))
@@ -63,6 +65,12 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 	value = ft_substr(str, start, len);
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
+	dollar_nb = ft_check_dollar(value);
+	while (dollar_nb-- > 0)
+	{
+		value = ft_expand(data, value);
+		dprintf(2, "value de la boucle = %s\n", value);
+	}
 	new_token = ft_lstnew_token(value, WORD);
 	if (!new_token)
 		return (ft_exit_code(12, ADD), -1);
@@ -75,7 +83,7 @@ int	ft_add_token(t_data *data, char *str, int type, int i)
 	if (type > 0 && type < 6)
 		i = ft_add_sep(&data->token_list, type, str, i);
 	else if (type == 6)
-		i = ft_add_word(&data->token_list, str, i);
+		i = ft_add_word(data, &data->token_list, str, i);
 	else
 		i++;
 	return (i);
