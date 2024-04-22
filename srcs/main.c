@@ -77,11 +77,10 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
-		if(ft_parsing(data.input, &data))
-			ft_exec(&data, data.cmd_list, env);
+		if (ft_parsing(data.input, &data))
+			ft_exec(&data, data.cmd_list, env, data.redir_list);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
-		ft_exec(&data, data.cmd_list, env, data.redir_list);
 		print_tokens(data.token_list);
 		print_cmds(data.cmd_list);
 		print_redir(data.redir_list);
