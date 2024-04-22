@@ -6,12 +6,116 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/19 19:18:46 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/22 19:08:07 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+static char	*ft_var_is_exp(t_data *data, char *str)
+{
+	t_env	*tmp;
+	char	*dup_value;
+	
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(str, tmp->var) == 0)
+		{
+			dup_value = ft_strdup(tmp->value);
+			return (dup_value);
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+static char	*ft_exp_no_quotes(t_data *data, char *str)
+{
+	char	*tmp_var;
+	char	*tmp_value;
+	char	*exp_str;
+	char	*exp_dup;
+	char	*mab;
+	int		i;
+	int		start;
+
+	mab = NULL;
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	exp_str = ft_substr(str, 0, i);
+	if (!exp_str)
+		return (ft_exit_code(12, ADD), NULL);
+	i++;
+	start = i;
+	while (str[i] && str[i] != '$')
+		i++;
+	tmp_var = ft_substr(str, start, i - start);
+	if (!tmp_var)
+		return (ft_free_ptr(exp_str), ft_exit_code(12, ADD), NULL);
+	tmp_value = ft_var_is_exp(data, tmp_var);
+	if (tmp_value != NULL)
+	{
+		exp_str = ft_strjoin(exp_str, tmp_value);
+		if (!exp_str)
+			return (ft_exit_code(12, ADD), NULL);
+		if (str[i] && str[i + 1])
+		{
+			mab = ft_substr(str, i, (ft_strlen(str) - i));
+			exp_str = ft_strjoin(exp_str, mab);
+		}
+	}
+	exp_dup = ft_strdup(exp_str);
+	ft_free_ptr(exp_str);
+	ft_free_ptr(mab);
+	return (ft_free_ptr(str), ft_free_ptr(tmp_var), ft_free_ptr(tmp_value), exp_dup);
+}
+
+static bool	ft_is_quotes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+int	ft_check_dollar(char *str)
+{
+	int	i;
+	int	dollar_nb;
+
+	i = 0;
+	dollar_nb = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			dollar_nb++;
+		i++;
+	}
+	return (dollar_nb);
+}
+
+char	*ft_expand(t_data *data, char *str)
+{
+	char	*exp_str;
+
+	if (!ft_is_quotes(str))
+	{
+		exp_str = ft_exp_no_quotes(data, str);
+		if (!exp_str)
+			return (ft_exit_code(12, ADD), NULL);
+	}
+	else
+		exp_str = NULL;
+	return (exp_str);
+}
 // static bool ft_replace_var(t_data *data, t_token *token, char *str, int start)
 // {
 // 	t_env	*tmp;
@@ -93,19 +197,7 @@
 // 	return (true);
 // }
 
-// static bool	ft_is_quotes(char *str)
-// {
-// 	int	i;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '\'' || str[i] == '"')
-// 			return (true);
-// 		i++;
-// 	}
-// 	return (false);
-// }
 
 // bool	ft_expand(t_data *data)
 // {
