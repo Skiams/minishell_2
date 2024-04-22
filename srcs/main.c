@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/22 13:27:39 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/22 17:30:50 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **env)
 			ft_exec(&data, data.cmd_list, env);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
-//		print_tokens(data.token_list);
+		print_tokens(data.token_list);
 		print_cmds(data.cmd_list);
 //		print_redir(data.redir);
 		//dprintf(2, "exit code : %d\n", ft_exit_code(0, GET));
