@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 20:30:25 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/22 16:33:39 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 	int		start_quote;
 	char	*value;
 	t_token	*new_token;
+//	int		dollar_count;
 
+//	dollar_count = 0;
 	start = i;
 	len = 0;
 	while (str[i] && !ft_is_sep(str, i))
@@ -63,6 +65,12 @@ int	ft_add_word(t_token **token_lst, char *str, int i)
 	value = ft_substr(str, start, len);
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
+	// dollar_count = ft_check_dollar(value);
+	// while (dollar_count > 0)
+	// {
+	// 	ft_expand(value);
+	// 	dollar_count--;
+	// }
 	new_token = ft_lstnew_token(value, WORD);
 	if (!new_token)
 		return (ft_exit_code(12, ADD), -1);
