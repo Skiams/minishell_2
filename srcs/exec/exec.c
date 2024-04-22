@@ -49,12 +49,33 @@ static void	ft_handle_multi_pipes2(t_data *data, t_cmds *cmds, char **argv, char
 		ft_waitpid2(cmds);
 }
 
+/*
+int	ft_is_a_redir(t_cmds *cmds)
+{
+	t_redir	*redir;
+
+	redir = cmds->redirections;
+	while (redir)
+	{
+		if (redir->type == RED_OUT) // && !ft_handle_outfile(redir, &status))
+			return (1);
+		redir = redir->next;
+	}
+	return (0);
+}
+
+*/
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
+	// Voir avec Antoine le code erreur
 	char	*cmds_path;
 
-	if (!cmds->cmd)
-		return  (0);
+	if (!cmds->args)
+	{
+//		if (ft_is_a_redir(cmds))
+//			ft_putstr_fd("oui\n", 2);
+		return (ft_exit_code(0, GET));
+	}
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_exec_built_in(data, cmds);
@@ -69,7 +90,8 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		{
 			cmds_path = ft_get_cmd_path2(data, cmds, cmds->cmd, cmds->args);
 			execve(cmds_path, cmds->args, env);
-			ft_printf(2, "Attention tout le monde ! Je fail\n");
+			ft_putstr_fd("Attention tout le monde ! Je fail\n", 2);
+			ft_putstr_fd("minishell: ", 2);
 			perror(cmds_path);
 			free(cmds_path);
 			ft_free_tab(cmds->cmd_path);
@@ -83,13 +105,13 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 			while (cmds->i++ < cmds->argc)
 				ft_waitpid_only_one_cmd(cmds);
 		}
-		ft_free_tab(cmds->cmd_path);
 		return (ft_exit_code(0, GET));
 	}
 }
 
-int	ft_exec(t_data *data, t_cmds *cmds, char **env)
+int	ft_exec(t_data *data, t_cmds *cmds, char **env, t_redir *redir)
 {
+	(void)redir;
 	t_cmds	*tmp;
 
 	tmp = cmds;
@@ -104,7 +126,12 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	}
 	cmds = tmp;
 	if (cmds->argc == 1)
+	{
+//		Pour la norme
+//		ft_is_only_one_cmd(data, cmds, env), ft_free_tab(cmds->cmd_path);
 		ft_is_only_one_cmd(data, cmds, env);
+		ft_free_tab(cmds->cmd_path);
+	}
 	else
 	{
 		if (pipe(cmds->prev_pipe) == -1)

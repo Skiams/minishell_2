@@ -15,7 +15,7 @@
 static void	ft_init_redir_node(t_redir *redir_node)
 {
 	redir_node->path = NULL;
-	redir_node->values = NULL;
+	redir_node->args = NULL;
 	redir_node->type = -1;
 	//redir_node->here_doc = 0;
 	redir_node->next = NULL;
@@ -26,16 +26,16 @@ static bool	ft_init_redir_lst(t_cmds *cmd)
 {
 	t_redir	*temp;
 
-	if (!cmd->redir_list)
+	if (!cmd->redirections)
 	{
-		cmd->redir_list = (t_redir *)malloc(sizeof(t_redir));
-		if (!(cmd->redir_list))
+		cmd->redirections = (t_redir *)malloc(sizeof(t_redir));
+		if (!(cmd->redirections))
 			return (false);
-		ft_init_redir_node(cmd->redir_list);
+		ft_init_redir_node(cmd->redirections);
 	}
 	else
 	{
-		temp = cmd->redir_list;
+		temp = cmd->redirections;
 		while (temp->next)
 			temp = temp->next;
 		temp->next = (t_redir *)malloc(sizeof(t_redir));
@@ -51,8 +51,8 @@ static void	ft_delone_redir(t_redir *redir_node, void (*del)(void *))
 {
 	if (redir_node->path)
 		(*del)(redir_node->path);
-	if (redir_node->values)
-		ft_free_tab(redir_node->values);
+	if (redir_node->args)
+		ft_free_tab(redir_node->args);
 	(*del)(redir_node);
 }
 
@@ -86,7 +86,7 @@ bool	ft_redir_cmd(t_cmds **cmd_lst, t_token **token_lst)
 	cmd = ft_last_cmd(*cmd_lst);
 	if (!ft_init_redir_lst(cmd))
 		return (false);
-	last_redir = cmd->redir_list;
+	last_redir = cmd->redirections;
 	while (last_redir && last_redir->next)
 		last_redir = last_redir->next;
 	last_redir->path = ft_strdup(tmp->next->value);
