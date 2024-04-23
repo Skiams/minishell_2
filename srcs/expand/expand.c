@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/23 15:07:38 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/23 18:56:50 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,31 @@ static char	*ft_var_is_exp(t_data *data, char *str)
 		}
 		tmp = tmp->next;
 	}
-	return (NULL);
+	dup_value = malloc(sizeof(char));
+	dup_value[0] = '\0';
+	return (dup_value);
 }
+
+// static char	*ft_exp_quotes(t_data *data, char *str, char *tmp, char *exp_d)
+// {
+// 	static int	quotes_count = 0;
+// 	int			i;
+	
+// 	i = 0;
+// 	while(str[i] && str[i] != '$' && str[i] != '\'' && str[i] != '"')
+// 		i++;
+// 	if (str[i] == '\'')
+// 	{
+// 		quotes_count++;
+// 		while (str[i] && str[i] != '\'')
+// 			i++;
+// 	}
+// 	else if (str[i] == '"')
+// 	{
+// 		quotes_count++;
+		
+// 	}	
+// }
 
 static char	*ft_exp_no_quotes(t_data *data, char *str, char *tmp, char *exp_d)
 {
