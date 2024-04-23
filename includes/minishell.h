@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/22 17:30:22 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/23 14:41:26 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ bool	ft_clean_quotes(t_data *data);
 bool	ft_check_env_var(char *tmp_var, t_env *env);
 char	*ft_expand(t_data *data, char *str);
 int		ft_check_dollar(char *str);
+char	*ft_strjoin_exp(char *s1, char *s2);
+void	ft_init_var_exp(char **tmp_var, char **exp_rest, int *i, int *start);
 
 // COMMANDS
 
