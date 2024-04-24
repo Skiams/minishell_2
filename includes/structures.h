@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/20 15:11:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/24 17:33:14 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ typedef enum e_rule
 {
 	ADD,
 	GET,
-	MALLOC,
-	FREE,
-	FREEALL,
-	DATALST,
-	ENVLST,
 }	t_rule;
 
 typedef enum e_token_tp
@@ -45,9 +40,9 @@ typedef struct s_env
 
 typedef struct s_redir
 {
-	int				type;
+	t_token_tp		type;
 	char			*path;
-	char			**args;
+	// char			**args;
 	struct s_redir	*next;
 	struct s_redir	*prev;	
 }	t_redir;
@@ -72,7 +67,7 @@ typedef struct s_pipex
 
 typedef struct s_cmds
 {
-	t_redir	*redirections;
+	t_redir	*redir;
 	char	*env_path;
 	char	**cmd_path;
 	char	*cmd;
@@ -109,7 +104,7 @@ typedef struct s_data
 	int		outfile;
 	t_token	*token_list;
 	t_cmds	*cmd_list;
-	t_redir	*redir_list;
+//	t_redir	*redir_list;
 	t_env	*env;
 }	t_data;
 

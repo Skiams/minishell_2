@@ -6,29 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/17 19:27:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/24 17:41:45 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// void	ft_free_env(t_env **env, void (*del)(void *))
-// {
-// 	t_env	*temp;
-
-// 	if (!*env || !*del)
-// 		return ;
-// 	temp = *env;
-// 	while (temp->next != NULL)
-// 	{
-// 		(*del)(temp->var);
-// 		(*del)(temp->value);
-// 		temp = temp->next;
-// 		free (temp->prev);
-// 		temp->prev = NULL;
-// 	}
-// 	temp = NULL;
-// }
 
 void	ft_free_env(t_env *env)
 {
