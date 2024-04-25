@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/23 18:56:50 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/25 18:18:06 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,15 @@ static char	*ft_var_is_exp(t_data *data, char *str)
 		if (ft_strcmp(str, tmp->var) == 0)
 		{
 			dup_value = ft_strdup(tmp->value);
+			if (!dup_value)
+				return (ft_exit_code(12, ADD), NULL);
 			return (dup_value);
 		}
 		tmp = tmp->next;
 	}
 	dup_value = malloc(sizeof(char));
+	if (!dup_value)
+		return (ft_exit_code(12, ADD), NULL);
 	dup_value[0] = '\0';
 	return (dup_value);
 }
@@ -48,20 +52,23 @@ static char	*ft_var_is_exp(t_data *data, char *str)
 // {
 // 	static int	quotes_count = 0;
 // 	int			i;
+// 	int			check;
 	
 // 	i = 0;
+// 	check = 0;
 // 	while(str[i] && str[i] != '$' && str[i] != '\'' && str[i] != '"')
 // 		i++;
-// 	if (str[i] == '\'')
+// 	if (str[i] == '\'' && check <= quotes_count)
 // 	{
 // 		quotes_count++;
 // 		while (str[i] && str[i] != '\'')
 // 			i++;
 // 	}
-// 	else if (str[i] == '"')
+// 	else if (str[i] == '"' && check <= quotes_count)
 // 	{
 // 		quotes_count++;
-		
+// 		while (str[i] && str[i] != '"')
+// 			i++;
 // 	}	
 // }
 
@@ -157,3 +164,77 @@ char	*ft_expand(t_data *data, char *str)
 		exp_str = NULL;
 	return (exp_str);
 }
+
+// static char *ft_normal_dq_str(char *str, size_t *i)
+// {
+// 	size_t	start;
+// 	char	*dq_str;
+
+// 	start = (*i);
+// 	while (str[*i] && str[*i] != '"' && str[*i] != '$')
+// 		(*i)++;
+// 	dq_str = ft_substr(str, start, i);
+// 	if (!dq_str)
+// 		return (ft_exit_code(12, ADD), NULL);
+// 	return (dq_str);
+// }
+
+// static char	*ft_exp_dquotes(t_data *data, char *str, size_t *i)
+// {
+// 	char	*dq_str;
+	
+// 	dq_str = ft_strdup("\"");
+// 	if (!dq_str)
+// 		return (ft_exit_code(12, ADD), NULL);
+// 	(*i)++;
+// 	while (str[*i] && str[*i] != '"')
+// 	{
+// 		if (str[*i] == '$')
+// 			dq_str = ft_classic_exp(str, &i);
+// 		else
+// 			dq_str = ft_strjoin_exp(dq_str, ft_normal_dq_str(str, i));
+// 	}
+// 	(*i)++;
+// 	dq_str = 
+// }
+
+// static char	*ft_exp_squotes(char *str, size_t *i)
+// {
+// 	size_t	start;
+// 	char	*sq_str;
+	
+// 	start = (*i);
+// 	(*i)++;
+// 	while (str[*i] != '\'')
+// 		(*i)++;
+// 	(*i)++;
+// 	sq_str = ft_substr(str, start, (*i) - start);
+// 	if (!sq_str)
+// 		return (ft_exit_code(12, ADD), NULL);
+// 	return (sq_str);
+// }
+
+// char	*ft_expand(char *str, t_data *data)
+// {
+// 	char	*exp_str;
+// 	size_t	i;
+
+// 	exp_str = ft_strdup("");
+// 	if (!exp_str)
+// 		return (NULL);
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '\'')
+// 			exp_str = ft_strjoin_exp(exp_str, ft_exp_squotes(str, &i));
+// 		else if (str[i] == '"')
+// 			exp_str = ft_strjoin_exp(exp_str, ft_exp_dquotes(data, str, &i));
+// 		else if (str[i] == '$')
+// 			exp_str = ft_strjoin_exp(exp_str, ft_classic_exp(data, str, &i, false));
+// 		else
+// 			exp_str = ft_strjoin_exp(exp_str, ft_normal_str(str, &i));
+// 		if (!exp_str)
+// 			return (NULL);
+// 	}
+// 	return (exp_str);
+// }
