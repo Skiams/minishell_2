@@ -79,15 +79,39 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_exec_built_in(data, cmds);
+		ft_putstr_fd("\n\nUne seule commande built-in\n\n", 1);
 		return (0);
 	}
 	else
 	{
+		if (cmds->redir)
+		{
+			ft_putstr_fd("redir ici\n", 1);
+			if (pipe(cmds->prev_pipe) == -1)
+				ft_handle_pipe_error2(cmds);
+		}
 		cmds->pid = fork();
 		if (cmds->pid == -1)
 			ft_handle_fork_error2(cmds);
 		if (cmds->pid == 0)
 		{
+			if (cmds->redir)
+			{
+				ft_putstr_fd("Je suis apres le fork()\n", 1);
+				cmds->infile = open(cmds->redir->path, O_WRONLY, 0755);
+				if (cmds->infile == -1)
+					ft_handle_file_error2(cmds->redir->path, cmds, data);
+				if (dup2(cmds->infile, 0) == -1)
+					ft_handle_dup2_error2(cmds);
+				if (close(cmds->infile) == -1)
+					ft_handle_close_error2(cmds);
+				if (close(cmds->prev_pipe[0]) == -1)
+					ft_handle_close_error2(cmds);
+				if (dup2(cmds->prev_pipe[1], 1) == -1)
+					ft_handle_dup2_error2(cmds);
+				if (close(cmds->prev_pipe[1]) == -1)
+					ft_handle_close_error2(cmds);
+			}
 			cmds_path = ft_get_cmd_path2(data, cmds, cmds->cmd, cmds->args);
 			execve(cmds_path, cmds->args, env);
 			ft_putstr_fd("Attention tout le monde ! Je fail\n", 2);
