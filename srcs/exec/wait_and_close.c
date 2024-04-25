@@ -62,11 +62,6 @@ void	ft_waitpid_only_one_cmd(t_cmds *cmds)
 {
 	int	status;
 
-	if (cmds->redir)
-	{
-		close(cmds->prev_pipe[0]);
-		close(cmds->prev_pipe[1]);
-	}
 	while (errno != ECHILD)
 	{
 		if (cmds->pid == waitpid(-1, &status, 0))
