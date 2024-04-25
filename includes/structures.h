@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 17:33:14 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/25 12:32:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_redir
 {
 	t_token_tp		type;
 	char			*path;
-	// char			**args;
 	struct s_redir	*next;
 	struct s_redir	*prev;	
 }	t_redir;

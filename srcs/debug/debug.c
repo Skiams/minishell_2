@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:28:44 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 18:56:44 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/25 15:46:50 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,22 @@ void	print_redir(t_redir *redir)
 {
 	t_redir	*tmp;
 	
-	tmp = redir;
-	while (tmp)
+	if (redir)
 	{
+
 		dprintf(2, "redir->type = %d\n", tmp->type);
 		dprintf(2, "redir->path = %s\n", tmp->path);
 		tmp = tmp->next;
 	}
 	
 }*/
+/*
+  tmp = redir;
+		while (tmp)
+		{
+			dprintf(2, "redir->type = %d\n", tmp->type);
+			dprintf(2, "redir->path = %s\n", tmp->path);
+			tmp = tmp->next;
+		}
+}
+*/
