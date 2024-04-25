@@ -88,5 +88,4 @@ void	print_redir(t_redir *redir)
 			dprintf(2, "redir->path = %s\n", tmp->path);
 			tmp = tmp->next;
 		}
-	}
 }
