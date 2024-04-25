@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:54:36 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/15 16:53:15 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/24 17:39:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_cmds	*lst_new_cmd(void)
 	node = (t_cmds *)malloc(sizeof(t_cmds));
 	if (!node)
 		return (NULL);
+	node->redir = NULL;
 	node->cmd = NULL;
 	node->args = NULL;
 	node->prev = NULL;
@@ -58,6 +59,8 @@ static void	ft_lstdelone_cmd(t_cmds *cmd, void (*del)(void *))
 		(*del)(cmd->cmd);
 	if (cmd->args)
 		ft_free_tab(cmd->args);
+	if (cmd->redir)
+		ft_clear_redirlst(&cmd->redir, del);
 	(*del)(cmd);
 }
 

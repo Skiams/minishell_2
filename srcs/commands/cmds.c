@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/23 14:59:27 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/24 19:18:16 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 			tmp = tmp->next;
 		}
 		else if (last_cmd && !last_cmd->args && !ft_set_args(last_cmd, &tmp))
+			return (false);
+		else if (last_cmd && last_cmd->args && last_cmd->redir
+		&& !ft_set_more_args(last_cmd, &tmp))
 			return (false);
 	}
 	*token_list = tmp;
@@ -91,9 +94,11 @@ bool	ft_get_cmds(t_data *data, t_token **token_lst)
 			if (!ft_cmd_word(&data->cmd_list, &tmp))
 				return (false);
 		}
-		else if (tmp->type < PIPE
-		&& !ft_redir_cmd(&data->cmd_list, &tmp))
-			return (false);
+		else if (tmp->type < PIPE)
+		{
+			if (!ft_redir_cmd(&data->cmd_list, &tmp, tmp->type))
+				return (false);
+		}
 		else
 			break ;
 	}

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:15:47 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/16 15:18:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/24 19:20:20 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	ft_count_args(t_token *token_list)
 {
-//	ft_printf(2, "count args\n");	
 	t_token	*tmp;
 	int	i;
 
@@ -26,6 +25,56 @@ static int	ft_count_args(t_token *token_list)
 		tmp = tmp->next;
 	}
 	return (i);
+}
+static char	**ft_new_args_tab(t_token **token_lst,
+t_cmds *last_cmd, char **new_args, int len)
+{
+	int	i;
+
+	i = 0;
+	while (last_cmd->args[i])
+	{
+		new_args[i] = ft_strdup(last_cmd->args[i]);
+		if (!new_args[i])
+			return (ft_exit_code(12, ADD), ft_free_tab(new_args), NULL);
+		i++;
+	}
+	while (i < len)
+	{
+		new_args[i] = ft_strdup((*token_lst)->value);
+		if (!new_args[i])
+			return (ft_exit_code(12, ADD), ft_free_tab(new_args), NULL);
+		i++;
+		*token_lst = (*token_lst)->next;
+	}
+	new_args[i] = NULL;
+	return (new_args);
+}
+
+bool	ft_set_more_args(t_cmds *last_cmd, t_token **token_lst)
+{
+	int		i;
+	int		len;
+	char	**added_args;
+	t_token	*tmp;
+	
+	dprintf(2, "ca lue on ajoute des args\n");
+	tmp = *token_lst;
+	i = 0;
+	while (last_cmd->args[i])
+		i++;
+	len = i + ft_count_args(tmp);
+	added_args = malloc(sizeof(char *) * (len + 1));
+	if (!added_args)
+		return (false);
+	added_args = ft_new_args_tab(&tmp, last_cmd, added_args, len);
+	if (!added_args)
+		return (false);
+	ft_free_tab(last_cmd->args);
+	last_cmd->args = added_args;
+	// dprintf(2, "token tmp value = %s\n", tmp->value);
+	*token_lst = tmp;
+	return (true);
 }
 
 static bool	ft_add_args(t_token **token_list, t_cmds *last_cmd, int *index)
@@ -61,14 +110,6 @@ bool	ft_set_args(t_cmds *last_cmd, t_token **token_list)
 	if (!last_cmd->args[i])
 		return (ft_exit_code(12, ADD), false);
 	i++;
-	// while (*token_list && (*token_list)->type == WORD)
-	// {
-	// 	last_cmd->args[i] = ft_strdup((*token_list)->value);
-	// 	if (!last_cmd->args[i])
-	// 		return (ft_exit_code(12, ADD), false);
-	// 	i++;
-	// 	*token_list = (*token_list)->next;
-	// }
 	if (!ft_add_args(&tmp, last_cmd, &i))
 		return (false);
 	last_cmd->args[i] = NULL;
