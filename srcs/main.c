@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 17:50:37 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/25 16:40:47 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ static bool	ft_parsing(char *str, t_data *data)
 {
 	if (str)
 		add_history(str);
-	if (ft_is_only_spacetab(str) == true)
+	if (ft_is_only_spacetab(str))
 		return (false);
 	if (!ft_tokenization(data))
 		return (false);
 	if (ft_check_syntax(data) != 0)
 		return (false);
-	//if (!ft_expand(data))
-	//	return (false);
 	if (!ft_get_cmds(data, &data->token_list))
 		return (false);
 	return (true);
@@ -77,12 +75,14 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
+		dprintf(2, "on parse on parse on parse\n");
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list, env, data.cmd_list->redir);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
-//		print_tokens(data.token_list);
-//		print_cmds(data.cmd_list);
+// A retirer pour éviter les leaks
+		print_tokens(data.token_list);
+		print_cmds(data.cmd_list);
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/10 18:33:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/25 15:40:01 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ bool	ft_is_only_spacetab(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '\n')
+		return (false);
 	while (str[i] != '\0')
 	{
 		if (str[i] != 9 && str[i] != 32)
