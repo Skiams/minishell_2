@@ -24,6 +24,8 @@ void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 		ft_env(data);
 	if (!ft_strcmp(cmds->cmd, "export"))
 		ft_export(data, cmds->args);
+	if (!ft_strcmp(cmds->cmd, "cd"))
+		ft_cd(cmds, data);
 }
 
 int	ft_is_a_built_in(char *str)
@@ -39,6 +41,8 @@ int	ft_is_a_built_in(char *str)
 	if (!ft_strcmp(str, "env"))
 		return (1);
 	if (!ft_strcmp(str, "export"))
+		return (1);
+	if (!ft_strcmp(str, "cd"))
 		return (1);
 	return (0);
 }
