@@ -71,11 +71,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	char	*cmds_path;
 
 	if (!cmds->args)
-	{
-//		if (ft_is_a_redir(cmds))
-//			ft_putstr_fd("oui\n", 2);
 		return (ft_exit_code(0, GET));
-	}
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_exec_built_in(data, cmds);
@@ -84,18 +80,12 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	}
 	else
 	{
-		if (cmds->redir)
-		{
-			ft_putstr_fd("redir ici\n", 1);
-			if (pipe(cmds->prev_pipe) == -1)
-				ft_handle_pipe_error2(cmds);
-		}
 		cmds->pid = fork();
 		if (cmds->pid == -1)
 			ft_handle_fork_error2(cmds);
 		if (cmds->pid == 0)
 		{
-			if (cmds->redir)
+			while (cmds->redir)
 			{
 				ft_putstr_fd("Je suis apres le fork()\n", 1);
 				cmds->infile = open(cmds->redir->path, O_WRONLY, 0755);
@@ -105,12 +95,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 					ft_handle_dup2_error2(cmds);
 				if (close(cmds->infile) == -1)
 					ft_handle_close_error2(cmds);
-				if (close(cmds->prev_pipe[0]) == -1)
-					ft_handle_close_error2(cmds);
-				if (dup2(cmds->prev_pipe[1], 1) == -1)
-					ft_handle_dup2_error2(cmds);
-				if (close(cmds->prev_pipe[1]) == -1)
-					ft_handle_close_error2(cmds);
+				cmds->redir = cmds->redir->next;
 			}
 			cmds_path = ft_get_cmd_path2(data, cmds, cmds->cmd, cmds->args);
 			execve(cmds_path, cmds->args, env);

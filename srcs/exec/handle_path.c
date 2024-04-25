@@ -146,7 +146,7 @@ static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args,
 		free(tmp2);
 	}
 	ft_putstr_fd("minishell: ", 2);
-	ft_free2(data, cmds, cmd, "command not found\n");
+	ft_free2(data, cmds, cmd, "IIIII command not found\n");
 	exit (ft_exit_code(127, ADD));
 }
 
