@@ -24,6 +24,19 @@ void	ft_handle_file_error(char **argv, t_pipex *pipex)
 	exit (1);
 }
 
+void	ft_handle_file_error2(char *argv, t_cmds *cmds, t_data *data)
+{
+	perror(argv);
+	if (cmds->infile != -1)
+		close(cmds->infile);
+//	if (cmds->outfile != -1)
+//		close(cmds->outfile);
+	ft_waitpid_only_one_cmd(cmds);
+	ft_free_tab(cmds->cmd_path);
+	ft_clean_all(data);
+	exit (1);
+}
+
 void	ft_handle_pipe_error(t_pipex *pipex)
 {
 	ft_putstr_fd("pipe failed\n", 2);
@@ -100,9 +113,10 @@ void	ft_handle_dup2_error2(t_cmds *cmds)
 {
 	ft_putstr_fd("dup2 failed\n", 2);
 	ft_free_tab(cmds->cmd_path);
-/*
+
 	if (cmds->infile != -1 && close(cmds->infile) == -1)
 		ft_putstr_fd("infile close failed\n", 2);
+/*
 	if (cmds->outfile != -1 && close(cmds->outfile) == -1)
 		ft_putstr_fd("outfile close failed\n", 2);
 */

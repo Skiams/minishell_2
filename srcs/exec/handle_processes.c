@@ -120,12 +120,26 @@ void	ft_handle_outfile(t_pipex *pipex, char **argv)
 		ft_handle_slash_error(&argv[pipex->argc - 1], pipex);
 }
 
-void     ft_handle_first_cmd(t_cmds *cmds)
+void     ft_handle_first_cmd(t_cmds *cmds) //, t_redir *redir)
 {
         if (!cmds->cmd)
                 return ;
         else
         {
+/*
+		if (cmds->cmd && cmds->redir->type == 4)
+		{
+			cmds->infile = open(cmds->redir->path, O_RDONLY, 0755);
+			if (cmds->infile == - 1)
+			//	ft_handle_file_error2(cmds->cmd, cmds);
+				ft_putstr_fd("infile failed\n", 2);
+			if (dup2(cmds->infile, 1) == -1)
+				ft_handle_dup2_error2(cmds);
+			if (close(cmds->infile) == -1)
+				ft_handle_close_error2(cmds);
+		//	ft_free2(NULL, cmds, cmds->cmd, "je free\n");
+		}
+*/
 		if (close(cmds->prev_pipe[0]) == -1)
 			ft_handle_close_error2(cmds);
 		if (dup2(cmds->curr_pipe[1], 1) == -1)

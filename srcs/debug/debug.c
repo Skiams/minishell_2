@@ -55,6 +55,20 @@ void	print_tab(char **tab)
 	free(tab);
 }
 
+void	print_redir(t_redir *redir)
+{
+	t_redir	*tmp;
+	
+	tmp = redir;
+	while (tmp)
+	{
+		dprintf(2, "redir->type = %d\n", tmp->type);
+		dprintf(2, "redir->path = %s\n", tmp->path);
+		tmp = tmp->next;
+	}
+	
+}
+
 void	print_cmds(t_cmds *cmd_list)
 {
 	t_cmds	*tmp;
@@ -71,17 +85,33 @@ void	print_cmds(t_cmds *cmd_list)
 			dprintf(2, "cmd->args[%d] = %s\n", i, tmp->args[i]);
 			i++;
 		}
+		while (tmp->redir)
+		{
+			dprintf(2, "redir->type = %d\n", tmp->redir->type);
+			dprintf(2, "redir->path = %s\n", tmp->redir->path);
+			free(tmp->redir->path);
+			tmp->redir = tmp->redir->next;
+		}
 		tmp = tmp->next;
 	}
 }
 
+/*
 void	print_redir(t_redir *redir)
 {
 	t_redir	*tmp;
 	
 	if (redir)
 	{
-		tmp = redir;
+
+		dprintf(2, "redir->type = %d\n", tmp->type);
+		dprintf(2, "redir->path = %s\n", tmp->path);
+		tmp = tmp->next;
+	}
+	
+}*/
+/*
+  tmp = redir;
 		while (tmp)
 		{
 			dprintf(2, "redir->type = %d\n", tmp->type);
@@ -89,3 +119,4 @@ void	print_redir(t_redir *redir)
 			tmp = tmp->next;
 		}
 }
+*/
