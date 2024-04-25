@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/11 16:04:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/24 15:26:37 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_env	*ft_get_env(t_data *data, char **env)
 			j++;
 		tmp_value = ft_substr(env[i], k, (j - k));
 		if (!tmp_value)
-			return (NULL);
+			return (ft_exit_code(12, ADD), NULL);
 		if (!ft_lstinit_env(&data->env, tmp_var, tmp_value)
 			|| !tmp_var || !tmp_value)
 			ft_exit_code(12, ADD);

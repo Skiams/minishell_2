@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 17:28:44 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/21 22:45:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/04/24 18:56:44 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	print_cmds(t_cmds *cmd_list)
 	{
 		i = 0;
 		dprintf(2, "cmds->cmd = %s\n", tmp->cmd);
-		dprintf(2, "cmds->argc = %d\n", tmp->argc);
+		// dprintf(2, "cmds->argc = %d\n", tmp->argc);
 		while (tmp->args[i])
 		{
 			dprintf(2, "cmd->args[%d] = %s\n", i, tmp->args[i]);
@@ -78,32 +78,15 @@ void	print_cmds(t_cmds *cmd_list)
 void	print_redir(t_redir *redir)
 {
 	t_redir	*tmp;
-	int	i;
-
+	
 	tmp = redir;
 	while (tmp)
 	{
-		i = 0;
 		dprintf(2, "redir->type = %d\n", tmp->type);
 		dprintf(2, "redir->path = %s\n", tmp->path);
 		while (tmp->args[i++])
 			dprintf(2, "redir->args[%d] = %s\n", i, tmp->args[i]);
 		tmp = tmp->next;
-
 	}
 	
 }
-
-// void	print_cmd(t_cmd *cmd_lst)
-// {
-// 	int	i;
-
-// 	i = 1;
-// 	while (cmd_lst)
-// 	{
-// 		printf("cmd %d / value = %s / args = %s\n",
-// 			i, cmd_lst->value, &cmd_lst->args);
-// 		cmd_lst = cmd_lst->next;
-// 		i++;
-// 	}
-// }
