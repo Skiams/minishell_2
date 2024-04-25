@@ -68,6 +68,7 @@ void	ft_clear_redirlst(t_redir **redir_list, void (*del)(void *))
 		*redir_list = temp;
 	}
 }
+
 static t_token	*get_next_token(t_token *token)
 {
 	if (token->next->next)

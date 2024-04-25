@@ -84,6 +84,8 @@ typedef struct s_cmds
 	int		here_doc;
 	int		is_here_doc;
 	int		code_status;
+	int		infile;
+	int		outfile;
 	pid_t	pid;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
