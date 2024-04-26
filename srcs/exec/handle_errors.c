@@ -24,13 +24,22 @@ void	ft_handle_file_error(char **argv, t_pipex *pipex)
 	exit (1);
 }
 
-void	ft_handle_file_error2(char *argv, t_cmds *cmds, t_data *data)
+void	ft_handle_infile_error2(char *argv, t_cmds *cmds, t_data *data)
 {
 	perror(argv);
 	if (cmds->infile != -1)
 		close(cmds->infile);
-//	if (cmds->outfile != -1)
-//		close(cmds->outfile);
+	ft_waitpid_only_one_cmd(cmds);
+	ft_free_tab(cmds->cmd_path);
+	ft_clean_all(data);
+	exit (1);
+}
+
+void	ft_handle_outfile_error2(char *argv, t_cmds *cmds, t_data *data)
+{
+	perror(argv);
+	if (cmds->outfile != -1)
+		close(cmds->outfile);
 	ft_waitpid_only_one_cmd(cmds);
 	ft_free_tab(cmds->cmd_path);
 	ft_clean_all(data);

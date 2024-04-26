@@ -17,7 +17,7 @@ static void	ft_handle_multi_pipes2(t_data *data, t_cmds *cmds, char **argv, char
 	(void)argv;
 
 	t_cmds *tmp;
-	
+
 	tmp = cmds;
 	while (cmds && cmds != NULL)
 	{
@@ -50,19 +50,19 @@ static void	ft_handle_multi_pipes2(t_data *data, t_cmds *cmds, char **argv, char
 }
 
 /*
-int	ft_is_a_redir(t_cmds *cmds)
-{
-	t_redir	*redir;
+   int	ft_is_a_redir(t_cmds *cmds)
+   {
+   t_redir	*redir;
 
-	redir = cmds->redirections;
-	while (redir)
-	{
-		if (redir->type == RED_OUT) // && !ft_handle_outfile(redir, &status))
-			return (1);
-		redir = redir->next;
-	}
-	return (0);
-}
+   redir = cmds->redirections;
+   while (redir)
+   {
+   if (redir->type == RED_OUT) // && !ft_handle_outfile(redir, &status))
+   return (1);
+   redir = redir->next;
+   }
+   return (0);
+   }
 
 */
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
@@ -87,14 +87,28 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		{
 			while (cmds->redir)
 			{
-				ft_putstr_fd("Je suis apres le fork()\n", 1);
-				cmds->infile = open(cmds->redir->path, O_WRONLY, 0755);
-				if (cmds->infile == -1)
-					ft_handle_file_error2(cmds->redir->path, cmds, data);
-				if (dup2(cmds->infile, 0) == -1)
-					ft_handle_dup2_error2(cmds);
-				if (close(cmds->infile) == -1)
-					ft_handle_close_error2(cmds);
+				if (cmds->redir->type == 3)
+				{
+					ft_putstr_fd("Je suis apres le fork()\n", 1);
+					cmds->infile = open(cmds->redir->path, O_WRONLY, 0755);
+					if (cmds->infile == -1)
+						ft_handle_infile_error2(cmds->redir->path, cmds, data);
+					if (dup2(cmds->infile, 0) == -1)
+						ft_handle_dup2_error2(cmds);
+					if (close(cmds->infile) == -1)
+						ft_handle_close_error2(cmds);
+				}
+				if (cmds->redir->type == 4)
+				{	
+					ft_putstr_fd("Je suis apres le fork()\n", 1);
+					cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+					if (cmds->outfile == -1)
+						ft_handle_outfile_error2(cmds->redir->path, cmds, data);
+					if (dup2(cmds->outfile, 1) == -1)
+						ft_handle_dup2_error2(cmds);
+					if (close(cmds->outfile) == -1)
+						ft_handle_close_error2(cmds);
+				}
 				cmds->redir = cmds->redir->next;
 			}
 			cmds_path = ft_get_cmd_path2(data, cmds, cmds->cmd, cmds->args);
