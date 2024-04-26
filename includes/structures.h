@@ -46,6 +46,7 @@ typedef struct s_redir
 	struct s_redir	*prev;	
 }	t_redir;
 
+/*
 typedef struct s_pipex
 {
 	int		curr_pipe[2];
@@ -63,6 +64,7 @@ typedef struct s_pipex
 	char	*env_path;
 	char	**cmd_path;
 }		t_pipex;
+*/
 
 typedef struct s_cmds
 {
@@ -73,17 +75,19 @@ typedef struct s_cmds
 	char	**args;
 	int		curr_pipe[2];
 	int		prev_pipe[2];
-	int		argc;
 	int		i;
+	int		j;
+	int		argc;
 	int		here_doc;
 	int		is_here_doc;
 	int		code_status;
+	int		dev_stdin;
+	int		dev_stdout;
 	int		infile;
 	int		outfile;
 	pid_t	pid;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
-	t_pipex	*pipex;
 }	t_cmds;
 
 typedef struct s_token

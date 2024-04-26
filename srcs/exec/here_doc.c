@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+/*
 void	ft_exec_here_doc(t_pipex *pipex, char **argv)
 {
 	char	*line;
@@ -39,3 +40,4 @@ void	ft_exec_here_doc(t_pipex *pipex, char **argv)
 			ft_handle_file_error(&argv[1], pipex);
 	}
 }
+*/

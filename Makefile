@@ -45,6 +45,7 @@ SRCS		=	srcs/main.c\
 				srcs/exec/string_functions.c\
 				srcs/exec/wait_and_close.c\
 				srcs/exec/handle_built_in.c\
+				srcs/exec/handle_redir.c\
 				includes/get_next_line/get_next_line.c\
 				includes/get_next_line/get_next_line_utils.c\
 

@@ -37,6 +37,7 @@ char	*ft_handle_quotes_and_slash(char *argv)
 	return (str);
 }
 
+/*
 void	ft_handle_quotes_error(char **argv, t_pipex *pipex)
 {
 	ft_putstr_fd(*argv, 2);
@@ -44,3 +45,4 @@ void	ft_handle_quotes_error(char **argv, t_pipex *pipex)
 	ft_free_tab(pipex->cmd_path);
 	exit (127);
 }
+*/

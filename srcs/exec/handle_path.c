@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+/*
 void	ft_free(t_pipex *pipex, char *argv, char **path, char *error)
 {
 	ft_putstr_fd(argv, 2);
@@ -20,19 +21,14 @@ void	ft_free(t_pipex *pipex, char *argv, char **path, char *error)
 	ft_free_tab(path);
 	ft_free_tab(pipex->cmd_path);
 }
+*/
 
-void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char *error)
+void	ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error)
 {
-	(void)cmds;
+	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
-//	if (cmds->infile)
-//	{
-//		ft_putstr_fd("Avoir un ocean d'espoir c'est avoir quelque part ou couler\n", 2);
-	//	ft_delone_redir(&cmds->redir, cmds->redir);
-//		free(cmds->redir);
-//	}
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
@@ -42,27 +38,8 @@ void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char *error)
 	ft_clean_all(data);
 }
 
-char	*ft_get_absolute_path(t_pipex *pipex, char *argv, char **path)
-{
-	char	*tmp;
 
-	tmp = ft_strjoin(argv, "/");
-	if (!tmp)
-		return (NULL);
-	if (access(tmp, F_OK) == 0)
-	{
-		ft_putstr_fd(argv, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		free(tmp);
-		ft_free_tab(path);
-		ft_free_tab(pipex->cmd_path);
-		exit (126);
-	}
-	free(tmp);
-	return (ft_strdup(argv));
-}
-
-char	*ft_get_absolute_path2(t_data *data, t_cmds *cmds, char *cmd, char **args)
+char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 {
 	char	*tmp;
 	(void)data;
@@ -74,7 +51,7 @@ char	*ft_get_absolute_path2(t_data *data, t_cmds *cmds, char *cmd, char **args)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd(": IIIIII  No such file or directory\n", 2);
 		free(tmp);
 		ft_free_tab(args);
 		ft_free_tab(cmds->cmd_path);
@@ -100,36 +77,7 @@ static int	ft_is_a_directory(char *argv)
 	return (0);
 }
 
-char	*ft_handle_path(t_pipex *pipex, char *argv, char **path, int i)
-{
-	char	*tmp;
-	char	*tmp2;
-
-	if (pipex->is_here_doc)
-		i += 1;
-	while (pipex->cmd_path && pipex->cmd_path[i])
-	{
-		tmp = ft_strjoin(pipex->cmd_path[i++], "/");
-		if (!tmp)
-			return (NULL);
-		tmp2 = ft_strjoin(tmp, argv);
-		if (!tmp2)
-			return (free(tmp), NULL);
-		free(tmp);
-		if (access(tmp2, F_OK) == 0)
-		{
-			if (access(tmp2, X_OK) == 0)
-				return (tmp2);
-			else
-				ft_handle_rights(pipex, argv, path, tmp2);
-		}
-		free(tmp2);
-	}
-	ft_free(pipex, argv, path, "command not found\n");
-	exit (127);
-}
-
-static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args, int i)
+static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, char **args, int i)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -148,57 +96,35 @@ static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args,
 			if (access(tmp2, X_OK) == 0)
 				return (tmp2);
 			else
-				ft_handle_rights2(data, cmds, cmd, args, tmp2);
+				ft_handle_rights(data, cmds, cmd, args, tmp2);
 		}
 		free(tmp2);
 	}
+//	ft_putstr_fd("minishell: ", 2);
 //	if (cmds->infile)
-//		ft_putstr_fd("Attention tout le mode, j'ai un infile\n", 2);
-	ft_putstr_fd("minishell: ", 2);
-	ft_free2(data, cmds, cmd, "IIIII command not found\n");
+//		ft_putstr_fd("Attention tout le monde ! Je leak !\n", 2);
+	ft_free(data, cmds, cmd, "IIIII command not found\n");
 	exit (ft_exit_code(127, ADD));
 }
 
-char	*ft_get_cmd_path2(t_data *data, t_cmds *cmds, char *cmd, char **args)
+char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 {
 	int	i;
 
 	i = 0;
 	if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/'))
-		ft_handle_no_file_or_dir2(data, cmds, cmd, args);
+		ft_handle_no_file_or_dir(data, cmds, cmd, args);
 	if (access(cmd, F_OK) == 0 && (ft_strchr(cmd, '/')
 			|| (cmd[0] == '.' && cmd[1] == '.' && cmd[2] == '/')
 			|| (cmd[0] == '.' && cmd[1] == '/')))
 	{
 		if (ft_is_a_directory(cmd))
-			ft_handle_directory2(data, cmds, cmd, args);
+			ft_handle_directory(data, cmds, cmd, args);
 		if (access(cmd, X_OK) != 0)
-			ft_handle_rights2(data, cmds, cmd, args, NULL);
+			ft_handle_rights(data, cmds, cmd, args, NULL);
 		else
-			return (ft_get_absolute_path2(data, cmds, cmd, args));
+			return (ft_get_absolute_path(data, cmds, cmd, args));
 		return (NULL);
 	}
-	return (ft_handle_path2(data, cmds, cmd, args, i));
-}
-
-char	*ft_get_cmd_path(t_pipex *pipex, char *argv, char **path)
-{
-	int	i;
-	(void)argv;
-
-	i = 0;
-	if (access(argv, F_OK) == -1 && ft_strchr(argv, '/'))
-		ft_handle_no_file_or_dir(argv);
-	if (access(argv, F_OK) == 0 && (ft_strchr(argv, '/')
-			|| (argv[0] == '.' && argv[1] == '.' && argv[2] == '/')
-			|| (argv[0] == '.' && argv[1] == '/')))
-	{
-		if (ft_is_a_directory(argv))
-			ft_handle_directory(pipex, argv, path);
-		if (access(argv, X_OK) != 0)
-			ft_handle_rights(pipex, argv, path, NULL);
-		else
-			return (ft_get_absolute_path(pipex, argv, path));
-	}
-	return (ft_handle_path(pipex, argv, path, i));
+	return (ft_handle_path(data, cmds, cmd, args, i));
 }
