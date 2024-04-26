@@ -27,9 +27,16 @@ void	ft_free2(t_data *data, t_cmds *cmds, char *cmd, char *error)
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
+//	if (cmds->infile)
+//	{
+//		ft_putstr_fd("Avoir un ocean d'espoir c'est avoir quelque part ou couler\n", 2);
+	//	ft_delone_redir(&cmds->redir, cmds->redir);
+//		free(cmds->redir);
+//	}
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
+//		cmds->cmd_path = NULL;
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);
@@ -145,6 +152,8 @@ static char	*ft_handle_path2(t_data *data, t_cmds *cmds, char *cmd, char **args,
 		}
 		free(tmp2);
 	}
+//	if (cmds->infile)
+//		ft_putstr_fd("Attention tout le mode, j'ai un infile\n", 2);
 	ft_putstr_fd("minishell: ", 2);
 	ft_free2(data, cmds, cmd, "IIIII command not found\n");
 	exit (ft_exit_code(127, ADD));

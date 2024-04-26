@@ -82,14 +82,14 @@ bool	ft_redir_cmd(t_cmds **cmd_lst, t_token **token_lst, t_token_tp type)
 
 	tmp = *token_lst;
 	cmd = ft_last_cmd(*cmd_lst);
-	dprintf(2, "nous sommes dans redir_cmd\n");
+	//dprintf(2, "nous sommes dans redir_cmd\n");
 	if (!ft_init_redir_lst(cmd))
 		return (false);
 	last_redir = cmd->redir;
 	while (last_redir && last_redir->next)
 		last_redir = last_redir->next;
 	last_redir->path = ft_strdup(tmp->next->value);
-	dprintf(2, "path de redir = %s\n", last_redir->path);
+	//dprintf(2, "path de redir = %s\n", last_redir->path);
 	if (!last_redir->path)
 		return (false);
 	last_redir->type = type;
