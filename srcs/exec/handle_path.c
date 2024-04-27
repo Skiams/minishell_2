@@ -25,16 +25,19 @@ void	ft_free(t_pipex *pipex, char *argv, char **path, char *error)
 
 void	ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error)
 {
+	(void)cmds;
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
+/*
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
 //		cmds->cmd_path = NULL;
 		cmds = cmds->next;
 	}
+*/
 	ft_clean_all(data);
 }
 

@@ -81,6 +81,7 @@ void	ft_free_data(t_data *data)
 
 void	ft_clean_all(t_data *data)
 {
+	ft_free_tab(data->cmd_list->cmd_path);
 	ft_free_data(data);
 	if (data && data->env)
 		ft_free_env(data->env);

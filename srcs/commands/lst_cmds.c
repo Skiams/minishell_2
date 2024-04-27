@@ -61,8 +61,8 @@ static void	ft_lstdelone_cmd(t_cmds *cmd, void (*del)(void *))
 		ft_free_tab(cmd->args);
 	if (cmd->redir)
 		ft_clear_redirlst(&cmd->redir, del);
-	if (cmd->cmd_path)
-		ft_free_tab(cmd->cmd_path);
+//	if (cmd->cmd_path != NULL)
+//		ft_free_tab(cmd->cmd_path);
 	(*del)(cmd);
 }
 
