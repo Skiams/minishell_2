@@ -79,9 +79,11 @@ int	main(int argc, char **argv, char **env)
 			ft_exec(&data, data.cmd_list, env, data.cmd_list->redir);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
+/*
 		ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n", 1);
 		print_tokens(data.token_list);
 		print_cmds(data.cmd_list);
+*/
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);

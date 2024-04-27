@@ -95,6 +95,7 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 	}
 	else if (cmd->args && cmd->args[1] && cmd->args[2])
 		return (ft_exit_errors(2, cmd->args[1]));
+	ft_free_tab(cmd->cmd_path);
 	ft_clean_all(data);
 	exit (ft_exit_code(0, GET));
 }
