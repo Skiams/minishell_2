@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:54:36 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 17:39:13 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/27 14:28:33 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	ft_lstdelone_cmd(t_cmds *cmd, void (*del)(void *))
 		ft_free_tab(cmd->args);
 	if (cmd->redir)
 		ft_clear_redirlst(&cmd->redir, del);
+	if (cmd->cmd_path)
+		ft_free_tab(cmd->cmd_path);
 	(*del)(cmd);
 }
 

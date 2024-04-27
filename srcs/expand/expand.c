@@ -6,47 +6,11 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/26 17:04:19 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/27 13:08:04 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	*ft_exp_question_m(t_data *data)
-{
-	char	*str;
-
-	(void)data;
-	str = ft_itoa(ft_exit_code(0, GET));
-	if (!str)
-		return (NULL);
-	return (str);
-}
-
-static char	*ft_var_is_exp(t_data *data, char *str)
-{
-	t_env	*tmp;
-	char	*dup_value;
-
-	dup_value = NULL;
-	tmp = data->env;
-	while (tmp)
-	{
-		if (ft_strcmp(str, tmp->var) == 0)
-		{
-			dup_value = ft_strdup(tmp->value);
-			if (!dup_value)
-				return (ft_exit_code(12, ADD), NULL);
-			return (dup_value);
-		}
-		tmp = tmp->next;
-	}
-	dup_value = malloc(sizeof(char));
-	if (!dup_value)
-		return (ft_exit_code(12, ADD), NULL);
-	dup_value[0] = '\0';
-	return (dup_value);
-}
 
 static char *ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 {
@@ -57,6 +21,8 @@ static char *ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 	(*i)++;
 	if (str[*i] == '?')
 		return ((*i)++, ft_exp_question_m(data));
+	else if (str[* i] == '$')
+		return ((*i)++, ft_exp_pid(data));
 	start = *i;
 	if (code == NO_QUOTES)
 	{
