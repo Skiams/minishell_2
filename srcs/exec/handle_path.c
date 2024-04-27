@@ -12,32 +12,21 @@
 
 #include "../../includes/minishell.h"
 
-/*
-void	ft_free(t_pipex *pipex, char *argv, char **path, char *error)
-{
-	ft_putstr_fd(argv, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error, 2);
-	ft_free_tab(path);
-	ft_free_tab(pipex->cmd_path);
-}
-*/
-
 void	ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error)
 {
-	(void)cmds;
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error, 2);
-/*
+	if (!cmds->redir || cmds->redir->type != 2)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(error, 2);
+	}
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
-//		cmds->cmd_path = NULL;
+		cmds->cmd_path = NULL;
 		cmds = cmds->next;
 	}
-*/
 	ft_clean_all(data);
 }
 
@@ -103,9 +92,6 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, char **args, 
 		}
 		free(tmp2);
 	}
-//	ft_putstr_fd("minishell: ", 2);
-//	if (cmds->infile)
-//		ft_putstr_fd("Attention tout le monde ! Je leak !\n", 2);
 	ft_free(data, cmds, cmd, "IIIII command not found\n");
 	exit (ft_exit_code(127, ADD));
 }

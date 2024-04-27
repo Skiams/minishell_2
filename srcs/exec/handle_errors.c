@@ -21,7 +21,7 @@ void	ft_handle_infile_error(char *argv, t_cmds *cmds, t_data *data)
 		ft_waitpid_only_one_cmd(cmds);
 	else
 		ft_waitpid(cmds);
-//	ft_free_tab(cmds->cmd_path);
+	ft_free_tab(cmds->cmd_path);
 	ft_clean_all(data);
 	exit (1);
 }
@@ -35,7 +35,7 @@ void	ft_handle_outfile_error(char *argv, t_cmds *cmds, t_data *data)
 		ft_waitpid_only_one_cmd(cmds);
 	else
 		ft_waitpid(cmds);
-//	ft_free_tab(cmds->cmd_path);
+	ft_free_tab(cmds->cmd_path);
 	ft_clean_all(data);
 	exit (1);
 }
@@ -45,6 +45,7 @@ void	ft_handle_pipe_error(t_cmds *cmds)
 	ft_putstr_fd("pipe failed\n", 2);
 	ft_close_processes(cmds);
 	ft_free_tab(cmds->cmd_path);
+//	ft_clean_all(data);
 	exit (1);
 }
 
@@ -54,6 +55,7 @@ void	ft_handle_fork_error(t_cmds *cmds)
 	ft_close_processes(cmds);
 	waitpid(cmds->pid, NULL, 0);
 	ft_free_tab(cmds->cmd_path);
+//	ft_clean_all(data);
 	exit (1);
 }
 
@@ -62,6 +64,8 @@ void	ft_handle_close_error(t_cmds *cmds)
 	ft_putstr_fd("close failed\n", 2);
 	ft_free_tab(cmds->cmd_path);
 	close(cmds->outfile);
+//	ft_free_tab(cmds->cmd_path);
+//	ft_clean_all(data);
 	ft_close_processes(cmds);
 	exit (1);
 }

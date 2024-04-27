@@ -57,7 +57,7 @@ void	ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
 
 void	ft_handle_processes(t_data *data, t_cmds *cmd, char **argv, char **env);
 int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
-void	ft_handle_first_cmd(t_data *data, t_cmds *cmds);
+void	ft_handle_first_cmd(t_data *data, t_cmds *cmds, char **env);
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **argv, char **env);
 
 void	ft_handle_input_redir(t_data *data, t_cmds *cmds);
