@@ -54,23 +54,31 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	// Voir avec Antoine le code erreur
 	char	*cmds_path;
 	if (!cmds->args)
+	{
+		// gerer les here_doc sans commande
+		if (cmds->redir && !(cmds->redir->type == 2))
+		{
+			ft_putstr_fd(cmds->redir->path, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+		}
 		return (ft_exit_code(0, GET));
+	}
 	if (ft_is_a_built_in(cmds->cmd))
 	{
-/*
-		while (cmds->redir)
-		{
-			int dev_null = open("/dev/stdin", O_WRONLY | O_CREAT | O_TRUNC, 0755);
-			if (dev_null == -1)
-				ft_putstr_fd("dev_null failed\n", 2);
-			if (dup2(dev_null, 1) == -1)
-				ft_handle_dup2_error(cmds);
-			ft_handle_redir(data, cmds);
-			if (close(dev_null) == -1)
-				ft_handle_close_error(cmds);
-			cmds->redir = cmds->redir->next;
-		}
-*/
+		/*
+		   while (cmds->redir)
+		   {
+		   int dev_null = open("/dev/stdin", O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		   if (dev_null == -1)
+		   ft_putstr_fd("dev_null failed\n", 2);
+		   if (dup2(dev_null, 1) == -1)
+		   ft_handle_dup2_error(cmds);
+		   ft_handle_redir(data, cmds);
+		   if (close(dev_null) == -1)
+		   ft_handle_close_error(cmds);
+		   cmds->redir = cmds->redir->next;
+		   }
+		   */
 		ft_exec_built_in(data, cmds);
 		return (ft_exit_code(0, GET));
 	}
@@ -83,19 +91,23 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		{
 			if (cmds->redir)
 			{
-				cmds->dev_stdin = open("/dev/stdin", O_WRONLY | O_CREAT | O_TRUNC, 0755);
-				if (cmds->dev_stdin == -1)
-					ft_putstr_fd("dev_stdin failed\n", 2);
-				if (dup2(cmds->dev_stdin, 1) == -1)
-					ft_handle_dup2_error(cmds);
-				ft_handle_redir(data, cmds);
-				if (close(cmds->dev_stdin) == -1)
-					ft_handle_close_error(cmds);
-			}
-			while (cmds->redir)
-			{
-				ft_handle_redir(data, cmds);
-				cmds->redir = cmds->redir->next;
+
+				ft_exec_here_doc(data, cmds);
+				if (cmds->redir->type == 2)
+					ft_handle_here_doc(data, cmds);
+				if (cmds->redir->type == 3)
+				{
+					cmds->dev_stdin = open("/dev/stdin", O_WRONLY | O_CREAT | O_TRUNC, 0755);
+					if (cmds->dev_stdin == -1)
+						ft_putstr_fd("dev_stdin failed\n", 2);
+					if (dup2(cmds->dev_stdin, 1) == -1)
+						ft_handle_dup2_error(cmds);
+					if (close(cmds->dev_stdin) == -1)
+						ft_handle_close_error(cmds);
+					ft_handle_input_redir(data, cmds);
+				}
+				if (cmds->redir->type == 4)
+					ft_handle_output_redir(data, cmds);
 			}
 			cmds_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
 			execve(cmds_path, cmds->args, env);

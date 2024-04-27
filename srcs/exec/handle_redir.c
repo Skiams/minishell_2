@@ -13,10 +13,10 @@
 #include "../../includes/minishell.h"
 
 
-void	ft_handle_redir(t_data *data, t_cmds *cmds)
+void	ft_handle_input_redir(t_data *data, t_cmds *cmds)
 {
-	if (cmds->redir->type == 3)
-	{
+//	if (cmds->redir->type == 3)
+//	{
 //		ft_putstr_fd("Je suis apres le fork(), numero 3\n", 1);
 		cmds->infile = open(cmds->redir->path, O_RDONLY, 0755);
 		if (cmds->infile == -1)
@@ -25,10 +25,14 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_dup2_error(cmds);
 		if (close(cmds->infile) == -1)
 			ft_handle_close_error(cmds);
-	}
-	if (cmds->redir->type == 4)
-	{	
-//		ft_putstr_fd("Je suis apres le fork(), numero 4\n", 1);
+//	}
+}
+
+void	ft_handle_output_redir(t_data *data, t_cmds *cmds)
+{
+//	if (cmds->redir->type == 4)
+//	{	
+		ft_putstr_fd("Je suis apres le fork(), numero 4\n", 1);
 		cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 		if (cmds->outfile == -1)
 			ft_handle_outfile_error(cmds->redir->path, cmds, data);
@@ -36,6 +40,5 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_dup2_error(cmds);
 		if (close(cmds->outfile) == -1)
 			ft_handle_close_error(cmds);
-	}
-
+//	}
 }

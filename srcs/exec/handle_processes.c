@@ -42,7 +42,7 @@ void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
         {
 		while (cmds->redir)
 		{
-			ft_handle_redir(data, cmds);
+			ft_handle_input_redir(data, cmds);
 			cmds->redir = cmds->redir->next;
 		}
 		if (close(cmds->prev_pipe[0]) == -1)
