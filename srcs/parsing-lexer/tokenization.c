@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/26 20:45:47 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/27 11:40:00 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	value = ft_substr(str, start, len);
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
-	exp_value = ft_expand(data, value);
+	exp_value = ft_remove_quotes(ft_expand(data, value));
 	free(value);
 	new_token = ft_lstnew_token(exp_value, WORD);
 	if (!new_token)
