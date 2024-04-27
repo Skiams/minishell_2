@@ -115,7 +115,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 			ft_putstr_fd("minishell: ", 2);
 			perror(cmds_path);
 			free(cmds_path);
-			ft_free_tab(cmds->cmd_path);
+//			ft_free_tab(cmds->cmd_path);
 			ft_clean_all(data);
 			ft_exit_code(1, ADD);
 			exit (1);
