@@ -40,6 +40,7 @@ int	ft_is_slash_only(char *str)
 	return (1);
 }
 
+/*
 void	ft_handle_space_error(char **argv, t_pipex *pipex)
 {
 	ft_close_processes(pipex);
@@ -57,3 +58,4 @@ void	ft_handle_slash_error(char **argv, t_pipex *pipex)
 	ft_free_tab(pipex->cmd_path);
 	exit (1);
 }
+*/

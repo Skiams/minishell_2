@@ -12,30 +12,44 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_exec_here_doc(t_pipex *pipex, char **argv)
+void	ft_exec_here_doc(t_data *data, t_cmds *cmds) // , char **argv)
 {
 	char	*line;
 	char	*delimiter;
 
-	if (!ft_strcmp(argv[1], "here_doc"))
-	{
-		pipex->here_doc = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0755);
-		if (pipex->here_doc == -1)
-			ft_handle_file_error(&argv[1], pipex);
-		pipex->is_here_doc = 1;
-		delimiter = ft_strjoin(argv[2], "\n");
+//	if (!ft_strcmp(argv[1], "here_doc"))
+//	{
+		cmds->here_doc = open(cmds->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		if (cmds->here_doc == -1)
+			ft_handle_infile_error(cmds->cmd, cmds, data);
+		cmds->is_here_doc = 1;
+		delimiter = ft_strjoin(cmds->redir->path, "\n");
 		while (1)
 		{
 			ft_putstr_fd("> ", 0);
 			line = get_next_line(0);
 			if (!ft_strcmp(line, delimiter))
 				break ;
-			ft_putstr_fd(line, pipex->here_doc);
+			ft_putstr_fd(line, cmds->here_doc);
 			free(line);
 		}
 		free(line);
 		free(delimiter);
-		if (close(pipex->here_doc) == -1)
-			ft_handle_file_error(&argv[1], pipex);
-	}
+		if (close(cmds->here_doc) == -1)
+			ft_handle_infile_error(cmds->cmd, cmds, data);
+
+//	}
 }
+
+void    ft_handle_here_doc(t_data *data, t_cmds *cmds) //, char **argv)
+{
+        cmds->here_doc = open(cmds->cmd, O_RDONLY, 0755);
+        if (cmds->here_doc == -1)
+                ft_handle_infile_error(cmds->cmd, cmds, data);
+        if (dup2(cmds->here_doc, STDIN_FILENO) == -1)
+                ft_handle_dup2_error(cmds);
+        if (close(cmds->here_doc) == -1)
+                ft_handle_close_error(cmds);
+        cmds->i += 1;
+}
+
