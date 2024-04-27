@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 18:19:14 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/27 13:10:02 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_check_syntax(t_data *data);
 bool	ft_check_quotes(char *str, int i);
 int		ft_check_end_quotes(char *str, int i, char c);
 bool	ft_clean_quotes(t_data *data);
+char	*ft_remove_quotes(char *str);
 
 // EXPAND
 
@@ -54,6 +55,9 @@ char	*ft_expand(t_data *data, char *str);
 int		ft_check_dollar(char *str);
 char	*ft_strjoin_exp(char *s1, char *s2);
 void	ft_init_var_exp(char **tmp_var, char **exp_rest, int *i, int *start);
+char	*ft_var_is_exp(t_data *data, char *str);
+char	*ft_exp_question_m(t_data *data);
+char	*ft_exp_pid(t_data *data);
 
 // COMMANDS
 

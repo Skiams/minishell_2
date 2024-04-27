@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/23 12:12:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/27 11:40:00 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	int		start;
 	int		start_quote;
 	char	*value;
+	char	*exp_value;
 	t_token	*new_token;
-	int		dollar_nb;
 
-	dollar_nb = 0;
 	start = i;
 	len = 0;
 	while (str[i] && !ft_is_sep(str, i))
@@ -65,13 +64,9 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	value = ft_substr(str, start, len);
 	if (!value)
 		return (ft_exit_code(12, ADD), -1);
-	dollar_nb = ft_check_dollar(value);
-	while (dollar_nb-- > 0)
-	{
-		value = ft_expand(data, value);
-		dprintf(2, "value de la boucle = %s\n", value);
-	}
-	new_token = ft_lstnew_token(value, WORD);
+	exp_value = ft_remove_quotes(ft_expand(data, value));
+	free(value);
+	new_token = ft_lstnew_token(exp_value, WORD);
 	if (!new_token)
 		return (ft_exit_code(12, ADD), -1);
 	ft_lstadd_back_token(token_lst, new_token);

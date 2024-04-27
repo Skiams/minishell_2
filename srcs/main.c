@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/25 16:40:47 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/27 12:43:21 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	main(int argc, char **argv, char **env)
 			ft_putstr_fd("exit\n", 1);
 			break ;
 		}
-		dprintf(2, "on parse on parse on parse\n");
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list, env, data.cmd_list->redir);
 		else if (ft_exit_code(0, GET) == 12)
