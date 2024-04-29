@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_built_in.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/22 14:18:48 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/29 18:07:40 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 		ft_export(data, cmds->args);
 	if (!ft_strcmp(cmds->cmd, "cd"))
 		ft_cd(cmds, data);
+	if (!ft_strcmp(cmds->cmd, "unset"))
+		ft_unset(data, cmds->args);
 }
 
 int	ft_is_a_built_in(char *str)
@@ -43,6 +45,8 @@ int	ft_is_a_built_in(char *str)
 	if (!ft_strcmp(str, "export"))
 		return (1);
 	if (!ft_strcmp(str, "cd"))
+		return (1);
+	if (!ft_strcmp(str, "unset"))
 		return (1);
 	return (0);
 }

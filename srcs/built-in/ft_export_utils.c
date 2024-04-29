@@ -3,15 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/22 14:36:00 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/04/29 19:31:16 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+char	*ft_value_export(char *str)
+{
+	int		i;
+	char	*var;
+	
+	i = 0;
+	while (str[i] && str[i] != '=' && str[i] != '+')
+		i++;
+	var = ft_substr(str, 0, i);
+	if (!var)
+		return (ft_exit_code(12, ADD), NULL);
+	return (var);
+}
+char	*ft_var_export(char *str)
+{
+	int		i;
+	char	*var;
+	
+	i = 0;
+	while (str[i] && str[i] != '=' && str[i] != '+')
+		i++;
+	var = ft_substr(str, 0, i);
+	if (!var)
+		return (ft_exit_code(12, ADD), NULL);
+	return (var);
+}
 bool	ft_var_is_in_env(t_data *data, char *str)
 {
 	t_env	*tmp;
@@ -33,7 +59,7 @@ int	ft_check_export_case(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '=' && str[i - 1] == '+')
+		if (str[i] == '+' && str[i + 1] == '=')
 			return (3);
 		else if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
 			return (ft_error_export(str), 0);
