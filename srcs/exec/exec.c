@@ -65,27 +65,40 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	}
 	if (ft_is_a_built_in(cmds->cmd))
 	{
-/*
+		if ((cmds->dev_stdin = dup(0)) == -1)
+			ft_putstr_fd("probleme\n", 2);
+		if ((cmds->dev_stdout = dup(1)) == -1)
+			ft_putstr_fd("probleme\n", 2);
 		if (cmds->redir)
 		{
-			cmds->dev_stdin = open("/dev/stdin", O_RDONLY, 0755);
-			if (cmds->dev_stdin == -1)
-				ft_putstr_fd("dev_stdin failed\n", 2);
-			if (dup2(cmds->dev_stdin, 0) == -1)
-				ft_handle_dup2_error(cmds);
-			if (close(cmds->dev_stdin) == -1)
-				ft_handle_close_error(cmds);
-			ft_handle_output_redir(data, cmds);
-			cmds->v_stdout= open("/dev/stdout", O_WRONLY | O_CREAT | O_TRUNC, 0755);
-			if (cmds->dev_stdout == -1)
-				ft_putstr_fd("dev_stdout failed\n", 2);
-			if (dup2(cmds->dev_stdout, 1) == -1)
-				ft_handle_dup2_error(cmds);
-			if (close(cmds->dev_stdout) == -1)
-				ft_handle_close_error(cmds);
+			if (cmds->redir->type == 2)
+				{
+					ft_exec_here_doc(data, cmds);
+					ft_handle_here_doc(data, cmds);
+				}
+				if (cmds->redir->type == 3)
+				{
+		//			cmds->dev_stdin = open("/dev/stdin", O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		//			if (cmds->dev_stdin == -1)
+		//				ft_putstr_fd("dev_stdin failed\n", 2);
+		//			if (dup2(cmds->dev_stdin, 1) == -1)
+		//				ft_handle_dup2_error(cmds);
+		//			if (close(cmds->dev_stdin) == -1)
+		//				ft_handle_close_error(cmds);
+					ft_handle_input_redir(data, cmds);
+				}
+				if (cmds->redir->type == 4)
+					ft_handle_output_redir(data, cmds);
 		}
-*/
 		ft_exec_built_in(data, cmds);
+		if (dup2(cmds->dev_stdin, 0) == -1)
+			ft_handle_dup2_error(cmds);
+		if (close(cmds->dev_stdin) == -1)
+			ft_handle_close_error(cmds);
+		if (dup2(cmds->dev_stdout, 1) == -1)
+			ft_handle_dup2_error(cmds);
+		if (close(cmds->dev_stdout) == -1)
+			ft_handle_close_error(cmds);
 		return (ft_exit_code(0, GET));
 	}
 	else
@@ -149,7 +162,6 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env, t_redir *redir)
 	while (cmds != NULL)
 	{
 		cmds->argc = ft_lstsize_cmd(cmds);
-//		cmds->j = ft_is_a_built_in(cmds->cmd);
 		ft_get_path(cmds, env);
 		cmds = cmds->next;
 	}
