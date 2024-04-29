@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/29 21:42:16 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/29 22:45:24 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
 		}
 		else if ((ft_strcmp(var, tmp->var) == 0 && code == 3))
 		{
+			ft_free_ptr(var);
 			tmp_value = ft_strjoin_exp(tmp->value, value);
 			if (!tmp_value)
 				return (ft_exit_code(12, ADD), false);
 			tmp->value = ft_strdup(tmp_value);
+			if (!tmp_value)
+				return (ft_exit_code(12, ADD), false);
+			ft_free_ptr(tmp_value);
 			if (tmp->next)
 				tmp = tmp->next;
 			return (true);
@@ -90,7 +94,7 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 			return (ft_exit_code(12, ADD), false);
 	}
 	return (true);
-//	return (true);
+	//return (true);
 }
 
 static bool	ft_add_var_env(t_data *data, char *str, int code)
