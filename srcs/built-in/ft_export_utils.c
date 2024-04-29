@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/29 19:31:16 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/29 22:38:09 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char	*ft_var_export(char *str)
 		return (ft_exit_code(12, ADD), NULL);
 	return (var);
 }
+
 bool	ft_var_is_in_env(t_data *data, char *str)
 {
 	t_env	*tmp;
