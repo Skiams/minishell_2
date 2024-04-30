@@ -33,6 +33,8 @@ SRCS		=	srcs/main.c\
 				srcs/exec/get_path.c\
 				srcs/exec/handle_access.c\
 				srcs/exec/handle_errors.c\
+				srcs/exec/handle_execve_error.c\
+				srcs/exec/handle_duplications.c\
 				srcs/exec/handle_path.c\
 				srcs/exec/handle_processes.c\
 				srcs/exec/handle_quotes_and_slash.c\

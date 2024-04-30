@@ -19,7 +19,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 
 	cmds->here_doc = open(cmds->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	if (cmds->here_doc == -1)
-		ft_handle_infile_error(cmds->cmd, cmds, data);
+		ft_handle_infile_error(cmds, data);
 	cmds->is_here_doc = 1;
 	delimiter = ft_strjoin(cmds->redir->path, "\n");
 	while (1)
@@ -34,16 +34,16 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 	free(line);
 	free(delimiter);
 	if (close(cmds->here_doc) == -1)
-		ft_handle_infile_error(cmds->cmd, cmds, data);
+		ft_handle_infile_error(cmds, data);
 }
 
 void    ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	cmds->here_doc = open(cmds->cmd, O_RDONLY, 0755);
 	if (cmds->here_doc == -1)
-		ft_handle_infile_error(cmds->cmd, cmds, data);
+		ft_handle_infile_error(cmds, data);
 	if (dup2(cmds->here_doc, STDIN_FILENO) == -1)
-		ft_handle_dup2_error(cmds);
+		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->here_doc) == -1)
 		ft_handle_close_error(cmds);
 	cmds->i += 1;
@@ -54,10 +54,3 @@ void    ft_handle_here_doc(t_data *data, t_cmds *cmds)
 		ft_clean_all(data);
 	}
 }
-
-/*
-   void	ft_remove_here_doc(t_data *data, t_cmds *cmds)
-   {
-
-   }
-   */
