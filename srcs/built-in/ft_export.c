@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/29 22:45:24 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/30 14:53:57 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
 	{
 		if (ft_strcmp(var, tmp->var) == 0 && code == 2)
 		{
+			ft_free_ptr(var);
 			ft_free_ptr(tmp->value);
 			tmp->value = ft_strdup(value);
 			if (!tmp->value)
 				return (ft_exit_code(12, ADD), false);
+			ft_free_ptr(value);
 			if (tmp->next)
 				tmp = tmp->next;
 			return (true);
@@ -57,6 +59,7 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 	int		i;
 	t_env	*newel;
 
+	value = NULL;
 	i = 0;
 	while (str[i] && str[i] != '=' && str[i] != '+')
 		i++;
@@ -94,7 +97,6 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 			return (ft_exit_code(12, ADD), false);
 	}
 	return (true);
-	//return (true);
 }
 
 static bool	ft_add_var_env(t_data *data, char *str, int code)
@@ -135,7 +137,6 @@ int	ft_export(t_data *data, char **args)
 		while (args[i])
 		{
 			code = ft_check_export_case(args[i]);
-			dprintf(2, "export code = %i\n", code);
 			if (args[1][0] == '-')
 			{
 				ft_putstr_fd("minishell: export: -", 2);
@@ -146,14 +147,10 @@ int	ft_export(t_data *data, char **args)
 			}
 			else if (!ft_isalpha(args[i][0]) && args[i][0] != '_' && code != 0)
 				ft_error_export(args[i]);
-			//	else if (code == 0)
-			//		ft_exit_code(1, ADD);
-			// normalement gere dans error export
 			else if (code >= 1 && code <= 3)
 			{
 				if (!ft_add_var_env(data, args[i], code))
 					return (ft_exit_code(12, ADD));
-				//exit direct avec autre signe d'erreur pour quitter direct ?
 			}
 			i++;
 		}
