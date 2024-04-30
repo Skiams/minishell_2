@@ -11,6 +11,17 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+void    ft_handle_close_error2(t_data *data, t_cmds *cmds)
+{
+	ft_putstr_fd("close failed\n", 2);
+	ft_free_tab(cmds->cmd_path);
+	close(cmds->outfile);
+	ft_free_tab(cmds->cmd_path);
+	ft_clean_all(data);
+	ft_close_processes(cmds);
+	exit (1);
+}
+
 
 static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 {
@@ -21,24 +32,41 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 	{
 		if (pipe(cmds->curr_pipe) == -1)
 			ft_handle_pipe_error(cmds);
-		cmds->pid = fork();
-		if (cmds->pid == -1)
-			ft_handle_fork_error(cmds);
-		if (cmds->pid == 0)
-			ft_handle_processes(data, cmds, &cmds->cmd, env);
-		else if (cmds->pid > 0)
+		if (ft_is_a_built_in(cmds->cmd))
+			ft_exec_built_in(data, cmds);
+//				if (close(cmds->prev_pipe[1]) == -1)
+//				{
+//					ft_putstr_fd("Ma cravate est laaiiide\n", 2);
+//					ft_handle_close_error2(data, cmds);
+//				}		
+				
+//			ft_exec_built_in(data, cmds);
+		else 
 		{
-			close(cmds->prev_pipe[0]);
-			close(cmds->prev_pipe[1]);
-			if (cmds->next)
-			{
-				cmds->next->prev_pipe[0] = cmds->curr_pipe[0];
-				cmds->next->prev_pipe[1] = cmds->curr_pipe[1];
-			}
-			ft_free_tab(cmds->cmd_path);
-			if (cmds->next == NULL)
-				break;
+			cmds->pid = fork();
+			if (cmds->pid == -1)
+				ft_handle_fork_error(cmds);
+			if (cmds->pid == 0)
+				ft_handle_processes(data, cmds, &cmds->cmd, env);
 		}
+		if (close(cmds->prev_pipe[0]) == -1)
+		{
+			ft_putstr_fd("Oh nooon ! Mes fraises sont molles\n", 2);
+			ft_handle_close_error2(data, cmds);
+		}
+		if (close(cmds->prev_pipe[1]) == -1)
+		{
+			ft_putstr_fd("Oh nooooon ! J'ai fait une tache de fraise molle sur ma cravate laaaiiide\n", 2);
+			ft_handle_close_error2(data, cmds);
+		}
+		if (cmds->next)
+		{
+			cmds->next->prev_pipe[0] = cmds->curr_pipe[0];
+			cmds->next->prev_pipe[1] = cmds->curr_pipe[1];
+		}
+		ft_free_tab(cmds->cmd_path);
+		if (cmds->next == NULL)
+			break;
 		cmds = cmds->next;
 	}
 	cmds = tmp;
