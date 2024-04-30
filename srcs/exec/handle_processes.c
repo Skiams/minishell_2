@@ -27,21 +27,6 @@ void     ft_handle_first_cmd(t_data *data, t_cmds *cmds, char **env)
                 return ;
 	else
 	{
-/*
-		if (cmds->redir)
-		{
-			if (cmds->redir->type == 2)
-			{
-				ft_exec_here_doc(data, cmds);
-				ft_handle_here_doc(data, cmds);
-			}
-			if (cmds->redir->type == 3)
-				ft_handle_input_redir(data, cmds);
-			if (cmds->redir->type == 4)
-				ft_handle_output_redir(data, cmds);
-
-		}
-*/
 		if (close(cmds->prev_pipe[0]) == -1)
 			ft_handle_close_error(cmds);
 		if (dup2(cmds->curr_pipe[1], 1) == -1)
@@ -58,19 +43,6 @@ void	ft_handle_last_cmd(t_data *data, t_cmds *cmds, char **env)
                 return ;
 	else
 	{
-		if (cmds->redir)
-		{
-			if (cmds->redir->type == 2)
-
-			{
-				ft_exec_here_doc(data, cmds);
-				ft_handle_here_doc(data, cmds);
-			}
-			if (cmds->redir->type == 3)
-				ft_handle_input_redir(data, cmds);
-			if (cmds->redir->type == 4)
-				ft_handle_output_redir(data, cmds);
-		}
 		if (close(cmds->curr_pipe[1]) == -1)
 			ft_handle_close_error(cmds);
 		if (dup2(cmds->prev_pipe[0], 0) == -1)
