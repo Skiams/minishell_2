@@ -17,7 +17,10 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 	char	*line;
 	char	*delimiter;
 
-	cmds->here_doc = open(cmds->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+	if (!cmds->cmd)
+		cmds->here_doc = open("/dev/stdin", O_WRONLY | O_CREAT | O_TRUNC, 0755);
+	else
+		cmds->here_doc = open(cmds->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	if (cmds->here_doc == -1)
 		ft_handle_infile_error(cmds, data);
 	cmds->is_here_doc = 1;
@@ -42,7 +45,7 @@ void    ft_handle_here_doc(t_data *data, t_cmds *cmds)
 	cmds->here_doc = open(cmds->cmd, O_RDONLY, 0755);
 	if (cmds->here_doc == -1)
 		ft_handle_infile_error(cmds, data);
-	if (dup2(cmds->here_doc, STDIN_FILENO) == -1)
+	if (dup2(cmds->here_doc, 0) == -1)
 		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->here_doc) == -1)
 		ft_handle_close_error(cmds);

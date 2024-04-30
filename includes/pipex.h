@@ -65,6 +65,7 @@ int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
 void	ft_handle_first_cmd(t_data *data, t_cmds *cmds, char **env);
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env);
 
+int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds);
 void	ft_handle_redir(t_data *data, t_cmds *cmds);
 void	ft_handle_append(t_data *data, t_cmds *cmds);
 void	ft_handle_input_redir(t_data *data, t_cmds *cmds);
