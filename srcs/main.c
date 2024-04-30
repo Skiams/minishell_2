@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		}
 		if (ft_parsing(data.input, &data))
-			ft_exec(&data, data.cmd_list, env, data.cmd_list->redir);
+			ft_exec(&data, data.cmd_list, env);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
 /*

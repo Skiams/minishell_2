@@ -73,12 +73,12 @@ typedef struct s_cmds
 	t_redir	*redir;
 	char	*env_path;
 	char	**cmd_path;
+	char	*right_path;
 	char	*cmd;
 	char	**args;
 	int		curr_pipe[2];
 	int		prev_pipe[2];
 	int		i;
-	int		j;
 	int		argc;
 	int		here_doc;
 	int		is_here_doc;

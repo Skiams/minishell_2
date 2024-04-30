@@ -30,7 +30,7 @@
 # define CORRECT_ARGV		" Please enter correct arguments:\n"
 # define ARROW	"\t→ "
 
-int		ft_exec(t_data *data, t_cmds *cmds, char **env, t_redir *redir);
+int		ft_exec(t_data *data, t_cmds *cmds, char **env);
 int     	ft_is_a_built_in(char *str);
 void    ft_exec_built_in(t_data *data, t_cmds *cmds);
 int     ft_is_a_built_in(char *str);
@@ -45,11 +45,16 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args);
 void	ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error);
 
 void	ft_handle_pipe_error(t_cmds *cmds);
-void	ft_handle_infile_error(char *argv, t_cmds *cmds, t_data *data);
-void	ft_handle_outfile_error(char *argv, t_cmds *cmds, t_data *data);
+void	ft_handle_infile_error(t_cmds *cmds, t_data *data);
+void	ft_handle_outfile_error(t_cmds *cmds, t_data *data);
 void	ft_handle_fork_error(t_cmds *cmds);
-void	ft_handle_dup2_error(t_cmds *cmds);
 void	ft_handle_close_error(t_cmds *cmds);
+void	ft_handle_execve_error(t_data *data, t_cmds *cmds);
+
+void	ft_dup_stdin_stdout(t_data *data, t_cmds *cmds);
+//void	ft_handle_dup_error(t_data *data, t_cmds *cmds);
+void	ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds);
+void	ft_handle_dup2_error(t_data *data, t_cmds *cmds);
 
 void	ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd, char **args);
 void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char **args, char *tmp2);
@@ -58,8 +63,10 @@ void	ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
 void	ft_handle_processes(t_data *data, t_cmds *cmd, char **argv, char **env);
 int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
 void	ft_handle_first_cmd(t_data *data, t_cmds *cmds, char **env);
-void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **argv, char **env);
+void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env);
 
+void	ft_handle_redir(t_data *data, t_cmds *cmds);
+void	ft_handle_append(t_data *data, t_cmds *cmds);
 void	ft_handle_input_redir(t_data *data, t_cmds *cmds);
 void	ft_handle_output_redir(t_data *data, t_cmds *cmds);
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds);

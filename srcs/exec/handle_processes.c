@@ -12,23 +12,11 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **argv, char **env)
+void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 {
-	char	*cmds_path;
-	(void)argv;
-	cmds_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
-	execve(cmds_path, cmds->args, env);
-	ft_putstr_fd("Attention tout le monde ! Je fail meme avec plusieurs commandes !\n", 2);
-	ft_putstr_fd("minishell: ", 2);
-	perror(cmds_path);
-	free(cmds_path);
-	while (cmds && cmds != NULL)
-	{
-		ft_free_tab(cmds->cmd_path);
-		cmds = cmds->next;
-	}
-	ft_clean_all(data);
-	ft_exit_code(1, ADD);
+	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
+	execve(cmds->right_path, cmds->args, env);
+	ft_handle_execve_error(data, cmds);
 }
 
 void     ft_handle_first_cmd(t_data *data, t_cmds *cmds, char **env)
@@ -57,7 +45,7 @@ void     ft_handle_first_cmd(t_data *data, t_cmds *cmds, char **env)
 		if (close(cmds->prev_pipe[0]) == -1)
 			ft_handle_close_error(cmds);
 		if (dup2(cmds->curr_pipe[1], 1) == -1)
-			ft_handle_dup2_error(cmds);
+			ft_handle_dup2_error(data, cmds);
 		if (close(cmds->curr_pipe[1]) == -1)
 			ft_handle_close_error(cmds);
         }
@@ -86,7 +74,7 @@ void	ft_handle_last_cmd(t_data *data, t_cmds *cmds, char **env)
 		if (close(cmds->curr_pipe[1]) == -1)
 			ft_handle_close_error(cmds);
 		if (dup2(cmds->prev_pipe[0], 0) == -1)
-			ft_handle_dup2_error(cmds);
+			ft_handle_dup2_error(data, cmds);
 		if (close(cmds->prev_pipe[0]) == -1)
 			ft_handle_close_error(cmds);
 	}
@@ -102,10 +90,10 @@ void	ft_handle_processes(t_data *data, t_cmds *cmds, char **argv, char **env)
 	else
 	{
 		if (dup2(cmds->prev_pipe[0], STDIN_FILENO) == -1)
-			ft_handle_dup2_error(cmds);
+			ft_handle_dup2_error(data, cmds);
 		if (dup2(cmds->curr_pipe[1], STDOUT_FILENO) == -1)
-			ft_handle_dup2_error(cmds);
+			ft_handle_dup2_error(data, cmds);
 	}
 	ft_waitpid(cmds);
-	ft_exec_cmds(data, cmds, argv, env);
+	ft_exec_cmds(data, cmds, env);
 }
