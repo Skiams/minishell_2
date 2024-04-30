@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/29 21:11:39 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/30 21:46:27 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <linux/limits.h>
 # include <stdbool.h>
 # include <signal.h>
 # include <sys/wait.h>
@@ -93,7 +94,8 @@ int		ft_env(t_data *data);
 int		ft_unset(t_data *data, char **args);
 int		ft_pwd(t_cmds *cmds);
 void	ft_exit(t_data *data, t_cmds *cmd);
-void	ft_cd(t_cmds *cmd, t_data *data);
+int 	ft_cd(t_cmds *cmd, t_data *data);
+bool	ft_add_value_only(t_data *data, char *var, char *value, int code);
 
 // UTILS
 

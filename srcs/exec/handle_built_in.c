@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/29 18:07:40 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/30 22:10:12 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 		ft_env(data);
 	if (!ft_strcmp(cmds->cmd, "export"))
 		ft_export(data, cmds->args);
-	if (!ft_strcmp(cmds->cmd, "cd"))
-		ft_cd(cmds, data);
+	// if (!ft_strcmp(cmds->cmd, "cd"))
+	// 	ft_cd(cmds, data);
 	if (!ft_strcmp(cmds->cmd, "unset"))
 		ft_unset(data, cmds->args);
 }

@@ -6,38 +6,38 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/29 22:38:09 by skiam            ###   ########.fr       */
+/*   Updated: 2024/04/30 15:26:26 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_value_export(char *str)
-{
-	int		i;
-	char	*var;
+// char	*ft_value_export(char *str)
+// {
+// 	int		i;
+// 	char	*var;
 	
-	i = 0;
-	while (str[i] && str[i] != '=' && str[i] != '+')
-		i++;
-	var = ft_substr(str, 0, i);
-	if (!var)
-		return (ft_exit_code(12, ADD), NULL);
-	return (var);
-}
-char	*ft_var_export(char *str)
-{
-	int		i;
-	char	*var;
+// 	i = 0;
+// 	while (str[i] && str[i] != '=' && str[i] != '+')
+// 		i++;
+// 	var = ft_substr(str, 0, i);
+// 	if (!var)
+// 		return (ft_exit_code(12, ADD), NULL);
+// 	return (var);
+// }
+// char	*ft_var_export(char *str)
+// {
+// 	int		i;
+// 	char	*var;
 	
-	i = 0;
-	while (str[i] && str[i] != '=' && str[i] != '+')
-		i++;
-	var = ft_substr(str, 0, i);
-	if (!var)
-		return (ft_exit_code(12, ADD), NULL);
-	return (var);
-}
+// 	i = 0;
+// 	while (str[i] && str[i] != '=' && str[i] != '+')
+// 		i++;
+// 	var = ft_substr(str, 0, i);
+// 	if (!var)
+// 		return (ft_exit_code(12, ADD), NULL);
+// 	return (var);
+// }
 
 bool	ft_var_is_in_env(t_data *data, char *str)
 {
