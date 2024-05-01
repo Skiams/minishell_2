@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 17:54:36 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/27 14:28:33 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/01 16:22:09 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ t_cmds	*lst_new_cmd(void)
 	node->redir = NULL;
 	node->cmd = NULL;
 	node->args = NULL;
+	node->env_path = NULL;
+	node->cmd_path = NULL;
+	node->right_path = NULL;
 	node->prev = NULL;
 	node->next = NULL;
 	return (node);

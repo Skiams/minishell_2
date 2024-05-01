@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/29 14:25:51 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/01 16:24:23 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ typedef enum e_rule
 	GET,
 	QUOTES,
 	NO_QUOTES,
+	OLDPWD,
+	PWD,
+	HOME,
+	PREV,
 }	t_rule;
 
 typedef enum e_token_tp
@@ -106,9 +110,9 @@ typedef struct s_data
 	char	*input;
 	char	**cmds_exec;
 	char	**env_exec;
-	int		status;
-	int		infile;
-	int		outfile;
+	// int		status;
+	// int		infile;
+	// int		outfile;
 	t_token	*token_list;
 	t_cmds	*cmd_list;
 	t_env	*env;
