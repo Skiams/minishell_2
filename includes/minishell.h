@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/30 21:46:27 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/01 16:16:09 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ bool	ft_set_more_args(t_cmds *last_cmd, t_token **token_lst);
 bool	ft_redir_cmd(t_cmds **cmd_lst, t_token **token_lst, t_token_tp type);
 void	lst_add_back_cmd(t_cmds **cmd_lst, t_cmds *cmd);
 t_cmds	*lst_new_cmd(void);
+int     ft_args_nb(t_cmds *cmds);
 
 // ENV
 
