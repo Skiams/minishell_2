@@ -79,10 +79,16 @@ void	print_cmds(t_cmds *cmd_list)
 	{
 		i = 0;
 		dprintf(2, "cmds->cmd = %s\n", tmp->cmd);
-		// dprintf(2, "cmds->argc = %d\n", tmp->argc);
+		dprintf(2, "cmd->env_path = %s\n", tmp->env_path);
+		dprintf(2, "cmd->i = %d\n", tmp->i);
+		if (tmp->prev)
+			dprintf(2, "cmds->prev = %s\n", tmp->prev->cmd);
+		if (tmp->next)
+			dprintf(2, "cmds->next = %s\n", tmp->next->cmd);
 		while (tmp->args[i])
 		{
 			dprintf(2, "cmd->args[%d] = %s\n", i, tmp->args[i]);
+//<			dprintf(2, "cmd->cmd_path[%d] = %s\n", i, tmp->cmd_path[i]);
 			i++;
 		}
 		while (tmp->redir)

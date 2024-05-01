@@ -34,13 +34,13 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_pipe_error(cmds);
 		if (ft_is_a_built_in(cmds->cmd))
 			ft_exec_built_in(data, cmds);
-//				if (close(cmds->prev_pipe[1]) == -1)
-//				{
-//					ft_putstr_fd("Ma cravate est laaiiide\n", 2);
-//					ft_handle_close_error2(data, cmds);
-//				}		
-				
-//			ft_exec_built_in(data, cmds);
+		//				if (close(cmds->prev_pipe[1]) == -1)
+		//				{
+		//					ft_putstr_fd("Ma cravate est laaiiide\n", 2);
+		//					ft_handle_close_error2(data, cmds);
+		//				}		
+
+		//			ft_exec_built_in(data, cmds);
 		else 
 		{
 			cmds->pid = fork();

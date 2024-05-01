@@ -14,9 +14,9 @@
 
 void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 {
-	if (!ft_strcmp(cmds->cmd, "echou"))
+	if (!ft_strcmp(cmds->cmd, "echo"))
 		ft_echo(cmds->args);
-	if (!ft_strcmp(cmds->cmd, "pwd"))
+	if (!ft_strcmp(cmds->cmd, "pwd1"))
 		ft_pwd(cmds);
 	if (!ft_strcmp(cmds->cmd, "exit"))
 		ft_exit(data, cmds);
@@ -34,9 +34,9 @@ int	ft_is_a_built_in(char *str)
 {
 	if (!str)
 		return (0);
-	if (!ft_strcmp(str, "echou"))
+	if (!ft_strcmp(str, "echo"))
 		return (1);
-	if (!ft_strcmp(str, "pwd"))
+	if (!ft_strcmp(str, "pwd1"))
 		return (1);
 	if (!ft_strcmp(str, "exit"))
 		return (1);
