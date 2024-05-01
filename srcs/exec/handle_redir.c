@@ -14,7 +14,6 @@
 
 int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 {
-	// Probleme, le texte s'affiche 2 fois pour les here_doc sans commande
 	if (cmds->redir && cmds->redir->type == 2)
 	{
 		ft_exec_here_doc(data, cmds);
@@ -42,17 +41,22 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
-	if (cmds->redir->type == 1)
-		ft_handle_append(data, cmds);
-	if (cmds->redir->type == 2)
+	while (cmds && cmds->redir != NULL)
 	{
-		ft_exec_here_doc(data, cmds);
-		ft_handle_here_doc(data, cmds);
+		if (cmds->redir->type == 1)
+			ft_handle_append(data, cmds);
+		if (cmds->redir->type == 2)
+		{
+			ft_exec_here_doc(data, cmds);
+			ft_handle_here_doc(data, cmds);
+		}
+		if (cmds->redir->type == 3)
+			ft_handle_input_redir(data, cmds);
+		if (cmds->redir->type == 4)
+			ft_handle_output_redir(data, cmds);
+		free(cmds->redir->path);
+		cmds->redir = cmds->redir->next;
 	}
-	if (cmds->redir->type == 3)
-		ft_handle_input_redir(data, cmds);
-	if (cmds->redir->type == 4)
-		ft_handle_output_redir(data, cmds);
 }
 
 void	ft_handle_append(t_data *data, t_cmds *cmds)

@@ -86,7 +86,7 @@ t_env	*ft_get_env(t_data *data, char **env)
 	i = 0;
 	if (!env)
 		return (NULL);
-	while (env[i])
+	while (env && env[i])
 	{
 		j = 0;
 		k = 0;

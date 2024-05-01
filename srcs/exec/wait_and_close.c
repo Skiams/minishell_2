@@ -25,13 +25,10 @@ void	ft_waitpid(t_cmds *cmds)
 	int	status;
 
 	ft_close_processes(cmds);
-	while (errno != ECHILD)
+	while ((cmds->pid = waitpid(-1, &status, 0)) > 0)
 	{
-		if (cmds->pid == waitpid(-1, &status, 0))
-		{
-			if (WIFEXITED(status))
-				ft_exit_code(WEXITSTATUS(status), ADD);
-		}
+		if (WIFEXITED(status))
+			ft_exit_code(WEXITSTATUS(status), ADD);
 	}
 }
 
@@ -39,12 +36,9 @@ void	ft_waitpid_only_one_cmd(t_cmds *cmds)
 {
 	int	status;
 
-	while (errno != ECHILD)
+	while ((cmds->pid = waitpid(-1, &status, 0)) > 0)
 	{
-		if (cmds->pid == waitpid(-1, &status, 0))
-		{
-			if (WIFEXITED(status))
-				ft_exit_code(WEXITSTATUS(status), ADD);
-		}
+		if (WIFEXITED(status))
+			ft_exit_code(WEXITSTATUS(status), ADD);
 	}
 }

@@ -18,7 +18,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 	char	*delimiter;
 
 	if (!cmds->cmd)
-		cmds->here_doc = open("/dev/stdin", O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		cmds->here_doc = open("/dev/stdin", O_CREAT | O_TRUNC, 0755);
 	else
 		cmds->here_doc = open(cmds->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	if (cmds->here_doc == -1)
