@@ -12,8 +12,22 @@
 
 #include "../../includes/minishell.h"
 
+void    ft_exit_properly2(t_data *data, t_cmds *cmds)
+{
+        ft_free_tab(cmds->cmd_path);
+        ft_clean_all(data);
+        ft_exit_code(0, GET);
+        exit (1);
+}
+
+
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 {
+	if (ft_is_a_built_in(cmds->cmd))
+	{
+		ft_exec_built_in(data, cmds);
+		ft_exit_properly2(data, cmds);
+	}
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
 	execve(cmds->right_path, cmds->args, env);
 	ft_handle_execve_error(data, cmds);
