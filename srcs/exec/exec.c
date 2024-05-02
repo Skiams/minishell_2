@@ -80,6 +80,11 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	// Voir avec Antoine le code erreur
+	if (!ft_strcmp(cmds->cmd, ":") || !ft_strcmp(cmds->cmd, "!"))
+	{
+		ft_putstr_fd("", 2);
+		return (ft_exit_code(0, GET));
+	}
 	if (!cmds->args)
 		return (ft_handle_redir_without_cmd(data, cmds));
 	if (ft_is_a_built_in(cmds->cmd))
@@ -107,6 +112,10 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	while (cmds != NULL)
 	{
 		cmds->argc = ft_lstsize_cmd(cmds);
+		cmds->infile = 0;
+		cmds->outfile = 0;
+		cmds->right_path = NULL;
+		cmds->cmd_path = NULL;
 		ft_get_path(cmds, env);
 		cmds = cmds->next;
 	}
