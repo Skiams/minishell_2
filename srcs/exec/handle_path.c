@@ -12,15 +12,19 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error)
+void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 {
-	if (!cmds->redir || cmds->redir->type != 2)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putstr_fd(error, 2);
-	}
+	t_cmds	*cmds;
+
+	cmds = tmp;
+	ft_putstr_fd("ft_free\n\n", 2);
+	//if (!cmds->redir || cmds->redir->type != 2)
+//	{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(error, 2);
+//	}
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);

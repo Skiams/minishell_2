@@ -19,46 +19,32 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 	ft_handle_execve_error(data, cmds);
 }
 
-void     ft_handle_first_cmd(t_data *data, t_cmds *cmds, char **env)
+void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
 {
-	(void)env;
-	(void)data;
-        if (!cmds->cmd)
-                return ;
-	else
-	{
-		if (close(cmds->prev_pipe[0]) == -1)
-			ft_handle_close_error(cmds);
-		if (dup2(cmds->curr_pipe[1], 1) == -1)
-			ft_handle_dup2_error(data, cmds);
-		if (close(cmds->curr_pipe[1]) == -1)
-			ft_handle_close_error(cmds);
-        }
+	if (close(cmds->prev_pipe[0]) == -1)
+		ft_handle_close_error(data, cmds);
+	if (dup2(cmds->curr_pipe[1], 1) == -1)
+		ft_handle_dup2_error(data, cmds);
+	if (close(cmds->curr_pipe[1]) == -1)
+		ft_handle_close_error(data, cmds);
 }
 
-void	ft_handle_last_cmd(t_data *data, t_cmds *cmds, char **env)
+void	ft_handle_last_cmd(t_data *data, t_cmds *cmds)
 {
-	(void)env;
-    	if (!cmds->cmd)
-                return ;
-	else
-	{
-		if (close(cmds->curr_pipe[1]) == -1)
-			ft_handle_close_error(cmds);
-		if (dup2(cmds->prev_pipe[0], 0) == -1)
-			ft_handle_dup2_error(data, cmds);
-		if (close(cmds->prev_pipe[0]) == -1)
-			ft_handle_close_error(cmds);
-	}
+	if (close(cmds->curr_pipe[1]) == -1)
+		ft_handle_close_error(data, cmds);
+	if (dup2(cmds->prev_pipe[0], 0) == -1)
+		ft_handle_dup2_error(data, cmds);
+	if (close(cmds->prev_pipe[0]) == -1)
+		ft_handle_close_error(data, cmds);
 }
 
-void	ft_handle_processes(t_data *data, t_cmds *cmds, char **argv, char **env)
+void	ft_handle_processes(t_data *data, t_cmds *cmds, char **env)
 {
-	(void)argv;
 	if (cmds && !cmds->prev)
-		ft_handle_first_cmd(data, cmds, env);
+		ft_handle_first_cmd(data, cmds);
 	else if (cmds->next == NULL)
-		ft_handle_last_cmd(data, cmds, env);
+		ft_handle_last_cmd(data, cmds);
 	else
 	{
 		if (dup2(cmds->prev_pipe[0], STDIN_FILENO) == -1)

@@ -11,17 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-void    ft_handle_close_error2(t_data *data, t_cmds *cmds)
-{
-	ft_putstr_fd("close failed\n", 2);
-	ft_free_tab(cmds->cmd_path);
-	close(cmds->outfile);
-	ft_free_tab(cmds->cmd_path);
-	ft_clean_all(data);
-	ft_close_processes(cmds);
-	exit (1);
-}
-
 
 static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 {
@@ -31,33 +20,26 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 	while (cmds && cmds != NULL)
 	{
 		if (pipe(cmds->curr_pipe) == -1)
-			ft_handle_pipe_error(cmds);
+			ft_handle_pipe_error(data, cmds);
 		if (ft_is_a_built_in(cmds->cmd))
 			ft_exec_built_in(data, cmds);
-		//				if (close(cmds->prev_pipe[1]) == -1)
-		//				{
-		//					ft_putstr_fd("Ma cravate est laaiiide\n", 2);
-		//					ft_handle_close_error2(data, cmds);
-		//				}		
-
-		//			ft_exec_built_in(data, cmds);
 		else 
 		{
 			cmds->pid = fork();
 			if (cmds->pid == -1)
-				ft_handle_fork_error(cmds);
+				ft_handle_fork_error(data, cmds);
 			if (cmds->pid == 0)
-				ft_handle_processes(data, cmds, &cmds->cmd, env);
+				ft_handle_processes(data, cmds, env);
 		}
 		if (close(cmds->prev_pipe[0]) == -1)
 		{
 			ft_putstr_fd("Oh nooon ! Mes fraises sont molles\n", 2);
-			ft_handle_close_error2(data, cmds);
+			ft_handle_close_error(data, cmds);
 		}
 		if (close(cmds->prev_pipe[1]) == -1)
 		{
 			ft_putstr_fd("Oh nooooon ! J'ai fait une tache de fraise molle sur ma cravate laaaiiide\n", 2);
-			ft_handle_close_error2(data, cmds);
+			ft_handle_close_error(data, cmds);
 		}
 		if (cmds->next)
 		{
@@ -79,14 +61,12 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	cmds->pid = fork();
 	if (cmds->pid == -1)
-		ft_handle_fork_error(cmds);
+		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 	{
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
-		cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
-		execve(cmds->right_path, cmds->args, env);
-		ft_handle_execve_error(data, cmds);
+		ft_exec_cmds(data, cmds, env);
 	}
 	else if (cmds->pid > 0)
 	{
@@ -107,7 +87,8 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		ft_dup_stdin_stdout(data, cmds);
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
-		ft_exec_built_in(data, cmds);
+		if (cmds->infile != -1)
+			ft_exec_built_in(data, cmds);
 		ft_dup2_and_close_stdin_stdout(data, cmds);
 		return (ft_exit_code(0, GET));
 	}
@@ -135,7 +116,7 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	else
 	{
 		if (pipe(cmds->prev_pipe) == -1)
-			ft_handle_pipe_error(cmds);
+			ft_handle_pipe_error(data, cmds);
 		ft_handle_multi_pipes(data, cmds, env);
 	}
 	return (ft_exit_code(0, GET));

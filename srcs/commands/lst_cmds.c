@@ -20,11 +20,11 @@ t_cmds	*lst_new_cmd(void)
 	if (!node)
 		return (NULL);
 	node->redir = NULL;
-	node->cmd = NULL;
-	node->args = NULL;
 	node->env_path = NULL;
 	node->cmd_path = NULL;
 	node->right_path = NULL;
+	node->cmd = NULL;
+	node->args = NULL;
 	node->prev = NULL;
 	node->next = NULL;
 	return (node);

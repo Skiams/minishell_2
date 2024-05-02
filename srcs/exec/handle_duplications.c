@@ -33,11 +33,11 @@ void	ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds)
 	if (dup2(cmds->dev_stdin, 0) == -1)
 		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->dev_stdin) == -1)
-		ft_handle_close_error(cmds);
+		ft_handle_close_error(data, cmds);
 	if (dup2(cmds->dev_stdout, 1) == -1)
 		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->dev_stdout) == -1)
-		ft_handle_close_error(cmds);
+		ft_handle_close_error(data, cmds);
 }
 void    ft_handle_dup2_error(t_data *data, t_cmds *cmds)
 {
