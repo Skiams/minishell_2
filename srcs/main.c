@@ -84,6 +84,7 @@ int	main(int argc, char **argv, char **env)
 		print_tokens(data.token_list);
 		print_cmds(data.cmd_list);
 */
+		//print_cmds(data.cmd_list);
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);

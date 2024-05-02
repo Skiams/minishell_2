@@ -20,8 +20,20 @@ t_cmds	*lst_new_cmd(void)
 	if (!node)
 		return (NULL);
 	node->redir = NULL;
+	node->env_path = NULL;
+	node->cmd_path = NULL;
+	node->right_path = NULL;
 	node->cmd = NULL;
 	node->args = NULL;
+	node->i = 0;
+	node->argc = 0;
+	node->here_doc = 0;
+	node->is_here_doc = 0;
+	node->code_status = 0;
+	node->dev_stdin = 0;
+	node->dev_stdout = 0;
+	node->infile = 0;
+	node->outfile = 0;
 	node->prev = NULL;
 	node->next = NULL;
 	return (node);
