@@ -79,6 +79,18 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 	return (ft_exit_code(0, GET));
 }
 
+void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
+{
+	if (!ft_strcmp(cmds->cmd, "exit"))
+			{
+				ft_dup2_and_close_stdin_stdout(data, cmds);
+				ft_free_tab(cmds->cmd_path);
+				ft_clean_all(data);
+				ft_exit_code(0, GET);
+				exit (1);
+			}
+}
+
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	// Voir avec Antoine le code erreur
@@ -96,7 +108,10 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
 		if (cmds->infile != -1)
+		{
+			ft_handle_exit_built_in(data, cmds);
 			ft_exec_built_in(data, cmds);
+		}
 		ft_dup2_and_close_stdin_stdout(data, cmds);
 		return (ft_exit_code(0, GET));
 	}
