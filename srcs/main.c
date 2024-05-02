@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/27 12:43:21 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/02 13:50:13 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int argc, char **argv, char **env)
 		print_tokens(data.token_list);
 		print_cmds(data.cmd_list);
 */
-		//print_cmds(data.cmd_list);
+	//	print_cmds(data.cmd_list);
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);

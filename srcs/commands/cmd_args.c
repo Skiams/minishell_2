@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:15:47 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 19:20:20 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/02 16:29:39 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ bool	ft_set_more_args(t_cmds *last_cmd, t_token **token_lst)
 	char	**added_args;
 	t_token	*tmp;
 	
-	dprintf(2, "ca lue on ajoute des args\n");
 	tmp = *token_lst;
 	i = 0;
 	while (last_cmd->args[i])
@@ -72,7 +71,6 @@ bool	ft_set_more_args(t_cmds *last_cmd, t_token **token_lst)
 		return (false);
 	ft_free_tab(last_cmd->args);
 	last_cmd->args = added_args;
-	// dprintf(2, "token tmp value = %s\n", tmp->value);
 	*token_lst = tmp;
 	return (true);
 }

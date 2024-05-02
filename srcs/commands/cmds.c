@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 19:18:16 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/02 13:30:01 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,43 +106,3 @@ bool	ft_get_cmds(t_data *data, t_token **token_lst)
 		return (false);
 	return (true);
 }
-
-
-// 	tmp = data->token_list;
-// 	if (!tmp)
-// 		return (NULL);
-// 	i = 1;
-// 	j = 0;
-// 	while (tmp)
-// 	{
-// 		if (tmp->type == PIPE)
-// 			i++;
-// 		tmp = tmp->next;
-// 	}
-// 	tab = malloc(sizeof(char **) * (i + 1));
-// 	if (!tab)
-// 		return (ft_exit_code(12, ADD), NULL);
-// 	tmp = data->token_list;
-// 	while (j < i && tmp)
-// 	{
-// 		tab[j] = ft_substr(tmp->value, 0, ft_strlen(tmp->value));
-// 		if (!tab[j])
-// 			return (ft_exit_code(12, ADD), NULL);
-// 		while (tmp->next && tmp->type != PIPE && tmp->next->type != PIPE)
-// 		{
-// 			str = ft_strjoin_c(tab[j], tmp->next->value, 32);
-// 			if (!str)
-// 				return (ft_exit_code(12, ADD), NULL);
-// 			free(tab[j]);
-// 			tab[j] = str;
-// 			tmp = tmp->next;
-// 		}
-// 		if (tmp->next != NULL && tmp->next->type == PIPE)
-// 			tmp = tmp->next->next;
-// 		else
-// 			tmp = tmp->next;
-// 		j++;
-// 	}
-// 	tab[j] = NULL;
-// 	return (tab);
-// }

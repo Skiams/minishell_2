@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/04/30 14:53:57 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/02 16:03:24 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,9 @@ static bool	ft_add_var_env(t_data *data, char *str, int code)
 
 int	ft_export(t_data *data, char **args)
 {
-	int	i;
-	int	code;
+	int		i;
+	int		code;
+	char	*dup_arg;
 
 	code = 0;
 	i = 1;
@@ -136,6 +137,9 @@ int	ft_export(t_data *data, char **args)
 	{
 		while (args[i])
 		{
+			dup_arg = ft_strdup(args[i]);
+			if (!dup_arg)
+				return (ft_exit_code(12, ADD));
 			code = ft_check_export_case(args[i]);
 			if (args[1][0] == '-')
 			{
@@ -149,7 +153,7 @@ int	ft_export(t_data *data, char **args)
 				ft_error_export(args[i]);
 			else if (code >= 1 && code <= 3)
 			{
-				if (!ft_add_var_env(data, args[i], code))
+				if (!ft_add_var_env(data, dup_arg, code))
 					return (ft_exit_code(12, ADD));
 			}
 			i++;

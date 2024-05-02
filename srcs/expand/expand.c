@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/27 13:08:04 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/02 15:55:59 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static char *ft_normal_str(char *str, size_t *i)
 		return (ft_exit_code(12, ADD), NULL);
 	return (normal_str);
 }
+
 static char *ft_normal_dq_str(char *str, size_t *i)
 {
 	size_t	start;
