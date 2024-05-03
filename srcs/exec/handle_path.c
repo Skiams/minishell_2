@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 21:46:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/02 17:00:18 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 		cmds->cmd_path = NULL;
 		cmds = cmds->next;
 	}
+	dprintf(2, "on est avant le clean all de ft free\n");
 	ft_clean_all(data);
 }
 

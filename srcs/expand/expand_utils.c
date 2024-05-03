@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:27:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/27 13:09:37 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/03 14:55:32 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ static int		ft_count_quotes(char *str)
 		i++;
 	}
 	return (quote_nb);
+}
+
+bool	ft_is_quotes(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+			return (true);
+	}
+	return (false);
 }
 
 char	*ft_remove_quotes(char *str)
@@ -111,7 +124,7 @@ char	*ft_var_is_exp(t_data *data, char *str)
 	tmp = data->env;
 	while (tmp)
 	{
-		if (ft_strcmp(str, tmp->var) == 0)
+		if (ft_strcmp(str, tmp->var) == 0 && tmp->value)
 		{
 			dup_value = ft_strdup(tmp->value);
 			if (!dup_value)
