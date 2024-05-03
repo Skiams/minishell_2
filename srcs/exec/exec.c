@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/21 22:42:47 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/03 16:28:11 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 
 int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
+	dprintf(2, "on est dans one no built in\n");
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -83,6 +84,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	// Voir avec Antoine le code erreur
 	ft_get_path(cmds, env);
+	dprintf(2, "on est apres le get path\n");
 	if (!ft_strcmp(cmds->cmd, ":") || !ft_strcmp(cmds->cmd, "!"))
 	{
 		ft_putstr_fd("", 2);
@@ -96,7 +98,10 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
 		if (cmds->infile != -1)
+		{
+			dprintf(2, "on est dans le cmds->infile\n");
 			ft_exec_built_in(data, cmds);
+		}
 		ft_dup2_and_close_stdin_stdout(data, cmds);
 		return (ft_exit_code(0, GET));
 	}
@@ -122,8 +127,12 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 		cmds = cmds->next;
 	}
 	cmds = tmp;
+	dprintf(2, "argc = %i\n", cmds->argc);
 	if (cmds->argc == 1)
+	{
+		dprintf(2, "on est bien dans argc=1\n");
 		ft_is_only_one_cmd(data, cmds, env), ft_free_tab(cmds->cmd_path);
+	}
 	else
 	{
 		if (pipe(cmds->prev_pipe) == -1)

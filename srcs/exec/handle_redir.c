@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/26 14:42:47 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/03 16:32:26 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
+	t_redir	*tmp;
+
+	tmp = cmds->redir;
 	while (cmds && cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
@@ -51,11 +54,20 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_here_doc(data, cmds);
 		}
 		if (cmds->redir->type == 3)
+		{
+			dprintf(2, "on est dans la gestion redir input\n");
 			ft_handle_input_redir(data, cmds);
+		}
 		if (cmds->redir->type == 4)
 			ft_handle_output_redir(data, cmds);
-		free(cmds->redir->path);
+		//free(cmds->redir->path);
 		cmds->redir = cmds->redir->next;
+	}
+	cmds->redir = tmp;
+	if (cmds->redir)
+	{
+		dprintf(2, "on essaye de clear redir\n");
+		ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 	}
 }
 
