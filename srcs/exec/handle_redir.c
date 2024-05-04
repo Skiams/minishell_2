@@ -60,15 +60,10 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		}
 		if (cmds->redir->type == 4)
 			ft_handle_output_redir(data, cmds);
-		//free(cmds->redir->path);
 		cmds->redir = cmds->redir->next;
 	}
 	cmds->redir = tmp;
-	if (cmds->redir)
-	{
-		dprintf(2, "on essaye de clear redir\n");
-		ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
-	}
+	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
 void	ft_handle_append(t_data *data, t_cmds *cmds)
