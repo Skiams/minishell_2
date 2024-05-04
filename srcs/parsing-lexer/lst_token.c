@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:21:55 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/18 20:07:41 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/04 21:03:08 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ t_token	*ft_lstnew_token(char *value, t_token_tp type)
 	newel = malloc(sizeof(t_token));
 	if (!newel)
 		return (NULL);
-	newel->quote_type = 0;
+	// if (ft_expand_code(0, GET) == 1)
+	// 	newel->exp_no_quotes = 1;
+	// else
+	// 	newel->exp_no_quotes = 0;
 	newel->value = value;
 	newel->type = type;
 	newel->next = NULL;

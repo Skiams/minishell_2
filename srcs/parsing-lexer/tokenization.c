@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/03 15:22:39 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/04 21:32:21 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,27 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 			len++;
 		}
 	}
-	value = ft_substr(str, start, len);
-	if (!value)
+	if (!(value = ft_substr(str, start, len)))
 		return (ft_exit_code(12, ADD), -1);
 	if (!(exp_value = ft_remove_quotes(ft_expand(data, value))))
 		return (ft_free_ptr(value), -1);
+	dprintf(2, "exp value = %s\n", exp_value);
+	dprintf(2, "expand code = %d\n", ft_expand_code(0, GET));
 	ft_free_ptr(value);
-	new_token = ft_lstnew_token(exp_value, WORD);
-	if (!new_token)
-		return (ft_exit_code(12, ADD), -1);
-	ft_lstadd_back_token(token_lst, new_token);
+	if (ft_expand_code(0, GET) == 1 && ft_check_space_expand(exp_value))
+	{
+		dprintf(2, "on est dans le exp token\n");
+		if (!ft_add_exp_token(token_lst, exp_value) && ft_exit_code(0, GET) == 12)
+			return (-1);
+	}
+	else
+	{
+		new_token = ft_lstnew_token(exp_value, WORD);
+		if (!new_token)
+			return (ft_exit_code(12, ADD), -1);
+		ft_lstadd_back_token(token_lst, new_token);
+	}
+	ft_expand_code(0, ADD);
 	return (i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/01 16:16:09 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/04 20:57:02 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ bool	ft_check_quotes(char *str, int i);
 int		ft_check_end_quotes(char *str, int i, char c);
 bool	ft_clean_quotes(t_data *data);
 char	*ft_remove_quotes(char *str);
+bool	ft_add_exp_token(t_token **token_lst, char *str);
+bool	ft_check_space_expand(char *str);
 
 // EXPAND
 
@@ -59,6 +61,7 @@ void	ft_init_var_exp(char **tmp_var, char **exp_rest, int *i, int *start);
 char	*ft_var_is_exp(t_data *data, char *str);
 char	*ft_exp_question_m(t_data *data);
 char	*ft_exp_pid(t_data *data);
+int 	ft_expand_code(int expand_code, int mode);
 
 // COMMANDS
 

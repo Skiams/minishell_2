@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/03 15:15:04 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/04 22:05:55 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static char *ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 	start = *i;
 	if (code == NO_QUOTES)
 	{
-		while (str[*i] && str[*i] != '$')
+		//ligne ajoutee pour le cas d'export une variable apres un expand
+		while (str[*i] && str[*i] != '$' && str[*i] != '=')
 			(*i)++;
 	}
 	else if (code == QUOTES)
@@ -115,11 +116,13 @@ char	*ft_expand(t_data *data, char *str)
 {
 	char	*exp_str;
 	size_t	i;
+	// int		count;
 
-	exp_str = ft_strdup("");
-	if (!exp_str)
+	// count = 0;
+	if (!(exp_str = ft_strdup("")))
 		return (ft_exit_code(12, ADD), NULL);
 	i = 0;
+	dprintf(2, "la str en rentrant dans l'expand ressemble a = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -127,11 +130,17 @@ char	*ft_expand(t_data *data, char *str)
 		else if (str[i] == '"')
 			exp_str = ft_strjoin_exp(exp_str, ft_exp_dquotes(data, str, &i));
 		else if (str[i] == '$')
+		{
+			dprintf(2, "on rentre dans le $ de l'expand sans double quote normalement\n");
 			exp_str = ft_strjoin_exp(exp_str, ft_classic_exp(data, str, &i, NO_QUOTES));
+			// if (count == 0)
+			ft_expand_code(1, ADD);
+		}
 		else
 			exp_str = ft_strjoin_exp(exp_str, ft_normal_str(str, &i));
 		if (!exp_str)
 			return (ft_exit_code(12, ADD), NULL);
+		//count++;
 	}
 	return (exp_str);
 }
