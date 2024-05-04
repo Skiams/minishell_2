@@ -20,7 +20,6 @@ void    ft_exit_properly2(t_data *data, t_cmds *cmds)
         exit (1);
 }
 
-
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 {
 	if (cmds->redir)

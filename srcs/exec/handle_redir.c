@@ -41,6 +41,9 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
+	t_redir	*tmp;
+
+	tmp = cmds->redir;
 	while (cmds && cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
@@ -54,9 +57,10 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_input_redir(data, cmds);
 		if (cmds->redir->type == 4)
 			ft_handle_output_redir(data, cmds);
-		free(cmds->redir->path);
 		cmds->redir = cmds->redir->next;
 	}
+	cmds->redir = tmp;
+	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
 void	ft_handle_append(t_data *data, t_cmds *cmds)
