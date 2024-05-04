@@ -92,6 +92,16 @@ void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
 			}
 }
 
+/*
+ * Pourquoi ce if (cmds->infile != -1) ?
+ *
+ * On a set cmds->infile a 0 au debut
+ * S'il est a -1 c'est qu'il y a eu une erreur, qu'on n'a pas pu l'ouvrir
+ * S'il au contraire il est != -1, c'est que tout s'est bien passe, qu'on a un infile
+ * Et la deux options :
+ * 	1 - la commande est exit, donc il close stdin/stdout qu'on avait ouvert avant de quitter
+ * 	2 - la commande n'est pas exit, on l'execute
+ */
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	// Voir avec Antoine le code erreur
