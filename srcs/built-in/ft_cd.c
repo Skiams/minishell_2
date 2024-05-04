@@ -72,7 +72,7 @@ static int	ft_change_dir(t_data *data, int code)
 		if (!ft_new_pwds(data, OLDPWD))
             return(ft_exit_code(0, GET));
         if (!ft_var_is_in_env(data, "HOME"))
-            return (ft_putstr_fd("minishell: cd: HOME is not set\n", 1), 0);
+            return (ft_putstr_fd("minishell: cd: HOME is not set\n", 2), 1);
 		new_dir = ft_var_is_exp(data, "HOME");
 		if (!new_dir)
 			return (ft_exit_code(12, ADD));
@@ -80,7 +80,7 @@ static int	ft_change_dir(t_data *data, int code)
     else if (code == PREV)
     {
         if (!ft_var_is_in_env(data, "OLDPWD"))
-            return (ft_putstr_fd("minishell: cd: HOME is not set\n", 1), 0);
+            return (ft_putstr_fd("minishell: cd: OLDPWD is not set\n", 2), 1);
         new_dir = ft_var_is_exp(data, "OLDPWD");
         if (!new_dir)
             return (ft_exit_code(12, ADD));

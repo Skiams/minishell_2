@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:44:24 by ahayon            #+#    #+#             */
-/*   Updated: 2024/03/25 13:09:52 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/04 18:03:22 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@ int	ft_exit_code(int exit_code, int mode)
 
 	if (mode == ADD)
 		code = exit_code;
+	if (mode == GET)
+		return (code);
+	return (code);
+}
+
+int	ft_expand_code(int expand_code, int mode)
+{
+	static int	code = 0;
+
+	if (mode == ADD)
+		code = expand_code;
 	if (mode == GET)
 		return (code);
 	return (code);
