@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/02 16:03:24 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/03 15:09:28 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,7 @@ int	ft_export(t_data *data, char **args)
 			i++;
 		}
 	}
+	if (code == 2 || code == 3)
+		ft_free_ptr(dup_arg);
 	return (ft_exit_code(0, GET));
 }

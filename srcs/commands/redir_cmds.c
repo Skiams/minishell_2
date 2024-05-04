@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:34:21 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/24 17:42:02 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/02 19:50:55 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_clear_redirlst(t_redir **redir_list, void (*del)(void *))
 {
 	t_redir	*temp;
 
+	//dprintf(2, "on est dans le clear redir\n");
 	temp = NULL;
 	while (*redir_list)
 	{
