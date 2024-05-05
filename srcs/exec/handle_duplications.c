@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static void    ft_handle_dup_error(t_data *data, t_cmds *cmds)
+static void	ft_handle_dup_error(t_data *data, t_cmds *cmds)
 {
 	perror(cmds->cmd);
 	ft_free_tab(cmds->cmd_path);
@@ -22,9 +22,11 @@ static void    ft_handle_dup_error(t_data *data, t_cmds *cmds)
 
 void	ft_dup_stdin_stdout(t_data *data, t_cmds *cmds)
 {
-	if ((cmds->dev_stdin = dup(0)) == -1)
+	cmds->dev_stdin = dup(0);
+	if (cmds->dev_stdin == -1)
 		ft_handle_dup_error(data, cmds);
-	if ((cmds->dev_stdout = dup(1)) == -1)
+	cmds->dev_stdout = dup(1);
+	if (cmds->dev_stdout == -1)
 		ft_handle_dup_error(data, cmds);
 }
 
@@ -39,7 +41,8 @@ void	ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds)
 	if (close(cmds->dev_stdout) == -1)
 		ft_handle_close_error(data, cmds);
 }
-void    ft_handle_dup2_error(t_data *data, t_cmds *cmds)
+
+void	ft_handle_dup2_error(t_data *data, t_cmds *cmds)
 {
 	ft_putstr_fd("dup2 failed\n", 2);
 	ft_free_tab(cmds->cmd_path);
