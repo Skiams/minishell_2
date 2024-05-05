@@ -39,30 +39,32 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 	ft_count_here_doc(cmds);
 	while (1)
 	{
-		while (cmds->is_here_doc > 1)
+		while (cmds->is_here_doc > 0)
 		{
 			delimiter = ft_strjoin(cmds->redir->path, "\n");
-			ft_putstr_fd("> ", 0);
-			line = get_next_line(0);
-			if (!ft_strcmp(line, delimiter))
+			while (1)
 			{
+				ft_putstr_fd("> ", 0);
+				line = get_next_line(0);
+				if (!line || !ft_strcmp(line, delimiter))
+				{
+					free(line);
+					free(delimiter);
+					cmds->is_here_doc -= 1;
+					if (!cmds->redir->next)
+						break ;
+					free(cmds->redir->path);
+					cmds->redir = cmds->redir->next;
+					break ;
+				}
 				free(line);
-				free(delimiter);
-				cmds->is_here_doc -= 1;
-				cmds->redir = cmds->redir->next;
 			}
 		}
-		delimiter = ft_strjoin(cmds->redir->path, "\n");
-		ft_putstr_fd("> ", 0);
-		line = get_next_line(0);
-		if (!ft_strcmp(line, delimiter))
-			break ;
-		free(line);
+		break ;
 	}
-	free(line);
-	free(delimiter);
 	if (close(cmds->here_doc) == -1)
 		ft_handle_infile_error(data, cmds);
+
 }
 
 void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
