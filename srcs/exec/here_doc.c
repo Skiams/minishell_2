@@ -17,7 +17,7 @@ int	ft_count_here_doc(t_cmds *cmds)
 	t_redir	*tmp;
 
 	tmp = cmds->redir;
-	while (tmp != NULL)
+	while (tmp != NULL && tmp->type == 2)
 	{
 		cmds->here_doc_count += 1;
 		tmp = tmp->next;
@@ -27,11 +27,11 @@ int	ft_count_here_doc(t_cmds *cmds)
 
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 {
-//	t_redir	*tmp;
+	//	t_redir	*tmp;
 	char	*line;
 	char	*delimiter;
 
-//	tmp = cmds->redir;
+	//	tmp = cmds->redir;
 	if (!cmds->cmd)
 		cmds->here_doc = open("/dev/stdin", O_CREAT | O_TRUNC, 0755);
 	else
@@ -53,24 +53,31 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 		delimiter = ft_strjoin(cmds->redir->path, "\n");
 		while (1)
 		{
+			dprintf(2, "Il y a %d here_doc\n", cmds->here_doc_count);
 			ft_putstr_fd("> ", 0);
 			line = get_next_line(0);
-			if (!line || !ft_strcmp(line, delimiter))
+			if (!ft_strcmp(line, delimiter))
 			{
 				free(line);
 				free(delimiter);
 				cmds->here_doc_count -= 1;
-				if (!cmds->redir->next)
+				cmds->redir->next ? dprintf(2, "Le next est %s\n", cmds->redir->next->path) : dprintf(2, "null\n");
+				if (cmds->redir->next && cmds->redir->next->type == 2)
+				{
+					dprintf(2, "Il y a une prochaine redir qui est un here_doc\n");
+					cmds->redir = cmds->redir->next;
 					break ;
-				free(cmds->redir->path);
-				cmds->redir = cmds->redir->next;
+				}
+				if (cmds->redir->next->type != 2)
+				{
+					dprintf(2, "je suis differente de 2\n");
+					cmds->redir = cmds->redir->next;
+				}
 				break ;
 			}
 			free(line);
 		}
 	}
-//	cmds->redir = tmp;
-//	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 	if (close(cmds->here_doc) == -1)
 		ft_handle_infile_error(data, cmds);
 }
