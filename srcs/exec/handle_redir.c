@@ -14,13 +14,21 @@
 
 int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 {
+	t_redir	*tmp;
+
+	tmp = cmds->redir;
+	dprintf(2, "je suis dans handle_redir_without_cmd\n");
+	while (cmds->redir != NULL)
+	{
 	if (cmds->redir && cmds->redir->type == 2)
 	{
+		dprintf(2, "je suis dans une redir de type 2\n");
 		ft_exec_here_doc(data, cmds);
 		unlink(cmds->redir->path);
 	}
-	else if (cmds->redir->type == 3)
+	if (cmds->redir->type == 3)
 	{
+		dprintf(2, "je suis dans une redir de type 3\n");
 		if (access(cmds->redir->path, F_OK) == 0);
 		else 
 		{       
@@ -28,14 +36,20 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 			ft_putstr_fd(": LALALA No such file or directory\n", 2);
 		}
 	}
-	else
+	if (cmds->redir->type == 4)
 	{
+		dprintf(2, "je suis dans une redir de type 4\n");
 		cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT, 0755);
 		if (cmds->outfile == -1)
 			ft_handle_outfile_error(data, cmds);
 		if (close(cmds->outfile) == -1)
 			ft_handle_close_error(data, cmds);
 	}
+		cmds->redir = cmds->redir->next;
+	}
+	cmds->redir = tmp;
+	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+
 	return (ft_exit_code(0, GET));
 }
 
