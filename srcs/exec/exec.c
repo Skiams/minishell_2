@@ -143,7 +143,7 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 		cmds->argc = ft_lstsize_cmd(cmds);
 		cmds->infile = 0;
 		cmds->outfile = 0;
-		cmds->is_here_doc = 0;
+		cmds->here_doc_count = 0;
 		cmds->right_path = NULL;
 		cmds->cmd_path = NULL;
 		cmds = cmds->next;

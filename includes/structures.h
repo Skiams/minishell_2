@@ -85,7 +85,7 @@ typedef struct s_cmds
 	int		i;
 	int		argc;
 	int		here_doc;
-	int		is_here_doc;
+	int		here_doc_count;
 	int		code_status;
 	int		dev_stdin;
 	int		dev_stdout;
