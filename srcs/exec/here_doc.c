@@ -12,6 +12,19 @@
 
 #include "../../includes/minishell.h"
 
+int	ft_count_here_doc(t_cmds *cmds)
+{
+	t_redir	*tmp;
+
+	tmp = cmds->redir;
+	while (tmp != NULL)
+	{
+		cmds->is_here_doc += 1;
+		tmp = tmp->next;
+	}
+	return (cmds->is_here_doc);
+}
+
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 {
 	char	*line;
@@ -23,15 +36,27 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 		cmds->here_doc = open(cmds->cmd, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	if (cmds->here_doc == -1)
 		ft_handle_infile_error(data, cmds);
-	cmds->is_here_doc = 1;
-	delimiter = ft_strjoin(cmds->redir->path, "\n");
+	ft_count_here_doc(cmds);
 	while (1)
 	{
+		while (cmds->is_here_doc > 1)
+		{
+			delimiter = ft_strjoin(cmds->redir->path, "\n");
+			ft_putstr_fd("> ", 0);
+			line = get_next_line(0);
+			if (!ft_strcmp(line, delimiter))
+			{
+				free(line);
+				free(delimiter);
+				cmds->is_here_doc -= 1;
+				cmds->redir = cmds->redir->next;
+			}
+		}
+		delimiter = ft_strjoin(cmds->redir->path, "\n");
 		ft_putstr_fd("> ", 0);
 		line = get_next_line(0);
 		if (!ft_strcmp(line, delimiter))
 			break ;
-		ft_putstr_fd(line, cmds->here_doc);
 		free(line);
 	}
 	free(line);
@@ -40,7 +65,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 		ft_handle_infile_error(data, cmds);
 }
 
-void    ft_handle_here_doc(t_data *data, t_cmds *cmds)
+void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	cmds->here_doc = open(cmds->cmd, O_RDONLY, 0755);
 	if (cmds->here_doc == -1)

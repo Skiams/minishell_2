@@ -27,11 +27,13 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
  * s'il n'a pas reussi a ouvrir l'infile (donc si l'infile == -1)
  * Il te faut donc un enfant qui va close 0 et 1 qui on ete ouvert
  * 	-> cf ft_is_only_one_cmd(), si on a un built-in 
- * Puis qui va quitter prorement sans executer le built-in ni quitter le programme
- * C'est pour ca que dans is_only_one_cmd(), le built-in ne s'execute que si on a un infile
+ * Puis qui va quitter prorement sans executer le built-in
+ * ni quitter le programme
+ * C'est pour ca que dans is_only_one_cmd()
+ * le built-in ne s'execute que si on a un infile
  * Donc si l'infile != -1
  */
-void    ft_handle_infile_error(t_data *data, t_cmds *cmds)
+void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 {
 	perror(cmds->redir->path);
 	if (ft_is_a_built_in(cmds->cmd))
@@ -56,7 +58,7 @@ void    ft_handle_infile_error(t_data *data, t_cmds *cmds)
 	}
 }
 
-void    ft_handle_outfile_error(t_data *data, t_cmds *cmds)
+void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
 {
 	perror(cmds->redir->path);
 	if (cmds->outfile != -1)
@@ -68,14 +70,14 @@ void    ft_handle_outfile_error(t_data *data, t_cmds *cmds)
 	ft_exit_properly(data, cmds);
 }
 
-void    ft_handle_pipe_error(t_data *data, t_cmds *cmds)
+void	ft_handle_pipe_error(t_data *data, t_cmds *cmds)
 {
 	ft_putstr_fd("pipe failed\n", 2);
 	ft_close_processes(cmds);
 	ft_exit_properly(data, cmds);
 }
 
-void    ft_handle_fork_error(t_data *data, t_cmds *cmds)
+void	ft_handle_fork_error(t_data *data, t_cmds *cmds)
 {
 	ft_putstr_fd("fork failed\n", 2);
 	ft_close_processes(cmds);
@@ -83,7 +85,7 @@ void    ft_handle_fork_error(t_data *data, t_cmds *cmds)
 	ft_exit_properly(data, cmds);
 }
 
-void    ft_handle_close_error(t_data *data, t_cmds *cmds)
+void	ft_handle_close_error(t_data *data, t_cmds *cmds)
 {
 	ft_putstr_fd("close failed\n", 2);
 	ft_free_tab(cmds->cmd_path);
