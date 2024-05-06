@@ -58,18 +58,21 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	t_redir	*tmp;
 
 	tmp = cmds->redir;
+	dprintf(2, "je suis dans handle_redir\n");
 	while (cmds && cmds->redir != NULL)
 	{
+		dprintf(2, "je suis dans le while de handle_redir\n");
 		if (cmds->redir->type == 1)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == 2)
 		{
+			dprintf(2, "on est sur une redir de type 2\n");
 			ft_exec_here_doc(data, cmds);
 			ft_handle_here_doc(data, cmds);
 		}
 		if (cmds->redir->type == 3)
 		{
-			dprintf(2, "on est dans la gestion redir input\n");
+			dprintf(2, "on est sur une redir de type 3\n");
 			ft_handle_input_redir(data, cmds);
 		}
 		if (cmds->redir->type == 4)
