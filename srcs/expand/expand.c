@@ -122,7 +122,7 @@ char	*ft_expand(t_data *data, char *str)
 	if (!(exp_str = ft_strdup("")))
 		return (ft_exit_code(12, ADD), NULL);
 	i = 0;
-	dprintf(2, "la str en rentrant dans l'expand ressemble a = %s\n", str);
+//	dprintf(2, "la str en rentrant dans l'expand ressemble a = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '\'')

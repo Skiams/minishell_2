@@ -24,6 +24,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 {
 	if (cmds->redir)
 			ft_handle_redir(data, cmds);
+	dprintf(2, "je passe dans exec_cmds\n");
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_exec_built_in(data, cmds);
