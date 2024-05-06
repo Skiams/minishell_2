@@ -17,10 +17,12 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 	t_redir	*tmp;
 
 	tmp = cmds->redir;
-//	dprintf(2, "je suis dans handle_redir_without_cmd\n");
+	print_redir(tmp);
+	dprintf(2, "je suis dans handle_redir_without_cmd\n");
 	while (cmds->redir != NULL)
 	{
-		if (cmds->redir && cmds->redir->type == 2)
+		dprintf(2, "je suis dans le while de handle_redir_without_cmd\n");
+		if (cmds->redir->type == 2)
 		{
 //			dprintf(2, "je suis dans une redir de type 2\n");
 			ft_exec_here_doc(data, cmds);
@@ -38,7 +40,7 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 		}
 		if (cmds->redir->type == 4)
 		{
-//			dprintf(2, "je suis dans une redir de type 4\n");
+			dprintf(2, "je suis dans une redir de type 4\n");
 			cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT, 0755);
 			if (cmds->outfile == -1)
 				ft_handle_outfile_error(data, cmds);
@@ -58,21 +60,41 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	t_redir	*tmp;
 
 	tmp = cmds->redir;
-//	dprintf(2, "je suis dans handle_redir\n");
-	while (cmds && cmds->redir != NULL)
+	cmds->here_doc_count = ft_count_here_doc(cmds);
+	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
+
+	dprintf(2, "je suis dans handle_redir\n");
+	while (cmds->redir != NULL) // && cmds->redir != NULL)
 	{
-//		dprintf(2, "je suis dans le while de handle_redir\n");
-		if (cmds->redir->type == 1)
-			ft_handle_append(data, cmds);
+		dprintf(2, "je suis dans le while de handle_redir\n");
 		if (cmds->redir->type == 2)
+//		if (cmds->here_doc_count > 0)
 		{
-//			dprintf(2, "on est sur une redir de type 2\n");
+			dprintf(2, "on est sur une redir de type 2\n");
 			ft_exec_here_doc(data, cmds);
 			ft_handle_here_doc(data, cmds);
 		}
+/*
+		if (cmds->redir->type == 1)
+			ft_handle_append(data, cmds);
 		if (cmds->redir->type == 3)
 		{
 //			dprintf(2, "on est sur une redir de type 3\n");
+			ft_handle_input_redir(data, cmds);
+		}
+		if (cmds->redir->type == 4)
+			ft_handle_output_redir(data, cmds);
+*/
+		cmds->redir = cmds->redir->next;
+	}
+	cmds->redir = tmp;
+	while (cmds->redir != NULL)
+	{
+		if (cmds->redir->type == 1)
+			ft_handle_append(data, cmds);
+		if (cmds->redir->type == 3)
+		{
+			dprintf(2, "on est sur une redir de type 3\n");
 			ft_handle_input_redir(data, cmds);
 		}
 		if (cmds->redir->type == 4)
