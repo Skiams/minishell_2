@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/04 20:57:02 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/06 17:55:21 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ t_env	*ft_lstnew_env(char *var, char *value);
 void	ft_lstadd_back_env(t_env **env_lst, t_env *new_env);
 t_env	*ft_lstlast_env(t_env *env);
 char	**ft_lst_to_tab(t_data *data);
+t_env   *ft_create_export_env(t_data *data);
+bool	ft_lstinit_env(t_env **env, char *var, char *value);
 
 // BUILT-INS
 

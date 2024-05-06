@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/04 21:03:04 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/06 17:46:42 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_data
 	t_token	*token_list;
 	t_cmds	*cmd_list;
 	t_env	*env;
+	t_env	*env_export;
 }	t_data;
 
 #endif

@@ -7,6 +7,7 @@ SRCS		=	srcs/main.c\
 				srcs/built-in/ft_env.c\
 				srcs/built-in/ft_export.c\
 				srcs/built-in/ft_export_utils.c\
+				srcs/built-in/ft_export_utils_bis.c\
 				srcs/built-in/ft_unset.c\
 				srcs/built-in/ft_exit.c\
 				srcs/built-in/ft_cd.c\
