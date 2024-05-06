@@ -61,16 +61,16 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 
 int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
-	dprintf(2, "on est dans one no built in\n");
+//	dprintf(2, "on est dans one no built in\n");
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 	{
-		dprintf(2, "j'arrive la\n");
+//		dprintf(2, "j'arrive la\n");
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
-		dprintf(2, "pourquoi je ne passe pas la\n");
+//		dprintf(2, "pourquoi je ne passe pas la\n");
 		ft_exec_cmds(data, cmds, env);
 	}
 	else if (cmds->pid > 0)
@@ -120,7 +120,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		ft_dup_stdin_stdout(data, cmds);
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
-		dprintf(2, "Est-ce que je repasse ici ?\n");
+//		dprintf(2, "Est-ce que je repasse ici ?\n");
 		if (cmds->infile != -1)
 		{
 			ft_handle_exit_built_in(data, cmds);
