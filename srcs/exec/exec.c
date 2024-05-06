@@ -85,13 +85,7 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
 {
 	if (!ft_strcmp(cmds->cmd, "exit"))
-	{
-		ft_dup2_and_close_stdin_stdout(data, cmds);
-		ft_free_tab(cmds->cmd_path);
-		ft_clean_all(data);
-		ft_exit_code(0, GET);
-		exit (1);
-	}
+		ft_exit(data, cmds);
 }
 
 /*
@@ -107,10 +101,11 @@ void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	// Voir avec Antoine le code erreur
+	dprintf(2, "Je suis dans only_one_cmd\n");
 	ft_get_path(cmds, env);
 	if (!ft_strcmp(cmds->cmd, ":") || !ft_strcmp(cmds->cmd, "!"))
 	{
-		ft_putstr_fd("", 2);
+		ft_putstr_fd("", 1);
 		return (ft_exit_code(0, GET));
 	}
 	if (!cmds->args)
