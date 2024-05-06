@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/02 15:10:02 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/06 18:16:37 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ int	ft_display_export(t_data *data)
 {
 	t_env	*sorted_env;
 
-	sorted_env = data->env;
+	if (!(data->env_export = ft_create_export_env(data)))
+		return (ft_exit_code(0, GET));
+	sorted_env = data->env_export;
 	ft_order_export_env(&sorted_env);
 	while (sorted_env)
 	{
@@ -103,5 +105,7 @@ int	ft_display_export(t_data *data)
 		ft_putstr_fd("\n", 1);
 		sorted_env = sorted_env->next;
 	}
-	return (ft_exit_code(1, ADD));
+	if (data->env_export)
+		ft_free_env(data->env_export);
+	return (ft_exit_code(0, GET));
 }

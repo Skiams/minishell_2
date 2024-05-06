@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/04 21:32:21 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/06 19:58:05 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	ft_free_ptr(value);
 	if (ft_expand_code(0, GET) == 1 && ft_check_space_expand(exp_value))
 	{
-//		dprintf(2, "on est dans le exp token\n");
+		dprintf(2, "on est dans le exp token\n");
 		if (!ft_add_exp_token(token_lst, exp_value) && ft_exit_code(0, GET) == 12)
 			return (-1);
 	}
