@@ -95,7 +95,7 @@ void	print_cmds(t_cmds *cmd_list)
 		{
 			dprintf(2, "redir->type = %d\n", tmp->redir->type);
 			dprintf(2, "redir->path = %s\n", tmp->redir->path);
-			free(tmp->redir->path);
+//			free(tmp->redir->path);
 			tmp->redir = tmp->redir->next;
 		}
 		tmp = tmp->next;

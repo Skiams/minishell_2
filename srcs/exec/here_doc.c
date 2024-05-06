@@ -17,9 +17,10 @@ int	ft_count_here_doc(t_cmds *cmds)
 	t_redir	*tmp;
 
 	tmp = cmds->redir;
-	while (tmp != NULL && tmp->type == 2)
+	while (tmp != NULL)
 	{
-		cmds->here_doc_count += 1;
+		if (tmp->type == 2)
+			cmds->here_doc_count += 1;
 		tmp = tmp->next;
 	}
 	return (cmds->here_doc_count);
