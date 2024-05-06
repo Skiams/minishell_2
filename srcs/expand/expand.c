@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/04 22:05:55 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/06 14:30:16 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char *ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 	char	*env_value;
 
 	(*i)++;
+	if (str[*i] == '\0')
+		return ("$");
 	if (str[*i] == '?')
 		return ((*i)++, ft_exp_question_m(data));
 	else if (str[* i] == '$')
@@ -116,13 +118,10 @@ char	*ft_expand(t_data *data, char *str)
 {
 	char	*exp_str;
 	size_t	i;
-	// int		count;
 
-	// count = 0;
 	if (!(exp_str = ft_strdup("")))
 		return (ft_exit_code(12, ADD), NULL);
 	i = 0;
-//	dprintf(2, "la str en rentrant dans l'expand ressemble a = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -133,14 +132,12 @@ char	*ft_expand(t_data *data, char *str)
 		{
 			dprintf(2, "on rentre dans le $ de l'expand sans double quote normalement\n");
 			exp_str = ft_strjoin_exp(exp_str, ft_classic_exp(data, str, &i, NO_QUOTES));
-			// if (count == 0)
 			ft_expand_code(1, ADD);
 		}
 		else
 			exp_str = ft_strjoin_exp(exp_str, ft_normal_str(str, &i));
 		if (!exp_str)
 			return (ft_exit_code(12, ADD), NULL);
-		//count++;
 	}
 	return (exp_str);
 }
