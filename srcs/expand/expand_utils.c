@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:27:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/03 14:55:32 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/07 16:23:31 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	ft_is_quotes(char *str)
 	return (false);
 }
 
-char	*ft_remove_quotes(char *str)
+char	*ft_remove_quotes(char *str, int code)
 {
 	int		i;
 	int		j;
@@ -80,7 +80,9 @@ char	*ft_remove_quotes(char *str)
 			new_str[j++] = str[i++];
 	}
 	new_str[j] = '\0';
-	return (free(str), new_str);
+	if (code == 1)
+		ft_free_ptr(str);
+	return (new_str);
 }
 
 void	ft_init_var_exp(char **tmp_var, char **exp_rest, int *i, int *start)

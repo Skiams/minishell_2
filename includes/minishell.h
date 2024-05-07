@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/06 17:55:21 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/07 16:22:47 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		ft_check_syntax(t_data *data);
 bool	ft_check_quotes(char *str, int i);
 int		ft_check_end_quotes(char *str, int i, char c);
 bool	ft_clean_quotes(t_data *data);
-char	*ft_remove_quotes(char *str);
+char	*ft_remove_quotes(char *str, int code);
 bool	ft_add_exp_token(t_token **token_lst, char *str);
 bool	ft_check_space_expand(char *str);
 
