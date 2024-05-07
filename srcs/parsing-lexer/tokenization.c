@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/06 19:58:05 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/07 16:23:43 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,15 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	}
 	if (!(value = ft_substr(str, start, len)))
 		return (ft_exit_code(12, ADD), -1);
-	if (!(exp_value = ft_remove_quotes(ft_expand(data, value))))
+	if ((*token_lst) && (*token_lst)->type == HEREDOC)
+	{
+		dprintf(2, "on rentre dans cette condition de chie\n");
+		if (!(exp_value = ft_remove_quotes(value, 0)))
+			return (ft_free_ptr(value), -1);
+	}
+	else if (!(exp_value = ft_remove_quotes(ft_expand(data, value), 1)))
 		return (ft_free_ptr(value), -1);
-//	dprintf(2, "exp value = %s\n", exp_value);
+	dprintf(2, "exp value = %s\n", exp_value);
 //	dprintf(2, "expand code = %d\n", ft_expand_code(0, GET));
 	ft_free_ptr(value);
 	if (ft_expand_code(0, GET) == 1 && ft_check_space_expand(exp_value))
