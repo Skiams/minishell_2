@@ -17,7 +17,8 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
 	ft_free_tab(cmds->cmd_path);
 	ft_clean_all(data);
 	ft_exit_code(1, ADD);
-	exit (1);
+// Attention le code de sortie est le bon pour le max de here_doc atteint, mais a voir s'il faut le changer pour d' autres erreurs
+	exit (2);
 }
 
 /*

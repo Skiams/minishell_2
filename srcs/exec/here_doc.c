@@ -28,13 +28,22 @@ int	ft_count_here_doc(t_cmds *cmds)
 
 void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds)
 {
-	if (cmds->here_doc_count > 16)
+	t_cmds	*tmp;
+
+	tmp = cmds;
+	while (cmds != NULL)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd("maximun number of online documents ", 2);
-		ft_putstr_fd("(\"here-document\") exceeded\n", 2);
-		ft_exit_properly(data, cmds);
+		cmds->here_doc_count = ft_count_here_doc(cmds);
+		if (cmds->here_doc_count > 16)
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd("maximun number of online documents ", 2);
+			ft_putstr_fd("(\"here-document\") exceeded\n", 2);
+			ft_exit_properly(data, cmds);
+		}
+		cmds = cmds->next;
 	}
+	cmds = tmp;
 }
 
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
@@ -44,7 +53,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 
 	if (!cmds->cmd)
 	{
-//		dprintf(2, "coucou, je n' ai pas de commande\n");
+		//		dprintf(2, "coucou, je n' ai pas de commande\n");
 		cmds->here_doc = open("/dev/stdin", O_CREAT | O_TRUNC, 0755);
 	}
 	else
@@ -74,11 +83,11 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 
 void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
-//	dprintf(2, "je rentre ici\n");
+	//	dprintf(2, "je rentre ici\n");
 	cmds->here_doc = open("/dev/stdin", O_RDONLY, 0755);
 	if (cmds->here_doc == -1)
 	{
-//		dprintf(2, "je fail la\n");
+		//		dprintf(2, "je fail la\n");
 		ft_handle_infile_error(data, cmds);
 	}
 	if (dup2(cmds->here_doc, 0) == -1)

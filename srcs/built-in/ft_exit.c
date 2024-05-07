@@ -67,7 +67,7 @@ static int	ft_get_status(char *nb)
 	{
 		res = (res * 10) + (nb[i] - '0');
 		if ((sign == 1 && res > LLONG_MAX)
-		|| (sign == -1 && res - 1 > LLONG_MAX))
+			|| (sign == -1 && res - 1 > LLONG_MAX))
 			return (-1);
 		i++;
 	}
@@ -101,4 +101,10 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 	ft_free_tab(cmd->cmd_path);
 	ft_clean_all(data);
 	exit (ft_exit_code(0, GET));
+}
+
+void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
+{
+	if (!ft_strcmp(cmds->cmd, "exit"))
+		ft_exit(data, cmds);
 }
