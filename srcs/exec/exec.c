@@ -147,6 +147,14 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 		cmds = cmds->next;
 	}
 	cmds = tmp;
+	while (cmds != NULL)
+	{
+		cmds->here_doc_count = ft_count_here_doc(cmds);
+		ft_is_max_here_doc_nb_reached(data, cmds);
+		cmds = cmds->next;
+	}
+	cmds = tmp;
+	cmds->here_doc_count = 0;
 	if (cmds->argc == 1)
 	{
 		ft_is_only_one_cmd(data, cmds, env);
