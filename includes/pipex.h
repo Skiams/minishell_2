@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 20:18:41 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/08 00:34:57 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_handle_processes(t_data *data, t_cmds *cmd, char **env);
 //void	ft_handle_first_cmd(t_data *data, t_cmds *cmds);
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env);
 
-int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds);
+void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds);
 void	ft_handle_redir(t_data *data, t_cmds *cmds);
 void	ft_handle_append(t_data *data, t_cmds *cmds);
 void	ft_handle_input_redir(t_data *data, t_cmds *cmds);

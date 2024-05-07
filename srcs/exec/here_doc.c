@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/15 13:08:44 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/08 00:39:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,24 @@ void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds)
 		if (cmds->here_doc_count > 16)
 		{
 			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd("maximun number of online documents ", 2);
-			ft_putstr_fd("(\"here-document\") exceeded\n", 2);
+			ft_putstr_fd("maximun here-doc count exceeded\n", 2);
 			ft_exit_properly(data, cmds);
 		}
 		cmds = cmds->next;
 	}
 	cmds = tmp;
+}
+
+void	ft_restore_stdin(t_data *data, t_cmds *cmds)
+{
+	if (cmds->cmd && !ft_is_a_built_in(cmds->cmd))
+	{
+		ft_dup_stdin_stdout(data, cmds);
+		ft_putstr_fd("> ", cmds->dev_stdin);
+		ft_dup2_and_close_stdin_stdout(data, cmds);
+	}
+	else
+		ft_putstr_fd("> ", cmds->dev_stdin);
 }
 
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
@@ -60,11 +71,10 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 		cmds->here_doc = open(cmds->redir->path, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	if (cmds->here_doc == -1)
 		ft_handle_infile_error(data, cmds);
-	//cmds->here_doc_count = 1;
 	delimiter = ft_strjoin(cmds->redir->path, "\n");
 	while (1)
 	{
-		ft_putstr_fd("> ", 1);
+		ft_restore_stdin(data, cmds);
 		line = get_next_line(0);
 		if (!line)
 			break ;

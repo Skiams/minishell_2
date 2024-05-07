@@ -6,13 +6,13 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/03 16:32:26 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/08 01:09:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
+void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
 
@@ -20,16 +20,19 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 //	print_redir(tmp);
 	cmds->here_doc_count = ft_count_here_doc(cmds);
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
-	//ft_is_max_here_doc_nb_reached(data, cmds);
 	dprintf(2, "je suis dans handle_redir_without_cmd\n");
 	while (cmds->redir != NULL)
 	{
 		dprintf(2, "je suis dans le while de handle_redir_without_cmd\n");
+		if (cmds->redir->type == 1)
+			ft_handle_append(data, cmds);
 		if (cmds->redir->type == 2)
 		{
-//			dprintf(2, "je suis dans une redir de type 2\n");
+			dprintf(2, "je suis dans une redir de type 2\n");
 			ft_exec_here_doc(data, cmds);
-			unlink(cmds->redir->path);
+			if (cmds->cmd)
+				ft_handle_here_doc(data, cmds);
+//			unlink(cmds->redir->path);
 		}
 		if (cmds->redir->type == 3)
 		{
@@ -42,6 +45,8 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 			}
 		}
 		if (cmds->redir->type == 4)
+			ft_handle_output_redir(data, cmds);
+/*
 		{
 			dprintf(2, "je suis dans une redir de type 4\n");
 			cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT, 0755);
@@ -50,12 +55,11 @@ int	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 			if (close(cmds->outfile) == -1)
 				ft_handle_close_error(data, cmds);
 		}
+*/
 		cmds->redir = cmds->redir->next;
 	}
 	cmds->redir = tmp;
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
-
-	return (ft_exit_code(0, GET));
 }
 
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
