@@ -82,12 +82,6 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 	return (ft_exit_code(0, GET));
 }
 
-void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
-{
-	if (!ft_strcmp(cmds->cmd, "exit"))
-		ft_exit(data, cmds);
-}
-
 /*
  * Pourquoi ce if (cmds->infile != -1) ?
  *
@@ -128,14 +122,11 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		return (ft_one_no_built_in_cmd(data, cmds, env));
 }
 
-int	ft_exec(t_data *data, t_cmds *cmds, char **env)
+void	ft_init_cmds(t_cmds *cmds)
 {
 	t_cmds	*tmp;
 
 	tmp = cmds;
-	// Voir avec Antoine le code erreur
-	if (!cmds)
-		return (0);
 	while (cmds != NULL)
 	{
 		cmds->argc = ft_lstsize_cmd(cmds);
@@ -147,13 +138,15 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 		cmds = cmds->next;
 	}
 	cmds = tmp;
-	while (cmds != NULL)
-	{
-		cmds->here_doc_count = ft_count_here_doc(cmds);
-		ft_is_max_here_doc_nb_reached(data, cmds);
-		cmds = cmds->next;
-	}
-	cmds = tmp;
+}
+
+int	ft_exec(t_data *data, t_cmds *cmds, char **env)
+{
+	// Voir avec Antoine le code erreur
+	if (!cmds)
+		return (ft_exit_code(0, GET));
+	ft_init_cmds(cmds);
+	ft_is_max_here_doc_nb_reached(data, cmds);
 	cmds->here_doc_count = 0;
 	if (cmds->argc == 1)
 	{
