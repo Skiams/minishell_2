@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils_bis.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:40:21 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/06 18:14:04 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/07 17:49:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_env *ft_create_export_env(t_data *data)
     char    *exp_var;
     char    *exp_value;
     
+    data->env_export = NULL;
     tmp = data->env;
     while (tmp)
     {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:37:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/29 21:11:36 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/07 18:04:45 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ void	ft_free_env(t_env *env)
 	{
 		temp = env->next;
 		if (env->var != NULL)
-			free(env->var);
+			ft_free_ptr(env->var);
 		if (env->value != NULL)
-			free(env->value);
-		free(env);
+			ft_free_ptr(env->value);
+		ft_free_ptr(env);
 		env = temp;
 	}
-	env = NULL;
 }
 
 void	ft_token_lstclear(t_token **token_lst, void (*del)(void *))
@@ -81,7 +80,6 @@ void	ft_free_data(t_data *data)
 
 void	ft_clean_all(t_data *data)
 {
-//	ft_free_tab(data->cmd_list->cmd_path);
 	ft_free_data(data);
 	if (data && data->env)
 		ft_free_env(data->env);

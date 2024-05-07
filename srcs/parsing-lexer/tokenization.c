@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/07 16:23:43 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/07 18:12:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,3 +123,4 @@ bool	ft_tokenization(t_data *data)
 	ft_free_ptr(str);
 	return (true);
 }
+
