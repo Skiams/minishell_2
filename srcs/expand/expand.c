@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/06 14:30:16 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/07 19:36:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char *ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 
 	(*i)++;
 	if (str[*i] == '\0')
-		return ("$");
+		return (ft_strdup("$"));
 	if (str[*i] == '?')
 		return ((*i)++, ft_exp_question_m(data));
 	else if (str[* i] == '$')
@@ -141,3 +141,4 @@ char	*ft_expand(t_data *data, char *str)
 	}
 	return (exp_str);
 }
+
