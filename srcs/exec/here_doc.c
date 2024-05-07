@@ -26,6 +26,17 @@ int	ft_count_here_doc(t_cmds *cmds)
 	return (cmds->here_doc_count);
 }
 
+void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds)
+{
+	if (cmds->here_doc_count > 16)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("maximun number of online documents ", 2);
+		ft_putstr_fd("(\"here-document\") exceeded\n", 2);
+		ft_exit_properly(data, cmds);
+	}
+}
+
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 {
 	char	*line;
@@ -40,7 +51,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds)
 		cmds->here_doc = open(cmds->redir->path, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	if (cmds->here_doc == -1)
 		ft_handle_infile_error(data, cmds);
-	cmds->here_doc_count = 1;
+	//cmds->here_doc_count = 1;
 	delimiter = ft_strjoin(cmds->redir->path, "\n");
 	while (1)
 	{

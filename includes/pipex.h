@@ -50,6 +50,7 @@ void	ft_handle_outfile_error(t_data *data, t_cmds *cmds);
 void	ft_handle_fork_error(t_data *data, t_cmds *cmds);
 void	ft_handle_close_error(t_data *data, t_cmds *cmds);
 void	ft_handle_execve_error(t_data *data, t_cmds *cmds);
+void	ft_exit_properly(t_data *data, t_cmds *cmds);
 
 void	ft_dup_stdin_stdout(t_data *data, t_cmds *cmds);
 //void	ft_handle_dup_error(t_data *data, t_cmds *cmds);
@@ -71,6 +72,7 @@ void	ft_handle_append(t_data *data, t_cmds *cmds);
 void	ft_handle_input_redir(t_data *data, t_cmds *cmds);
 void	ft_handle_output_redir(t_data *data, t_cmds *cmds);
 int		ft_count_here_doc(t_cmds *cmds);
+void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds);
 void	ft_handle_here_doc(t_data *data, t_cmds *cmds);
 
