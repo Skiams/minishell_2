@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/02 13:50:13 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/08 14:29:18 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_handle_signal();
 		data.input = readline("1️⃣   minishell$ ");
+		//dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		if (!data.input)
 		{
 			ft_putstr_fd("exit\n", 1);
@@ -85,6 +86,7 @@ int	main(int argc, char **argv, char **env)
 		print_cmds(data.cmd_list);
 */
 	//	print_cmds(data.cmd_list);
+		dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);
