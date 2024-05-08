@@ -84,6 +84,14 @@ static int	ft_change_dir(t_data *data, int code)
         new_dir = ft_var_is_exp(data, "OLDPWD");
         if (!new_dir)
             return (ft_exit_code(12, ADD));
+		exit_code = chdir(new_dir);
+		if (exit_code == -1)
+		{
+			ft_putstr_fd("minishell: cd: ", 2);
+			ft_putstr_fd(new_dir, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			return(ft_free_ptr(new_dir), ft_exit_code(1, ADD));
+		}
 		ft_putstr_fd(new_dir, 1);
 		ft_putstr_fd("\n", 1);
 		if (!ft_new_pwds(data, OLDPWD))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/06 17:46:42 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/08 18:43:06 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_token_tp
 	HEREDOC,
 	RED_IN,
 	RED_OUT,
+	IN_AND_OUT,
 	PIPE,
 	WORD,
 	WHITESPACE,
@@ -98,7 +99,6 @@ typedef struct s_cmds
 
 typedef struct s_token
 {
-	//int				exp_no_quotes;
 	char			*value;
 	t_token_tp		type;
 	struct s_token	*next;
