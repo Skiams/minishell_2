@@ -6,11 +6,35 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 01:36:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/08 18:14:45 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+void	ft_check_here_doc(t_data *data, t_cmds *cmds)
+{
+	t_cmds	*tmp;
+
+	tmp = cmds;
+	while (cmds != NULL)
+	{
+		while (cmds->redir != NULL)
+		{
+			if (cmds->redir->type == 2)
+			{
+				ft_exec_here_doc(data, cmds);
+				if (cmds->cmd)
+					ft_handle_here_doc(data, cmds);
+			}
+			cmds->redir = cmds->redir->next;
+		}
+		cmds = cmds->next;
+	}
+	cmds = tmp;
+}
+*/
 
 static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 {
@@ -61,7 +85,7 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 
 int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
-	//	dprintf(2, "on est dans one no built in\n");
+	dprintf(2, "Je suis dans one NO BUILT_IN cmd\n");
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -70,11 +94,12 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 		//		dprintf(2, "j'arrive la\n");
 		if (cmds->redir)
 			ft_handle_redir_without_cmd(data, cmds);
-		dprintf(2, "pourquoi je ne passe pas la\n");
+/*
 		cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
 		execve(cmds->right_path, cmds->args, env);
 		ft_handle_execve_error(data, cmds);
-		//		ft_exec_cmds(data, cmds, env);
+*/
+		ft_exec_cmds(data, cmds, env);
 	}
 	else if (cmds->pid > 0)
 	{
@@ -115,8 +140,8 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_dup_stdin_stdout(data, cmds);
-		if (cmds->redir)
-			ft_handle_redir_without_cmd(data, cmds);
+	//	if (cmds->redir)
+	//		ft_handle_redir_without_cmd(data, cmds);
 		//		dprintf(2, "Est-ce que je repasse ici ?\n");
 		if (cmds->infile != -1)
 		{
@@ -138,8 +163,10 @@ void	ft_init_cmds(t_cmds *cmds)
 	while (cmds != NULL)
 	{
 		cmds->argc = ft_lstsize_cmd(cmds);
+		cmds->redir = ft_init_redir_node(cmds->redir);
 		cmds->infile = 0;
 		cmds->outfile = 0;
+		cmds->here_doc = 0;
 		cmds->here_doc_count = 0;
 		cmds->right_path = NULL;
 		cmds->cmd_path = NULL;
@@ -148,14 +175,26 @@ void	ft_init_cmds(t_cmds *cmds)
 	cmds = tmp;
 }
 
+
+
 int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 {
+	t_cmds	*tmp;
+
+	tmp = cmds;
 	// Voir avec Antoine le code erreur
 	if (!cmds)
 		return (ft_exit_code(0, GET));
 	ft_init_cmds(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	cmds->here_doc_count = 0;
+	while (cmds != NULL)
+	{
+		if (cmds->redir)
+			ft_handle_redir_without_cmd(data, cmds);
+		cmds = cmds->next;
+	}
+	cmds = tmp;
 	if (cmds->argc == 1)
 	{
 		ft_is_only_one_cmd(data, cmds, env);
