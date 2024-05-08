@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/08 14:47:02 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/08 16:51:19 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	}
 	else if (!(exp_value = ft_remove_quotes(ft_expand(data, value), 1)))
 		return (ft_free_ptr(value), -1);
-	dprintf(2, "exp value = %s\n", exp_value);
+	//dprintf(2, "exp value = %s\n", exp_value);
 //	dprintf(2, "expand code = %d\n", ft_expand_code(0, GET));
 	ft_free_ptr(value);
 	if (ft_expand_code(0, GET) == 1 && ft_check_space_expand(exp_value))
