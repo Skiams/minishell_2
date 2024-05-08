@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/04 18:46:53 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/08 17:12:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 		if (!tmp->prev || (tmp->prev && tmp->prev->type == PIPE)
 		 || !last_cmd->cmd)
 		{
-			last_cmd->cmd = ft_strdup(tmp->value);
-			if (!last_cmd->cmd)
-				return (ft_exit_code(12, ADD), false);
-			tmp = tmp->next;
+			if (ft_strcmp(tmp->value, "\0") != 0)
+			{
+				last_cmd->cmd = ft_strdup(tmp->value);
+				if (!last_cmd->cmd)
+					return (ft_exit_code(12, ADD), false);
+				tmp = tmp->next;
+			}
+			else
+				tmp = tmp->next;
 		}
 		else if (last_cmd && !last_cmd->args && !ft_set_args(last_cmd, &tmp))
 			return (false);
