@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 13:11:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/25 15:40:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/08 14:46:47 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	ft_define_token_type(char *str, int i)
 		return (HEREDOC);
 	if (str[i] == '>' && str[i + 1] == '>')
 		return (APPEND);
+	if (str[i] == '<' && str[i + 1] == '>')
+		return (IN_AND_OUT);
 	if (str[i] == '<')
 		return (RED_IN);
 	if (str[i] == '>')

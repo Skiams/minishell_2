@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/02 13:50:13 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/08 16:16:34 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	main(int argc, char **argv, char **env)
 		data.env = NULL;
 	if (ft_exit_code(0, GET) == 12)
 		return (ft_free_data(&data), 12);
-	// a rajouter pour le get_env ?
 	while (1)
 	{
 		ft_handle_signal();
@@ -79,12 +78,7 @@ int	main(int argc, char **argv, char **env)
 			ft_exec(&data, data.cmd_list, env);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
-/*
-		ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n", 1);
-		print_tokens(data.token_list);
-		print_cmds(data.cmd_list);
-*/
-	//	print_cmds(data.cmd_list);
+		//print_tokens(data.token_list);
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);

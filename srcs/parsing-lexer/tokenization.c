@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/07 18:12:13 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/08 14:47:02 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 	char	*value;
 	t_token	*new_token;
 
-	if (type == HEREDOC || type == APPEND)
+	if (type == HEREDOC || type == APPEND || type == IN_AND_OUT)
 		len = 2;
 	else
 		len = 1;
@@ -93,9 +93,9 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 
 int	ft_add_token(t_data *data, char *str, int type, int i)
 {
-	if (type > 0 && type < 6)
+	if (type > 0 && type < 7)
 		i = ft_add_sep(&data->token_list, type, str, i);
-	else if (type == 6)
+	else if (type == 7)
 		i = ft_add_word(data, &data->token_list, str, i);
 	else
 		i++;

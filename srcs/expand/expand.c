@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/07 19:36:57 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/08 14:00:27 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char *ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 	if (code == NO_QUOTES)
 	{
 		//ligne ajoutee pour le cas d'export une variable apres un expand
-		while (str[*i] && str[*i] != '$' && str[*i] != '=')
+		while (str[*i] && str[*i] != '$' && str[*i] != '=' && str[*i] != '"')
 			(*i)++;
 	}
 	else if (code == QUOTES)
@@ -41,9 +41,12 @@ static char *ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 		return (ft_exit_code(12, ADD), NULL);
 	env_value = ft_var_is_exp(data, env_var);
 	if (env_value)
-		return (free(env_var), env_value);
+		return (ft_free_ptr(env_var), env_value);
 	else
+	{
+		dprintf(2, "on ne trouve pas la variable dans l'env\n");
 		return (NULL);
+	}
 }
 
 static char *ft_normal_str(char *str, size_t *i)
@@ -130,7 +133,6 @@ char	*ft_expand(t_data *data, char *str)
 			exp_str = ft_strjoin_exp(exp_str, ft_exp_dquotes(data, str, &i));
 		else if (str[i] == '$')
 		{
-			dprintf(2, "on rentre dans le $ de l'expand sans double quote normalement\n");
 			exp_str = ft_strjoin_exp(exp_str, ft_classic_exp(data, str, &i, NO_QUOTES));
 			ft_expand_code(1, ADD);
 		}
