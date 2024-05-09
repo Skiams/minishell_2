@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 00:34:57 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/08 16:10:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char **args, char *
 void	ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
 
 void	ft_handle_processes(t_data *data, t_cmds *cmd, char **env);
-//int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
+int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
+int     	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env);
 //void	ft_handle_first_cmd(t_data *data, t_cmds *cmds);
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env);
 
@@ -71,6 +72,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds);
 void	ft_handle_append(t_data *data, t_cmds *cmds);
 void	ft_handle_input_redir(t_data *data, t_cmds *cmds);
 void	ft_handle_output_redir(t_data *data, t_cmds *cmds);
+void	ft_check_here_doc(t_data *data, t_cmds *cmds);
 int		ft_count_here_doc(t_cmds *cmds);
 void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds);

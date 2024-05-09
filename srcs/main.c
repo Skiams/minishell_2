@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/09 15:05:02 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:24:23 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_handle_signal();
 		data.input = readline("1️⃣   minishell$ ");
+		//dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		if (!data.input)
 		{
 			ft_putstr_fd("exit\n", 1);
@@ -79,6 +80,15 @@ int	main(int argc, char **argv, char **env)
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
 		print_tokens(data.token_list);
+/*
+		ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n", 1);
+		print_tokens(data.token_list);
+		print_cmds(data.cmd_list);
+*/
+	//	print_cmds(data.cmd_list);
+		dprintf(2, "Coucou, on a perdu l'entree standard\n");
+
+		//print_tokens(data.token_list);
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);
