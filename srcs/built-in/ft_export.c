@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/06 15:55:26 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/09 15:01:59 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,14 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 	t_env	*newel;
 
 	value = NULL;
+	var = NULL;
 	i = 0;
 	while (str[i] && str[i] != '=' && str[i] != '+')
 		i++;
 	var = ft_substr(str, 0, i);
 	if (!var)
 		return (ft_exit_code(12, ADD), false);
+	//ft_malloc_substr(var, str, 0, i);
 	if (code == 2)
 		value = ft_substr(str, i + 1, ft_strlen(str) - i + 1);
 	else if (code == 3)

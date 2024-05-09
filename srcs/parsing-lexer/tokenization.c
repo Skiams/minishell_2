@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/08 16:51:19 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/09 16:06:45 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	char	*value;
 	char	*exp_value;
 	t_token	*new_token;
+	t_token	*tmp;
 
 	start = i;
 	len = 0;
+	tmp = ft_lstlast_token(*token_lst);
 	while (str[i] && !ft_is_sep(str, i))
 	{
 		if (str[i] && (str[i] == '\'' || str[i] == '"'))
@@ -63,13 +65,15 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	}
 	if (!(value = ft_substr(str, start, len)))
 		return (ft_exit_code(12, ADD), -1);
-	if ((*token_lst) && (*token_lst)->type == HEREDOC)
+	if (tmp && tmp->type == HEREDOC)
 	{
-		dprintf(2, "on rentre dans cette condition de chie\n");
-		if (!(exp_value = ft_remove_quotes(value, 0)))
+		exp_value = ft_remove_quotes(value, 0);
+		if (!exp_value)
 			return (ft_free_ptr(value), -1);
 	}
-	else if (!(exp_value = ft_remove_quotes(ft_expand(data, value), 1)))
+	else
+		exp_value = ft_remove_quotes(ft_expand(data, value), 1);
+	if (!exp_value)
 		return (ft_free_ptr(value), -1);
 	//dprintf(2, "exp value = %s\n", exp_value);
 //	dprintf(2, "expand code = %d\n", ft_expand_code(0, GET));
@@ -86,6 +90,7 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 		if (!new_token)
 			return (ft_exit_code(12, ADD), -1);
 		ft_lstadd_back_token(token_lst, new_token);
+		
 	}
 	ft_expand_code(0, ADD);
 	return (i);
@@ -116,6 +121,7 @@ bool	ft_tokenization(t_data *data)
 	while (str[i] != '\0')
 	{
 		token_tp = ft_define_token_type(str, i);
+		dprintf(2, "token_tp = %i\n", token_tp);
 		i = ft_add_token(data, str, token_tp, i);
 		if (i == -1)
 			return (ft_free_ptr(str), false);
@@ -123,4 +129,3 @@ bool	ft_tokenization(t_data *data)
 	ft_free_ptr(str);
 	return (true);
 }
-

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 20:28:40 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 16:59:46 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/09 14:46:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_pwd(t_cmds *cmds)
 		ft_putstr_fd("pwd: error retrieving current directory: ", 2);
 		ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
 		ft_putstr_fd("No such file or directory", 2);
-		//perror(working_dir);
 		ft_exit_code(1, ADD);
 	}
 	ft_putstr_fd(working_dir, 1);
