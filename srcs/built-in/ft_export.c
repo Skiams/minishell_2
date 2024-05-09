@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/09 15:01:59 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/09 18:59:17 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 	var = ft_substr(str, 0, i);
 	if (!var)
 		return (ft_exit_code(12, ADD), false);
-	//ft_malloc_substr(var, str, 0, i);
 	if (code == 2)
 		value = ft_substr(str, i + 1, ft_strlen(str) - i + 1);
 	else if (code == 3)
