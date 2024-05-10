@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 18:14:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/09 16:30:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,6 @@ void	ft_init_cmds(t_cmds *cmds)
 	while (cmds != NULL)
 	{
 		cmds->argc = ft_lstsize_cmd(cmds);
-		cmds->redir = ft_init_redir_node(cmds->redir);
 		cmds->infile = 0;
 		cmds->outfile = 0;
 		cmds->here_doc = 0;
@@ -179,22 +178,12 @@ void	ft_init_cmds(t_cmds *cmds)
 
 int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 {
-	t_cmds	*tmp;
-
-	tmp = cmds;
 	// Voir avec Antoine le code erreur
 	if (!cmds)
 		return (ft_exit_code(0, GET));
 	ft_init_cmds(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	cmds->here_doc_count = 0;
-	while (cmds != NULL)
-	{
-		if (cmds->redir)
-			ft_handle_redir_without_cmd(data, cmds);
-		cmds = cmds->next;
-	}
-	cmds = tmp;
 	if (cmds->argc == 1)
 	{
 		ft_is_only_one_cmd(data, cmds, env);

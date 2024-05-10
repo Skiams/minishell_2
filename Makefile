@@ -24,6 +24,7 @@ SRCS		=	srcs/main.c\
 				srcs/errors/error_handle.c\
 				srcs/expand/expand.c\
 				srcs/expand/expand_utils.c\
+				srcs/expand/expand_utils_bis.c\
 				srcs/built-in/ft_pwd.c\
 				srcs/parsing-lexer/tokenization.c\
 				srcs/parsing-lexer/lst_token.c\

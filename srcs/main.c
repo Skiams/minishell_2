@@ -6,14 +6,14 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/09 16:24:23 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/09 17:26:29 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/pipex.h"
 
-int	g_sig_exit;
+int			g_sig_exit;
 
 static bool	ft_parsing(char *str, t_data *data)
 {
@@ -47,18 +47,18 @@ static bool	ft_parsing(char *str, t_data *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
+
 	// t_env	data_env;
 	// t_redir	redir;
 	// t_cmds	cmds;
 	// t_token	token;
-
-
 	(void)argv;
 	g_sig_exit = 0;
 	if (argc != 1)
 		ft_print_wrong_param();
 	ft_memset(&data, 0, sizeof(t_data));
-	// ft_init_struct(&data_env, data.cmd_list, data.token_list, data.cmd_list->redir);
+	// ft_init_struct(&data_env, data.cmd_list, data.token_list,
+	//	data.cmd_list->redir);
 	if (env)
 		data.env = ft_get_env(&data, env);
 	else
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_handle_signal();
 		data.input = readline("1️⃣   minishell$ ");
-		//dprintf(2, "Coucou, on a perdu l'entree standard\n");
+		// dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		if (!data.input)
 		{
 			ft_putstr_fd("exit\n", 1);
@@ -80,15 +80,15 @@ int	main(int argc, char **argv, char **env)
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
 		print_tokens(data.token_list);
-/*
-		ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n", 1);
-		print_tokens(data.token_list);
-		print_cmds(data.cmd_list);
-*/
-	//	print_cmds(data.cmd_list);
+		/*
+				ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n",
+					1);
+				print_tokens(data.token_list);
+				print_cmds(data.cmd_list);
+		*/
+		//	print_cmds(data.cmd_list);
 		dprintf(2, "Coucou, on a perdu l'entree standard\n");
-
-		//print_tokens(data.token_list);
+		// print_tokens(data.token_list);
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);
