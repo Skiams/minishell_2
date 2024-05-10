@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/07 17:43:15 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/10 15:29:54 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_order_export_env(t_env **export_env)
 {
 	t_env	*node;
 	char	*tmp;
-	//dprintf(2, "On est dans order_export_env()\n");
+
 	if (!*export_env)
 		return ;
 	node = *export_env;
