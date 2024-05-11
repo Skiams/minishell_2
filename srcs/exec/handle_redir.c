@@ -17,9 +17,6 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 	t_redir	*tmp;
 
 	tmp = cmds->redir;
-	//	print_redir(tmp);
-	cmds->here_doc_count = ft_count_here_doc(cmds);
-//	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir_without_cmd\n");
 	while (cmds->redir != NULL)
 	{
@@ -29,20 +26,21 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 			dprintf(2, "je suis dans une redir de type 1\n");
 			ft_handle_append(data, cmds);
 		}
+/*
 		if (cmds->redir->type == 2)
 		{
 			dprintf(2, "je suis dans une redir de type 2\n");
 			ft_exec_here_doc(data, cmds);
-			if (cmds->cmd) 
-				ft_handle_here_doc(data, cmds);
-			//			unlink(cmds->redir->path);
+	//		if (cmds->cmd) 
+	//			ft_handle_here_doc(data, cmds);
 		}
+*/
 		if (cmds->redir->type == 3)
 		{
-			dprintf(2, "je suis dans une redir de type 3\n");
+			dprintf(2, "je suis dans une redir de type 3");
 			if (!cmds->cmd)
 			{
-				dprintf(2, " et J'AI commande\n");
+				dprintf(2, " et JE N'AI PAS DE commande\n");
 				if (access(cmds->redir->path, F_OK) == 0);
 				else 
 				{       
@@ -61,21 +59,27 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 			dprintf(2, "je suis dans une redir de type 4\n");
 			ft_handle_output_redir(data, cmds);
 		}
-		/*
-		   {
-		   dprintf(2, "je suis dans une redir de type 4\n");
-		   cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT, 0755);
-		   if (cmds->outfile == -1)
-		   ft_handle_outfile_error(data, cmds);
-		   if (close(cmds->outfile) == -1)
-		   ft_handle_close_error(data, cmds);
-		   }
-		 */
 		cmds->redir = cmds->redir->next;
 	}
 	cmds->redir = tmp;
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
+
+/*
+void	ft_handle_last_here_doc(t_data *data, t_redir *redir)
+{
+	t_redir	*tmp;
+
+	tmp = redir;
+	while (redir != NULL)
+	{
+		if (redir->type == 2)
+		{
+			while (
+		}
+	}
+}
+*/
 
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
@@ -84,22 +88,24 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	tmp = cmds->redir;
 	cmds->here_doc_count = ft_count_here_doc(cmds);
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
-	//ft_is_max_here_doc_nb_reached(data, cmds);
 	dprintf(2, "je suis dans handle_redir\n");
+/*
 	while (cmds->redir != NULL) 
 	{
 		if (cmds->redir->type == 2)
 		{
-			ft_exec_here_doc(data, cmds);
 			ft_handle_here_doc(data, cmds);
 		}
 		cmds->redir = cmds->redir->next;
 	}
 	cmds->redir = tmp;
+*/
 	while (cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
 			ft_handle_append(data, cmds);
+		if (cmds->redir->type == 2)
+			ft_handle_here_doc(data, cmds);
 		if (cmds->redir->type == 3)
 			ft_handle_input_redir(data, cmds);
 		if (cmds->redir->type == 4)

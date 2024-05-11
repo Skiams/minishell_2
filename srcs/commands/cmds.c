@@ -75,6 +75,7 @@ static bool	ft_set_new_cmd(t_data *data, t_token **token_lst)
 	if (!(*token_lst)->prev || (*token_lst)->type == PIPE)
 	{
 		new_cmd = lst_new_cmd();
+		ft_memset(new_cmd, 0, sizeof(t_cmds));
 		if (!new_cmd)
 			return (ft_exit_code(12, ADD), false);
 		lst_add_back_cmd(&data->cmd_list, new_cmd);
