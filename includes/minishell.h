@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/07 18:11:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/09 18:42:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,9 @@ bool	ft_check_env_var(char *tmp_var, t_env *env);
 char	*ft_expand(t_data *data, char *str);
 int		ft_check_dollar(char *str);
 char	*ft_strjoin_exp(char *s1, char *s2);
-void	ft_init_var_exp(char **tmp_var, char **exp_rest, int *i, int *start);
 char	*ft_var_is_exp(t_data *data, char *str);
-char	*ft_exp_question_m(t_data *data);
-char	*ft_exp_pid(t_data *data);
 int 	ft_expand_code(int expand_code, int mode);
+char	*ft_classic_exp(t_data *data, char *str, size_t *i, int code);
 
 // COMMANDS
 

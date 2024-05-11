@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 18:14:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/09 16:30:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	ft_init_exec(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	ft_test_here_doc(data, cmds);
-	//	cmds->here_doc_count = 0;
 	if (cmds->argc == 1)
 	{
 		ft_is_only_one_cmd(data, cmds, env);

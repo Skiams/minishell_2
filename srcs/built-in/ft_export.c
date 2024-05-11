@@ -6,49 +6,104 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/06 15:55:26 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/10 19:52:43 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
+static bool	ft_add_value_only_bis(t_env *tmp, char *var, char *value, int code)
 {
-	t_env	*tmp;
 	char	*tmp_value;
 
 	tmp_value = NULL;
+	ft_free_ptr(var);
+	if (code == 2)
+	{
+		ft_free_ptr(tmp->value);
+		tmp->value = ft_strdup(value);
+	}
+	else if (code == 3)
+	{
+		tmp_value = ft_strjoin_exp(tmp->value, value);
+		if (!tmp_value)
+			return (ft_exit_code(12, ADD), false);
+		tmp->value = ft_strdup(tmp_value);
+	}
+	if (!tmp->value)
+		return (ft_exit_code(12, ADD), false);
+	if (code == 2)
+		ft_free_ptr(value);
+	else if (code == 3)
+		ft_free_ptr(tmp_value);
+	if (tmp->next)
+		tmp = tmp->next;
+	return (true);
+}
+
+bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
+{
+	t_env	*tmp;
+	// char	*tmp_value;
+
+	// tmp_value = NULL;
 	tmp = data->env;
 	while (tmp)
 	{
 		if (ft_strcmp(var, tmp->var) == 0 && code == 2)
 		{
-			ft_free_ptr(var);
-			ft_free_ptr(tmp->value);
-			tmp->value = ft_strdup(value);
-			if (!tmp->value)
+			// ft_free_ptr(var);
+			// ft_free_ptr(tmp->value);
+			// tmp->value = ft_strdup(value);
+			// if (!tmp->value)
+			// 	return (ft_exit_code(12, ADD), false);
+			// ft_free_ptr(value);
+			// if (tmp->next)
+			// 	tmp = tmp->next;
+			// return (true);
+			if (!ft_add_value_only_bis(tmp, var, value, 2))
 				return (ft_exit_code(12, ADD), false);
-			ft_free_ptr(value);
-			if (tmp->next)
-				tmp = tmp->next;
-			return (true);
+			else
+				return (true);
 		}
 		else if ((ft_strcmp(var, tmp->var) == 0 && code == 3))
 		{
-			ft_free_ptr(var);
-			tmp_value = ft_strjoin_exp(tmp->value, value);
-			if (!tmp_value)
+			// ft_free_ptr(var);
+			// tmp_value = ft_strjoin_exp(tmp->value, value);
+			// if (!tmp_value)
+			// 	return (ft_exit_code(12, ADD), false);
+			// tmp->value = ft_strdup(tmp_value);
+			// if (!tmp_value)
+			// 	return (ft_exit_code(12, ADD), false);
+			// ft_free_ptr(tmp_value);
+			// if (tmp->next)
+			// 	tmp = tmp->next;
+			// return (true);
+			if (!ft_add_value_only_bis(tmp, var, value, 3))
 				return (ft_exit_code(12, ADD), false);
-			tmp->value = ft_strdup(tmp_value);
-			if (!tmp_value)
-				return (ft_exit_code(12, ADD), false);
-			ft_free_ptr(tmp_value);
-			if (tmp->next)
-				tmp = tmp->next;
-			return (true);
+			else
+				return (true);
 		}
 		tmp = tmp->next;
 	}
+	return (true);
+}
+static bool	ft_add_var_and_value_bis(t_data *data, char *var, char *value, int code)
+{
+	t_env	*newel;
+
+	newel = NULL;
+	if (!ft_var_is_in_env(data, var))
+	{
+		newel = ft_lstnew_env(var, value);
+		if (!newel)
+			return (ft_exit_code(12, ADD), false);
+		ft_lstadd_back_env(&data->env, newel);
+	}
+	else if (code == 2 && !ft_add_value_only(data, var, value, 2))
+		return (ft_exit_code(12, ADD), false);
+	else if (code == 3 && !ft_add_value_only(data, var, value, 3))
+		return (ft_exit_code(12, ADD), false);
 	return (true);
 }
 
@@ -57,9 +112,9 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 	char	*var;
 	char	*value;
 	int		i;
-	t_env	*newel;
 
 	value = NULL;
+	var = NULL;
 	i = 0;
 	while (str[i] && str[i] != '=' && str[i] != '+')
 		i++;
@@ -68,34 +123,14 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 		return (ft_exit_code(12, ADD), false);
 	if (code == 2)
 		value = ft_substr(str, i + 1, ft_strlen(str) - i + 1);
-	else if (code == 3)
+	else if (code == 3 && str[i + 2])
 		value = ft_substr(str, i + 2, ft_strlen(str) - i);
 	if (!value)
 		return (ft_free_ptr(var), ft_exit_code(12, ADD), false);
-	if (code == 2)
-	{
-		if (!ft_var_is_in_env(data, var))
-		{
-			newel = ft_lstnew_env(var, value);
-			if (!newel)
-				return (ft_exit_code(12, ADD), false);
-			ft_lstadd_back_env(&data->env, newel);
-		}
-		else if (!ft_add_value_only(data, var, value, 2))
-			return (ft_exit_code(12, ADD), false);
-	}
-	else if (code == 3)
-	{
-		if (!ft_var_is_in_env(data, var))
-		{
-			newel = ft_lstnew_env(var, value);
-			if (!newel)
-				return (ft_exit_code(12, ADD), false);
-			ft_lstadd_back_env(&data->env, newel);
-		}
-		else if (!ft_add_value_only(data, var, value, 3))
-			return (ft_exit_code(12, ADD), false);
-	}
+	if (code == 2 && (!ft_add_var_and_value_bis(data, var, value, 2)))
+		return (ft_exit_code(12, ADD), false);
+	if (code == 3 && (!ft_add_var_and_value_bis(data, var, value, 3)))
+		return (ft_exit_code(12, ADD), false);
 	return (true);
 }
 
@@ -156,10 +191,12 @@ int	ft_export(t_data *data, char **args)
 				if (!ft_add_var_env(data, dup_arg, code))
 					return (ft_exit_code(12, ADD));
 			}
+			if (code == 2 || code == 3)
+				ft_free_ptr(dup_arg);
 			i++;
 		}
 	}
-	if (code == 2 || code == 3)
-		ft_free_ptr(dup_arg);
+	// if (code == 2 || code == 3)
+	// 	ft_free_ptr(dup_arg);
 	return (ft_exit_code(0, GET));
 }

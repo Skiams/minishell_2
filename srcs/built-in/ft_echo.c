@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/06 15:54:23 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/09 18:34:39 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_echo(char **args)
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], 1);
-		if (args[i + 1])
+		if (args[i + 1] && ft_strcmp(args[i], "\0") != 0)
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
