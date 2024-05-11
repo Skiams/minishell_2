@@ -12,30 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/*
-void	ft_check_here_doc(t_data *data, t_cmds *cmds)
-{
-	t_cmds	*tmp;
-
-	tmp = cmds;
-	while (cmds != NULL)
-	{
-		while (cmds->redir != NULL)
-		{
-			if (cmds->redir->type == 2)
-			{
-				ft_exec_here_doc(data, cmds);
-				if (cmds->cmd)
-					ft_handle_here_doc(data, cmds);
-			}
-			cmds->redir = cmds->redir->next;
-		}
-		cmds = cmds->next;
-	}
-	cmds = tmp;
-}
-*/
-
 static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 {
 	t_cmds	*tmp;
@@ -140,8 +116,8 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_dup_stdin_stdout(data, cmds);
-	//	if (cmds->redir)
-	//		ft_handle_redir_without_cmd(data, cmds);
+		if (cmds->redir)
+			ft_handle_redir_without_cmd(data, cmds);
 		//		dprintf(2, "Est-ce que je repasse ici ?\n");
 		if (cmds->infile != -1)
 		{
@@ -155,35 +131,62 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		return (ft_one_no_built_in_cmd(data, cmds, env));
 }
 
-void	ft_init_cmds(t_cmds *cmds)
+void	ft_init_exec(t_cmds *cmds)
 {
-	t_cmds	*tmp;
-
-	tmp = cmds;
 	while (cmds != NULL)
 	{
 		cmds->argc = ft_lstsize_cmd(cmds);
 		cmds->infile = 0;
 		cmds->outfile = 0;
-		cmds->here_doc = 0;
+//		cmds->here_doc = 0;
 		cmds->here_doc_count = 0;
 		cmds->right_path = NULL;
 		cmds->cmd_path = NULL;
 		cmds = cmds->next;
 	}
-	cmds = tmp;
 }
 
+int	ft_test_here_doc(t_data *data, t_cmds *cmds)
+{
+	int	status;
+	t_redir * head;
+	t_cmds	*tmp;
+	pid_t	pid;
 
+
+	tmp = cmds;
+	pid = fork();
+	if	(!pid)
+	{
+		while (cmds != NULL)
+		{
+			head = cmds->redir;	
+			while (head != NULL)
+			{
+				if (head->type == 2)
+					ft_exec_here_doc(data, cmds, head);
+				head = head->next;
+			}
+			cmds = cmds->next;
+		}
+		ft_free_tab(tmp->cmd_path);
+		ft_clean_all(data);
+		exit(0);
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		return WEXITSTATUS(status);
+	return (-1);
+}
 
 int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 {
 	// Voir avec Antoine le code erreur
 	if (!cmds)
 		return (ft_exit_code(0, GET));
-	ft_init_cmds(cmds);
+	ft_init_exec(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
-	cmds->here_doc_count = 0;
+	ft_test_here_doc(data, cmds);
 	if (cmds->argc == 1)
 	{
 		ft_is_only_one_cmd(data, cmds, env);
@@ -197,3 +200,4 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	}
 	return (ft_exit_code(0, GET));
 }
+

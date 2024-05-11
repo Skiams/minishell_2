@@ -75,7 +75,7 @@ void	ft_handle_output_redir(t_data *data, t_cmds *cmds);
 void	ft_check_here_doc(t_data *data, t_cmds *cmds);
 int		ft_count_here_doc(t_cmds *cmds);
 void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
-void	ft_exec_here_doc(t_data *data, t_cmds *cmds);
+void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir);
 void	ft_handle_here_doc(t_data *data, t_cmds *cmds);
 
 int		ft_count_words(char *str);
