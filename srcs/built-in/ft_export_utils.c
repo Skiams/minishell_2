@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/10 15:29:54 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/13 16:57:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ int	ft_check_export_case(char *str)
 		if (str[i] == '+' && str[i + 1] == '=')
 			return (3);
 		else if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
-			return (ft_error_export(str), 0);
+		{
+			ft_error_export(str, 1);
+			return (ft_free_ptr(str), 0);
+		}	
 		else if (str[i] == '=')
 			return (2);
 		i++;
@@ -44,19 +47,30 @@ int	ft_check_export_case(char *str)
 	return (1);
 }
 
-void	ft_error_export(char *str)
+void	ft_error_export(char *str, int code)
 {
 	int	i;
 
 	i = 0;
-	ft_putstr_fd("minishell: export: '", 2);
-	while (str[i])
+	if (code == 1)
 	{
-		write(2, &str[i], 1);
-		i++;
+		ft_putstr_fd("minishell: export: '", 2);
+		while (str[i])
+		{
+			write(2, &str[i], 1);
+			i++;
+		}
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		ft_exit_code(1, ADD);
 	}
-	ft_putstr_fd("': not a valid identifier\n", 2);
-	ft_exit_code(1, ADD);
+	else if (code == 2)
+	{
+		ft_putstr_fd("minishell: export: -", 2);
+		write(1, &str[1], 1);
+		ft_putstr_fd(": invalid option\n", 2);
+		ft_exit_code(2, ADD);
+		ft_free_ptr(str);
+	}
 }
 
 void	ft_order_export_env(t_env **export_env)
