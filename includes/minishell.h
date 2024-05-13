@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/09 18:42:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/13 16:38:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		ft_display_export(t_data *data);
 int		ft_export(t_data *data, char **args);
 bool	ft_var_is_in_env(t_data *data, char *str);
 int		ft_check_export_case(char *str);
-void	ft_error_export(char *str);
+void	ft_error_export(char *str, int code);
 void	ft_order_export_env(t_env **export_env);
 int		ft_display_export(t_data *data);
 void	ft_echo(char **args);

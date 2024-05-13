@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/10 19:52:43 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/13 17:17:06 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ static bool	ft_add_value_only_bis(t_env *tmp, char *var, char *value, int code)
 	tmp_value = NULL;
 	ft_free_ptr(var);
 	if (code == 2)
-	{
-		ft_free_ptr(tmp->value);
 		tmp->value = ft_strdup(value);
-	}
 	else if (code == 3)
 	{
+		if (!tmp->value)
+			tmp->value = ft_strdup("\0");
 		tmp_value = ft_strjoin_exp(tmp->value, value);
 		if (!tmp_value)
 			return (ft_exit_code(12, ADD), false);
@@ -44,23 +43,13 @@ static bool	ft_add_value_only_bis(t_env *tmp, char *var, char *value, int code)
 bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
 {
 	t_env	*tmp;
-	// char	*tmp_value;
 
-	// tmp_value = NULL;
 	tmp = data->env;
 	while (tmp)
 	{
 		if (ft_strcmp(var, tmp->var) == 0 && code == 2)
 		{
-			// ft_free_ptr(var);
-			// ft_free_ptr(tmp->value);
-			// tmp->value = ft_strdup(value);
-			// if (!tmp->value)
-			// 	return (ft_exit_code(12, ADD), false);
-			// ft_free_ptr(value);
-			// if (tmp->next)
-			// 	tmp = tmp->next;
-			// return (true);
+			ft_free_ptr(tmp->value);
 			if (!ft_add_value_only_bis(tmp, var, value, 2))
 				return (ft_exit_code(12, ADD), false);
 			else
@@ -68,17 +57,6 @@ bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
 		}
 		else if ((ft_strcmp(var, tmp->var) == 0 && code == 3))
 		{
-			// ft_free_ptr(var);
-			// tmp_value = ft_strjoin_exp(tmp->value, value);
-			// if (!tmp_value)
-			// 	return (ft_exit_code(12, ADD), false);
-			// tmp->value = ft_strdup(tmp_value);
-			// if (!tmp_value)
-			// 	return (ft_exit_code(12, ADD), false);
-			// ft_free_ptr(tmp_value);
-			// if (tmp->next)
-			// 	tmp = tmp->next;
-			// return (true);
 			if (!ft_add_value_only_bis(tmp, var, value, 3))
 				return (ft_exit_code(12, ADD), false);
 			else
@@ -168,35 +146,26 @@ int	ft_export(t_data *data, char **args)
 	i = 1;
 	if (!args[i])
 		return (ft_display_export(data));
-	else
+	while (args[i])
 	{
-		while (args[i])
+		dup_arg = ft_strdup(args[i]);
+		if (!dup_arg)
+			return (ft_exit_code(12, ADD));
+		if (dup_arg[0] == '-')
 		{
-			dup_arg = ft_strdup(args[i]);
-			if (!dup_arg)
-				return (ft_exit_code(12, ADD));
-			code = ft_check_export_case(args[i]);
-			if (args[1][0] == '-')
-			{
-				ft_putstr_fd("minishell: export: -", 2);
-				write(1, &args[1][1], 1);
-				ft_putstr_fd(" invalid option", 2);
-				ft_exit_code(2, ADD);
-				break ;
-			}
-			else if (!ft_isalpha(args[i][0]) && args[i][0] != '_' && code != 0)
-				ft_error_export(args[i]);
-			else if (code >= 1 && code <= 3)
-			{
-				if (!ft_add_var_env(data, dup_arg, code))
-					return (ft_exit_code(12, ADD));
-			}
-			if (code == 2 || code == 3)
-				ft_free_ptr(dup_arg);
-			i++;
+			ft_error_export(dup_arg, 2);
+			break ;
 		}
+		code = ft_check_export_case(dup_arg);
+		if (code == 0)
+			break ;
+		if (!ft_isalpha(dup_arg[0]) && dup_arg[0] != '_' && code != 0)
+			ft_error_export(dup_arg, 1);
+		else if ((code >= 1 && code <= 3) && !ft_add_var_env(data, dup_arg, code))
+				return (ft_exit_code(12, ADD));
+		if (code == 2 || code == 3)
+			ft_free_ptr(dup_arg);
+		i++;
 	}
-	// if (code == 2 || code == 3)
-	// 	ft_free_ptr(dup_arg);
 	return (ft_exit_code(0, GET));
 }
