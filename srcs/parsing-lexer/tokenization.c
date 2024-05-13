@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/09 16:06:45 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/13 14:41:09 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	ft_free_ptr(value);
 	if (ft_expand_code(0, GET) == 1 && ft_check_space_expand(exp_value))
 	{
-		dprintf(2, "on est dans le exp token\n");
+//		dprintf(2, "on est dans le exp token\n");
 		if (!ft_add_exp_token(token_lst, exp_value) && ft_exit_code(0, GET) == 12)
 			return (-1);
 	}
@@ -121,7 +121,7 @@ bool	ft_tokenization(t_data *data)
 	while (str[i] != '\0')
 	{
 		token_tp = ft_define_token_type(str, i);
-		dprintf(2, "token_tp = %i\n", token_tp);
+//		dprintf(2, "token_tp = %i\n", token_tp);
 		i = ft_add_token(data, str, token_tp, i);
 		if (i == -1)
 			return (ft_free_ptr(str), false);

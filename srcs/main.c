@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/09 17:26:29 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/13 14:43:13 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	main(int argc, char **argv, char **env)
 			ft_exec(&data, data.cmd_list, env);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
-		print_tokens(data.token_list);
+//		print_tokens(data.token_list);
 		/*
 				ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n",
 					1);

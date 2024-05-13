@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 16:40:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/13 20:02:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	t_redir	*tmp;
 
 	tmp = cmds->redir;
-	cmds->here_doc_count = ft_count_here_doc(cmds);
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
 /*

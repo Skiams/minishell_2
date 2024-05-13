@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 15:12:28 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/13 16:56:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 	}
 	else
 	{
-		if (cmds->argc == 1)
+		if (cmds->list_size == 1)
 			ft_waitpid_only_one_cmd(cmds);
 		else
 			ft_waitpid(cmds);
@@ -64,7 +64,7 @@ void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
 	perror(cmds->redir->path);
 	if (cmds->outfile != -1)
 		close(cmds->outfile);
-	if (cmds->argc == 1)
+	if (cmds->list_size == 1)
 		ft_waitpid_only_one_cmd(cmds);
 	else
 		ft_waitpid(cmds);

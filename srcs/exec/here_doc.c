@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 16:58:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/13 20:02:39 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	}
 	else
 	{
-		//del =	strjoin(".", delimiter);
-		//name	= strjoin(del, itoa);
-		//cmds->infile = open(name, O_RDONLY, 0755);
-		cmds->infile = open(redir->path, O_WRONLY | O_CREAT | O_TRUNC, 0755);
+		cmds->tmp_file = ft_strjoin(".", redir->path);
+		cmds->index = ft_itoa(cmds->here_doc_count);
+		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
+		dprintf(2, "cmds->name = %s\n", cmds->name);
+		cmds->infile = open(cmds->name, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	}
 	if (cmds->infile == -1)
 		ft_handle_infile_error(data, cmds);
@@ -93,29 +94,31 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	}
 	free(line); 
 	free(delimiter);
+	if (cmds->cmd)
+	{
+		free(cmds->tmp_file);
+		free(cmds->index);
+		free(cmds->name);
+	}
 	if (close(cmds->infile) == -1)
 		ft_handle_infile_error(data, cmds);
 }
 
 void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
-	//	dprintf(2, "je rentre ici\n");
-	//del =	strjoin(".", delimiter);
-	//name	= strjoin(del, itoa);
-	//cmds->infile = open(name, O_RDONLY, 0755);
-	cmds->infile = open(cmds->redir->path, O_RDONLY, 0755);
+	cmds->tmp_file = ft_strjoin(".", cmds->redir->path);
+	cmds->index = ft_itoa(cmds->here_doc_count);
+	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
+	dprintf(2, "Dans handle_here_doc cmds->name = %s\n", cmds->name);
+	cmds->infile = open(cmds->name, O_RDONLY, 0755);
 	if (cmds->infile == -1)
-	{
-		//		dprintf(2, "je fail la\n");
 		ft_handle_infile_error(data, cmds);
-	}
 	if (dup2(cmds->infile, 0) == -1)
 		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->infile) == -1)
 		ft_handle_close_error(data, cmds);
 
-	cmds->i += 1;
-	//	if (unlink(cmds->redir->path) == -1)
-	//		free(cmds->redir->path);
-	//dprintf(2, "je vais jusqu'ici\n");
+	free(cmds->tmp_file);
+	free(cmds->index);
+	free(cmds->name);
 }

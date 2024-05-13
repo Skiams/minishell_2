@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/08 16:09:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/13 20:12:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 		ft_exit_properly2(data, cmds);
         }
 	if (cmds->redir)
-		ft_handle_redir_without_cmd(data, cmds);
+		ft_handle_redir(data, cmds);
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		ft_exec_built_in(data, cmds);
@@ -40,6 +40,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
 	execve(cmds->right_path, cmds->args, env);
 	ft_handle_execve_error(data, cmds);
+
 }
 
 void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/08 18:43:06 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/13 20:01:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,30 +48,10 @@ typedef struct s_env
 typedef struct s_redir
 {
 	t_token_tp		type;
-	char			*path;
+	char	*path;
 	struct s_redir	*next;
 	struct s_redir	*prev;	
 }	t_redir;
-
-/*
-typedef struct s_pipex
-{
-	int		curr_pipe[2];
-	int		prev_pipe[2];
-	int		i;
-	int		argc;
-	int		here_doc;
-	int		is_here_doc;
-	int		infile;
-	int		outfile;
-	int		code_status;
-	pid_t	pid1;
-	pid_t	pid2;
-	char	**argv;
-	char	*env_path;
-	char	**cmd_path;
-}		t_pipex;
-*/
 
 typedef struct s_cmds
 {
@@ -84,9 +64,11 @@ typedef struct s_cmds
 	int		curr_pipe[2];
 	int		prev_pipe[2];
 	int		i;
-	int		argc;
-//	int		here_doc;
+	int		list_size;
 	int		here_doc_count;
+	char	*tmp_file;
+	char	*name;
+	char	*index;
 	int		code_status;
 	int		dev_stdin;
 	int		dev_stdout;
@@ -110,9 +92,6 @@ typedef struct s_data
 	char	*input;
 	char	**cmds_exec;
 	char	**env_exec;
-	// int		status;
-	// int		infile;
-	// int		outfile;
 	t_token	*token_list;
 	t_cmds	*cmd_list;
 	t_env	*env;
