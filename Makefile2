@@ -1,0 +1,90 @@
+NAME = minishell
+CC = cc -Wall -Wextra -Werror
+LIBFT =	includes/libft
+FT_LIBFT = includes/libft/libft.a
+PRINTF = includes/printf
+GNL = includes/get_next_line/get_next_line.c
+GNL_UTILS = includes/get_next_line/get_next_line_utils.c
+FT_PRINTF = includes/printf/libftprintf.a
+SRCS_PATH = srcs/
+BUILT_IN = srcs/built-in/
+CLEAN_EXIT = srcs/clean_exit/
+COMMANDS = srcs/commands/
+DEBUG = srcs/debug/
+ENV = srcs/env
+ERROR = srcs/errors
+EXPAND = srcs/expand/
+PARSING = srcs/parsing-lexer/
+SINGALS = srcs/signals/
+EXEC = srcs/exec/
+OBJS_PATH = objs/
+BUILT_IN_OBJS_PATH = objs/built-in/
+GREEN := \e[32m
+RESET :=\e[0m
+MAKEFLAGS += --no-print-directory
+
+SRCS = main.c\
+BUILT_IN_SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c export_utils_bis.c ft_unset.c ft_exit.c ft_cd.c ft_pwd.c\
+CLEAN_EXIT = clean.c singletons.c\
+COMMANDS = cmds.c cmds_args.c lst_cmds.c lst_cmds_bis.c redir_cmds.c\
+DEBUG = debug.c\
+ENV = get_env.c lst_env.c\
+ERROR = error_handle.c\
+EXPAND = expand.c expand_utils.c expand_utils_bis.c\
+PARSING = tokenization.c lst_token.c check_syntax.c parsing_utils.c parsing_utils_2.c\
+SIGNALS = signals.c\
+EXEC = get_path.c handle_access.c handle_errors.c handle_execve_error.c handle_duplications.c handle_path.c\
+	handle_processes.c handle_quotes_and_slash.c  handle_spaces_and_slashes.c here_doc.c exec.c\
+	print_errors.c size_functions.c split.c string_functions.c wait_and_close.c handle_built_in.c handle_redir.c\
+
+
+OBJ = $(addprefix $(OBJS_PATH), $(SRCS:.c=.o))
+BUILT_IN_OBJ = $(addprefix $(BUILT_IN_OBJS_PATH), $(BUILT_IN_SRCS:.c=.o))
+CLEAN_EXIT_OBJ = $(addprefix $(OBJS_PATH), $(CLEAN_EXIT:.c=.o))
+COMMANDS_OBJ = $(addprefix $(OBJS_PATH), $(COMMANDS:.c=.o))
+DEBUG_OBJ = $(addprefix $(OBJS_PATH), $(DEBUG:.c=.o))
+ENV_OBJ = $(addprefix $(OBJS_PATH), $(ENV:.c=.o))
+ERROR_OBJ = $(addprefix $(OBJS_PATH), $(ERROR:.c=.o))
+EXPAND_OBJ = $(addprefix $(OBJS_PATH), $(EXPAND:.c=.o))
+PARSING_OBJ = $(addprefix $(OBJS_PATH), $(PARSING:.c=.o))
+SIGNALS_OBJ = $(addprefix $(OBJS_PATH), $(SIGNALS:.c=.o))
+EXEC_OBJ = $(addprefix $(OBJS_PATH), $(EXEC:.c=.o))
+
+all: $(NAME)
+
+$(OBJS_PATH):
+	@mkdir -p $(OBJS_PATH)
+
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
+	$(CC) -c $< -o $@
+
+$(NAME): $(OBJS_PATH) $(OBJ) $(BUILT_IN_OBJS_PATH) $(BUILT_IN_OBJ)
+	@echo "\nCompilation minishell: $(GREEN)success$(RESET)\n"
+	make $(MAKEFLAGS) -C "./includes/printf"
+	make $(MAKEFLAGS) -C "./includes/libft"
+	$(CC) $(OBJ) $(BUILT_IN_OBJ) -Inc $(FT_PRINTF) -Inc $(FT_LIBFT) -Inc $(GNL) -Inc $(GNL_UTILS) -lreadline -o $(NAME)
+
+
+#OBJS = ${SRCS:.c=.o}
+
+
+#all:	${NAME} $(LIBFT) $(PRINTF) $(GNL)
+
+
+#$(NAME):	$(OBJS)
+#			make -C $(LIBFT) && make -C $(PRINTF) 
+#			$(CC) $(OBJS) -o $(NAME) $(FT_LIBFT) $(FT_PRINTF) -lreadline
+
+clean:
+	/bin/rm -rf $(OBJ)
+	/bin/rm -rf $(OBJS_PATH)
+	@echo "\nMinishell removed: $(GREEN)success$(RESET)\n"
+	make clean -C $(LIBFT) && make clean -C $(PRINTF) 
+
+fclean:	clean
+	/bin/rm -rf ${NAME}
+	make fclean -C $(LIBFT) && make fclean -C $(PRINTF)
+
+re: fclean all
+
+.PHONY: all clean fclean re
