@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/13 19:52:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/14 21:07:16 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ bool	ft_lstinit_env(t_env **env, char *var, char *value)
 	ft_lstadd_back_env(env, new_env_var);
 	return (true);
 }
-// t_env	*ft_no_env(t_data *data)
-// {
-	
-// }
+
 t_env	*ft_get_env(t_data *data, char **env)
 {
 	char	*tmp_var;
