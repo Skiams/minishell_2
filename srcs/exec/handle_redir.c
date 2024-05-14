@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/13 20:02:20 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/14 21:58:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		if (cmds->redir->type == 1)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == 2)
-			ft_handle_here_doc(data, cmds);
+			ft_open_here_doc(data, cmds);
 		if (cmds->redir->type == 3)
 			ft_handle_input_redir(data, cmds);
 		if (cmds->redir->type == 4)
@@ -112,6 +112,19 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		cmds->redir = cmds->redir->next;
 	}
 	cmds->redir = tmp;
+	dprintf(2, "name : %s\n", cmds->name);
+	if (cmds->name != NULL)
+		unlink(cmds->name);
+// Si unlink galere
+//		dprintf(2, "name : %s\n", cmds->name);
+//		unlink(cmds->name);
+/*
+	if (cmds->name)
+	{
+		unlink(cmds->name);
+		free(cmds->name);
+	}
+*/
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
@@ -143,7 +156,10 @@ void	ft_handle_input_redir(t_data *data, t_cmds *cmds)
 {
 	cmds->infile = open(cmds->redir->path, O_RDONLY, 0755);
 	if (cmds->infile == -1)
+	{
+			dprintf(2, "Je passe LAA\n");
 		ft_handle_infile_error(data, cmds);
+	}
 	else
 	{
 		if (dup2(cmds->infile, 0) == -1)

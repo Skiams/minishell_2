@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/13 20:02:39 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/14 21:47:03 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 		ft_handle_infile_error(data, cmds);
 }
 
-void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
+void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 {
 	cmds->tmp_file = ft_strjoin(".", cmds->redir->path);
 	cmds->index = ft_itoa(cmds->here_doc_count);
@@ -117,8 +117,7 @@ void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->infile) == -1)
 		ft_handle_close_error(data, cmds);
-
 	free(cmds->tmp_file);
 	free(cmds->index);
-	free(cmds->name);
+//	free(cmds->name);
 }

@@ -2,7 +2,7 @@
 
 void	ft_handle_execve_error(t_data *data, t_cmds *cmds)
 {
-	ft_putstr_fd("Attention tout le monde ! Je fail ! Avec une ou plusieurs commandes\n", 2);
+	dprintf(2, "Attention tout le monde ! Je fail ! Avec une ou plusieurs commandes\n");
 	ft_putstr_fd("minishell: ", 2);
 	perror(cmds->right_path);
 	free(cmds->right_path);

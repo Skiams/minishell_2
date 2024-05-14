@@ -6,15 +6,14 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/20 20:47:34 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:35:03 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char **args, char *tmp2)
+void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2)
 {
-	(void)args;
 	if (tmp2)
 		free (tmp2);
 	ft_putstr_fd("minishell: ", 2);
