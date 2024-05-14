@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/13 20:02:01 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/14 11:43:30 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 int		ft_exec(t_data *data, t_cmds *cmds, char **env);
 int     	ft_is_a_built_in(char *str);
 void    ft_exec_built_in(t_data *data, t_cmds *cmds);
-int     ft_is_a_built_in(char *str);
 
 void	ft_close_processes(t_cmds *cmds);
 void	ft_waitpid_only_one_cmd(t_cmds *cmds);
@@ -58,12 +57,13 @@ void	ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds);
 void	ft_handle_dup2_error(t_data *data, t_cmds *cmds);
 
 void	ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd, char **args);
-void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char **args, char *tmp2);
+void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2);
 void	ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
 
 void	ft_handle_processes(t_data *data, t_cmds *cmd, char **env);
 int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
 int     	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env);
+int	ft_is_no_cmd(t_data *data, t_cmds *cmds);
 //void	ft_handle_first_cmd(t_data *data, t_cmds *cmds);
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env);
 
@@ -76,7 +76,7 @@ void	ft_check_here_doc(t_data *data, t_cmds *cmds);
 int		ft_count_here_doc(t_cmds *cmds);
 void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir);
-void	ft_handle_here_doc(t_data *data, t_cmds *cmds);
+void	ft_open_here_doc(t_data *data, t_cmds *cmds);
 
 int		ft_count_words(char *str);
 int		ft_count_size_of_word(char *str);

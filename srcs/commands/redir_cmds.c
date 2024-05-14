@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:34:21 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/02 19:50:55 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/14 18:59:27 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	ft_init_redir_node(t_redir *redir_node)
 {
 	redir_node->path = NULL;
 	redir_node->type = -1;
-	//redir_node->here_doc = 0;
 	redir_node->next = NULL;
 	redir_node->prev = NULL;
 }

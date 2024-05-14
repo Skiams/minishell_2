@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/13 20:11:00 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/14 21:57:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,16 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 	{
+/*
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
 		cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
 		execve(cmds->right_path, cmds->args, env);
 		ft_handle_execve_error(data, cmds);
-		//ft_exec_cmds(data, cmds, env);
+*/
+		ft_exec_cmds(data, cmds, env);
+
+	dprintf(2, "TA MERE\n");
 	}
 	else if (cmds->pid > 0)
 	{
@@ -132,6 +136,7 @@ void	ft_init_exec(t_cmds *cmds)
 	while (cmds != NULL)
 	{
 		cmds->list_size = ft_lstsize_cmd(cmds);
+/*
 		cmds->infile = 0;
 		cmds->outfile = 0;
 //		cmds->here_doc = 0;
@@ -141,11 +146,12 @@ void	ft_init_exec(t_cmds *cmds)
 		cmds->tmp_file = NULL;
 		cmds->index = NULL;
 		cmds->name = NULL;
+*/
 		cmds = cmds->next;
 	}
 }
 
-int	ft_test_here_doc(t_data *data, t_cmds *cmds)
+int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	int	status;
 	t_redir * head;
@@ -185,7 +191,7 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 		return (ft_exit_code(0, GET));
 	ft_init_exec(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
-	ft_test_here_doc(data, cmds);
+	ft_handle_here_doc(data, cmds);
 	if (cmds->list_size == 1)
 	{
 		ft_is_only_one_cmd(data, cmds, env);
@@ -197,6 +203,9 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_pipe_error(data, cmds);
 		ft_handle_multi_pipes(data, cmds, env);
 	}
+	dprintf(2, "Dans exec() name vaut : %s\n", cmds->name);
+//	if (cmds->name != NULL)
+//		free(cmds->name);
 	return (ft_exit_code(0, GET));
 }
 

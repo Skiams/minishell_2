@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/02 17:00:18 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/14 17:36:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	ft_is_a_directory(char *argv)
 	return (0);
 }
 
-static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, char **args, int i)
+static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -93,7 +93,7 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, char **args, 
 			if (access(tmp2, X_OK) == 0)
 				return (tmp2);
 			else
-				ft_handle_rights(data, cmds, cmd, args, tmp2);
+				ft_handle_rights(data, cmds, cmd, tmp2);
 		}
 		free(tmp2);
 	}
@@ -115,10 +115,10 @@ char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 		if (ft_is_a_directory(cmd))
 			ft_handle_directory(data, cmds, cmd, args);
 		if (access(cmd, X_OK) != 0)
-			ft_handle_rights(data, cmds, cmd, args, NULL);
+			ft_handle_rights(data, cmds, cmd, NULL);
 		else
 			return (ft_get_absolute_path(data, cmds, cmd, args));
 		return (NULL);
 	}
-	return (ft_handle_path(data, cmds, cmd, args, i));
+	return (ft_handle_path(data, cmds, cmd, i));
 }
