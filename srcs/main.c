@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
+/*   Updated: 2024/05/15 19:22:52 by ahayon           ###   ########.fr       */
 /*   Updated: 2024/05/15 17:34:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -30,19 +31,6 @@ static bool	ft_parsing(char *str, t_data *data)
 	return (true);
 }
 
-// void	ft_init_struct(t_env *env, t_cmds *cmds, t_token *token, t_redir *redir)
-// {
-// /*	t_env	env;
-// 	t_redir	redir;
-// 	t_cmds	cmds;
-// 	t_token	token;
-// */
-// //	ft_memset(data, 0, sizeof(t_data));
-// 	ft_memset(env, 0, sizeof(t_env));
-// 	ft_memset(redir, 0, sizeof(t_redir));
-// 	ft_memset(cmds, 0, sizeof(t_cmds));
-// 	ft_memset(token, 0, sizeof(t_token));
-// }
 static t_env	*ft_no_env(t_data *data)
 {
 	char	*pwd;
@@ -56,48 +44,94 @@ static t_env	*ft_no_env(t_data *data)
 		return (ft_exit_code(12, ADD), NULL);
 	return (data->env);
 }
+static void	ft_non_interactive(t_data *data, char **env)
+{
+	data->input = get_next_line(STDIN_FILENO);
+	if (!data->input)
+	{
+		ft_clean_all(data);
+		ft_putstr_fd("exit\n", 1);
+		ft_exit_code(0, GET);
+	}
+	while (data->input)
+	{
+		if (ft_parsing(data->input, data))
+			ft_exec(data, data->cmd_list, env);
+		ft_free_data(data);
+		data->input = get_next_line(STDIN_FILENO);
+	}
+	ft_clean_all(data);
+	exit(ft_exit_code(0, GET));
+}
+
+
+// static bool ft_add_shlvl(t_data *data, char *value)
+// {
+// 	t_env	*tmp;
+
+// 	tmp = data->env;
+// 	while (tmp)
+// 	{
+// 		if (ft_strcmp(tmp->var, "SHLVL") == 0)
+// 		{
+// 			ft_free_ptr(tmp->value);
+// 			tmp->value = ft_strdup(value);
+// 			ft_free_ptr(value);
+// 			if (!tmp->value)
+// 				return (ft_exit_code(12, ADD), false);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// 	return (true);
+// }
+// static bool	ft_increase_shlvl(t_data *data)
+// {
+// 	char	*shlvl;
+// 	int		count;
+
+// 	dprintf(2, "on increase le shlvl\n");	
+// 	shlvl = ft_var_is_exp(data, "SHLVL");
+// 	count = ft_atoi(shlvl);
+// 	count++;
+// 	ft_free_ptr(shlvl);
+// 	if (!ft_add_shlvl(data, ft_itoa(count)))
+// 		return (false);
+// 	return (true);
+// }
 
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 
-	// t_env	data_env;
-	// t_redir	redir;
-	// t_cmds	cmds;
-	// t_token	token;
 	(void)argv;
 	g_sig_exit = 0;
 	if (argc != 1)
-		ft_print_wrong_param();
+		ft_print_wrong_param();	
 	ft_memset(&data, 0, sizeof(t_data));
-	// ft_init_struct(&data_env, data.cmd_list, data.token_list,
-	//	data.cmd_list->redir);
-	if (env)
-	{
-		dprintf(2, "l'env existe\n");
+	if (env[0])
 		data.env = ft_get_env(&data, env);
-	}
 	else
-	{
-		dprintf(2, "on est bien dans le no env\n");
 		data.env = ft_no_env(&data);
-	}
 	if (ft_exit_code(0, GET) == 12)
 		return (ft_free_data(&data), 12);
+	if (isatty(STDIN_FILENO) == 0)
+		ft_non_interactive(&data, env);
 	while (1)
 	{
 		ft_handle_signal();
 		data.input = readline("1️⃣   minishell$ ");
 		if (!data.input)
-		{
-			ft_putstr_fd("exit\n", 1);
-			break ;
-		}
+			return(ft_clean_all(&data), ft_putstr_fd("exit\n", 1),
+			ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list, env);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
 //		print_tokens(data.token_list);
+
+		// if (!ft_strcmp(data.cmd_list->cmd, "./minishell") && (!ft_increase_shlvl(&data)))
+		// 	return (ft_exit_code(0, GET));
+
 		/*
 				ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n",
 					1);
@@ -106,9 +140,10 @@ int	main(int argc, char **argv, char **env)
 		*/
 		//print_tokens(data.token_list);
 		//	print_cmds(data.cmd_list);
-		data.cmd_list->name ? dprintf(2, "cmds->name %s DANS LE MAIN\n", data.cmd_list->name) : dprintf(2, "On n'a pas de cmds->name dans le MAIN\n");
-		if (data.cmd_list->name != NULL)
-			ft_free_ptr(data.cmd_list->name);
+	//	data.cmd_list->name ? dprintf(2, "cmds->name %s DANS LE MAIN\n", data.cmd_list->name) : dprintf(2, "On n'a pas de cmds->name dans le MAIN\n");
+//		if (data.cmd_list->name != NULL)
+	//		ft_free_ptr(data.cmd_list->name);
+
 		dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		ft_free_data(&data);
 	}
