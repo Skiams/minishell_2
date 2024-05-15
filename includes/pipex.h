@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/14 11:43:30 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/15 17:39:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_check_here_doc(t_data *data, t_cmds *cmds);
 int		ft_count_here_doc(t_cmds *cmds);
 void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir);
-void	ft_open_here_doc(t_data *data, t_cmds *cmds);
+void	ft_open_here_doc(t_data *data, t_cmds *cmds); //, t_redir *redir);
 
 int		ft_count_words(char *str);
 int		ft_count_size_of_word(char *str);

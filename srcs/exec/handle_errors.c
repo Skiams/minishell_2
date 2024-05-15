@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/14 19:22:43 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:12:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
 void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 {
 	perror(cmds->redir->path);
-	if (ft_is_a_built_in(cmds->cmd))
+	if (ft_is_a_built_in(cmds->cmd) || !cmds->cmd)
 	{
 		cmds->pid = fork();
 		if (cmds->pid == -1)
