@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/14 21:57:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/15 19:28:12 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,40 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 		ft_waitpid(cmds);
 }
 
+// static bool ft_add_shlvl(t_data *data, char *value)
+// {
+// 	t_env	*tmp;
+
+// 	tmp = data->env;
+// 	while (tmp)
+// 	{
+// 		if (ft_strcmp(tmp->var, "SHLVL") == 0)
+// 		{
+// 			ft_free_ptr(tmp->value);
+// 			tmp->value = ft_strdup(value);
+// 			ft_free_ptr(value);
+// 			if (!tmp->value)
+// 				return (ft_exit_code(12, ADD), false);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// 	return (true);
+// }
+// static bool	ft_increase_shlvl(t_data *data)
+// {
+// 	char	*shlvl;
+// 	int		count;
+
+// 	dprintf(2, "on increase le shlvl\n");	
+// 	shlvl = ft_var_is_exp(data, "SHLVL");
+// 	count = ft_atoi(shlvl);
+// 	count++;
+// 	ft_free_ptr(shlvl);
+// 	if (!ft_add_shlvl(data, ft_itoa(count)))
+// 		return (false);
+// 	return (true);
+// }
+
 int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	dprintf(2, "Je suis dans one NO BUILT_IN cmd\n");
@@ -74,12 +108,14 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 		execve(cmds->right_path, cmds->args, env);
 		ft_handle_execve_error(data, cmds);
 */
+		// if (!ft_strcmp(cmds->cmd, "./minishell") && (!ft_increase_shlvl(data)))
+		// 	return (ft_exit_code(0, GET));
 		ft_exec_cmds(data, cmds, env);
-
-	dprintf(2, "TA MERE\n");
+		dprintf(2, "TA MERE\n");
 	}
 	else if (cmds->pid > 0)
 	{
+		
 		cmds->i = 0;
 		while (cmds->i++ < cmds->list_size)
 			ft_waitpid_only_one_cmd(cmds);
@@ -151,6 +187,7 @@ void	ft_init_exec(t_cmds *cmds)
 	}
 }
 
+
 int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	int	status;
@@ -206,6 +243,8 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	dprintf(2, "Dans exec() name vaut : %s\n", cmds->name);
 //	if (cmds->name != NULL)
 //		free(cmds->name);
+//	if (!ft_strcmp(cmds->cmd, "./minishell") && (!ft_increase_shlvl(data)))
+//		return (ft_exit_code(0, GET));
 	return (ft_exit_code(0, GET));
 }
 
