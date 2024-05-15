@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/14 21:57:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:13:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		ft_dup_stdin_stdout(data, cmds);
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
-		if (cmds->infile != -1)
+		if (cmds->infile != -1 || cmds->outfile == -1)
 		{
 			ft_handle_exit_built_in(data, cmds);
 			ft_exec_built_in(data, cmds);

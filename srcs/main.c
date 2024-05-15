@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/14 21:13:53 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/15 17:34:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,9 @@ int	main(int argc, char **argv, char **env)
 		*/
 		//print_tokens(data.token_list);
 		//	print_cmds(data.cmd_list);
+		data.cmd_list->name ? dprintf(2, "cmds->name %s DANS LE MAIN\n", data.cmd_list->name) : dprintf(2, "On n'a pas de cmds->name dans le MAIN\n");
+		if (data.cmd_list->name != NULL)
+			ft_free_ptr(data.cmd_list->name);
 		dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		ft_free_data(&data);
 	}
