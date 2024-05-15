@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
 /*   Updated: 2024/05/15 19:22:52 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/15 17:34:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +128,22 @@ int	main(int argc, char **argv, char **env)
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
 //		print_tokens(data.token_list);
+
 		// if (!ft_strcmp(data.cmd_list->cmd, "./minishell") && (!ft_increase_shlvl(&data)))
 		// 	return (ft_exit_code(0, GET));
+
+		/*
+				ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n",
+					1);
+				print_tokens(data.token_list);
+				print_cmds(data.cmd_list);
+		*/
+		//print_tokens(data.token_list);
+		//	print_cmds(data.cmd_list);
+	//	data.cmd_list->name ? dprintf(2, "cmds->name %s DANS LE MAIN\n", data.cmd_list->name) : dprintf(2, "On n'a pas de cmds->name dans le MAIN\n");
+//		if (data.cmd_list->name != NULL)
+	//		ft_free_ptr(data.cmd_list->name);
+
 		dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		ft_free_data(&data);
 	}

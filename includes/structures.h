@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/13 20:01:05 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:14:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,18 @@ typedef struct s_redir
 	struct s_redir	*prev;	
 }	t_redir;
 
+/*
+typedef struct s_here_doc
+{
+	char	*name;
+	struct s_here_doc *next;
+}	t_here_doc;
+*/
+
 typedef struct s_cmds
 {
 	t_redir	*redir;
+//	t_here_doc *here_doc;
 	char	*env_path;
 	char	**cmd_path;
 	char	*right_path;

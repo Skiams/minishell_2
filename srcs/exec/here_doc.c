@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/14 21:47:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/15 17:46:56 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	}
 	else
 	{
-		cmds->tmp_file = ft_strjoin(".", redir->path);
+		cmds->tmp_file = ft_strjoin(".hd_", redir->path);
 		cmds->index = ft_itoa(cmds->here_doc_count);
 		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
 		dprintf(2, "cmds->name = %s\n", cmds->name);
@@ -106,8 +106,11 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 
 void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 {
-	cmds->tmp_file = ft_strjoin(".", cmds->redir->path);
-	cmds->index = ft_itoa(cmds->here_doc_count);
+	int	i;
+
+	i = 0;
+	cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
+	cmds->index = ft_itoa(i);
 	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
 	dprintf(2, "Dans handle_here_doc cmds->name = %s\n", cmds->name);
 	cmds->infile = open(cmds->name, O_RDONLY, 0755);
