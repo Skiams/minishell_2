@@ -1,85 +1,63 @@
-NAME		=	minishell
+NAME = minishell
 
-CC			=	cc -Wall -Wextra -Werror -g3
+CC = cc -Wall -Wextra -Werror
+MAKEFLAGS += --no-print-directory
 
-SRCS		=	srcs/main.c\
-				srcs/built-in/ft_echo.c\
-				srcs/built-in/ft_env.c\
-				srcs/built-in/ft_export.c\
-				srcs/built-in/ft_export_utils.c\
-				srcs/built-in/ft_export_utils_bis.c\
-				srcs/built-in/ft_unset.c\
-				srcs/built-in/ft_exit.c\
-				srcs/built-in/ft_cd.c\
-				srcs/clean_exit/clean.c\
-				srcs/clean_exit/singletons.c\
-				srcs/commands/cmds.c\
-				srcs/commands/cmd_args.c\
-				srcs/commands/lst_cmds.c\
-				srcs/commands/lst_cmds_bis.c\
-				srcs/commands/redir_cmds.c\
-				srcs/debug/debug.c\
-				srcs/env/get_env.c\
-				srcs/env/lst_env.c\
-				srcs/errors/error_handle.c\
-				srcs/expand/expand.c\
-				srcs/expand/expand_utils.c\
-				srcs/expand/expand_utils_bis.c\
-				srcs/built-in/ft_pwd.c\
-				srcs/parsing-lexer/tokenization.c\
-				srcs/parsing-lexer/lst_token.c\
-				srcs/parsing-lexer/check_syntax.c\
-				srcs/parsing-lexer/parsing_utils.c\
-				srcs/parsing-lexer/parsing_utils_2.c\
-				srcs/signals/signals.c\
-				srcs/exec/get_path.c\
-				srcs/exec/handle_access.c\
-				srcs/exec/handle_errors.c\
-				srcs/exec/handle_execve_error.c\
-				srcs/exec/handle_duplications.c\
-				srcs/exec/handle_path.c\
-				srcs/exec/handle_processes.c\
-				srcs/exec/handle_quotes_and_slash.c\
-				srcs/exec/handle_spaces_and_slashes.c\
-				srcs/exec/here_doc.c\
-				srcs/exec/exec.c\
-				srcs/exec/print_errors.c\
-				srcs/exec/size_functions.c\
-				srcs/exec/split.c\
-				srcs/exec/string_functions.c\
-				srcs/exec/wait_and_close.c\
-				srcs/exec/handle_built_in.c\
-				srcs/exec/handle_redir.c\
-				includes/get_next_line/get_next_line.c\
-				includes/get_next_line/get_next_line_utils.c\
+GREEN := \e[32m
+RESET :=\e[0m
 
-OBJS		=	${SRCS:.c=.o}
+LIBFT =	includes/libft
+FT_LIBFT = includes/libft/libft.a
 
-LIBFT		=	includes/libft
+PRINTF = includes/printf
+FT_PRINTF = includes/printf/libftprintf.a
 
-FT_LIBFT	=	includes/libft/libft.a
+GNL = includes/get_next_line/get_next_line.c
+GNL_UTILS = includes/get_next_line/get_next_line_utils.c
 
-PRINTF		=	includes/printf
+SRCS_PATH = $(shell find srcs -type d)
 
-FT_PRINTF	=	includes/printf/libftprintf.a
+SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c ft_export_utils_bis.c ft_unset.c ft_exit.c ft_cd.c ft_pwd.c \
+		clean.c singletons.c \
+		cmds.c cmd_args.c lst_cmds.c lst_cmds_bis.c redir_cmds.c \
+		debug.c \
+		get_env.c lst_env.c \
+		error_handle.c \
+		expand.c expand_utils.c expand_utils_bis.c \
+		tokenization.c lst_token.c check_syntax.c parsing_utils.c parsing_utils_2.c \
+		signals.c \
+		get_path.c handle_access.c handle_errors.c handle_execve_error.c handle_duplications.c handle_path.c \
+		handle_processes.c handle_quotes_and_slash.c  handle_spaces_and_slashes.c here_doc.c exec.c \
+		print_errors.c size_functions.c split.c string_functions.c wait_and_close.c handle_built_in.c handle_redir.c \
+		main.c
+	
+vpath %.c $(foreach dir, $(SRCS_PATH), $(dir):)
 
+OBJS_PATH = objs/
 
-all:	${NAME} $(LIBFT) $(PRINTF)
+OBJS = $(addprefix $(OBJS_PATH), $(SRCS:%.c=%.o))
 
+all: $(NAME)
 
-$(NAME):	$(OBJS)
-			make -C $(LIBFT) && make -C $(PRINTF) 
-			$(CC) $(OBJS) -o $(NAME) $(FT_LIBFT) $(FT_PRINTF) -lreadline
+$(OBJS_PATH)%.o: %.c
+	@mkdir -p $(OBJS_PATH)
+	$(CC) -c $< -o $@
+
+$(NAME): $(OBJS)
+	@echo "\nCompilation minishell: $(GREEN)success$(RESET)\n"
+	make $(MAKEFLAGS) -C "./includes/printf"
+	make $(MAKEFLAGS) -C "./includes/libft"
+	$(CC) $(OBJS) -Inc $(FT_PRINTF) -Inc $(FT_LIBFT) -Inc $(GNL) -Inc $(GNL_UTILS) -lreadline -o $(NAME)
 
 clean:
-			rm -f $(OBJS)
-			make clean -C $(LIBFT) && make clean -C $(PRINTF) 
+	/bin/rm -rf $(OBJS)
+	@echo "\nMinishell removed: $(GREEN)success$(RESET)\n"
+	make clean -C $(LIBFT) && make clean -C $(PRINTF) 
 
-fclean:		clean
-			rm -f ${NAME}
-			make fclean -C $(LIBFT) && make fclean -C $(PRINTF)
+fclean:	clean
+	/bin/rm -rf ${NAME}
+	make fclean -C $(LIBFT) && make fclean -C $(PRINTF)
 
-re:			fclean
-			make all
+re: fclean all
 
-.PHONY:		all clean fclean re
+.PHONY: all clean fclean re
