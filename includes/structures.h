@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/15 18:14:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/16 18:05:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_cmds
 	char	*tmp_file;
 	char	*name;
 	char	*index;
+	char	**hd_tab;
 	int		code_status;
 	int		dev_stdin;
 	int		dev_stdout;

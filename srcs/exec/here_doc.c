@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/15 17:46:56 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:25:13 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_restore_stdin(t_data *data, t_cmds *cmds)
 // implementer les signaux
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 {
+	static int	i = 1;
 	char	*line;
 	char	*delimiter;
 
@@ -71,7 +72,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	else
 	{
 		cmds->tmp_file = ft_strjoin(".hd_", redir->path);
-		cmds->index = ft_itoa(cmds->here_doc_count);
+		cmds->index = ft_itoa(i);
 		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
 		dprintf(2, "cmds->name = %s\n", cmds->name);
 		cmds->infile = open(cmds->name, O_WRONLY | O_CREAT | O_TRUNC, 0755);
@@ -102,17 +103,19 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	}
 	if (close(cmds->infile) == -1)
 		ft_handle_infile_error(data, cmds);
+	i += 1;
 }
 
 void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 {
-	int	i;
+	static int	i = 1;
+	int	j;
 
-	i = 0;
+	j = 0;
 	cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
 	cmds->index = ft_itoa(i);
 	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
-	dprintf(2, "Dans handle_here_doc cmds->name = %s\n", cmds->name);
+	dprintf(2, "Dans open_here_doc cmds->name = %s\n", cmds->name);
 	cmds->infile = open(cmds->name, O_RDONLY, 0755);
 	if (cmds->infile == -1)
 		ft_handle_infile_error(data, cmds);
@@ -122,5 +125,20 @@ void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 		ft_handle_close_error(data, cmds);
 	free(cmds->tmp_file);
 	free(cmds->index);
+	i += 1;
+//	if (cmds->name)
+//		unlink(cmds->name);
+/*
+	while (cmds != NULL)
+	{
+		if (cmds->name)
+		{
+			dprintf(2, "name == %s\n", cmds->name);
+//			unlink(cmds->name);
+			free(cmds->name);
+		}
+		cmds = cmds->next;		
+	}
+*/
 //	free(cmds->name);
 }

@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/15 18:16:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:26:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,6 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
-/*
-   void	ft_handle_last_here_doc(t_data *data, t_redir *redir)
-   {
-   t_redir	*tmp;
-
-   tmp = redir;
-   while (redir != NULL)
-   {
-   if (redir->type == 2)
-   {
-   while (
-   }
-   }
-   }
- */
-
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
@@ -88,17 +72,6 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
-	/*
-	   while (cmds->redir != NULL) 
-	   {
-	   if (cmds->redir->type == 2)
-	   {
-	   ft_handle_here_doc(data, cmds);
-	   }
-	   cmds->redir = cmds->redir->next;
-	   }
-	   cmds->redir = tmp;
-	 */
 	while (cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
@@ -113,8 +86,11 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	}
 	cmds->redir = tmp;
 	dprintf(2, "name : %s\n", cmds->name);
-	if (cmds->name != NULL)
-		unlink(cmds->name);
+//	if (cmds->name)
+//		free(cmds->name);
+//	dprintf(2, "MAINTENANT name : %s\n", cmds->name);
+	// Si unlink galere
+	//	unlink(cmds->name);
 	// Si unlink galere
 	//		dprintf(2, "name : %s\n", cmds->name);
 	//		unlink(cmds->name);
