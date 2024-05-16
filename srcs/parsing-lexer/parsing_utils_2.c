@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:10:40 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/04 21:20:53 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/16 19:01:06 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,29 @@ int	ft_check_end_quotes(char *str, int i, char c)
 		return (0);
 }
 
+int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
+{
+	int		len;
+	char	*value;
+	t_token	*new_token;
+
+	if (type == HEREDOC || type == APPEND || type == IN_AND_OUT)
+		len = 2;
+	else
+		len = 1;
+	value = ft_substr(str, i, len);
+	if (!value)
+		return (ft_exit_code(12, ADD), -1);
+	i += len;
+	new_token = ft_lstnew_token(value, type);
+	if (!new_token)
+		return (ft_exit_code(12, ADD), -1);
+	ft_lstadd_back_token(token_lst, new_token);
+	return (i);
+}
+
 bool	ft_check_space_expand(char *str)
 {
-	// int	i;
-
-	// i = 0;
-	// while (str[i] && (str[i] == 32 || str[i] == 9))
-	// 	i++;
-	// dprintf(2, "index exp i = %d\n", i);
-	// while (str[i] && str[i] != 32 && str[i] != 9)
-	// 	i++;
-	// dprintf(2, "index exp i = %d\n", i);
-	// while (str[i] && (str[i] == 32 || str[i] == 9))
-	// 	i++;
-	// dprintf(2, "index exp i = %d\n", i);
-	// if (str[i] != 32 && str[i] != 9)
-	// 	return (true);
-	// else
-	// 	return (false);
 	size_t	i;
 	size_t	j;
 
@@ -65,40 +70,51 @@ bool	ft_check_space_expand(char *str)
 	else
 		return (false);
 }
+
+static bool ft_add_exp_token_bis(t_token **token_lst, char *str, char *cmd, int *i)
+{
+	t_token	*rest_token;
+	int		start;
+	char	*arg;
+
+	arg = NULL;
+	while (str[*i] && (str[*i] == 32 || str[*i] == 9))
+		(*i)++;
+	start = *i;
+	while (str[*i])
+		(*i)++;
+	arg = ft_substr(str, start, *i - start);
+	if (!arg)
+		return (ft_exit_code(12, ADD), false);
+	rest_token = ft_lstnew_token(arg, WORD);
+	if (!rest_token)
+		return (ft_free_ptr(cmd), ft_free_ptr(arg), ft_exit_code(12, ADD), false);
+	ft_lstadd_back_token(token_lst, rest_token);
+	return (true);
+}
+
 bool	ft_add_exp_token(t_token **token_lst, char *str)
 {
 	int		i;
 	int		start;
 	char	*cmd;
-	char	*arg;
 	t_token	*new_token;
-	t_token *rest_token;
 	
 	cmd = NULL;
-	arg = NULL;
 	i = 0;
 	while (str[i] && (str[i] == 32 || str[i] == 9))
 		i++;
 	start = i;
 	while (str[i] && str[i] != 32 && str[i] != 9)
 		i++;
-	if (!(cmd = ft_substr(str, start, i - start)))
+	cmd = ft_substr(str, start, i - start);
+	if (!cmd)
 		return (ft_exit_code(12, ADD), false);
 	new_token = ft_lstnew_token(cmd, WORD);
 	if (!new_token)
 		return (ft_free_ptr(cmd), ft_exit_code(12, ADD), false);
 	ft_lstadd_back_token(token_lst, new_token);
-	while (str[i] && (str[i] == 32 || str[i] == 9))
-		i++;
-	start = i;
-	while (str[i])
-		i++;
-	if (!(arg = ft_substr(str, start, i - start)))
-		return (ft_exit_code(12, ADD), false);
-	dprintf(2, "arg = %s\n", arg);
-	rest_token = ft_lstnew_token(arg, WORD);
-	if (!rest_token)
-		return (ft_free_ptr(cmd), ft_free_ptr(arg), ft_exit_code(12, ADD), false);
-	ft_lstadd_back_token(token_lst, rest_token);
+	if (!ft_add_exp_token_bis(token_lst, str, cmd, &i))
+		return (false);
 	return (ft_free_ptr(str), true);
 }
