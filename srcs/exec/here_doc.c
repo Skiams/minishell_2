@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/16 20:25:13 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/16 20:36:07 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	static int	i = 1;
 	char	*line;
 	char	*delimiter;
+	static int	i = 1;
 
 	if (!cmds->cmd)
 	{
@@ -109,9 +110,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 {
 	static int	i = 1;
-	int	j;
 
-	j = 0;
 	cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
 	cmds->index = ft_itoa(i);
 	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
@@ -141,4 +140,5 @@ void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 	}
 */
 //	free(cmds->name);
+	i += 1;
 }
