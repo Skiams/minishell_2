@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/16 19:37:23 by ahayon            #+#    #+#             */
+/*   Updated: 2024/05/16 19:38:22 by ahayon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static bool	ft_add_value_cd(t_data *data, char *var, char *value)
@@ -23,18 +35,18 @@ static bool	ft_add_value_cd(t_data *data, char *var, char *value)
 	return (true);
 }
 
-static void    ft_print_cd_error(char **args)
+static void	ft_print_cd_error(char **args)
 {
-    ft_putstr_fd("minishell: cd: ", 2);
-    if (args[2])
-        ft_putstr_fd("string not in pwd: ", 2);
-    else
-    {
-        ft_putstr_fd(strerror(errno), 2);
-        ft_putstr_fd(": ", 2);
-    }
-    ft_putstr_fd(args[1], 2);
-    ft_putstr_fd("\n", 2);
+	ft_putstr_fd("minishell: cd: ", 2);
+	if (args[2])
+		ft_putstr_fd("string not in pwd: ", 2);
+	else
+	{
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putstr_fd(args[1], 2);
+	ft_putstr_fd("\n", 2);
 }
 
 static bool	ft_new_pwds(t_data *data, int code)
@@ -52,8 +64,8 @@ static bool	ft_new_pwds(t_data *data, int code)
 		if (!ft_add_value_cd(data, "OLDPWD", pwd))
 			return (false);
 	}
-    else if (ft_var_is_in_env(data, "PWD") && code == PWD)
-    {
+	else if (ft_var_is_in_env(data, "PWD") && code == PWD)
+	{
 		if (!ft_add_value_cd(data, "PWD", pwd))
 			return (false);
 	}
@@ -63,71 +75,71 @@ static bool	ft_new_pwds(t_data *data, int code)
 static int	ft_change_dir(t_data *data, int code)
 {
 	char	*new_dir;
-    int     exit_code;
+	int		exit_code;
 
-    exit_code = 0;
+	exit_code = 0;
 	new_dir = NULL;
 	if (code == HOME)
 	{
 		if (!ft_new_pwds(data, OLDPWD))
-            return(ft_exit_code(0, GET));
-        if (!ft_var_is_in_env(data, "HOME"))
-            return (ft_putstr_fd("minishell: cd: HOME is not set\n", 2), 1);
+			return (ft_exit_code(0, GET));
+		if (!ft_var_is_in_env(data, "HOME"))
+			return (ft_putstr_fd("minishell: cd: HOME is not set\n", 2), 1);
 		new_dir = ft_var_is_exp(data, "HOME");
 		if (!new_dir)
 			return (ft_exit_code(12, ADD));
 	}
-    else if (code == PREV)
-    {
-        if (!ft_var_is_in_env(data, "OLDPWD"))
-            return (ft_putstr_fd("minishell: cd: OLDPWD is not set\n", 2), 1);
-        new_dir = ft_var_is_exp(data, "OLDPWD");
-        if (!new_dir)
-            return (ft_exit_code(12, ADD));
+	else if (code == PREV)
+	{
+		if (!ft_var_is_in_env(data, "OLDPWD"))
+			return (ft_putstr_fd("minishell: cd: OLDPWD is not set\n", 2), 1);
+		new_dir = ft_var_is_exp(data, "OLDPWD");
+		if (!new_dir)
+			return (ft_exit_code(12, ADD));
 		exit_code = chdir(new_dir);
 		if (exit_code == -1)
 		{
 			ft_putstr_fd("minishell: cd: ", 2);
 			ft_putstr_fd(new_dir, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
-			return(ft_free_ptr(new_dir), ft_exit_code(1, ADD));
+			return (ft_free_ptr(new_dir), ft_exit_code(1, ADD));
 		}
 		ft_putstr_fd(new_dir, 1);
 		ft_putstr_fd("\n", 1);
 		if (!ft_new_pwds(data, OLDPWD))
-            return(ft_exit_code(0, GET));
-    }
-    exit_code = chdir(new_dir);
-    if (exit_code == 0 && !ft_new_pwds(data, PWD))
-        return (ft_free_ptr(new_dir), ft_exit_code(0, GET));
-    return(ft_free_ptr(new_dir), ft_exit_code(exit_code, ADD));
+			return (ft_exit_code(0, GET));
+	}
+	exit_code = chdir(new_dir);
+	if (exit_code == 0 && !ft_new_pwds(data, PWD))
+		return (ft_free_ptr(new_dir), ft_exit_code(0, GET));
+	return (ft_free_ptr(new_dir), ft_exit_code(exit_code, ADD));
 }
 
 int	ft_cd(t_cmds *cmds, t_data *data)
 {
-	int		exit_code;
+	int	exit_code;
 
-    exit_code = 0;
+	exit_code = 0;
 	if (!cmds->args[1] || ft_strcmp(cmds->args[1], "~") == 0)
 		exit_code = ft_change_dir(data, HOME);
 	else if (ft_strcmp(cmds->args[1], "-") == 0)
 		exit_code = ft_change_dir(data, PREV);
-    else if (ft_args_nb(cmds) > 2)
-    {
-        ft_putstr_fd("minishell: cd: too many arguments\n", 2);
-        exit_code = 1;
-    }
-    else
-    {
+	else if (ft_args_nb(cmds) > 2)
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 2);
+		exit_code = 1;
+	}
+	else
+	{
 		if (!ft_new_pwds(data, OLDPWD))
-            return(ft_exit_code(0, GET));
-        exit_code = chdir(cmds->args[1]);
-        if (exit_code < 0)
-            exit_code *= -1;
-        if (exit_code != 0)
-            ft_print_cd_error(cmds->args);
-        else if (!ft_new_pwds(data, PWD))
-            return(ft_exit_code(0, GET));
-    }
+			return (ft_exit_code(0, GET));
+		exit_code = chdir(cmds->args[1]);
+		if (exit_code < 0)
+			exit_code *= -1;
+		if (exit_code != 0)
+			ft_print_cd_error(cmds->args);
+		else if (!ft_new_pwds(data, PWD))
+			return (ft_exit_code(0, GET));
+	}
 	return (ft_exit_code(exit_code, ADD));
 }

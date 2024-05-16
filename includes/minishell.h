@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/13 16:38:41 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/16 18:33:52 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ extern int	g_sig_exit;
 // TOKENIZATION
 
 int		ft_add_sep(t_token **token_lst, int type, char *str, int i);
-int		ft_add_word(t_data *data, t_token **token_lst, char *str, int i);
-int		ft_add_token(t_data *data, char *str, int type, int i);
 int		ft_define_token_type(char *str, int i);
 t_token	*ft_lstnew_token(char *value, t_token_tp type);
 void	ft_lstadd_back_token(t_token **token_lst, t_token *new_token);
