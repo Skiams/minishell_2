@@ -6,13 +6,13 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/27 14:09:08 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/17 14:17:15 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*ft_fill_tab(char *str)
+char	*ft_fill_tab(char *str)
 {
 	int		i;
 	int		size;
@@ -35,7 +35,7 @@ static char	*ft_fill_tab(char *str)
 	return (s);
 }
 
-static char	**ft_return_tab(char *str)
+char	**ft_return_tab(char *str)
 {
 	char	**tab;
 

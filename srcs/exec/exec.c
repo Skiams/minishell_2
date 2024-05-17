@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/16 19:58:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:33:25 by eltouma          ###   ########.fr       */
 /*   Updated: 2024/05/15 18:13:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -44,6 +44,7 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_close_error(data, cmds);
 		if (close(cmds->prev_pipe[1]) == -1)
 			ft_handle_close_error(data, cmds);
+
 		if (cmds->next)
 		{
 			cmds->next->prev_pipe[0] = cmds->curr_pipe[0];
@@ -56,6 +57,7 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 	}
 	cmds = tmp;
 	cmds->i = 0;
+	dprintf(2, "666\n");
 	while (cmds->i++ < cmds->list_size)
 		ft_waitpid(cmds);
 }
@@ -97,6 +99,7 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	dprintf(2, "Je suis dans one NO BUILT_IN cmd\n");
+//	dprintf(2, "cmds->name %s, dams no_built_in\n", cmds->name);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -207,7 +210,12 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 			while (head != NULL)
 			{
 				if (head->type == 2)
+				{
 					ft_exec_here_doc(data, cmds, head);
+			//		dprintf(2, "cmds->nae dans handle_here_doc %s\n", cmds->name);
+					if (cmds->name)
+						ft_free_ptr(cmds->name);
+				}
 				head = head->next;
 			}
 			cmds = cmds->next;
@@ -241,8 +249,9 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_pipe_error(data, cmds);
 		ft_handle_multi_pipes(data, cmds, env);
 	}
-	dprintf(2, "Dans exec() name vaut : %s\n", cmds->name);
+//	dprintf(2, "Dans exec() name vaut : %s\n", cmds->name);
 //	if (cmds->name != NULL)
+	//	unlink(cmds->name);
 //		free(cmds->name);
 //	if (!ft_strcmp(cmds->cmd, "./minishell") && (!ft_increase_shlvl(data)))
 //		return (ft_exit_code(0, GET));

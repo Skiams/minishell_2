@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/16 20:36:07 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/17 18:38:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,20 @@ void	ft_restore_stdin(t_data *data, t_cmds *cmds)
 		ft_putstr_fd("> ", cmds->dev_stdin);
 }
 
+/*
+void	ft_test(t_cmds *cmds, int i)
+{
+		cmds->tmp_file = ft_strjoin(".hd_", redir->path);
+		cmds->index = ft_itoa(i);
+		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
+}
+*/
 // implementer les signaux
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 {
-	static int	i = 1;
+//	static int	i = 1;
 	char	*line;
 	char	*delimiter;
-	static int	i = 1;
 
 	if (!cmds->cmd)
 	{
@@ -73,9 +80,10 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	else
 	{
 		cmds->tmp_file = ft_strjoin(".hd_", redir->path);
-		cmds->index = ft_itoa(i);
+		cmds->index = ft_itoa(cmds->i);
 		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
-		dprintf(2, "cmds->name = %s\n", cmds->name);
+//		dprintf(2, "cmds->name = %s\n", cmds->name);
+		cmds->i += 1;
 		cmds->infile = open(cmds->name, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	}
 	if (cmds->infile == -1)
@@ -100,31 +108,42 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	{
 		free(cmds->tmp_file);
 		free(cmds->index);
-		free(cmds->name);
+//		free(cmds->name);
 	}
 	if (close(cmds->infile) == -1)
 		ft_handle_infile_error(data, cmds);
-	i += 1;
 }
 
 void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 {
-	static int	i = 1;
+//	dprintf(2, "cmds->i %d\n", cmds->i);
 
+//	cmds->i = 1;
+	
+/*
+	if (cmds->name)
+	{
+//		dprintf(2, "coucou, je suis la\n");
+	//	unlink(cmds->name);
+		ft_free_ptr(cmds->name);
+	}
+*/
 	cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
-	cmds->index = ft_itoa(i);
+	cmds->index = ft_itoa(cmds->i);
 	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
-	dprintf(2, "Dans open_here_doc cmds->name = %s\n", cmds->name);
+//	dprintf(2, "Dans open_here_doc cmds->name = %s\n", cmds->name);
 	cmds->infile = open(cmds->name, O_RDONLY, 0755);
 	if (cmds->infile == -1)
+	{
+		dprintf(2, "Attention tou le monde, je FAIL\n");
 		ft_handle_infile_error(data, cmds);
+	}
 	if (dup2(cmds->infile, 0) == -1)
 		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->infile) == -1)
 		ft_handle_close_error(data, cmds);
 	free(cmds->tmp_file);
 	free(cmds->index);
-	i += 1;
 //	if (cmds->name)
 //		unlink(cmds->name);
 /*
@@ -140,5 +159,5 @@ void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 	}
 */
 //	free(cmds->name);
-	i += 1;
+	cmds->i += 1;
 }
