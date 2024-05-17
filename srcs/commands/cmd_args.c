@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:15:47 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/02 16:29:39 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/17 14:46:59 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_count_args(t_token *token_list)
 {
 	t_token	*tmp;
-	int	i;
+	int		i;
 
 	tmp = token_list;
 	i = 0;
@@ -26,8 +26,9 @@ static int	ft_count_args(t_token *token_list)
 	}
 	return (i);
 }
-static char	**ft_new_args_tab(t_token **token_lst,
-t_cmds *last_cmd, char **new_args, int len)
+
+static char	**ft_new_args_tab(t_token **token_lst, t_cmds *last_cmd,
+		char **new_args, int len)
 {
 	int	i;
 
@@ -57,7 +58,7 @@ bool	ft_set_more_args(t_cmds *last_cmd, t_token **token_lst)
 	int		len;
 	char	**added_args;
 	t_token	*tmp;
-	
+
 	tmp = *token_lst;
 	i = 0;
 	while (last_cmd->args[i])
@@ -94,7 +95,7 @@ bool	ft_set_args(t_cmds *last_cmd, t_token **token_list)
 	int		nb;
 	int		i;
 	int		j;
-	
+
 	j = 0;
 	i = 0;
 	tmp = *token_list;
@@ -103,7 +104,7 @@ bool	ft_set_args(t_cmds *last_cmd, t_token **token_list)
 	if (!last_cmd->args)
 		return (ft_exit_code(12, ADD), false);
 	while (j++ <= nb)
-    	last_cmd->args[j] = NULL;
+		last_cmd->args[j] = NULL;
 	last_cmd->args[i] = ft_strdup(last_cmd->cmd);
 	if (!last_cmd->args[i])
 		return (ft_exit_code(12, ADD), false);

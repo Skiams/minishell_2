@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_cd_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 13:41:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 14:43:06 by ahayon           ###   ########.fr       */
+/*   Created: 2024/05/17 18:37:43 by ahayon            #+#    #+#             */
+/*   Updated: 2024/05/17 18:38:09 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_cc_handler(int sig)
+void	ft_print_cd_error(char **args)
 {
-	(void)sig;
-	ft_putchar(1, '\n');
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_sig_exit = 2;
-	ft_exit_code(130, ADD);
-}
-
-void	ft_handle_signal(void)
-{
-	signal(SIGINT, &ft_cc_handler);
+	ft_putstr_fd("minishell: cd: ", 2);
+	if (args[2])
+		ft_putstr_fd("string not in pwd: ", 2);
+	else
+	{
+		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(": ", 2);
+	}
+	ft_putstr_fd(args[1], 2);
+	ft_putstr_fd("\n", 2);
 }

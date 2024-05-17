@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 20:44:13 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/13 16:57:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 15:49:37 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_check_export_case(char *str)
 		{
 			ft_error_export(str, 1);
 			return (ft_free_ptr(str), 0);
-		}	
+		}
 		else if (str[i] == '=')
 			return (2);
 		i++;
@@ -95,14 +95,15 @@ void	ft_order_export_env(t_env **export_env)
 		}
 		else
 			node = node->next;
-	}	
+	}
 }
 
 int	ft_display_export(t_data *data)
 {
 	t_env	*sorted_env;
-	
-	if (!(data->env_export = ft_create_export_env(data)))
+
+	data->env_export = ft_create_export_env(data);
+	if (!data->env_export)
 		return (ft_exit_code(0, GET));
 	sorted_env = data->env_export;
 	ft_order_export_env(&sorted_env);

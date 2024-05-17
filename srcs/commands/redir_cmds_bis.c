@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   redir_cmds_bis.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/10 13:41:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 14:43:06 by ahayon           ###   ########.fr       */
+/*   Created: 2024/05/17 14:45:21 by ahayon            #+#    #+#             */
+/*   Updated: 2024/05/17 15:22:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_cc_handler(int sig)
+static void	ft_delone_redir(t_redir *redir_node, void (*del)(void *))
 {
-	(void)sig;
-	ft_putchar(1, '\n');
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	g_sig_exit = 2;
-	ft_exit_code(130, ADD);
+	if (redir_node->path)
+		(*del)(redir_node->path);
+	(*del)(redir_node);
 }
 
-void	ft_handle_signal(void)
+void	ft_clear_redirlst(t_redir **redir_list, void (*del)(void *))
 {
-	signal(SIGINT, &ft_cc_handler);
+	t_redir	*temp;
+
+	temp = NULL;
+	while (*redir_list)
+	{
+		temp = (*redir_list)->next;
+		ft_delone_redir(*redir_list, del);
+		*redir_list = temp;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:43:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/04/12 14:26:24 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 15:48:29 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ int	ft_check_syntax(t_data *data)
 		if (!token->prev && token->type == PIPE)
 			return (ft_syntax_error(token->value), ft_exit_code(2, ADD));
 		if (token->type == PIPE && token->prev && token->prev->type == PIPE)
-				return (ft_syntax_error(token->value),
-					ft_exit_code(2, ADD));
-		if (token->type < PIPE) 
+			return (ft_syntax_error(token->value), ft_exit_code(2, ADD));
+		if (token->type < PIPE)
 		{
 			if (token->next && token->next->type < WORD)
 			{
-				return (ft_syntax_error(token->next->value),
-					ft_exit_code(2, ADD));
+				return (ft_syntax_error(token->next->value), ft_exit_code(2,
+						ADD));
 			}
 		}
 		if (token->type == PIPE && !token->next)

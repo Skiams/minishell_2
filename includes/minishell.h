@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/16 18:33:52 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 20:22:56 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,11 @@ int		ft_pwd(t_cmds *cmds);
 void	ft_exit(t_data *data, t_cmds *cmd);
 void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds);
 int 	ft_cd(t_cmds *cmd, t_data *data);
+void	ft_print_cd_error(char **args);
 bool	ft_add_value_only(t_data *data, char *var, char *value, int code);
+bool	ft_add_var_and_value(t_data *data, char *str, int code);
+bool	ft_add_var_and_value_bis(t_data *data, char *var, char *value, int code);
+int	ft_export_bis(t_data *data, char *dup_arg, int code);
 
 // UTILS
 

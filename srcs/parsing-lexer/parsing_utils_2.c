@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:10:40 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/16 19:01:06 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 15:48:46 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ bool	ft_check_space_expand(char *str)
 	{
 		if (!(str[i] >= 9 && str[i] <= 13) && str[i] != 32 && str[i] != 58)
 			j += 1;
-		while (!(str[i] >= 9 && str[i] <= 13)
-			&& str[i] != 32 && str[i] != 58 && str[i] != '\0')
+		while (!(str[i] >= 9 && str[i] <= 13) && str[i] != 32 && str[i] != 58
+			&& str[i] != '\0')
 			i += 1;
 		while (((str[i] >= 9 && str[i] <= 13) || str[i] == 32 || str[i] == 58)
 			&& str[i] != '\0')
@@ -71,7 +71,8 @@ bool	ft_check_space_expand(char *str)
 		return (false);
 }
 
-static bool ft_add_exp_token_bis(t_token **token_lst, char *str, char *cmd, int *i)
+static bool	ft_add_exp_token_bis(t_token **token_lst, char *str, char *cmd,
+		int *i)
 {
 	t_token	*rest_token;
 	int		start;
@@ -88,7 +89,8 @@ static bool ft_add_exp_token_bis(t_token **token_lst, char *str, char *cmd, int 
 		return (ft_exit_code(12, ADD), false);
 	rest_token = ft_lstnew_token(arg, WORD);
 	if (!rest_token)
-		return (ft_free_ptr(cmd), ft_free_ptr(arg), ft_exit_code(12, ADD), false);
+		return (ft_free_ptr(cmd), ft_free_ptr(arg), ft_exit_code(12, ADD),
+			false);
 	ft_lstadd_back_token(token_lst, rest_token);
 	return (true);
 }
@@ -99,7 +101,7 @@ bool	ft_add_exp_token(t_token **token_lst, char *str)
 	int		start;
 	char	*cmd;
 	t_token	*new_token;
-	
+
 	cmd = NULL;
 	i = 0;
 	while (str[i] && (str[i] == 32 || str[i] == 9))
