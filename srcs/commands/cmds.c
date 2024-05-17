@@ -6,11 +6,20 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/08 17:12:13 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 15:46:28 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static bool	ft_cmd_word_bis(t_token *tmp, t_cmds *last_cmd)
+{
+	last_cmd->cmd = ft_strdup(tmp->value);
+	if (!last_cmd->cmd)
+		return (ft_exit_code(12, ADD), false);
+	tmp = tmp->next;
+	return (true);
+}
 
 static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 {
@@ -22,22 +31,18 @@ static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 	{
 		last_cmd = ft_last_cmd(*cmd_list);
 		if (!tmp->prev || (tmp->prev && tmp->prev->type == PIPE)
-		 || !last_cmd->cmd)
+			|| !last_cmd->cmd)
 		{
-			if (ft_strcmp(tmp->value, "\0") != 0)
-			{
-				last_cmd->cmd = ft_strdup(tmp->value);
-				if (!last_cmd->cmd)
-					return (ft_exit_code(12, ADD), false);
-				tmp = tmp->next;
-			}
+			if ((ft_strcmp(tmp->value, "\0") != 0) && (!ft_cmd_word_bis(tmp,
+						last_cmd)))
+				return (false);
 			else
 				tmp = tmp->next;
 		}
 		else if (last_cmd && !last_cmd->args && !ft_set_args(last_cmd, &tmp))
 			return (false);
 		else if (last_cmd && last_cmd->args && last_cmd->redir
-		&& !ft_set_more_args(last_cmd, &tmp))
+			&& !ft_set_more_args(last_cmd, &tmp))
 			return (false);
 	}
 	*token_list = tmp;
@@ -95,7 +100,7 @@ bool	ft_get_cmds(t_data *data, t_token **token_lst)
 		if (!ft_set_new_cmd(data, &tmp))
 			return (false);
 		if ((!tmp->prev && tmp->type == WORD) || (tmp->prev && tmp->type == WORD
-		 && (tmp->prev->type == PIPE || tmp->prev->type == WORD)))
+				&& (tmp->prev->type == PIPE || tmp->prev->type == WORD)))
 		{
 			if (!ft_cmd_word(&data->cmd_list, &tmp))
 				return (false);

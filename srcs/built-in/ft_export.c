@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/15 18:07:28 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 20:23:44 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,6 @@ bool	ft_add_value_only(t_data *data, char *var, char *value, int code)
 		}
 		tmp = tmp->next;
 	}
-	return (true);
-}
-static bool	ft_add_var_and_value_bis(t_data *data, char *var, char *value, int code)
-{
-	t_env	*newel;
-
-	newel = NULL;
-	if (!ft_var_is_in_env(data, var))
-	{
-		newel = ft_lstnew_env(var, value);
-		if (!newel)
-			return (ft_exit_code(12, ADD), false);
-		ft_lstadd_back_env(&data->env, newel);
-	}
-	else if (code == 2 && !ft_add_value_only(data, var, value, 2))
-		return (ft_exit_code(12, ADD), false);
-	else if (code == 3 && !ft_add_value_only(data, var, value, 3))
-		return (ft_exit_code(12, ADD), false);
 	return (true);
 }
 
@@ -152,19 +134,12 @@ int	ft_export(t_data *data, char **args)
 		if (!dup_arg)
 			return (ft_exit_code(12, ADD));
 		if (dup_arg[0] == '-')
-		{
-			ft_error_export(dup_arg, 2);
-			break ;
-		}
+			return (ft_error_export(dup_arg, 2), ft_exit_code(0, GET));
 		code = ft_check_export_case(dup_arg);
 		if (code == 0)
 			break ;
-		if (!ft_isalpha(dup_arg[0]) && dup_arg[0] != '_' && code != 0)
-			ft_error_export(dup_arg, 1);
-		else if ((code >= 1 && code <= 3) && !ft_add_var_env(data, dup_arg, code))
-				return (ft_exit_code(12, ADD));
-		if (code == 2 || code == 3)
-			ft_free_ptr(dup_arg);
+		if (ft_export_bis(data, dup_arg, code) != 0)
+			break ;
 		i++;
 	}
 	return (ft_exit_code(0, GET));

@@ -6,37 +6,68 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 17:40:21 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/09 14:43:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 20:22:38 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_env *ft_create_export_env(t_data *data)
+bool	ft_add_var_and_value_bis(t_data *data, char *var, char *value,
+		int code)
 {
-    t_env   *tmp;
-    char    *exp_var;
-    char    *exp_value;
-    
-    data->env_export = NULL;
-    tmp = data->env;
-    while (tmp)
-    {
-        if (!(exp_var = ft_strdup(tmp->var)))
-            return (ft_exit_code(12, ADD), NULL);
-        dprintf(2, "tmp->var = %s\n", tmp->var);
-        dprintf(2, "tmp->value = %s\n", tmp->value);
-        if (tmp->value)
-        {
-            if (!(exp_value = ft_strdup(tmp->value)))
-                return (ft_exit_code(12, ADD), NULL);
-            dprintf(2, "exp_value = %s\n", exp_value);
-        }
-        else
-            exp_value = NULL;
-        if (!ft_lstinit_env(&data->env_export, exp_var, exp_value))
-            return (ft_exit_code(12, ADD), NULL);
-        tmp = tmp->next;
-    }
-    return (data->env_export);
+	t_env	*newel;
+
+	newel = NULL;
+	if (!ft_var_is_in_env(data, var))
+	{
+		newel = ft_lstnew_env(var, value);
+		if (!newel)
+			return (ft_exit_code(12, ADD), false);
+		ft_lstadd_back_env(&data->env, newel);
+	}
+	else if (code == 2 && !ft_add_value_only(data, var, value, 2))
+		return (ft_exit_code(12, ADD), false);
+	else if (code == 3 && !ft_add_value_only(data, var, value, 3))
+		return (ft_exit_code(12, ADD), false);
+	return (true);
+}
+
+t_env	*ft_create_export_env(t_data *data)
+{
+	t_env	*tmp;
+	char	*exp_var;
+	char	*exp_value;
+
+	data->env_export = NULL;
+	tmp = data->env;
+	while (tmp)
+	{
+		exp_var = ft_strdup(tmp->var);
+		if (!exp_var)
+			return (ft_exit_code(12, ADD), NULL);
+		if (tmp->value)
+		{
+			exp_value = ft_strdup(tmp->value);
+			if (!exp_value)
+				return (ft_exit_code(12, ADD), NULL);
+		}
+		else
+			exp_value = NULL;
+		if (!ft_lstinit_env(&data->env_export, exp_var, exp_value))
+			return (ft_exit_code(12, ADD), NULL);
+		tmp = tmp->next;
+	}
+	return (data->env_export);
+}
+
+int	ft_export_bis(t_data *data, char *dup_arg, int code)
+{
+	if (!ft_isalpha(dup_arg[0]) && dup_arg[0] != '_' && code != 0)
+		ft_error_export(dup_arg, 1);
+	else if ((code >= 1 && code <= 3) && !ft_add_var_env(data, dup_arg,
+			code))
+		return (ft_exit_code(12, ADD));
+	if (code == 2 || code == 3)
+		ft_free_ptr(dup_arg);
+	return (0);
 }

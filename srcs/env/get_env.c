@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/16 19:36:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/17 14:42:44 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ bool	ft_lstinit_env(t_env **env, char *var, char *value)
 	ft_lstadd_back_env(env, new_env_var);
 	return (true);
 }
+
 static bool	ft_get_env_bis(t_data *data, char **env, int *i)
 {
 	int		j;
 	int		k;
 	char	*tmp_var;
 	char	*tmp_value;
-	
+
 	j = 0;
 	k = 0;
 	while (env[*i][j] && env[*i][j] != '=')
@@ -95,15 +96,15 @@ static bool	ft_get_env_bis(t_data *data, char **env, int *i)
 	tmp_value = ft_substr(env[*i], k, (j - k));
 	if (!tmp_value)
 		return (ft_exit_code(12, ADD), false);
-	if (!ft_lstinit_env(&data->env, tmp_var, tmp_value)
-	|| !tmp_value)
+	if (!ft_lstinit_env(&data->env, tmp_var, tmp_value) || !tmp_value)
 		return (ft_exit_code(12, ADD), false);
 	return (true);
 }
+
 t_env	*ft_get_env(t_data *data, char **env)
 {
-	int		i;
-	
+	int	i;
+
 	i = 0;
 	if (!env)
 		return (NULL);
