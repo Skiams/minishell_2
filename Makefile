@@ -1,6 +1,6 @@
 NAME = minishell
 
-CC = cc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror -g3
 MAKEFLAGS += --no-print-directory
 
 GREEN := \e[32m

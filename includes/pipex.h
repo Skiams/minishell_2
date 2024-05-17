@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/15 17:39:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:03:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	ft_open_here_doc(t_data *data, t_cmds *cmds); //, t_redir *redir);
 
 int		ft_count_words(char *str);
 int		ft_count_size_of_word(char *str);
+char	*ft_fill_tab(char *str);
+char	**ft_return_tab(char *str);
 char	**ft_split_exec(char *str);
 void	*ft_free_tab(char **tab);
 
