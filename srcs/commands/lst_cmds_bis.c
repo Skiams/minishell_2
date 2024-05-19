@@ -6,24 +6,27 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:02:55 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/17 14:47:08 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/19 18:34:28 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_lstsize_cmd(t_cmds *cmd)
+int	ft_lstsize_cmd(t_cmds *cmds)
 {
 	int	i;
+	t_cmds	*tmp;
 
 	i = 0;
-	if (!cmd)
+	tmp = cmds;
+	if (!cmds)
 		return (0);
-	while (cmd != NULL)
+	while (cmds != NULL)
 	{
-		cmd = cmd->next;
+		cmds = cmds->next;
 		i += 1;
 	}
+	cmds = tmp;
 	return (i);
 }
 

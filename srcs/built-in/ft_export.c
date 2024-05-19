@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:14:34 by skiam             #+#    #+#             */
-/*   Updated: 2024/05/19 14:10:13 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/19 14:13:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 	return (true);
 }
 
-static bool	ft_add_var_env(t_data *data, char *str, int code)
+bool	ft_add_var_env(t_data *data, char *str, int code)
 {
 	t_env	*newel;
 
