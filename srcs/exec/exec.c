@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/17 18:33:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/19 21:18:06 by eltouma          ###   ########.fr       */
 /*   Updated: 2024/05/15 18:13:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -230,12 +230,45 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 	return (-1);
 }
 
+static char	**ft_test(t_data *data, t_env *env, t_cmds *cmds)
+{
+	(void)data;
+
+        int     i;
+	char	*var;
+	char	*val;
+        t_env   *tmp_env;
+
+        i = 0;
+        tmp_env = env;
+        while (env != NULL)
+        {
+                var = ft_strjoin(env->var, "=");
+                val = ft_strjoin(var, env->value);
+                dprintf(2, "%s\n", val);
+		cmds->mini_env = &val;
+		free(var);
+		free(val);
+                i += 1;
+                env = env->next;
+        }
+	env = tmp_env;
+	return (cmds->mini_env);
+}
+
+
 int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 {
+	t_data *tmp;
+	t_cmds *cmds2;
+	
 	// Voir avec Antoine le code erreur
 	if (!cmds)
 		return (ft_exit_code(0, GET));
+	cmds2 = cmds;
+	tmp = data;
 	ft_init_exec(cmds);
+	ft_test(tmp, tmp->env, cmds2);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	ft_handle_here_doc(data, cmds);
 	if (cmds->list_size == 1)
