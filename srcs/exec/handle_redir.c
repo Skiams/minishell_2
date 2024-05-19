@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/17 18:39:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/19 14:07:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		{
 	//		dprintf(2, "name : %s\n", cmds->name);
 			ft_open_here_doc(data, cmds);
-			cmds->tab[j] = ft_fill_tab(cmds->name);
-			free(cmds->name);
+//			cmds->tab[j] = ft_fill_tab(cmds->name);
+//			free(cmds->name);
 			//dprintf(2, "name : %s\n", cmds->name);
 			j += 1;
 		}
