@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 17:46:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/19 21:14:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_cmds
 {
 	t_redir	*redir;
 //	t_here_doc *here_doc;
+	char			**mini_env;
 	char	*env_path;
 	char	**cmd_path;
 	char	*right_path;
