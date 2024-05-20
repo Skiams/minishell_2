@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/14 17:36:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/20 14:28:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 
 	cmds = tmp;
 	ft_putstr_fd("ft_free\n\n", 2);
+	if (cmds->name)
+	{
+		free(cmds->name);
+		dprintf(2, "oui, jai une tab\n");
+	}
 	//if (!cmds->redir || cmds->redir->type != 2)
 //	{
 	ft_putstr_fd("minishell: ", 2);
