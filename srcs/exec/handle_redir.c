@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/20 14:26:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/20 17:14:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,25 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 			if (!cmds->cmd)
 			{
 				dprintf(2, " et JE N'AI PAS DE commande\n");
-				if (access(cmds->redir->path, F_OK) == 0);
+				if (access(cmds->redir->path, F_OK) == 0)
+				{
+					dprintf(2, "Ouais je passe la ouais !\n");
+					ft_handle_input_redir(data, cmds);
+				}
 				else 
 				{       
 					ft_putstr_fd(cmds->redir->path, 2);
 					ft_putstr_fd(": LALALA No such file or directory\n", 2);
 				}
 			}
+/*
 			else
 			{
 				dprintf(2, " et J'AI une commande\n");
+				dprintf(2, " Je ne passe JAMAIS LA\n");
 				ft_handle_input_redir(data, cmds);
 			}
+*/
 		}
 		if (cmds->redir->type == 4)
 		{
