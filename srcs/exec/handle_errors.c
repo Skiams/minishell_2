@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/15 18:12:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/20 14:29:30 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
-//	print_cmds(cmds);
-	ft_free_tab(cmds->cmd_path);
+	dprintf(2, "ft_exit_properly()\n");
+	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+	if (cmds->name)
+		ft_free_ptr(cmds->name);
+	while (cmds && cmds != NULL)
+	{
+		ft_free_tab(cmds->cmd_path);
+		cmds = cmds->next;
+	}
 	ft_clean_all(data);
 	ft_exit_code(1, ADD);
 	dprintf(2, "\n\n");
-//	print_cmds(cmds);
-// Attention le code de sortie est le bon pour le max de here_doc atteint, mais a voir s'il faut le changer pour d' autres erreurs
+	//	print_cmds(cmds);
+	// Attention le code de sortie est le bon pour le max de here_doc atteint, mais a voir s'il faut le changer pour d' autres erreurs
 	exit (2);
 }
 
@@ -58,6 +65,7 @@ void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 		if (cmds->list_size == 1)
 		{
 			dprintf(2, "COUCOU, NOUS SOMMES LA\n");
+	//		dprintf(2, "cmds->args[0] %s\n", cmds->args[0]);
 			ft_waitpid_only_one_cmd(cmds);
 		}
 		else
@@ -100,11 +108,11 @@ void	ft_handle_close_error(t_data *data, t_cmds *cmds)
 	close(cmds->outfile);
 	ft_close_processes(cmds);
 	ft_exit_properly(data, cmds);
-/*
-	ft_free_tab(cmds->cmd_path);
-	ft_clean_all(data);
-	ft_close_processes(cmds);
-	ft_exit_code(1, ADD);
-	exit (1);
-*/
+	/*
+	   ft_free_tab(cmds->cmd_path);
+	   ft_clean_all(data);
+	   ft_close_processes(cmds);
+	   ft_exit_code(1, ADD);
+	   exit (1);
+	 */
 }

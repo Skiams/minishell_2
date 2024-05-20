@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/19 14:07:33 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/20 14:26:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,6 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 			dprintf(2, "je suis dans une redir de type 1\n");
 			ft_handle_append(data, cmds);
 		}
-		/*
-		   if (cmds->redir->type == 2)
-		   {
-		   dprintf(2, "je suis dans une redir de type 2\n");
-		   ft_exec_here_doc(data, cmds);
-		//		if (cmds->cmd) 
-		//			ft_handle_here_doc(data, cmds);
-		}
-		 */
 		if (cmds->redir->type == 3)
 		{
 			dprintf(2, "je suis dans une redir de type 3");
@@ -79,15 +70,17 @@ char    **ft_return_tab2(int here_doc)
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
-	int	j = 0;
+//	int	j = 0;
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
+/*
 	cmds->tab = ft_return_tab2(cmds->here_doc_count);
 	if (!cmds->tab)
 		return ;
 	dprintf(2, "cmds->i ICICICICIC %d\n", cmds->i);
 	cmds->tab[cmds->here_doc_count] = NULL;
+*/
 	while (cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
@@ -99,17 +92,29 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 //			cmds->tab[j] = ft_fill_tab(cmds->name);
 //			free(cmds->name);
 			//dprintf(2, "name : %s\n", cmds->name);
-			j += 1;
+//			j += 1;
 		}
 		if (cmds->redir->type == 3)
-			ft_handle_input_redir(data, cmds);
+		{
+			dprintf(2, "je suis dans une redir de type 3");
+			if (access(cmds->redir->path, F_OK) == 0)
+				ft_handle_input_redir(data, cmds);
+			else 
+			{       
+				ft_putstr_fd(cmds->redir->path, 2);
+				ft_putstr_fd(": LALALA No such file or directory\n", 2);
+			}
+		//	ft_handle_input_redir(data, cmds);
+		}
 		if (cmds->redir->type == 4)
 			ft_handle_output_redir(data, cmds);
 		cmds->redir = cmds->redir->next;
 	}
+/*
 	dprintf(2, "name a la FIN de handle_redir() : %s\n", cmds->tab[0]);
 	dprintf(2, "name a la FIN de handle_redir() : %s\n", cmds->tab[1]);
 	ft_free_tab(cmds->tab);
+*/
 	cmds->redir = tmp;
 	//dprintf(2, "name a la FIN de handle_redir() : %s\n", cmds->tab[j]);
 /*
