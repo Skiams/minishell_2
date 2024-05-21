@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 13:04:22 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 13:44:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,16 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		if (cmds->redir->type == 4)
 			ft_handle_output_redir(data, cmds);
 		cmds->redir = cmds->redir->next;
+	}
+
+	char **tab2;
+	int x = 0;
+
+	tab2 = cmds->tab;
+	while (tab2[x])
+	{
+		dprintf(2, "tab2[%d] = %s\n", x, tab2[x]);
+		x += 1;
 	}
 	ft_free_tab(cmds->tab);
 	cmds->redir = tmp;
