@@ -6,76 +6,18 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/20 21:11:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 11:25:56 by eltouma          ###   ########.fr       */
 /*   Updated: 2024/05/15 18:13:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_lstsize_env(t_env *env)
+static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env)
 {
-	int	i;
-	t_env	*tmp;
-
-	i = 0;
-	tmp = env;
-	if (!env)
-		return (0);
-	while (env != NULL)
-	{
-		env = env->next;
-		i += 1;
-	}
-	env = tmp;
-	return (i);
-}
-char    **ft_return_tab3(int here_doc)
-{
-        char    **tab;
-
-        tab = (char **)malloc(sizeof(char *) * (here_doc + 1));
-        if (!tab)
-                return (NULL);
-        return (tab);
-}
-
-static char	**ft_return_mini_env(t_data *data, t_env *env)
-{
-	dprintf(2, "JE SUIS DANS MINI_ENV\n");
-	int     i;
-	int	size;
-	char	*var;
-	char	*val;
-	t_env	*tmp;
-
-	tmp = env;
-	size = ft_lstsize_env(env);
-	data->mini_env = ft_return_tab3(size);
-	i = 0;
-	while (env != NULL)
-	{
-		var = ft_strjoin(env->var, "=");
-		val = ft_strjoin(var, env->value);
-		data->mini_env[i] = ft_fill_tab(val);
-		dprintf(2, "%s\n", data->mini_env[i]);
-		ft_free_ptr(var);
-		ft_free_ptr(val);
-		i += 1;
-		env = env->next;
-	}
-	env = tmp;
-	return (data->mini_env);
-}
-
-static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env2)
-{
-	(void)env2;
 	t_cmds	*tmp;
-	char	**env;
 
 	tmp = cmds;
-	env = ft_return_mini_env(data, data->env);
 	while (cmds && cmds != NULL)
 	{
 		ft_get_path(cmds, env);
@@ -157,19 +99,19 @@ static void	ft_handle_multi_pipes(t_data *data, t_cmds *cmds, char **env2)
 int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	dprintf(2, "Je suis dans one NO BUILT_IN cmd\n");
-	//	dprintf(2, "cmds->name %s, dams no_built_in\n", cmds->name);
+//	dprintf(2, "cmds->name %s, dams no_built_in\n", cmds->name);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 	{
-		/*
-		   if (cmds->redir)
-		   ft_handle_redir(data, cmds);
-		   cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
-		   execve(cmds->right_path, cmds->args, env);
-		   ft_handle_execve_error(data, cmds);
-		 */
+/*
+		if (cmds->redir)
+			ft_handle_redir(data, cmds);
+		cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
+		execve(cmds->right_path, cmds->args, env);
+		ft_handle_execve_error(data, cmds);
+*/
 		// if (!ft_strcmp(cmds->cmd, "./minishell") && (!ft_increase_shlvl(data)))
 		// 	return (ft_exit_code(0, GET));
 		ft_exec_cmds(data, cmds, env);
@@ -177,7 +119,7 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 	}
 	else if (cmds->pid > 0)
 	{
-
+		
 		cmds->i = 0;
 		while (cmds->i++ < cmds->list_size)
 			ft_waitpid_only_one_cmd(cmds);
@@ -195,12 +137,8 @@ int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
  * 	1 - la commande est exit, donc il close stdin/stdout qu'on avait ouvert avant de quitter
  * 	2 - la commande n'est pas exit, on l'execute
  */
-int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env2)
+int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
-	(void)env2;
-
-	char **env;
-	env = ft_return_mini_env(data, data->env);
 	// Voir avec Antoine le code erreur
 	dprintf(2, "Je suis dans only_one_cmd\n");
 	ft_get_path(cmds, env);
@@ -238,6 +176,17 @@ void	ft_init_exec(t_cmds *cmds)
 	while (cmds != NULL)
 	{
 		cmds->list_size = ft_lstsize_cmd(cmds);
+/*
+		cmds->infile = 0;
+		cmds->outfile = 0;
+//		cmds->here_doc = 0;
+		cmds->here_doc_count = 0;
+		cmds->right_path = NULL;
+		cmds->cmd_path = NULL;
+		cmds->tmp_file = NULL;
+		cmds->index = NULL;
+		cmds->name = NULL;
+*/
 		cmds = cmds->next;
 	}
 }
@@ -252,18 +201,22 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 
 
 	tmp = cmds;
+	if (pipe(cmds->prev->pipe) == -1)
+		ft_handle_pipe_error(data, cmds);
 	pid = fork();
-	if	(!pid)
+	if (pid == 0)
 	{
 		while (cmds != NULL)
 		{
 			head = cmds->redir;	
 			while (head != NULL)
 			{
+				if (pipe(cmds->curr->pipe) == -1)
+					ft_handle_pipe_error(data, cmds);
 				if (head->type == 2)
 				{
 					ft_exec_here_doc(data, cmds, head);
-					//		dprintf(2, "cmds->nae dans handle_here_doc %s\n", cmds->name);
+			//		dprintf(2, "cmds->nae dans handle_here_doc %s\n", cmds->name);
 					if (cmds->name)
 						ft_free_ptr(cmds->name);
 				}
@@ -271,6 +224,7 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 			}
 			cmds = cmds->next;
 		}
+
 		ft_free_tab(tmp->cmd_path);
 		ft_clean_all(data);
 		exit(0);
@@ -283,17 +237,10 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 
 int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 {
-	//	t_data *tmp;
-	//	t_cmds *cmds2;
-
 	// Voir avec Antoine le code erreur
 	if (!cmds)
 		return (ft_exit_code(0, GET));
-	//	cmds2 = cmds;
-	//	tmp = data;
 	ft_init_exec(cmds);
-	//	ft_test(tmp, tmp->env, cmds2);
-	//print_cmds(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	ft_handle_here_doc(data, cmds);
 	if (cmds->list_size == 1)
@@ -307,12 +254,12 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_pipe_error(data, cmds);
 		ft_handle_multi_pipes(data, cmds, env);
 	}
-	//	dprintf(2, "Dans exec() name vaut : %s\n", cmds->name);
-	//	if (cmds->name != NULL)
+//	dprintf(2, "Dans exec() name vaut : %s\n", cmds->name);
+//	if (cmds->name != NULL)
 	//	unlink(cmds->name);
-	//		free(cmds->name);
-	//	if (!ft_strcmp(cmds->cmd, "./minishell") && (!ft_increase_shlvl(data)))
-	//		return (ft_exit_code(0, GET));
+//		free(cmds->name);
+//	if (!ft_strcmp(cmds->cmd, "./minishell") && (!ft_increase_shlvl(data)))
+//		return (ft_exit_code(0, GET));
 	return (ft_exit_code(0, GET));
 }
 
