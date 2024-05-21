@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/20 17:14:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:54:07 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    ft_exit_properly2(t_data *data, t_cmds *cmds)
 
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 {
+	(void)env;
 	dprintf(2, "je passe dans exec_cmds\n");
 	if (!cmds->args)
         {
@@ -43,7 +44,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 		ft_exit_properly2(data, cmds);
 	}
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
-	execve(cmds->right_path, cmds->args, env);
+	execve(cmds->right_path, cmds->args, data->mini_env);
 	ft_handle_execve_error(data, cmds);
 
 }

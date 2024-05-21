@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 19:13:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:43:27 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 	tmp = cmds;
 	while (cmds && cmds != NULL)
 	{
-		ft_get_path(cmds, env);
+//		ft_get_path(cmds, env);
 		if (pipe(cmds->curr_pipe) == -1)
 			ft_handle_pipe_error(data, cmds);
 		if (ft_is_a_built_in(cmds->cmd))
