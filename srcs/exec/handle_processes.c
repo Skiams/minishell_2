@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 19:54:07 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 22:39:28 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void    ft_exit_properly2(t_data *data, t_cmds *cmds)
 
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 {
+	/*t_data	*tmp;
+
+	tmp = data;
+	int	i =0;
+	while (data->mini_env[i])
+		dprintf(2, "mini_env\t%s\n", data->mini_env[i++]);
+	data = tmp;
+*/
 	(void)env;
 	dprintf(2, "je passe dans exec_cmds\n");
 	if (!cmds->args)
@@ -43,7 +51,9 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 		ft_exec_built_in(data, cmds);
 		ft_exit_properly2(data, cmds);
 	}
+	dprintf(2, "coucou, je suis la\n");
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
+	dprintf(2, "\n\nLe fucking right path : %s\n", cmds->right_path);
 	execve(cmds->right_path, cmds->args, data->mini_env);
 	ft_handle_execve_error(data, cmds);
 
