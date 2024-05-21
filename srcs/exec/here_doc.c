@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 13:03:29 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 13:35:13 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 {
 //	dprintf(2, "cmds->i %d\n", cmds->i);
-
-//	cmds->i = 1;
-	
 /*
 	if (cmds->name)
 	{
@@ -159,5 +156,6 @@ void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 	}
 */
 //	free(cmds->name);
+//	i += 1;
 	cmds->i += 1;
 }
