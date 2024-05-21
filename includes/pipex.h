@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 19:07:05 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:15:30 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_dup_stdin_stdout(t_data *data, t_cmds *cmds);
 void	ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds);
 void	ft_handle_dup2_error(t_data *data, t_cmds *cmds);
 
-void	ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd, char **args);
+void	ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd);
 void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2);
 void	ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
 
