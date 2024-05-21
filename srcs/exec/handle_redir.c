@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/20 17:14:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 13:04:22 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,27 @@ char    **ft_return_tab2(int here_doc)
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
-//	int	j = 0;
+	int	j = 0;
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
-/*
+
 	cmds->tab = ft_return_tab2(cmds->here_doc_count);
 	if (!cmds->tab)
 		return ;
 	dprintf(2, "cmds->i ICICICICIC %d\n", cmds->i);
 	cmds->tab[cmds->here_doc_count] = NULL;
-*/
 	while (cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == 2)
 		{
-	//		dprintf(2, "name : %s\n", cmds->name);
 			ft_open_here_doc(data, cmds);
-//			cmds->tab[j] = ft_fill_tab(cmds->name);
-//			free(cmds->name);
-			//dprintf(2, "name : %s\n", cmds->name);
-//			j += 1;
+			cmds->tab[j] = ft_fill_tab(cmds->name);
+			unlink(cmds->name);
+			free(cmds->name);
+			j += 1;
 		}
 		if (cmds->redir->type == 3)
 		{
@@ -111,52 +109,13 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 				ft_putstr_fd(cmds->redir->path, 2);
 				ft_putstr_fd(": LALALA No such file or directory\n", 2);
 			}
-		//	ft_handle_input_redir(data, cmds);
 		}
 		if (cmds->redir->type == 4)
 			ft_handle_output_redir(data, cmds);
 		cmds->redir = cmds->redir->next;
 	}
-/*
-	dprintf(2, "name a la FIN de handle_redir() : %s\n", cmds->tab[0]);
-	dprintf(2, "name a la FIN de handle_redir() : %s\n", cmds->tab[1]);
 	ft_free_tab(cmds->tab);
-*/
 	cmds->redir = tmp;
-	//dprintf(2, "name a la FIN de handle_redir() : %s\n", cmds->tab[j]);
-/*
-	if (cmds->name)
-	{
-		dprintf(2, "oui\n");
-//		unlink(cmds->name);
-		if (cmds->list_size > 1)//&& cmds->next == NULL)
-		{
-			dprintf(2, "JE passe la trop tot\n");
-
-		//	if (cmds->next == NULL)
-		//		unlink(cmds->name);
-			ft_free_ptr(cmds->name);
-		}
-	}
-*/
-/*
-	if (cmds->name)
-		unlink(cmds->name);
-*/
-	//		free(cmds->name);
-	//	dprintf(2, "MAINTENANT name : %s\n", cmds->name);
-	// Si unlink galere
-	//	unlink(cmds->name);
-	// Si unlink galere
-	//		dprintf(2, "name : %s\n", cmds->name);
-	//		unlink(cmds->name);
-	/*
-	   if (cmds->name)
-	   {
-	   unlink(cmds->name);
-	   free(cmds->name);
-	   }
-	 */
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
