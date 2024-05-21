@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 11:25:56 by eltouma          ###   ########.fr       */
-/*   Updated: 2024/05/15 18:13:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 13:01:07 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 
@@ -198,11 +198,12 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 	t_redir * head;
 	t_cmds	*tmp;
 	pid_t	pid;
+//	char *tmp2;
 
 
 	tmp = cmds;
-	if (pipe(cmds->prev->pipe) == -1)
-		ft_handle_pipe_error(data, cmds);
+	//if (pipe(cmds->prev->pipe) == -1)
+	//	ft_handle_pipe_error(data, cmds);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -211,12 +212,12 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 			head = cmds->redir;	
 			while (head != NULL)
 			{
-				if (pipe(cmds->curr->pipe) == -1)
-					ft_handle_pipe_error(data, cmds);
+				//if (pipe(cmds->curr->pipe) == -1)
+				//	ft_handle_pipe_error(data, cmds);
 				if (head->type == 2)
 				{
 					ft_exec_here_doc(data, cmds, head);
-			//		dprintf(2, "cmds->nae dans handle_here_doc %s\n", cmds->name);
+					//dprintf(2, "cmds->name dans handle_here_doc %s\n", cmds->name);
 					if (cmds->name)
 						ft_free_ptr(cmds->name);
 				}
