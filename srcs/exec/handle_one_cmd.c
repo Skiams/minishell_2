@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 19:07:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 22:47:54 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
+	(void)env;
 	dprintf(2, "Je suis dans one NO BUILT_IN cmd\n");
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
-		ft_exec_cmds(data, cmds, env);
+		ft_exec_cmds(data, cmds, data->mini_env);
 	else if (cmds->pid > 0)
 	{
 		cmds->i = 0;
@@ -59,8 +60,9 @@ static int	ft_fork_built_in(t_data *data, t_cmds *cmds)
 // Voir avec Antoine le code erreur
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 {
+	(void)env;
 	dprintf(2, "Je suis dans only_one_cmd\n");
-	ft_get_path(cmds, env);
+	ft_get_path(data, cmds);
 	if (!ft_strcmp(cmds->cmd, ":") || !ft_strcmp(cmds->cmd, "!"))
 	{
 		ft_putstr_fd("", 1);
@@ -76,5 +78,5 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	if (ft_is_a_built_in(cmds->cmd))
 		return (ft_fork_built_in(data, cmds));
 	else
-		return (ft_one_no_built_in_cmd(data, cmds, env));
+		return (ft_one_no_built_in_cmd(data, cmds, data->mini_env));
 }

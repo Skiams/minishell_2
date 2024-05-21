@@ -6,12 +6,20 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/17 14:17:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 22:07:45 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+int     ft_is_space(char c)
+{
+        if ((c >= 9 && c <= 13) || c == 32)
+                return (1);
+        return (0);
+}
+*/
 char	*ft_fill_tab(char *str)
 {
 	int		i;
