@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 19:04:43 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:22:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@
 // 	return (true);
 // }
 
-void	ft_init_exec(t_cmds *cmds)
+void	ft_init_exec(t_data *data, t_cmds *cmds)
 {
+	(void)data;
 	while (cmds != NULL)
 	{
+//		ft_get_path(data, cmds);
 		cmds->list_size = ft_lstsize_cmd(cmds);
 		cmds = cmds->next;
 	}
@@ -94,21 +96,25 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 // Voir avec Antoine le code erreur
 int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 {
+	(void)env;
 	if (!cmds)
 		return (ft_exit_code(0, GET));
-	ft_init_exec(cmds);
+	ft_init_exec(data, cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	ft_handle_here_doc(data, cmds);
 	if (cmds->list_size == 1)
 	{
-		ft_is_only_one_cmd(data, cmds, env);
+		//ft_is_only_one_cmd(data, cmds, data->env);
+		ft_is_only_one_cmd(data, cmds, NULL);
 		ft_free_tab(cmds->cmd_path);
+		ft_free_tab(data->mini_env);
 	}
 	else
 	{
 		if (pipe(cmds->prev_pipe) == -1)
 			ft_handle_pipe_error(data, cmds);
-		ft_handle_pipes(data, cmds, env);
+		ft_handle_pipes(data, cmds, NULL);
+//		ft_handle_pipes(data, cmds, data->env);
 	}
 	return (ft_exit_code(0, GET));
 }

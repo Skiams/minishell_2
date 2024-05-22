@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 22:47:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:21:02 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,15 @@ int     ft_count_words2(char *str)
 
         i = 0;
         j = 0;
-/*
 	while (i < ft_strlen(str))
         {
-                if (!ft_is_space(str[i]) && str[i] != '\'')
+                if (!ft_is_space(str[i]))
                         j += 1;
-                while (!ft_is_space(str[i]) && str[i] != '\''
-                        && str[i] != '\0')
+                while (!ft_is_space(str[i]) && str[i] != '\0')
                         i += 1;
-                while ((ft_is_space(str[i]) || str[i] == '\'')
-                        && str[i] != '\0')
+                while (ft_is_space(str[i]) && str[i] != '\0')
                         i += 1;
         }
-*/
-        while (i < ft_strlen(str))
-        {
-                if (!(str[i] >= 9 && str[i] <= 13) && str[i] != 32)
-                        j += 1;
-                while (!(str[i] >= 9 && str[i] <= 13)
-                        && str[i] != 32 && str[i] != '\0')
-                        i += 1;
-                while (((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-                        && str[i] != '\0')
-                        i += 1;
-     }
         return (j);
 }
 
@@ -76,13 +61,7 @@ int     ft_count_size_of_word2(char *str)
         int     i;
 
         i = 0;
-/*
-	while (!ft_is_space(str[i])  && str[i] != '\''
-                && str[i] != '\0')
-                i += 1;
-*/
-        while (!(str[i] >= 9 && str[i] <= 13)
-                && str[i] != 32 && str[i] != '\0')
+	while (!ft_is_space(str[i]) && str[i] != '\0')
                 i += 1;
         return (i);
 }
@@ -171,7 +150,7 @@ static char	**ft_return_tab_size(int size)
 	return (tab);
 }
 
-static char	**ft_return_mini_env(t_data *data, t_env *env)
+char	**ft_return_mini_env(t_data *data, t_env *env)
 {
 	dprintf(2, "JE SUIS DANS MINI_ENV\n");
 	int     i;
@@ -181,9 +160,12 @@ static char	**ft_return_mini_env(t_data *data, t_env *env)
 	t_env	*tmp;
 
 	tmp = env;
+	i = 0;
 	size = ft_lstsize_env(env);
 	data->mini_env = ft_return_tab_size(size);
-	i = 0;
+	if (!data->mini_env)
+		return (NULL);
+	data->mini_env[size] = NULL;
 	while (env != NULL)
 	{
 		var = ft_strjoin(env->var, "=");
@@ -192,6 +174,8 @@ static char	**ft_return_mini_env(t_data *data, t_env *env)
 			data->mini_env[i] = ft_fill_tab2(val);
 		else
 			data->mini_env[i] = ft_fill_tab(val);
+		if (!data->mini_env[i])
+			return (ft_free_tab(data->mini_env));
 		ft_free_ptr(var);
 		ft_free_ptr(val);
 		i += 1;

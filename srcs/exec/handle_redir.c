@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 13:44:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:03:28 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
-
+/*
 char    **ft_return_tab2(int here_doc)
 {
         char    **tab;
@@ -73,20 +73,23 @@ char    **ft_return_tab2(int here_doc)
                 return (NULL);
         return (tab);
 }
+*/
 
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
-	int	j = 0;
+//	int	j = 0;
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
 
+/*
 	cmds->tab = ft_return_tab2(cmds->here_doc_count);
 	if (!cmds->tab)
 		return ;
 	dprintf(2, "cmds->i ICICICICIC %d\n", cmds->i);
 	cmds->tab[cmds->here_doc_count] = NULL;
+*/
 	while (cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
@@ -94,10 +97,10 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		if (cmds->redir->type == 2)
 		{
 			ft_open_here_doc(data, cmds);
-			cmds->tab[j] = ft_fill_tab(cmds->name);
-			unlink(cmds->name);
-			free(cmds->name);
-			j += 1;
+//			cmds->tab[j] = ft_fill_tab(cmds->name);
+//			unlink(cmds->name);
+//			free(cmds->name);
+//			j += 1;
 		}
 		if (cmds->redir->type == 3)
 		{
@@ -114,7 +117,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_output_redir(data, cmds);
 		cmds->redir = cmds->redir->next;
 	}
-
+/*
 	char **tab2;
 	int x = 0;
 
@@ -125,6 +128,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		x += 1;
 	}
 	ft_free_tab(cmds->tab);
+*/
 	cmds->redir = tmp;
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
