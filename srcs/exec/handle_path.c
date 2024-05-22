@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/20 14:28:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:41:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,22 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 		free(cmds->name);
 		dprintf(2, "oui, jai une tab\n");
 	}
-	//if (!cmds->redir || cmds->redir->type != 2)
-//	{
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(error, 2);
-//	}
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
+		ft_free_tab(data->mini_env);
 		cmds->cmd_path = NULL;
+		data->mini_env = NULL;
 		cmds = cmds->next;
 	}
+//	ft_free_tab(cmds->cmd_path);
 	dprintf(2, "on est avant le clean all de ft free\n");
 	ft_clean_all(data);
 }
-
 
 char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 {
@@ -57,6 +56,7 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 		free(tmp);
 		ft_free_tab(args);
 		ft_free_tab(cmds->cmd_path);
+		ft_free_tab(data->mini_env);
 		exit (126);
 	}
 	free(tmp);
@@ -112,7 +112,7 @@ char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 
 	i = 0;
 	if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/'))
-		ft_handle_no_file_or_dir(data, cmds, cmd, args);
+		ft_handle_no_file_or_dir(data, cmds, cmd);
 	if (access(cmd, F_OK) == 0 && (ft_strchr(cmd, '/')
 			|| (cmd[0] == '.' && cmd[1] == '.' && cmd[2] == '/')
 			|| (cmd[0] == '.' && cmd[1] == '/')))
