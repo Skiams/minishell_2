@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/20 14:29:30 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:31:15 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
+		ft_free_tab(data->mini_env);
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);
@@ -105,6 +106,7 @@ void	ft_handle_close_error(t_data *data, t_cmds *cmds)
 {
 	ft_putstr_fd("close failed\n", 2);
 	ft_free_tab(cmds->cmd_path);
+	ft_free_tab(data->mini_env);
 	close(cmds->outfile);
 	ft_close_processes(cmds);
 	ft_exit_properly(data, cmds);

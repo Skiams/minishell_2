@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 22:47:54 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 13:03:45 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
  * 		qu'on avait ouvert avant de quitter
  * 	2 - la commande n'est pas exit, on l'execute
  */
-static int	ft_fork_built_in(t_data *data, t_cmds *cmds)
+static int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 {
 	ft_dup_stdin_stdout(data, cmds);
 	if (cmds->redir)
@@ -76,7 +76,8 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 		return (ft_exit_code(0, GET));
 	}
 	if (ft_is_a_built_in(cmds->cmd))
-		return (ft_fork_built_in(data, cmds));
+		return (ft_only_one_built_in(data, cmds));
 	else
-		return (ft_one_no_built_in_cmd(data, cmds, data->mini_env));
+		return (ft_one_no_built_in_cmd(data, cmds, NULL));
+		//return (ft_one_no_built_in_cmd(data, cmds, data->env));
 }

@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 22:47:18 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:41:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
+		ft_free_tab(data->mini_env);
 		cmds->cmd_path = NULL;
+		data->mini_env = NULL;
 		cmds = cmds->next;
 	}
+//	ft_free_tab(cmds->cmd_path);
 	dprintf(2, "on est avant le clean all de ft free\n");
 	ft_clean_all(data);
 }
@@ -53,6 +56,7 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 		free(tmp);
 		ft_free_tab(args);
 		ft_free_tab(cmds->cmd_path);
+		ft_free_tab(data->mini_env);
 		exit (126);
 	}
 	free(tmp);

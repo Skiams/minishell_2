@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 19:37:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 12:35:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	*ft_free_tab(char **tab);
 
 char	*ft_strdup(char *s);
 void	ft_get_path(t_data *data, t_cmds *cmds);
+char	**ft_return_mini_env(t_data *data, t_env *env);
 char	*ft_strjoin(char *s1, char *s2);
 
 void	ft_print_wrong_param(void);

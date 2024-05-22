@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 22:39:28 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 14:27:58 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void    ft_exit_properly2(t_data *data, t_cmds *cmds)
 {
         ft_free_tab(cmds->cmd_path);
+        ft_free_tab(data->mini_env);
         ft_clean_all(data);
         ft_exit_code(0, GET);
         exit (1);
@@ -81,6 +82,7 @@ void	ft_handle_last_cmd(t_data *data, t_cmds *cmds)
 
 void	ft_handle_processes(t_data *data, t_cmds *cmds, char **env)
 {
+	(void)env;
 	if (cmds && !cmds->prev)
 		ft_handle_first_cmd(data, cmds);
 	else if (cmds->next == NULL)
@@ -93,5 +95,6 @@ void	ft_handle_processes(t_data *data, t_cmds *cmds, char **env)
 			ft_handle_dup2_error(data, cmds);
 	}
 	ft_waitpid(cmds);
-	ft_exec_cmds(data, cmds, env);
+	ft_exec_cmds(data, cmds, NULL);
+	//ft_exec_cmds(data, cmds, data->env);
 }
