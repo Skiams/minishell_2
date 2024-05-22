@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 14:23:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:46:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 	cmds = tmp;
 	cmds->i = 0;
 	dprintf(2, "666\n");
-	while (cmds->i++ < cmds->list_size)
+	while (cmds->i++ < cmds->cmd_count)
 		ft_waitpid(cmds);
 }

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/21 13:35:13 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:43:19 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ void	ft_test(t_cmds *cmds, int i)
 }
 */
 // implementer les signaux
-void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
+void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc *heredoc)
 {
 //	static int	i = 1;
 	char	*line;
 	char	*delimiter;
 
+	delimiter = ft_strjoin(redir->path, "\n");
 	if (!cmds->cmd)
 	{
 		dprintf(2, "coucou, je n' ai pas de commande\n");
@@ -82,15 +83,16 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 		cmds->tmp_file = ft_strjoin(".hd_", redir->path);
 		cmds->index = ft_itoa(cmds->i);
 		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
+		data->heredoc->delimiter = ft_strdup(delimiter);
+		data->heredoc->name = ft_strdup(cmds->name);
 //		dprintf(2, "cmds->name = %s\n", cmds->name);
 		cmds->i += 1;
 		cmds->infile = open(cmds->name, O_WRONLY | O_CREAT | O_TRUNC, 0755);
 	}
 	if (cmds->infile == -1)
 		ft_handle_infile_error(data, cmds);
-	delimiter = ft_strjoin(redir->path, "\n");
 	while (1)
-	{
+{
 //		ft_restore_stdin(data, cmds);
 		ft_putstr_fd("> ", 0);
 		line = get_next_line(0);
@@ -129,10 +131,12 @@ void	ft_open_here_doc(t_data *data, t_cmds *cmds)
 	cmds->index = ft_itoa(cmds->i);
 	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
 //	dprintf(2, "Dans open_here_doc cmds->name = %s\n", cmds->name);
+	data->heredoc->delimiter = ft_strdup(cmds->redir->path);
+	data->heredoc->name = ft_strdup(cmds->name);
 	cmds->infile = open(cmds->name, O_RDONLY, 0755);
 	if (cmds->infile == -1)
 	{
-		dprintf(2, "Attention tou le monde, je FAIL\n");
+		dprintf(2, "Attention tout le monde, je FAIL\n");
 		ft_handle_infile_error(data, cmds);
 	}
 	if (dup2(cmds->infile, 0) == -1)
