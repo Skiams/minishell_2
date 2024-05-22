@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/20 19:00:49 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 14:48:26 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef enum e_token_tp
 	HEREDOC,
 	RED_IN,
 	RED_OUT,
-	IN_AND_OUT,
 	PIPE,
 	WORD,
 	WHITESPACE,
