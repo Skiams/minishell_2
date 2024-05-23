@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/22 15:17:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/23 17:01:55 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,17 @@ typedef struct s_redir
 	struct s_redir	*prev;	
 }	t_redir;
 
-/*
-typedef struct s_here_doc
+typedef struct s_heredoc
 {
+	char	*delimiter;
 	char	*name;
-	struct s_here_doc *next;
-}	t_here_doc;
-*/
+	int	read;
+	struct s_heredoc *next;
+}	t_heredoc;
 
 typedef struct s_cmds
 {
 	t_redir	*redir;
-//	t_here_doc *here_doc;
-	char			**mini_env;
 	char	*env_path;
 	char	**cmd_path;
 	char	*right_path;
@@ -73,17 +71,19 @@ typedef struct s_cmds
 	int		curr_pipe[2];
 	int		prev_pipe[2];
 	int		i;
-	int		list_size;
+	int		cmd_count;
 	int		here_doc_count;
 	char	*tmp_file;
-	char	**tab;
+	//char	**tab;
 	char	*name;
 	char	*index;
 	int		code_status;
 	int		dev_stdin;
 	int		dev_stdout;
+	int		here_doc;
 	int		infile;
 	int		outfile;
+	int		fd_w;
 	pid_t	pid;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -91,8 +91,8 @@ typedef struct s_cmds
 
 typedef struct s_token
 {
-	char			*value;
 	t_token_tp		type;
+	char			*value;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -100,12 +100,12 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	char	**cmds_exec;
 	char	**mini_env;
 	t_token	*token_list;
 	t_cmds	*cmd_list;
 	t_env	*env;
 	t_env	*env_export;
+	t_heredoc *heredoc;
 }	t_data;
 
 #endif

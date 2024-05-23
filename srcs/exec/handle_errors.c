@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 14:31:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/22 17:45:48 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
 	{
 		ft_free_tab(cmds->cmd_path);
 		ft_free_tab(data->mini_env);
+		cmds->cmd_path = NULL;
+		data->mini_env = NULL;
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);
@@ -55,7 +57,7 @@ void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 			ft_handle_fork_error(data, cmds);
 		if (cmds->pid == 0)
 		{
-			if (cmds->list_size == 1)
+			if (cmds->cmd_count == 1)
 				ft_dup2_and_close_stdin_stdout(data, cmds);
 			ft_exit_properly(data, cmds);
 		}
@@ -63,7 +65,7 @@ void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 	}
 	else
 	{
-		if (cmds->list_size == 1)
+		if (cmds->cmd_count == 1)
 		{
 			dprintf(2, "COUCOU, NOUS SOMMES LA\n");
 	//		dprintf(2, "cmds->args[0] %s\n", cmds->args[0]);
@@ -80,7 +82,7 @@ void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
 	perror(cmds->redir->path);
 	if (cmds->outfile != -1)
 		close(cmds->outfile);
-	if (cmds->list_size == 1)
+	if (cmds->cmd_count == 1)
 		ft_waitpid_only_one_cmd(cmds);
 	else
 		ft_waitpid(cmds);
