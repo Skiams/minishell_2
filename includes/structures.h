@@ -31,7 +31,6 @@ typedef enum e_token_tp
 	HEREDOC,
 	RED_IN,
 	RED_OUT,
-	IN_AND_OUT,
 	PIPE,
 	WORD,
 	WHITESPACE,

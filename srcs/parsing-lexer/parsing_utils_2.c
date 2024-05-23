@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:10:40 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 15:48:46 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/21 14:47:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 	char	*value;
 	t_token	*new_token;
 
-	if (type == HEREDOC || type == APPEND || type == IN_AND_OUT)
+	if (type == HEREDOC || type == APPEND)
 		len = 2;
 	else
 		len = 1;
