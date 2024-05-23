@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/22 18:38:00 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:01:55 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,16 @@ typedef struct s_cmds
 	int		cmd_count;
 	int		here_doc_count;
 	char	*tmp_file;
-	char	**tab;
+	//char	**tab;
 	char	*name;
 	char	*index;
 	int		code_status;
 	int		dev_stdin;
 	int		dev_stdout;
+	int		here_doc;
 	int		infile;
 	int		outfile;
+	int		fd_w;
 	pid_t	pid;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -90,8 +92,8 @@ typedef struct s_cmds
 
 typedef struct s_token
 {
-	char			*value;
 	t_token_tp		type;
+	char			*value;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 17:54:32 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:03:01 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char    **ft_return_tab2(int here_doc)
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
-//	int	j = 0;
+	int	count = 0;
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
@@ -96,7 +96,16 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == 2)
 		{
-			ft_open_here_doc(data, cmds);
+			count += 1;
+			if (count == cmds->here_doc_count)
+			{
+				dprintf(2, "on passe ici\n");
+				if (dup2(cmds->here_doc, 0) == -1)
+					ft_handle_dup2_error(data, cmds);
+				if (close(cmds->here_doc) == -1)
+					ft_handle_close_error(data, cmds);
+			}
+			//ft_open_here_doc(data, cmds);
 //			cmds->tab[j] = ft_fill_tab(cmds->name);
 //			unlink(cmds->name);
 //			free(cmds->name);

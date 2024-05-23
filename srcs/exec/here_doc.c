@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 19:43:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:02:41 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,97 +69,72 @@ void	ft_test(t_cmds *cmds, int i)
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc *heredoc)
 {
 //	static int	i = 1;
-	char	*line;
-	char	*delimiter;
+		char	*line;
+		char	*delimiter;
+        pid_t   pid;
+        int     status;
 
-	delimiter = ft_strjoin(redir->path, "\n");
-	if (!cmds->cmd)
-	{
-		dprintf(2, "coucou, je n' ai pas de commande\n");
-		cmds->infile = open("/dev/stdin", O_CREAT | O_TRUNC, 0755);
-	}
-	else
-	{
-		cmds->tmp_file = ft_strjoin(".hd_", redir->path);
+	// if (!cmds->cmd)
+	// {
+	// 	dprintf(2, "coucou, je n' ai pas de commande\n");
+	// 	cmds->infile = open("/dev/stdin", O_CREAT | O_TRUNC, 0755);
+	// }
+	// else
+	// {
+
+		//generate 2 fd (read & W) for the heredoc
+		cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
 		cmds->index = ft_itoa(cmds->i);
 		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
-		data->heredoc->delimiter = ft_strdup(delimiter);
-		data->heredoc->name = ft_strdup(cmds->name);
+		ft_free_ptr(cmds->tmp_file);
+		ft_free_ptr(cmds->index);
 //		dprintf(2, "cmds->name = %s\n", cmds->name);
 		cmds->i += 1;
-		cmds->infile = open(cmds->name, O_WRONLY | O_CREAT | O_TRUNC, 0755);
-	}
-	if (cmds->infile == -1)
-		ft_handle_infile_error(data, cmds);
-	while (1)
-{
-//		ft_restore_stdin(data, cmds);
-		ft_putstr_fd("> ", 0);
-		line = get_next_line(0);
-		if (!line)
-			break ;
-		if (!ft_strcmp(line, delimiter))
-			break ;
-		ft_putstr_fd(line, cmds->infile);
-		free(line);
-
-	}
-	free(line); 
-	free(delimiter);
-	if (cmds->cmd)
-	{
-		free(cmds->tmp_file);
-		free(cmds->index);
-//		free(cmds->name);
-	}
-	if (close(cmds->infile) == -1)
-		ft_handle_infile_error(data, cmds);
-}
-
-void	ft_open_here_doc(t_data *data, t_cmds *cmds)
-{
-//	dprintf(2, "cmds->i %d\n", cmds->i);
-/*
-	if (cmds->name)
-	{
-//		dprintf(2, "coucou, je suis la\n");
-	//	unlink(cmds->name);
+		if (cmds->here_doc)
+			close (cmds->here_doc);//secure
+		cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY| O_TRUNC, 0755);
+		cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
+		
+		//make the file invisible for everybody
+		unlink(cmds->name);
 		ft_free_ptr(cmds->name);
-	}
-*/
-	cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
-	cmds->index = ft_itoa(cmds->i);
-	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
-//	dprintf(2, "Dans open_here_doc cmds->name = %s\n", cmds->name);
-	data->heredoc->delimiter = ft_strdup(cmds->redir->path);
-	data->heredoc->name = ft_strdup(cmds->name);
-	cmds->infile = open(cmds->name, O_RDONLY, 0755);
-	if (cmds->infile == -1)
-	{
-		dprintf(2, "Attention tout le monde, je FAIL\n");
-		ft_handle_infile_error(data, cmds);
-	}
-	if (dup2(cmds->infile, 0) == -1)
-		ft_handle_dup2_error(data, cmds);
-	if (close(cmds->infile) == -1)
-		ft_handle_close_error(data, cmds);
-	free(cmds->tmp_file);
-	free(cmds->index);
-//	if (cmds->name)
-//		unlink(cmds->name);
-/*
-	while (cmds != NULL)
-	{
-		if (cmds->name)
+
+		pid = fork();
+		
+		if (pid == 0) //child-> ecrit dans le heredoc
 		{
-			dprintf(2, "name == %s\n", cmds->name);
-//			unlink(cmds->name);
-			free(cmds->name);
+			close (cmds->here_doc);//safe
+			delimiter = ft_strjoin(redir->path, "\n");
+			while (1)
+			{
+			//		ft_restore_stdin(data, cmds);
+				ft_putstr_fd("> ", 0);
+				line = get_next_line(0);
+				if (!line)
+					break ;
+				if (!ft_strcmp(line, delimiter))
+					break ;
+				ft_putstr_fd(line, cmds->fd_w);
+				free(line);
+
+			}
+			free(line); 
+			free(delimiter);
+			if (close(cmds->fd_w) == -1)
+				ft_handle_infile_error(data, cmds);
+			//		free(cmds->name);
+			ft_clean_all(data); //risque de double free ?
+			exit(0);
 		}
-		cmds = cmds->next;		
-	}
-*/
-//	free(cmds->name);
-//	i += 1;
-	cmds->i += 1;
+		//parent:
+		
+		int return_status;
+		
+		return_status = 0;
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status) && WEXITSTATUS(status))
+			return_status = 1;
+		if (close(cmds->fd_w) == -1 || return_status)
+			ft_handle_infile_error(data, cmds);
+
 }

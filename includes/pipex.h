@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 12:35:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:22:27 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_check_here_doc(t_data *data, t_cmds *cmds);
 int		ft_count_here_doc(t_cmds *cmds);
 void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir);
-void	ft_open_here_doc(t_data *data, t_cmds *cmds); //, t_redir *redir);
+//void	ft_open_here_doc(t_data *data, t_cmds *cmds); //, t_redir *redir);
 
 int		ft_count_words(char *str);
 int		ft_count_size_of_word(char *str);

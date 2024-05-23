@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 18:07:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:55:46 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_init_exec(t_data *data, t_cmds *cmds)
 	}
 }
 
+/*
 void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	t_redir	*head;
@@ -81,6 +82,51 @@ void	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 //	ft_free_tab(data->mini_env);
 	//return (-1);
 }
+*/
+
+
+int     ft_handle_here_doc(t_data *data, t_cmds *cmds)
+{
+        t_redir *head;
+        // t_cmds  *tmp;
+        // pid_t   pid;
+
+        // tmp = cmds;
+
+
+
+		
+	// pid = fork();
+	// if (pid == 0)
+	// {
+			while (cmds != NULL)
+			{
+					head = cmds->redir;
+					while (head != NULL)
+					{
+							if (head->type == 2)
+							{
+									ft_exec_here_doc(data, cmds, head);
+									// dprintf(2, "dans handle_here_doc() cmds->name => %s\n", cmds->name);
+							//      if (cmds->name) dprintf(2, "dans handle_here_doc() cmds->name => %s\n", cmds->name);
+
+							//              ft_free_ptr(cmds->name);
+							}
+							head = head->next;
+					}
+					// dprintf(2, "dans handle_here_doc() DANS LE PREMIER WHILE cmds->name => %s\n", cmds->name);
+					cmds = cmds->next;
+			}
+			// ft_free_tab(tmp->cmd_path);
+			// ft_clean_all(data);
+			// exit(0);
+	// // }
+	// waitpid(pid, &status, 0);
+	// if (WIFEXITED(status))
+	// 		return (WEXITSTATUS(status));
+	return (-1);
+}
+
 
 // Voir avec Antoine le code erreur
 int	ft_exec(t_data *data, t_cmds *cmds, char **env)
