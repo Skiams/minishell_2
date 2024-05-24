@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 14:27:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 23:35:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 	dprintf(2, "coucou, je suis la\n");
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
 	dprintf(2, "\n\nLe fucking right path : %s\n", cmds->right_path);
+// ca ne sert a rien, cmds->here_doc n'est pas a -1 ici
+	if (cmds->here_doc != -1)
+	{
+		dprintf(2, "coucou, j'existe encore\n");
+		if (cmds->here_doc)
+			dprintf(2, "CLOSE FAIL\n");
+	}
 	execve(cmds->right_path, cmds->args, data->mini_env);
 	ft_handle_execve_error(data, cmds);
 

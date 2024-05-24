@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/23 17:01:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 20:13:01 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef enum e_token_tp
 	HEREDOC,
 	RED_IN,
 	RED_OUT,
-	IN_AND_OUT,
 	PIPE,
 	WORD,
 	WHITESPACE,
@@ -53,14 +52,6 @@ typedef struct s_redir
 	struct s_redir	*prev;	
 }	t_redir;
 
-typedef struct s_heredoc
-{
-	char	*delimiter;
-	char	*name;
-	int	read;
-	struct s_heredoc *next;
-}	t_heredoc;
-
 typedef struct s_cmds
 {
 	t_redir	*redir;
@@ -75,7 +66,6 @@ typedef struct s_cmds
 	int		cmd_count;
 	int		here_doc_count;
 	char	*tmp_file;
-	//char	**tab;
 	char	*name;
 	char	*index;
 	int		code_status;
@@ -106,7 +96,6 @@ typedef struct s_data
 	t_cmds	*cmd_list;
 	t_env	*env;
 	t_env	*env_export;
-	t_heredoc *heredoc;
 }	t_data;
 
 #endif

@@ -68,6 +68,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	t_redir	*tmp;
 	int	i = 1;
 	int	count = 0;
+
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
@@ -78,19 +79,27 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == 2)
 		{
-			count += 1;
 			if (count == cmds->here_doc_count)
 			{
 				dprintf(2, "on passe ici\n");
-				if (dup2(cmds->here_doc, 0) == -1)
+				dprintf(2, "count => %d\n", count);
+				if (dup2(cmds->here_doc, 0) == -1){
+					dprintf(2, "\n\ndup2error\n\n");
 					ft_handle_dup2_error(data, cmds);
-				if (close(cmds->here_doc) == -1)
-					ft_handle_close_error(data, cmds);
+				}
+				if (cmds->here_doc != -1){
+					dprintf(2, "\n\nabout to close here_doc in handle redir\n\n");
+					if (close(cmds->here_doc) == -1){
+						dprintf(2, "\n\ncloseError\n\n");
+						ft_handle_close_error(data, cmds);
+					}
+				}
+				cmds->here_doc = -1;
 			}
 		}
 		if (cmds->redir->type == 3)
 		{
-			dprintf(2, "je suis dans une redir de type 3");
+			dprintf(2, "je suis dans une redir de type 3\n");
 			if (access(cmds->redir->path, F_OK) == 0)
 				ft_handle_input_redir(data, cmds);
 			else if (ft_is_a_built_in(cmds->cmd))
@@ -114,18 +123,13 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_output_redir(data, cmds);
 		cmds->redir = cmds->redir->next;
 	}
-/*
-	char **tab2;
-	int x = 0;
-
-	tab2 = cmds->tab;
-	while (tab2[x])
+	if (cmds->here_doc != -1 )
 	{
-		dprintf(2, "tab2[%d] = %s\n", x, tab2[x]);
-		x += 1;
+		dprintf(2, "NIQUE TA MERE\n");
+		close(cmds->here_doc);
 	}
-	ft_free_tab(cmds->tab);
-*/
+	if (cmds->here_doc != -1 && close(cmds->here_doc) == -1)
+		dprintf(2, "closeError dans handle_redir\n");
 	cmds->redir = tmp;
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
