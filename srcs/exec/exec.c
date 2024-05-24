@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 08:53:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 09:14:56 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@
 void	ft_init_exec(t_data *data, t_cmds *cmds)
 {
 	(void)data;
+	dprintf(2, "init_exec()\n");
+	dprintf(2, "init_exec()\n");
+	dprintf(2, "init_exec()\n");
 	dprintf(2, "init_exec()\n");
 	while (cmds != NULL)
 	{
