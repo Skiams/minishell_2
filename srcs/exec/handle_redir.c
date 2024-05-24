@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 21:07:44 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 22:59:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
 	int	i = 1;
-	//int	count = 0;
+	int	count = 0;
+
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
@@ -70,24 +71,20 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == HEREDOC)
 		{
-			//cmds->dev_stdin = dup(0);
-			ft_dup_stdin_stdout(data, cmds);
 			cmds->here_doc = open("/dev/stdin", O_CREAT | O_RDONLY, 0755);
-		//	count += 1;
-			//if (count == cmds->here_doc_count)
-			//{
-				dprintf(2, "on est sur le dernier heredoc\n");
+			count += 1;
+			if (count == cmds->here_doc_count)
+			{
+				dprintf(2, "on est sur le dernier heredoc\n\n");
 				if (dup2(cmds->here_doc, 0) == -1)
 					ft_handle_dup2_error(data, cmds);
 				if (close(cmds->here_doc) == -1)
 					ft_handle_close_error(data, cmds);
-				ft_dup2_and_close_stdin_stdout(data, cmds);
-			//}
-			//ft_dup2_and_close_stdin_stdout(data, cmds);
+			}
 		}
 		if (cmds->redir->type == RED_IN)
 		{
-			dprintf(2, "je suis dans une redir de type 3");
+			dprintf(2, "je suis dans une redir de type 3\n");
 			if (access(cmds->redir->path, F_OK) == 0)
 				ft_handle_input_redir(data, cmds);
 			else if (ft_is_a_built_in(cmds->cmd))
@@ -111,18 +108,6 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_output_redir(data, cmds);
 		cmds->redir = cmds->redir->next;
 	}
-/*
-	char **tab2;
-	int x = 0;
-
-	tab2 = cmds->tab;
-	while (tab2[x])
-	{
-		dprintf(2, "tab2[%d] = %s\n", x, tab2[x]);
-		x += 1;
-	}
-	ft_free_tab(cmds->tab);
-*/
 	cmds->redir = tmp;
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }

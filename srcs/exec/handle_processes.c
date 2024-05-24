@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 20:40:37 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 21:17:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void    ft_exit_properly2(t_data *data, t_cmds *cmds)
 {
-        ft_free_tab(cmds->cmd_path);
-        ft_free_tab(data->mini_env);
-        ft_clean_all(data);
-        ft_exit_code(0, GET);
-        exit (1);
+	ft_free_tab(cmds->cmd_path);
+	ft_free_tab(data->mini_env);
+	ft_clean_all(data);
+	ft_exit_code(0, GET);
+	exit (1);
 }
 
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
@@ -26,18 +26,18 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 	(void)env;
 	dprintf(2, "je passe dans exec_cmds\n");
 	if (!cmds->args)
-    {
-        ft_dup_stdin_stdout(data, cmds);
-        ft_handle_redir_without_cmd(data, cmds);
-        ft_dup2_and_close_stdin_stdout(data, cmds);
+	{
+		ft_dup_stdin_stdout(data, cmds);
+		ft_handle_redir_without_cmd(data, cmds);
+		ft_dup2_and_close_stdin_stdout(data, cmds);
 		ft_exit_properly2(data, cmds);
-    }
+	}
 	if (cmds->redir)
 	{
 		dprintf(2, "je passe dans exec_cmdsi et j'ai un argument\n");
 		//dprintf(2, "dans exec_cmds() cmds->name %s\n", cmds->name);
 		ft_handle_redir(data, cmds);
-	//	dprintf(2, "dans exec_cmds() cmds->name %s\n", cmds->name);
+		//	dprintf(2, "dans exec_cmds() cmds->name %s\n", cmds->name);
 	}
 	if (ft_is_a_built_in(cmds->cmd))
 	{

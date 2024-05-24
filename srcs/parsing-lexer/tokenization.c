@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 15:48:37 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/21 14:47:35 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ static int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 
 static int	ft_add_token(t_data *data, char *str, int type, int i)
 {
-	if (type > 0 && type < 7)
+	if (type > 0 && type < 6)
 		i = ft_add_sep(&data->token_list, type, str, i);
-	else if (type == 7)
+	else if (type == 6)
 		i = ft_add_word(data, &data->token_list, str, i);
 	else
 		i++;

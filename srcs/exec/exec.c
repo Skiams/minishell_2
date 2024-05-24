@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 20:27:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 22:19:34 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 void	ft_init_exec(t_data *data, t_cmds *cmds)
 {
 	(void)data;
+	dprintf(2, "init_exec() TSAIS\n");
 	while (cmds != NULL)
 	{
 		cmds->cmd_count = ft_lstsize_cmd(cmds);
@@ -59,14 +60,13 @@ void	ft_init_exec(t_data *data, t_cmds *cmds)
 int     ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	t_redir *head;
-	
 	while (cmds != NULL)
 	{
 		head = cmds->redir;
 		while (head != NULL)
 		{
 			if (head->type == 2)
-					ft_exec_here_doc(data, cmds, head);
+				ft_exec_here_doc(data, cmds, head);
 			head = head->next;
 		}
 		cmds = cmds->next;
@@ -80,7 +80,7 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	(void)env;
 	if (!cmds)
 		return (ft_exit_code(0, GET));
-	ft_init_exec(data, cmds);
+	ft_init_exec(NULL, cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	ft_handle_here_doc(data, cmds);
 	if (cmds->cmd_count == 1)
