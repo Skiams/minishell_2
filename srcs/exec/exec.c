@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 23:08:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 06:15:46 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 		ft_handle_pipes(data, cmds, NULL);
 		//		ft_handle_pipes(data, cmds, data->env);
 	}
-	if (cmds->here_doc != -1)
+	if (cmds->here_doc_count > 0 && cmds->here_doc != -1)
 	{
 		if (close(cmds->here_doc) == -1)
 			dprintf(2, "LE CLOSE A FAIL DANS L'EXEC\n");

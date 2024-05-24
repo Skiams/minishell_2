@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 22:47:35 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 06:16:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		free(delimiter);
 		if (close(cmds->fd_w) == -1){
 			dprintf(2, "closing read in exec here doc child");
-			ft_handle_infile_error(data, cmds);
+			ft_handle_close_error(data, cmds);
 		}
 		cmds->fd_w = -1;
 		//		free(cmds->name);
@@ -128,6 +128,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	if (WIFEXITED(status) && WEXITSTATUS(status))
 		return_status = 1;
 	if (close(cmds->fd_w) == -1 || return_status)
-		ft_handle_infile_error(data, cmds);
+		ft_handle_close_error(data, cmds);
 	cmds->fd_w = -1;
 }
