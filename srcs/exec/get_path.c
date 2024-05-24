@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 14:21:02 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 06:53:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ static char	**ft_return_tab_size(int size)
 
 char	**ft_return_mini_env(t_data *data, t_env *env)
 {
-	dprintf(2, "JE SUIS DANS MINI_ENV\n");
+	dprintf(2, "JE SUIS DANS MINI_ENV et here_doc => %d\n", data->cmd_list->here_doc);
 	int     i;
 	int	size;
 	char	*var;

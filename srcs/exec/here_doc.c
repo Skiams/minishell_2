@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 06:16:14 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 07:34:34 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	unlink(cmds->name);
 	ft_free_ptr(cmds->name);
 
+    // Ajoutez cette ligne pour fermer le descripteur de fichier après la redirection
+   // close(cmds->here_doc);
+
+    // Remettez cmds->here_doc à -1 après sa fermeture
+   // cmds->here_doc = -1;
 	pid = fork();
 
 	if (pid == 0) //child-> ecrit dans le heredoc
@@ -93,7 +98,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 			dprintf(2, "closing write in exec here doc child");
 			close (cmds->here_doc);//safe
 		}
-		cmds->here_doc = -1;
+		//cmds->here_doc = -1;
 		delimiter = ft_strjoin(redir->path, "\n");
 		while (1)
 		{
