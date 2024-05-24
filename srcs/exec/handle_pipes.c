@@ -16,20 +16,23 @@ static void	ft_swap_pipes(t_data *data, t_cmds *cmds)
 {
 	if (cmds->here_doc_count > 0 && cmds->here_doc != -1)
 	{
-		dprintf(2, "oui\n");
-		close(cmds->here_doc);
-		cmds->here_doc = -1;
+		dprintf(2, "swap\n");
+		//close(cmds->here_doc);
+	//	cmds->here_doc = -1;
 	}
 	if (close(cmds->prev_pipe[0]) == -1)
 		ft_handle_close_error(data, cmds);
 	if (close(cmds->prev_pipe[1]) == -1)
 		ft_handle_close_error(data, cmds);
-
 	if (cmds->next)
 	{
+		dprintf(2, "SWAP dans le swap des pipes  => %d\n", cmds->here_doc);
 		cmds->next->prev_pipe[0] = cmds->curr_pipe[0];
 		cmds->next->prev_pipe[1] = cmds->curr_pipe[1];
 	}
+	dprintf(2, "SWAP apres le swap des pipes => %d\n", cmds->here_doc);
+	close(cmds->here_doc);
+	dprintf(2, "SWAP apres le DEUXIEME CLOSE du swap des pipes => %d\n", cmds->here_doc);
 	ft_free_tab(cmds->cmd_path);
 	ft_free_tab(data->mini_env);
 }
@@ -63,7 +66,7 @@ static	void	ft_fork_no_built_in(t_data *data, t_cmds *cmds, char **env)
 	{
 		dprintf(2, "CECI N'EST PAS UN BUILT-IN\n");
 		close(cmds->here_doc);
-		cmds->here_doc = -1;
+	//	cmds->here_doc = -1;
 	}
 }
 
@@ -89,7 +92,8 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 		{
 			dprintf(2, "OUIIIII, J'ai un here_doc dans handle_pipes() APRES LE SWAP\n");
 			close(cmds->here_doc);
-			cmds->here_doc = -1;
+			close(cmds->here_doc);
+		//	cmds->here_doc = -1;
 		}
 		if (cmds->next == NULL)
 			break ;
@@ -100,10 +104,12 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 	{
 		dprintf(2, "OUIIIII, J'ai un here_doc dans handle_pipes() DERNIER HERE_DOC APRES LE BREAK\n");
 		close(cmds->here_doc);
-		cmds->here_doc = -1;
+	//	cmds->here_doc = -1;
 	}
 	cmds->i = 0;
 	dprintf(2, "666\n");
 	while (cmds->i++ < cmds->cmd_count)
 		ft_waitpid(cmds);
+	//if (close(cmds->fd_w) == -1 || return_status)
+	//	ft_handle_close_error(data, cmds);
 }

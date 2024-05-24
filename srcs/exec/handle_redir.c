@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 22:50:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 07:37:58 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		if (cmds->redir->type == 3)
 		{
 			dprintf(2, "je suis dans une redir de type 3\n");
-			if (access(cmds->redir->path, F_OK) == 0)
+			//if (access(cmds->redir->path, F_OK) == 0)
 				ft_handle_input_redir(data, cmds);
-			else 
-				ft_handle_infile_error(data, cmds);
+			//else 
+			//	ft_handle_infile_error(data, cmds);
 		}
 		if (cmds->redir->type == 4)
 			ft_handle_output_redir(data, cmds);

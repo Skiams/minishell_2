@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 22:47:35 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 07:34:34 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	unlink(cmds->name);
 	ft_free_ptr(cmds->name);
 
+    // Ajoutez cette ligne pour fermer le descripteur de fichier après la redirection
+   // close(cmds->here_doc);
+
+    // Remettez cmds->here_doc à -1 après sa fermeture
+   // cmds->here_doc = -1;
 	pid = fork();
 
 	if (pid == 0) //child-> ecrit dans le heredoc
@@ -93,7 +98,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 			dprintf(2, "closing write in exec here doc child");
 			close (cmds->here_doc);//safe
 		}
-		cmds->here_doc = -1;
+		//cmds->here_doc = -1;
 		delimiter = ft_strjoin(redir->path, "\n");
 		while (1)
 		{
@@ -112,7 +117,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		free(delimiter);
 		if (close(cmds->fd_w) == -1){
 			dprintf(2, "closing read in exec here doc child");
-			ft_handle_infile_error(data, cmds);
+			ft_handle_close_error(data, cmds);
 		}
 		cmds->fd_w = -1;
 		//		free(cmds->name);
@@ -128,6 +133,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	if (WIFEXITED(status) && WEXITSTATUS(status))
 		return_status = 1;
 	if (close(cmds->fd_w) == -1 || return_status)
-		ft_handle_infile_error(data, cmds);
+		ft_handle_close_error(data, cmds);
 	cmds->fd_w = -1;
 }
