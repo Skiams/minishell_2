@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 19:07:37 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 21:07:44 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 					ft_putstr_fd(": LALALA No such file or directory\n", 2);
 				}
 			}
-/*
-			else
-			{
-				dprintf(2, " et J'AI une commande\n");
-				dprintf(2, " Je ne passe JAMAIS LA\n");
-				ft_handle_input_redir(data, cmds);
-			}
-*/
 		}
 		if (cmds->redir->type == 4)
 		{
@@ -67,28 +59,33 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
 	int	i = 1;
-	int	count = 0;
+	//int	count = 0;
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
 
 	while (cmds->redir != NULL)
 	{
-		if (cmds->redir->type == 1)
+		if (cmds->redir->type == APPEND)
 			ft_handle_append(data, cmds);
-		if (cmds->redir->type == 2)
+		if (cmds->redir->type == HEREDOC)
 		{
-			count += 1;
-			if (count == cmds->here_doc_count)
-			{
-				dprintf(2, "on passe ici\n");
+			//cmds->dev_stdin = dup(0);
+			ft_dup_stdin_stdout(data, cmds);
+			cmds->here_doc = open("/dev/stdin", O_CREAT | O_RDONLY, 0755);
+		//	count += 1;
+			//if (count == cmds->here_doc_count)
+			//{
+				dprintf(2, "on est sur le dernier heredoc\n");
 				if (dup2(cmds->here_doc, 0) == -1)
 					ft_handle_dup2_error(data, cmds);
 				if (close(cmds->here_doc) == -1)
 					ft_handle_close_error(data, cmds);
-			}
+				ft_dup2_and_close_stdin_stdout(data, cmds);
+			//}
+			//ft_dup2_and_close_stdin_stdout(data, cmds);
 		}
-		if (cmds->redir->type == 3)
+		if (cmds->redir->type == RED_IN)
 		{
 			dprintf(2, "je suis dans une redir de type 3");
 			if (access(cmds->redir->path, F_OK) == 0)
@@ -106,11 +103,11 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 						i += 1;
 					}
 				}
-			}	
+			}
 			else
 				ft_handle_infile_error(data, cmds);
 		}
-		if (cmds->redir->type == 4)
+		if (cmds->redir->type == RED_OUT)
 			ft_handle_output_redir(data, cmds);
 		cmds->redir = cmds->redir->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 17:02:41 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:55:49 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,10 @@ void	ft_test(t_cmds *cmds, int i)
 // implementer les signaux
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc *heredoc)
 {
-//	static int	i = 1;
 		char	*line;
 		char	*delimiter;
         pid_t   pid;
         int     status;
-
-	// if (!cmds->cmd)
-	// {
-	// 	dprintf(2, "coucou, je n' ai pas de commande\n");
-	// 	cmds->infile = open("/dev/stdin", O_CREAT | O_TRUNC, 0755);
-	// }
-	// else
-	// {
 
 		//generate 2 fd (read & W) for the heredoc
 		cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
@@ -88,10 +79,10 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
 		ft_free_ptr(cmds->tmp_file);
 		ft_free_ptr(cmds->index);
-//		dprintf(2, "cmds->name = %s\n", cmds->name);
+
 		cmds->i += 1;
-		if (cmds->here_doc)
-			close (cmds->here_doc);//secure
+		// if (cmds->here_doc)
+		// 	close (cmds->here_doc);//secure
 		cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY| O_TRUNC, 0755);
 		cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 		
@@ -135,6 +126,8 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		if (WIFEXITED(status) && WEXITSTATUS(status))
 			return_status = 1;
 		if (close(cmds->fd_w) == -1 || return_status)
+			ft_handle_infile_error(data, cmds);
+		if (close(cmds->here_doc) == -1 || return_status)
 			ft_handle_infile_error(data, cmds);
 
 }
