@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 22:47:35 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 22:29:18 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,36 +64,28 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	char	*delimiter;
 	pid_t   pid;
 	int     status;
-	int	i = 0;
+
 	//generate 2 fd (read & W) for the heredoc
-	cmds->tmp_file = ft_strjoin(".hd_", redir->path);
-	cmds->index = ft_itoa(i);
+	cmds->tmp_file = ft_strjoin(".hd_", cmds->redir->path);
+	cmds->index = ft_itoa(cmds->i);
 	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
 	ft_free_ptr(cmds->tmp_file);
 	ft_free_ptr(cmds->index);
-	i += 1;
-	if (cmds->here_doc){
-		dprintf(2, "JE SUIS LE PREMIER HERE_DOC\n");
-		close (cmds->here_doc);//secure
-	}
-	cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY | O_TRUNC, 0755);
-//	close (cmds->here_doc);//safe
-	cmds->fd_w = open(cmds->name, O_WRONLY | O_TRUNC, 0755);
+
+	cmds->i += 1;
+	// if (cmds->here_doc)
+	// 	close (cmds->here_doc);//secure
+	cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY| O_TRUNC, 0755);
+	cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
+
 	//make the file invisible for everybody
 	unlink(cmds->name);
 	ft_free_ptr(cmds->name);
-
 	pid = fork();
 
 	if (pid == 0) //child-> ecrit dans le heredoc
 	{
-
-		if (cmds->here_doc != -1)
-		{
-			dprintf(2, "closing write in exec here doc child");
-			close (cmds->here_doc);//safe
-		}
-		cmds->here_doc = -1;
+		close(cmds->here_doc);
 		delimiter = ft_strjoin(redir->path, "\n");
 		while (1)
 		{
@@ -106,7 +98,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 				break ;
 			ft_putstr_fd(line, cmds->fd_w);
 			free(line);
-
 		}
 		free(line); 
 		free(delimiter);
@@ -120,7 +111,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		exit(0);
 	}
 	//parent:
-
 	int return_status;
 
 	return_status = 0;
@@ -129,5 +119,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		return_status = 1;
 	if (close(cmds->fd_w) == -1 || return_status)
 		ft_handle_infile_error(data, cmds);
-	cmds->fd_w = -1;
+	if (close(cmds->here_doc) == -1 || return_status)
+		ft_handle_infile_error(data, cmds);
 }
