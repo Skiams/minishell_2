@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 22:50:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 19:07:37 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,16 @@ void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds)
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
-/*
-char    **ft_return_tab2(int here_doc)
-{
-        char    **tab;
-
-        tab = (char **)malloc(sizeof(char *) * (here_doc + 1));
-        if (!tab)
-                return (NULL);
-        return (tab);
-}
-*/
-
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
-	int	count = 1;
+	int	i = 1;
+	int	count = 0;
+
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
 
-/*
-	cmds->tab = ft_return_tab2(cmds->here_doc_count);
-	if (!cmds->tab)
-		return ;
-	dprintf(2, "cmds->i ICICICICIC %d\n", cmds->i);
-	cmds->tab[cmds->here_doc_count] = NULL;
-*/
 	while (cmds->redir != NULL)
 	{
 		if (cmds->redir->type == 1)
@@ -113,14 +96,27 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 				}
 				cmds->here_doc = -1;
 			}
-			count += 1;
 		}
 		if (cmds->redir->type == 3)
 		{
 			dprintf(2, "je suis dans une redir de type 3\n");
 			if (access(cmds->redir->path, F_OK) == 0)
 				ft_handle_input_redir(data, cmds);
-			else 
+			else if (ft_is_a_built_in(cmds->cmd))
+			{	
+				ft_putstr_fd(cmds->redir->path, 2);
+				ft_putstr_fd(": LALALA No such file or directory\n", 2);
+				if (cmds->args[i])
+				{
+					while (cmds->args[i])
+					{
+						free(cmds->args[i]);
+						cmds->args[i] = NULL;
+						i += 1;
+					}
+				}
+			}	
+			else
 				ft_handle_infile_error(data, cmds);
 		}
 		if (cmds->redir->type == 4)
