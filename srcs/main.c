@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/22 14:21:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 05:08:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,12 @@ int	main(int argc, char **argv, char **env)
 //		if (data.cmd_list->name != NULL)
 	//		ft_free_ptr(data.cmd_list->name);
 		dprintf(2, "Coucou, on a perdu l'entree standard\n");
+		if (data.cmd_list->here_doc_count > 0) // && data.cmd_list->here_doc != -1)
+		{ 
+			
+			dprintf(2, "NIQUE TA MERE dans le main => %d\n", data.cmd_list->here_doc);
+			//close(cmds->here_doc);
+		}
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);

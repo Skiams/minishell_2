@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 23:32:05 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/24 06:16:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	ft_swap_pipes(t_data *data, t_cmds *cmds)
 {
-	if (cmds->here_doc != -1)
+	if (cmds->here_doc_count > 0 && cmds->here_doc != -1)
 	{
 		dprintf(2, "oui\n");
 		close(cmds->here_doc);
-		cmds->here_doc = -1;
+	//	cmds->here_doc = -1;
 	}
 	if (close(cmds->prev_pipe[0]) == -1)
 		ft_handle_close_error(data, cmds);
@@ -59,7 +59,7 @@ static	void	ft_fork_no_built_in(t_data *data, t_cmds *cmds, char **env)
 	if (cmds->pid == 0)
 		ft_handle_processes(data, cmds, NULL);
 	//		ft_handle_processes(data, cmds, data->env);
-	if (cmds->here_doc != -1)
+	if (cmds->here_doc_count > 0 && cmds->here_doc != -1)
 	{
 		dprintf(2, "CECI N'EST PAS UN BUILT-IN\n");
 		close(cmds->here_doc);
@@ -85,7 +85,7 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 			ft_fork_no_built_in(data, cmds, NULL);
 		//ft_fork_no_built_in(data, cmds, data->env);
 		ft_swap_pipes(data, cmds);
-		if (cmds->here_doc != -1)
+		if (cmds->here_doc_count > 0 && cmds->here_doc != -1)
 		{
 			dprintf(2, "OUIIIII, J'ai un here_doc dans handle_pipes() APRES LE SWAP\n");
 			close(cmds->here_doc);
@@ -96,7 +96,7 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 		cmds = cmds->next;
 	}
 	cmds = tmp;
-	if (cmds->here_doc != -1)
+	if (cmds->here_doc_count > 0 && cmds->here_doc != -1)
 	{
 		dprintf(2, "OUIIIII, J'ai un here_doc dans handle_pipes() DERNIER HERE_DOC APRES LE BREAK\n");
 		close(cmds->here_doc);
