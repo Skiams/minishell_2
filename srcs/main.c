@@ -16,6 +16,43 @@
 
 int			g_sig_exit;
 
+
+static bool ft_add_shlvl(t_data *data, char *value)
+{
+	t_env	*tmp;
+
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->var, "SHLVL") == 0)
+		{
+			ft_free_ptr(tmp->value);
+			tmp->value = ft_strdup(value);
+			ft_free_ptr(value);
+			if (!tmp->value)
+				return (ft_exit_code(12, ADD), false);
+		}
+		tmp = tmp->next;
+	}
+	return (true);
+}
+static bool	ft_increase_shlvl(t_data *data)
+{
+	char	*shlvl;
+	int		count;
+
+	if (ft_var_is_in_env(data, "SHLVL"))
+	{
+		shlvl = ft_var_is_exp(data, "SHLVL");
+		count = ft_atoi(shlvl);
+		count++;
+		ft_free_ptr(shlvl);
+		if (!ft_add_shlvl(data, ft_itoa(count)))
+			return (false);
+	}
+	return (true);
+}
+
 static bool	ft_parsing(char *str, t_data *data)
 {
 	if (str)
@@ -36,7 +73,7 @@ static t_env	*ft_no_env(t_data *data)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	if (!ft_lstinit_env(&data->env, "SHLVL", "1"))
+	if (!ft_lstinit_env(&data->env, "SHLVL", "2"))
 		return (ft_exit_code(12, ADD), NULL);
 	if (!ft_lstinit_env(&data->env, "PWD", pwd))
 		return (ft_exit_code(12, ADD), NULL);
@@ -64,41 +101,6 @@ static void	ft_non_interactive(t_data *data, char **env)
 	exit(ft_exit_code(0, GET));
 }
 
-
-// static bool ft_add_shlvl(t_data *data, char *value)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = data->env;
-// 	while (tmp)
-// 	{
-// 		if (ft_strcmp(tmp->var, "SHLVL") == 0)
-// 		{
-// 			ft_free_ptr(tmp->value);
-// 			tmp->value = ft_strdup(value);
-// 			ft_free_ptr(value);
-// 			if (!tmp->value)
-// 				return (ft_exit_code(12, ADD), false);
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	return (true);
-// }
-// static bool	ft_increase_shlvl(t_data *data)
-// {
-// 	char	*shlvl;
-// 	int		count;
-
-// 	dprintf(2, "on increase le shlvl\n");	
-// 	shlvl = ft_var_is_exp(data, "SHLVL");
-// 	count = ft_atoi(shlvl);
-// 	count++;
-// 	ft_free_ptr(shlvl);
-// 	if (!ft_add_shlvl(data, ft_itoa(count)))
-// 		return (false);
-// 	return (true);
-// }
-
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
@@ -109,7 +111,10 @@ int	main(int argc, char **argv, char **env)
 		ft_print_wrong_param();	
 	ft_memset(&data, 0, sizeof(t_data));
 	if (env && env[0])
+	{
 		data.env = ft_get_env(&data, env);
+		ft_increase_shlvl(&data);
+	}
 	else
 		data.env = ft_no_env(&data);
 	if (ft_exit_code(0, GET) == 12)

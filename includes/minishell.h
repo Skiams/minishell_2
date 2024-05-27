@@ -102,7 +102,7 @@ void	ft_print_cd_error(char **args);
 bool	ft_add_value_only(t_data *data, char *var, char *value, int code);
 bool	ft_add_var_and_value(t_data *data, char *str, int code);
 bool	ft_add_var_and_value_bis(t_data *data, char *var, char *value, int code);
-int	ft_export_bis(t_data *data, char *dup_arg, int code);
+int		ft_export_bis(t_data *data, char *dup_arg, int code);
 bool	ft_add_var_env(t_data *data, char *str, int code);
 
 // UTILS
@@ -122,6 +122,8 @@ void	ft_syntax_error(char *str);
 
 void	ft_cc_handler(int sig);
 void	ft_handle_signal();
+void	ft_handle_sig_heredoc(void);
+void	ft_cc_heredoc(int sig);
 
 // CLEAN & EXIT
 
