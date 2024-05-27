@@ -12,40 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-// static bool ft_add_shlvl(t_data *data, char *value)
-// {
-// 	t_env	*tmp;
-
-// 	tmp = data->env;
-// 	while (tmp)
-// 	{
-// 		if (ft_strcmp(tmp->var, "SHLVL") == 0)
-// 		{
-// 			ft_free_ptr(tmp->value);
-// 			tmp->value = ft_strdup(value);
-// 			ft_free_ptr(value);
-// 			if (!tmp->value)
-// 				return (ft_exit_code(12, ADD), false);
-// 		}
-// 		tmp = tmp->next;
-// 	}
-// 	return (true);
-// }
-// static bool	ft_increase_shlvl(t_data *data)
-// {
-// 	char	*shlvl;
-// 	int		count;
-
-// 	dprintf(2, "on increase le shlvl\n");	
-// 	shlvl = ft_var_is_exp(data, "SHLVL");
-// 	count = ft_atoi(shlvl);
-// 	count++;
-// 	ft_free_ptr(shlvl);
-// 	if (!ft_add_shlvl(data, ft_itoa(count)))
-// 		return (false);
-// 	return (true);
-// }
-
 void	ft_init_exec(t_data *data, t_cmds *cmds)
 {
 	(void)data;

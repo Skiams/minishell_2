@@ -82,16 +82,18 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	unlink(cmds->name);
 	ft_free_ptr(cmds->name);
 	pid = fork();
-
 	if (pid == 0) //child-> ecrit dans le heredoc
 	{
 		close(cmds->here_doc);
-		delimiter = ft_strjoin(redir->path, "\n");
+		// delimiter = ft_strjoin(redir->path, "\n");
+		delimiter = ft_strdup(redir->path);
 		while (1)
 		{
+			ft_handle_sig_heredoc();
 			//		ft_restore_stdin(data, cmds);
-			ft_putstr_fd("> ", 0);
-			line = get_next_line(0);
+			// ft_putstr_fd("> ", 0);
+			// line = get_next_line(0);
+			line = readline("> ");
 			if (!line)
 				break ;
 			if (!ft_strcmp(line, delimiter))
@@ -121,4 +123,5 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		ft_handle_infile_error(data, cmds);
 	if (close(cmds->here_doc) == -1 || return_status)
 		ft_handle_infile_error(data, cmds);
+	ft_handle_signal();
 }
