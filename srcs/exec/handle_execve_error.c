@@ -9,6 +9,7 @@ void	ft_handle_execve_error(t_data *data, t_cmds *cmds)
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
+		ft_free_tab(data->mini_env);
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);

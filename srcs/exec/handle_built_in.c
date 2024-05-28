@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/06 15:56:34 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/20 17:11:18 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 		ft_cd(cmds, data);
 	if (!ft_strcmp(cmds->cmd, "unset"))
 		ft_unset(data, cmds->args);
+	if (ft_exit_code(0, GET) == 12)
+		dprintf(2, "Attention tout le monde ! Je vaut 12\n");
 }
 
 int	ft_is_a_built_in(char *str)

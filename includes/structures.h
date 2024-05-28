@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/15 18:14:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/23 20:13:01 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef enum e_token_tp
 	HEREDOC,
 	RED_IN,
 	RED_OUT,
-	IN_AND_OUT,
 	PIPE,
 	WORD,
 	WHITESPACE,
@@ -53,18 +52,9 @@ typedef struct s_redir
 	struct s_redir	*prev;	
 }	t_redir;
 
-/*
-typedef struct s_here_doc
-{
-	char	*name;
-	struct s_here_doc *next;
-}	t_here_doc;
-*/
-
 typedef struct s_cmds
 {
 	t_redir	*redir;
-//	t_here_doc *here_doc;
 	char	*env_path;
 	char	**cmd_path;
 	char	*right_path;
@@ -73,7 +63,7 @@ typedef struct s_cmds
 	int		curr_pipe[2];
 	int		prev_pipe[2];
 	int		i;
-	int		list_size;
+	int		cmd_count;
 	int		here_doc_count;
 	char	*tmp_file;
 	char	*name;
@@ -81,8 +71,10 @@ typedef struct s_cmds
 	int		code_status;
 	int		dev_stdin;
 	int		dev_stdout;
+	int		here_doc;
 	int		infile;
 	int		outfile;
+	int		fd_w;
 	pid_t	pid;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;
@@ -90,8 +82,8 @@ typedef struct s_cmds
 
 typedef struct s_token
 {
-	char			*value;
 	t_token_tp		type;
+	char			*value;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
@@ -99,8 +91,7 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	char	**cmds_exec;
-	char	**env_exec;
+	char	**mini_env;
 	t_token	*token_list;
 	t_cmds	*cmd_list;
 	t_env	*env;
