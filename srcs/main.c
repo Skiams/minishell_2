@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/28 14:31:26 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/28 14:33:43 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int	main(int argc, char **argv, char **env)
 	//	data.cmd_list->name ? dprintf(2, "cmds->name %s DANS LE MAIN\n", data.cmd_list->name) : dprintf(2, "On n'a pas de cmds->name dans le MAIN\n");
 //		if (data.cmd_list->name != NULL)
 	//		ft_free_ptr(data.cmd_list->name);
-		//dprintf(2, "Coucou, on a perdu l'entree standard\n");
+		dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);
