@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/06 16:13:32 by skiam            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:16:04 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 	}
 	else if (cmd->args && cmd->args[1] && cmd->args[2])
 		return (ft_exit_errors(2, cmd->args[1]));
-	ft_dup2_and_close_stdin_stdout(data, cmd);
-	ft_free_tab(cmd->cmd_path);
-	ft_clean_all(data);
+	ft_clean_exit(data, cmd);
 	exit (ft_exit_code(0, GET));
 }
 

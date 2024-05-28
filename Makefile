@@ -17,7 +17,7 @@ GNL_UTILS = includes/get_next_line/get_next_line_utils.c
 
 SRCS_PATH = $(shell find srcs -type d)
 
-SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c ft_export_utils_bis.c ft_unset.c ft_exit.c ft_cd.c ft_cd_utils.c ft_pwd.c \
+SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c ft_export_utils_bis.c ft_unset.c ft_exit.c ft_exit_utils.c ft_cd.c ft_cd_utils.c ft_pwd.c \
 		clean.c singletons.c \
 		cmds.c cmd_args.c lst_cmds.c lst_cmds_bis.c redir_cmds.c redir_cmds_bis.c \
 		debug.c \

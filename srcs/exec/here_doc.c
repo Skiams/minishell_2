@@ -6,11 +6,61 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 22:29:18 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/28 14:39:15 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int     ft_select_char(int fd)
+{
+        char    buf[1];
+
+        buf[0] = '\0';
+        while (ft_isalnum(buf[0]) == 0)
+        {
+                if (read(fd, buf, 1) == -1)
+                {
+                        (perror("read"), close(fd));
+                        return (-1);
+                }
+        }
+        return ((int)buf[0]);
+}
+
+/*Create a random alphanumeric string */
+char    *ft_random_string(int n)
+{
+        char    *str;
+        int             c;
+        int             fd;
+        int             i;
+
+	i = 0;
+        str = (char *)malloc(sizeof(char) * n + 1);
+        if (!str)
+                return (NULL);
+        fd = open("/dev/urandom", O_RDONLY, 0744);
+        if (fd == -1)
+        {
+                (perror("/dev/urandom"), free(str));
+                return (NULL);
+        }
+        while (i < n)
+        {
+                c = ft_select_char(fd);
+                if (c == -1)
+		{
+                        ft_free_ptr(str);
+			return (NULL);
+		}
+                str[i] = c;
+		i += 1;
+        }
+        close(fd);
+        str[n] = '\0';
+        return (str);
+}
 
 int	ft_count_here_doc(t_cmds *cmds)
 {
@@ -61,6 +111,7 @@ void	ft_restore_stdin(t_data *data, t_cmds *cmds)
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc *heredoc)
 {
 	char	*line;
+	char	*str;
 	char	*delimiter;
 	pid_t   pid;
 	int     status;
@@ -73,42 +124,38 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	ft_free_ptr(cmds->index);
 
 	cmds->i += 1;
-	// if (cmds->here_doc)
-	// 	close (cmds->here_doc);//secure
+	ft_free_ptr(cmds->name);
+	cmds->name = ft_random_string(cmds->i);
 	cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY| O_TRUNC, 0755);
 	cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 
 	//make the file invisible for everybody
-	unlink(cmds->name);
-	ft_free_ptr(cmds->name);
+//	unlink(cmds->name);
+	//ft_free_ptr(cmds->name);
 	pid = fork();
 	if (pid == 0) //child-> ecrit dans le heredoc
 	{
 		close(cmds->here_doc);
-		// delimiter = ft_strjoin(redir->path, "\n");
 		delimiter = ft_strdup(redir->path);
 		while (1)
 		{
 			ft_handle_sig_heredoc();
 			//		ft_restore_stdin(data, cmds);
-			// ft_putstr_fd("> ", 0);
-			// line = get_next_line(0);
 			line = readline("> ");
 			if (!line)
 				break ;
 			if (!ft_strcmp(line, delimiter))
 				break ;
-			ft_putstr_fd(line, cmds->fd_w);
+			str = ft_strjoin(line, "\n");
+			ft_putstr_fd(str, cmds->fd_w);
 			free(line);
 		}
 		free(line); 
 		free(delimiter);
-		if (close(cmds->fd_w) == -1){
-			dprintf(2, "closing read in exec here doc child");
+		if (close(cmds->fd_w) == -1)
 			ft_handle_infile_error(data, cmds);
-		}
-		cmds->fd_w = -1;
-		//		free(cmds->name);
+		ft_free_ptr(cmds->name);
+		cmds->name = NULL;
 		ft_clean_all(data); //risque de double free ?
 		exit(0);
 	}
