@@ -18,11 +18,6 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 
 	cmds = tmp;
 	ft_putstr_fd("ft_free\n\n", 2);
-	if (cmds->name)
-	{
-		free(cmds->name);
-		dprintf(2, "oui, jai une tab\n");
-	}
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);
 	ft_putstr_fd(": ", 2);

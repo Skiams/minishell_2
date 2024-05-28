@@ -96,6 +96,7 @@ int		ft_env(t_data *data);
 int		ft_unset(t_data *data, char **args);
 int		ft_pwd(t_cmds *cmds);
 void	ft_exit(t_data *data, t_cmds *cmd);
+void	ft_clean_exit(t_data *data, t_cmds *cmd);
 void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds);
 int 	ft_cd(t_cmds *cmd, t_data *data);
 void	ft_print_cd_error(char **args);
