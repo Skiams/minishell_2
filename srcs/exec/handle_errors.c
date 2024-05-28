@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 17:45:48 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:05:28 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
  */
 void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 {
+	ft_putstr_fd("minishell: ", 2);
 	perror(cmds->redir->path);
 	if (ft_is_a_built_in(cmds->cmd) || !cmds->cmd)
 	{

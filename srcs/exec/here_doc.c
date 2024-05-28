@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 14:39:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:10:42 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,14 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 	ft_free_ptr(cmds->index);
 
 	cmds->i += 1;
-	ft_free_ptr(cmds->name);
-	cmds->name = ft_random_string(cmds->i);
+	//ft_free_ptr(cmds->name);
+//	cmds->name = ft_random_string(cmds->i);
 	cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY| O_TRUNC, 0755);
 	cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 
 	//make the file invisible for everybody
-//	unlink(cmds->name);
-	//ft_free_ptr(cmds->name);
+	unlink(cmds->name);
+	ft_free_ptr(cmds->name);
 	pid = fork();
 	if (pid == 0) //child-> ecrit dans le heredoc
 	{
@@ -148,6 +148,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 				break ;
 			str = ft_strjoin(line, "\n");
 			ft_putstr_fd(str, cmds->fd_w);
+			free(str);
 			free(line);
 		}
 		free(line); 

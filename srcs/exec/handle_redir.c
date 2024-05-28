@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 14:38:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == HEREDOC)
 		{
-			cmds->here_doc = open(cmds->name, O_RDONLY, 0755);
-			unlink(cmds->name);
-			free(cmds->name);
-			cmds->name = NULL;
+			cmds->here_doc = open("/dev/sdtin", O_RDONLY, 0755);
 			dprintf(2, "on est sur le dernier heredoc\n\n");
 			if (dup2(cmds->here_doc, 0) == -1)
 				ft_handle_dup2_error(data, cmds);
@@ -115,11 +112,14 @@ void	ft_handle_append(t_data *data, t_cmds *cmds)
 	// Revoir comment avait fait Ismael pour refacto
 	cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT | O_APPEND, 0755);
 	if (cmds->outfile == -1)
-		ft_handle_outfile_error(data, cmds);
-	if (dup2(cmds->outfile, 1) == -1)
-		ft_handle_dup2_error(data, cmds);
-	if (close(cmds->outfile) == -1)
-		ft_handle_close_error(data, cmds);
+		ft_handle_infile_error(data, cmds);
+	else
+	{
+		if (dup2(cmds->outfile, 1) == -1)
+			ft_handle_dup2_error(data, cmds);
+		if (close(cmds->outfile) == -1)
+			ft_handle_close_error(data, cmds);
+	}
 }
 
 /*
