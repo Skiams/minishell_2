@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:00:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 14:42:44 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/22 13:23:39 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ t_env	*ft_get_env(t_data *data, char **env)
 	i = 0;
 	if (!env)
 		return (NULL);
-	while (env && env[i])
+	while (env[i])
 	{
 		if (!ft_get_env_bis(data, env, &i))
 			return (NULL);

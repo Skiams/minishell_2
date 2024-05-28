@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/14 17:35:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/21 19:14:37 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2)
 	exit (ft_exit_code(126, ADD));
 }
 
-void	ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd, char **args)
+void	ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd)
 {
-	(void)args;
 	ft_putstr_fd("minishell: ", 2);
 	ft_free(data, cmds, cmd, ": No such file or directory 😮\n");
 	exit (ft_exit_code(127, ADD));

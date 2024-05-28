@@ -23,7 +23,23 @@ void	ft_cc_handler(int sig)
 	ft_exit_code(130, ADD);
 }
 
+void	ft_cc_heredoc(int sig)
+{
+	(void)sig;
+	ft_putchar(1, '\n');
+	close(0);
+	g_sig_exit = 2;
+	ft_exit_code(130, ADD);
+}
+
 void	ft_handle_signal(void)
 {
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_cc_handler);
+}
+
+void	ft_handle_sig_heredoc(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &ft_cc_heredoc);
 }
