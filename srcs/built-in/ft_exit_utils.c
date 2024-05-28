@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_exit_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 15:18:27 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/28 14:06:17 by eltouma          ###   ########.fr       */
+/*   Created: 2024/05/28 14:09:05 by eltouma           #+#    #+#             */
+/*   Updated: 2024/05/28 14:13:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-
-int	ft_isalnum(int c)
+void	ft_clean_exit(t_data *data, t_cmds *cmds)
 {
-	return (ft_isalpha(c) || ft_isdigit(c));
+	ft_dup2_and_close_stdin_stdout(data, cmds);
+	ft_free_tab(cmds->cmd_path);
+	ft_free_tab(data->mini_env);
+	ft_clean_all(data);
 }
-
-/*
-int     ft_isalnum(int c)
-{
-        if (ft_isalpha(c) != 0 || ft_isdigit(c) != 0)
-                return (8);
-        return (0);
-}
-*/
