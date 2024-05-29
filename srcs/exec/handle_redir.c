@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 18:37:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 18:18:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
 	int	i = 1;
+	int	count = 0;
 
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
@@ -70,14 +71,15 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_handle_append(data, cmds);
 		if (cmds->redir->type == HEREDOC)
 		{
-			cmds->here_doc = open(cmds->name, O_RDONLY, 0755);
-			unlink(cmds->name);
-			free(cmds->name);
-			dprintf(2, "on est sur le dernier heredoc\n\n");
-			if (dup2(cmds->here_doc, 0) == -1)
-				ft_handle_dup2_error(data, cmds);
-			if (close(cmds->here_doc) == -1)
-				ft_handle_close_error(data, cmds);
+			count += 1;
+			if (count == cmds->here_doc_count)
+			{
+				dprintf(2, "on passe ici\n");
+				if (dup2(cmds->here_doc, 0) == -1)
+					ft_handle_dup2_error(data, cmds);
+				if (close(cmds->here_doc) == -1)
+					ft_handle_close_error(data, cmds);
+			}
 		}
 		if (cmds->redir->type == RED_IN)
 		{
