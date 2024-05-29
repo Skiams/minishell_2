@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_one_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 17:46:35 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:29:56 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 {
 	(void)env;
+	ft_handle_signal(2);
 	dprintf(2, "Je suis dans one NO BUILT_IN cmd\n");
 	cmds->pid = fork();
 	if (cmds->pid == -1)
@@ -27,6 +28,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 		while (cmds->i++ < cmds->cmd_count)
 			ft_waitpid_only_one_cmd(cmds);
 	}
+	ft_handle_signal(1);
 	return (ft_exit_code(0, GET));
 }
 

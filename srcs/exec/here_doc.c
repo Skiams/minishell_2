@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 18:35:28 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 17:03:01 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_restore_stdin(t_data *data, t_cmds *cmds)
 		ft_putstr_fd("> ", cmds->dev_stdin);
 }
 
-// implementer les signaux
+//implementer les signaux
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc *heredoc)
 {
 	char	*line;
@@ -150,8 +150,10 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 			ft_putstr_fd(str, cmds->fd_w);
 			free(str);
 			free(line);
+			free(str);
 		}
-		free(line); 
+		if (line)
+			free(line); 
 		free(delimiter);
 		if (close(cmds->fd_w) == -1)
 			ft_handle_infile_error(data, cmds);
@@ -171,5 +173,5 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		ft_handle_infile_error(data, cmds);
 	if (close(cmds->here_doc) == -1 || return_status)
 		ft_handle_infile_error(data, cmds);
-	ft_handle_signal();
+	ft_handle_signal(1);
 }

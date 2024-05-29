@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/23 20:13:01 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/28 19:06:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,14 @@ typedef enum e_token_tp
 	WORD,
 	WHITESPACE,
 }	t_token_tp;
+
+typedef struct s_hd
+{
+	char		*hdname;
+	struct s_hd	*next;
+	struct s_hd	*prev;
+}	t_hd;
+
 
 typedef struct s_env
 {
@@ -96,6 +104,7 @@ typedef struct s_data
 	t_cmds	*cmd_list;
 	t_env	*env;
 	t_env	*env_export;
+	t_hd	*hd_list;
 }	t_data;
 
 #endif

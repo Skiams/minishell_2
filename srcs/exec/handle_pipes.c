@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 22:48:31 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:32:53 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	ft_fork_built_in_pipes(t_data *data, t_cmds *cmds, char **env)
 static	void	ft_fork_no_built_in(t_data *data, t_cmds *cmds, char **env)
 {
 	(void)env;
+	ft_handle_signal(2);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -77,4 +78,5 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 	dprintf(2, "\n666\n");
 	while (cmds->i++ < cmds->cmd_count)
 		ft_waitpid(cmds);
+	ft_handle_signal(1);
 }

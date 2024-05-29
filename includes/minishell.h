@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/28 15:03:17 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/29 15:34:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,10 @@ void	ft_syntax_error(char *str);
 // SIGNALS
 
 void	ft_cc_handler(int sig);
-void	ft_handle_signal();
+void	ft_handle_signal(int code);
 void	ft_handle_sig_heredoc(void);
 void	ft_cc_heredoc(int sig);
+void	ft_cc_blocking(int sig);
 
 // CLEAN & EXIT
 
@@ -144,5 +145,12 @@ void	print_tab(char **tab);
 void	print_env(t_env *env_lst);
 void	print_cmds(t_cmds *cmd_list);
 void	print_redir(t_redir *redir);
+
+void	ft_lstclear_hd(t_hd **hd_lst, void (*del)(void *));
+void	ft_lstdelone_hd(t_hd *hd, void (*del)(void *));
+t_hd	*ft_last_hd(t_hd *hd);
+void	lst_add_back_hd(t_hd **hd_lst, t_hd *hd);
+t_hd	*lst_new_hd(char *name);
+
 
 #endif
