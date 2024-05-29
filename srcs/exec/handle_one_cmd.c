@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_one_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/29 19:26:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 23:46:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
 		while (cmds->i++ < cmds->cmd_count)
 			ft_waitpid_only_one_cmd(cmds);
 	}
-	if (close(cmds->here_doc) == -1)
+	if (cmds->here_doc_count > 0 && close(cmds->here_doc) == -1)
 		ft_handle_close_error(data, cmds);
 	ft_handle_signal(1);
 	return (ft_exit_code(0, GET));

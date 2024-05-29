@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/29 18:18:33 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 23:46:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 		char	*delimiter;
         pid_t   pid;
         int     status;
+	//	char *tmp;
 
 	// if (!cmds->cmd)
 	// {
@@ -229,7 +230,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 					break ;
 				ft_putstr_fd(line, cmds->fd_w);
 				free(line);
-
 			}
 			free(line); 
 			free(delimiter);
@@ -249,5 +249,4 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 			return_status = 1;
 		if (close(cmds->fd_w) == -1 || return_status)
 			ft_handle_infile_error(data, cmds);
-
 }
