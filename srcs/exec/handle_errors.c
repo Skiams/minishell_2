@@ -16,9 +16,9 @@
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
 	dprintf(2, "ft_exit_properly()\n");
-	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
-	if (cmds->name)
-		ft_free_ptr(cmds->name);
+	//ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+	// if (cmds->name)
+	// 	ft_free_ptr(cmds->name);
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
