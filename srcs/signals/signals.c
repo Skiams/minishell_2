@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:41:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 14:43:06 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/29 15:39:07 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,32 @@ void	ft_cc_handler(int sig)
 	ft_exit_code(130, ADD);
 }
 
-void	ft_cc_heredoc(int sig)
+void	ft_cc_blocking(int sig)
 {
 	(void)sig;
 	ft_putchar(1, '\n');
-	close(0);
 	g_sig_exit = 2;
 	ft_exit_code(130, ADD);
 }
 
-void	ft_handle_signal(void)
+void	ft_bckslsh_handler(int sig)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ft_cc_handler);
+	(void)sig;
+	ft_putstr_fd("Quit (core dumped)\n", 1);
+	ft_exit_code(131, ADD);
 }
 
-void	ft_handle_sig_heredoc(void)
+void	ft_handle_signal(int code)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ft_cc_heredoc);
+	if (code == 1)
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &ft_cc_handler);
+	}
+	if (code == 2)
+	{
+		dprintf(2, "on est dans le code 2\n");
+		signal(SIGQUIT, &ft_bckslsh_handler);
+		signal(SIGINT, &ft_cc_blocking);
+	}
 }
