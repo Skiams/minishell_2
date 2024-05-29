@@ -131,7 +131,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 
 	//make the file invisible for everybody
 //	unlink(cmds->name);
-	//ft_free_ptr(cmds->name);
+//	ft_free_ptr(cmds->name);
 	pid = fork();
 	if (pid == 0) //child-> ecrit dans le heredoc
 	{
@@ -148,6 +148,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir) //, t_heredoc 
 				break ;
 			str = ft_strjoin(line, "\n");
 			ft_putstr_fd(str, cmds->fd_w);
+			free(str);
 			free(line);
 			free(str);
 		}
