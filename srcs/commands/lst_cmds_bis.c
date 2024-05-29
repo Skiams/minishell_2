@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 16:02:55 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/19 18:34:28 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 17:17:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_lstsize_cmd(t_cmds *cmds)
 {
-	int	i;
+	int		i;
 	t_cmds	*tmp;
 
 	i = 0;

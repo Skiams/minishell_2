@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:53 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/23 16:22:27 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/29 17:11:29 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 # define PIPEX_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-# include "structures.h"
+# include "get_next_line/get_next_line.h"
 # include "minishell.h"
 # include "printf/srcs/ft_printf.h"
-# include "get_next_line/get_next_line.h"
+# include "structures.h"
+# include <errno.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
-# define WARNING	 " → Warning\n"
-# define CORRECT_ARGV		" Please enter correct arguments:\n"
-# define ARROW	"\t→ "
+# define WARNING " → Warning\n"
+# define CORRECT_ARGV " Please enter correct arguments:\n"
+# define ARROW "\t→ "
 
 int		ft_exec(t_data *data, t_cmds *cmds, char **env);
-int     	ft_is_a_built_in(char *str);
-void    ft_exec_built_in(t_data *data, t_cmds *cmds);
+int		ft_is_a_built_in(char *str);
+void	ft_exec_built_in(t_data *data, t_cmds *cmds);
 void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env);
 
 void	ft_close_processes(t_cmds *cmds);
@@ -40,7 +40,8 @@ void	ft_waitpid_only_one_cmd(t_cmds *cmds);
 void	ft_waitpid(t_cmds *cmds);
 
 char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args);
-char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args);
+char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd,
+			char **args);
 
 void	ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error);
 
@@ -53,7 +54,7 @@ void	ft_handle_execve_error(t_data *data, t_cmds *cmds);
 void	ft_exit_properly(t_data *data, t_cmds *cmds);
 
 void	ft_dup_stdin_stdout(t_data *data, t_cmds *cmds);
-//void	ft_handle_dup_error(t_data *data, t_cmds *cmds);
+// void	ft_handle_dup_error(t_data *data, t_cmds *cmds);
 void	ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds);
 void	ft_handle_dup2_error(t_data *data, t_cmds *cmds);
 
@@ -62,10 +63,10 @@ void	ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2);
 void	ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
 
 void	ft_handle_processes(t_data *data, t_cmds *cmd, char **env);
-int     	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
-//int     	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env);
-int	ft_is_no_cmd(t_data *data, t_cmds *cmds);
-//void	ft_handle_first_cmd(t_data *data, t_cmds *cmds);
+int		ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env);
+// int     	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env);
+int		ft_is_no_cmd(t_data *data, t_cmds *cmds);
+// void	ft_handle_first_cmd(t_data *data, t_cmds *cmds);
 void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env);
 
 void	ft_handle_redir_without_cmd(t_data *data, t_cmds *cmds);
@@ -77,7 +78,7 @@ void	ft_check_here_doc(t_data *data, t_cmds *cmds);
 int		ft_count_here_doc(t_cmds *cmds);
 void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
 void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir);
-//void	ft_open_here_doc(t_data *data, t_cmds *cmds); //, t_redir *redir);
+// void	ft_open_here_doc(t_data *data, t_cmds *cmds); //, t_redir *redir);
 
 int		ft_count_words(char *str);
 int		ft_count_size_of_word(char *str);
