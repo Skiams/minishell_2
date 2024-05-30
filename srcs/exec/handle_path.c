@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 15:11:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/30 15:09:09 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 		data->mini_env = NULL;
 		cmds = cmds->next;
 	}
-//	ft_free_tab(cmds->cmd_path);
 	dprintf(2, "on est avant le clean all de ft free\n");
 	ft_clean_all(data);
 }

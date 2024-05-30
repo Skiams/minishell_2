@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/29 15:32:53 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/30 16:27:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	ft_fork_built_in_pipes(t_data *data, t_cmds *cmds, char **env)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 		ft_handle_processes(data, cmds, NULL);
+	if (cmds->here_doc_count > 0 && close(cmds->here_doc) == -1)
+		ft_handle_close_error(data, cmds);
 	//ft_handle_processes(data, cmds, data->mini_env);
 	ft_waitpid_only_one_cmd(cmds);
 }
@@ -68,7 +70,9 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 		else
 			ft_fork_no_built_in(data, cmds, NULL);
 		//ft_fork_no_built_in(data, cmds, data->env);
+//		pas la
 		ft_swap_pipes(data, cmds);
+//		pas la
 		if (cmds->next == NULL)
 			break ;
 		cmds = cmds->next;
@@ -76,6 +80,8 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds, char **env)
 	cmds = tmp;
 	cmds->i = 0;
 	dprintf(2, "\n666\n");
+//	if (cmds->here_doc_count > 0 && close(cmds->here_doc) == -1)
+//		ft_handle_close_error(data, cmds);
 	while (cmds->i++ < cmds->cmd_count)
 		ft_waitpid(cmds);
 	ft_handle_signal(1);

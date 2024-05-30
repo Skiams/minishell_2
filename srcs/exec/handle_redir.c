@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 14:29:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/30 17:21:51 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,11 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	tmp = cmds->redir;
 	dprintf(2, "il y a %d here_doc\n", cmds->here_doc_count);
 	dprintf(2, "je suis dans handle_redir\n");
-
-	while (cmds->redir != NULL)
+	while (tmp != NULL)
 	{
-		if (cmds->redir->type == APPEND)
+		if (tmp->type == APPEND)
 			ft_handle_append(data, cmds);
-		if (cmds->redir->type == HEREDOC)
+		if (tmp->type == HEREDOC)
 		{
 			count += 1;
 			if (count == cmds->here_doc_count)
@@ -80,15 +79,15 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 				if (close(cmds->here_doc) == -1)
 					ft_handle_close_error(data, cmds);
 			}
+			fprintf(stderr,"{{{{%i}}}}[%i]\n", cmds->here_doc, cmds->here_doc_count);
 		}
-		if (cmds->redir->type == RED_IN)
+		if (tmp->type == RED_IN)
 		{
-			dprintf(2, "je suis dans une redir de type 3\n");
-			if (access(cmds->redir->path, F_OK) == 0)
+			if (access(tmp->path, F_OK) == 0)
 				ft_handle_input_redir(data, cmds);
 			else if (ft_is_a_built_in(cmds->cmd))
 			{	
-				ft_putstr_fd(cmds->redir->path, 2);
+				ft_putstr_fd(tmp->path, 2);
 				ft_putstr_fd(": LALALA No such file or directory\n", 2);
 				if (cmds->args[i])
 				{
@@ -103,11 +102,10 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 			else
 				ft_handle_infile_error(data, cmds);
 		}
-		if (cmds->redir->type == RED_OUT)
+		if (tmp->type == RED_OUT)
 			ft_handle_output_redir(data, cmds);
-		cmds->redir = cmds->redir->next;
+		tmp = tmp->next;
 	}
-	cmds->redir = tmp;
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
