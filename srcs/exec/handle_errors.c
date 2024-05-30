@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 18:05:28 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:35:09 by eltouma          ###   ########.fr       */
 
 /*                                                                            */
 /* ************************************************************************** */
@@ -16,9 +16,9 @@
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
 	dprintf(2, "ft_exit_properly()\n");
-	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
-	if (cmds->name)
-		ft_free_ptr(cmds->name);
+//	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+//	if (cmds->name)
+//		ft_free_ptr(cmds->name);
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
