@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 17:18:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/30 17:41:00 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,9 @@ int	ft_exec(t_data *data, t_cmds *cmds, char **env)
 	(cmds->name) ? dprintf(2, "Manifestement, om a un name\n") : dprintf(2, "On n'a plus de name, il est bien free t'as vu\n");
 	return (ft_exit_code(0, GET));
 }
+/*
+TESTS QUI NE MARCHENT PAS 
+
+cat << a <, a | cat << a <, a
+cat << a << b << c | echo << a << b << c
+*/
