@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:10:38 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/28 15:10:46 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/30 15:26:17 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	ft_handle_execve_error(t_data *data, t_cmds *cmds)
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
+		cmds->cmd_path = NULL;
 		ft_free_tab(data->mini_env);
+		data->mini_env = NULL;
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);

@@ -3,35 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 14:35:09 by eltouma          ###   ########.fr       */
-
+/*   Created: 2024/05/30 15:22:46 by eltouma           #+#    #+#             */
+/*   Updated: 2024/05/30 17:12:22 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// Attention le code de sortie est le bon pour le max de here_doc atteint, 
+// mais a voir s'il faut le changer pour d' autres erreurs
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "ft_exit_properly()\n");
-//	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
-//	if (cmds->name)
-//		ft_free_ptr(cmds->name);
+	dprintf(2, "function name:%s\n", __func__);
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
 		ft_free_tab(data->mini_env);
+		fprintf(stderr, "add %p add2 %p\n", cmds->redir, &cmds->redir);
+		ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+		free(cmds->redir);
 		cmds->cmd_path = NULL;
 		data->mini_env = NULL;
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);
 	ft_exit_code(1, ADD);
-	dprintf(2, "\n\n");
-	//	print_cmds(cmds);
-	// Attention le code de sortie est le bon pour le max de here_doc atteint, mais a voir s'il faut le changer pour d' autres erreurs
 	exit (2);
 }
 
@@ -68,11 +66,7 @@ void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 	else
 	{
 		if (cmds->cmd_count == 1)
-		{
-			dprintf(2, "COUCOU, NOUS SOMMES LA\n");
-	//		dprintf(2, "cmds->args[0] %s\n", cmds->args[0]);
 			ft_waitpid_only_one_cmd(cmds);
-		}
 		else
 			ft_waitpid(cmds);
 		ft_exit_properly(data, cmds);

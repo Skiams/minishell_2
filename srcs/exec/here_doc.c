@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 14:42:35 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/30 17:22:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,28 @@ void	ft_restore_stdin(t_data *data, t_cmds *cmds)
 	else
 		ft_putstr_fd("> ", cmds->dev_stdin);
 }
+// cat << a << b << c | cat << a << b << c
+void closehdinfork(t_cmds *headcmds, t_cmds *me)
+{
+	t_redir	*head;
+	t_cmds *copy = headcmds;
+	while (copy != NULL && copy != me)
+	{
+		head = copy->redir;
+		while (head != NULL)
+		{
+			if (head->type == 2)
+			{
+				fprintf(stderr, "trying to close %i\n", copy->here_doc);
+				close(copy->here_doc);
+			}
+			head = head->next;
+		}
+		copy = copy->next;
+	}
+}
 
-void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
+void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir, t_cmds *headcmds)
 {
 	char	*line;
 	char	*str;
@@ -122,9 +142,11 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	ft_free_ptr(cmds->tmp_file);
 	ft_free_ptr(cmds->index);
 	cmds->i += 1;
+	fprintf(stderr,"before %i\n", cmds->here_doc);
 	if (cmds->here_doc)
 		close (cmds->here_doc);//secure
 	cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY| O_TRUNC, 0755);
+	fprintf(stderr,"heredoc nb %i\n", cmds->here_doc);
 	cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 
 	//make the file invisible for everybody
@@ -135,6 +157,8 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 
 	if (pid == 0) //child-> ecrit dans le heredoc
 	{
+		(void)headcmds;
+		closehdinfork(headcmds, cmds);		
 		close (cmds->here_doc);//safe
 		delimiter = ft_strdup(redir->path);
 		while (1)

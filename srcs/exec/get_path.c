@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 15:08:31 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/30 15:19:59 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_is_space(char c)
 
 static int	ft_lstsize_env(t_env *env)
 {
-	int	i;
+	int		i;
 	t_env	*tmp;
 
 	i = 0;
@@ -37,108 +37,107 @@ static int	ft_lstsize_env(t_env *env)
 	return (i);
 }
 
-int     ft_count_words2(char *str)
+int	ft_count_words2(char *str)
 {
-        size_t  i;
-        size_t  j;
+	size_t	i;
+	size_t	j;
 
-        i = 0;
-        j = 0;
+	i = 0;
+	j = 0;
 	while (i < ft_strlen(str))
-        {
-                if (!ft_is_space(str[i]))
-                        j += 1;
-                while (!ft_is_space(str[i]) && str[i] != '\0')
-                        i += 1;
-                while (ft_is_space(str[i]) && str[i] != '\0')
-                        i += 1;
-        }
-        return (j);
+	{
+		if (!ft_is_space(str[i]))
+			j += 1;
+		while (!ft_is_space(str[i]) && str[i] != '\0')
+			i += 1;
+		while (ft_is_space(str[i]) && str[i] != '\0')
+			i += 1;
+	}
+	return (j);
 }
 
-int     ft_count_size_of_word2(char *str)
+int	ft_count_size_of_word2(char *str)
 {
-        int     i;
+	int	i;
 
-        i = 0;
+	i = 0;
 	while (!ft_is_space(str[i]) && str[i] != '\0')
-                i += 1;
-        return (i);
+		i += 1;
+	return (i);
 }
 
-char    *ft_fill_tab2(char *str)
-{               
-        int             i;
-        int             size;
-        char    *s;
-                
-        i = 0;
-        if (!str)
-                return (NULL);
-        size = ft_count_size_of_word2(str);
-        s = (char *)malloc(sizeof(char) * size + 1);
-        if (!s)
-                return (NULL);
-	 while (str[i] != '\0' && !ft_is_space(str[i]))
-        {
-                s[i] = str[i];
-                i += 1;
-        }
-        s[i] = '\0';
-        return (s);
-}        
-
-char    *ft_fill_tab3(char *str)
-{               
-        int             i;
-        int             size;
-        char    *s;
-                
-        i = 0;
-        if (!str)
-                return (NULL);
-        size = ft_count_size_of_word2(str);
-        s = (char *)malloc(sizeof(char) * size + 1);
-        if (!s)
-                return (NULL);
-	 while (str[i] != '\0' && str[i] != 58 && !ft_is_space(str[i]))
-        {
-                s[i] = str[i];
-                i += 1;
-        }
-        s[i] = '\0';
-        return (s);
-}        
-
-char    **ft_split_exec2(char *str)
+char	*ft_fill_tab2(char *str)
 {
-        int             j;
-        char    **tab; 
+	int		i;
+	int		size;
+	char	*s;
 
-        j = 0;
-        if (!str)
-                return (NULL);
-        tab = ft_return_tab(str);
-        if (!tab)
-                return (NULL);
-        tab[ft_count_words(str)] = NULL;
-        while (*str != '\0')
-        {
-                if (!ft_is_space(*str) && *str != 58)
-                {
-                        tab[j] = ft_fill_tab3(str);
-                        if (!tab[j++])
-                                return (ft_free_tab(tab));
-                        while (*str != '\0' && *str != 58
-                                && !(ft_is_space(*str)))
-                                str += 1;
-                }
-                else
-                        str += 1;
-        }
-        return (tab);
+	i = 0;
+	if (!str)
+		return (NULL);
+	size = ft_count_size_of_word2(str);
+	s = (char *)malloc(sizeof(char) * size + 1);
+	if (!s)
+		return (NULL);
+	while (str[i] != '\0' && !ft_is_space(str[i]))
+	{
+		s[i] = str[i];
+		i += 1;
+	}
+	s[i] = '\0';
+	return (s);
 }
 
+char	*ft_fill_tab3(char *str)
+{
+	int		i;
+	int		size;
+	char	*s;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	size = ft_count_size_of_word2(str);
+	s = (char *)malloc(sizeof(char) * size + 1);
+	if (!s)
+		return (NULL);
+	while (str[i] != '\0' && str[i] != 58 && !ft_is_space(str[i]))
+	{
+		s[i] = str[i];
+		i += 1;
+	}
+	s[i] = '\0';
+	return (s);
+}
+
+char	**ft_split_exec2(char *str)
+{
+	int		j;
+	char	**tab;
+
+	j = 0;
+	if (!str)
+		return (NULL);
+	tab = ft_return_tab(str);
+	if (!tab)
+		return (NULL);
+	tab[ft_count_words(str)] = NULL;
+	while (*str != '\0')
+	{
+		if (!ft_is_space(*str) && *str != 58)
+		{
+			tab[j] = ft_fill_tab3(str);
+			if (!tab[j++])
+				return (ft_free_tab(tab));
+			while (*str != '\0' && *str != 58
+				&& !(ft_is_space(*str)))
+				str += 1;
+		}
+		else
+			str += 1;
+	}
+	return (tab);
+}
 
 static char	**ft_return_tab_size(int size)
 {
@@ -152,9 +151,8 @@ static char	**ft_return_tab_size(int size)
 
 char	**ft_return_mini_env(t_data *data, t_env *env)
 {
-	dprintf(2, "JE SUIS DANS MINI_ENV\n");
-	int     i;
-	int	size;
+	int		i;
+	int		size;
 	char	*var;
 	char	*val;
 	t_env	*tmp;
