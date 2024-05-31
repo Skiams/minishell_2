@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 16:06:06 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:59:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_fill_tab_colon(char *str)
 	i = 0;
 	if (!str)
 		return (NULL);
-	size = ft_count_size_of_word(str);
+	size = ft_count_size_of_word_colon(str);
 	s = (char *)malloc(sizeof(char) * size + 1);
 	if (!s)
 		return (NULL);
@@ -50,7 +50,7 @@ char	*ft_fill_tab(char *str)
 	i = 0;
 	if (!str)
 		return (NULL);
-	size = ft_count_size_of_word2(str);
+	size = ft_count_size_of_word(str);
 	s = (char *)malloc(sizeof(char) * size + 1);
 	if (!s)
 		return (NULL);
