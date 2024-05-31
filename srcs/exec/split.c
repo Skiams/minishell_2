@@ -6,21 +6,20 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/28 15:12:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/31 16:06:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-int     ft_is_space(char c)
+int	ft_is_space(char c)
 {
-        if ((c >= 9 && c <= 13) || c == 32)
-                return (1);
-        return (0);
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
 }
-*/
-char	*ft_fill_tab(char *str)
+
+char	*ft_fill_tab_colon(char *str)
 {
 	int		i;
 	int		size;
@@ -33,8 +32,29 @@ char	*ft_fill_tab(char *str)
 	s = (char *)malloc(sizeof(char) * size + 1);
 	if (!s)
 		return (NULL);
-	while (str[i] != '\0' && str[i] != 58 && str[i] != 32
-		&& !(str[i] >= 9 && str[i] <= 13))
+	while (str[i] != '\0' && str[i] != 58 && !ft_is_space(str[i]))
+	{
+		s[i] = str[i];
+		i += 1;
+	}
+	s[i] = '\0';
+	return (s);
+}
+
+char	*ft_fill_tab(char *str)
+{
+	int		i;
+	int		size;
+	char	*s;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	size = ft_count_size_of_word2(str);
+	s = (char *)malloc(sizeof(char) * size + 1);
+	if (!s)
+		return (NULL);
+	while (str[i] != '\0' && !ft_is_space(str[i]))
 	{
 		s[i] = str[i];
 		i += 1;
@@ -55,24 +75,6 @@ char	**ft_return_tab(char *str)
 	return (tab);
 }
 
-void	*ft_free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return (NULL);
-	while (tab[i])
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i += 1;
-	}
-	free(tab);
-	tab = NULL;
-	return (NULL);
-}
-
 char	**ft_split_exec(char *str)
 {
 	int		j;
@@ -87,13 +89,12 @@ char	**ft_split_exec(char *str)
 	tab[ft_count_words(str)] = NULL;
 	while (*str != '\0')
 	{
-		if (!(*str >= 9 && *str <= 13) && *str != 32 && *str != 58)
+		if (!ft_is_space(*str) && *str != 58)
 		{
-			tab[j] = ft_fill_tab(str);
+			tab[j] = ft_fill_tab_colon(str);
 			if (!tab[j++])
 				return (ft_free_tab(tab));
-			while (*str != '\0' && *str != 58 && *str != 32
-				&& !(*str >= 9 && *str <= 13))
+			while (*str != '\0' && *str != 58 && !(ft_is_space(*str)))
 				str += 1;
 		}
 		else

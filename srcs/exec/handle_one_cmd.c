@@ -6,24 +6,22 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 17:37:55 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:45:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
+static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 {
-	(void)env;
 	ft_handle_signal(2);
-	dprintf(2, "Je suis dans one NO BUILT_IN cmd\n");
+	dprintf(2, " -> %s\n", __func__);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
-		ft_exec_cmds(data, cmds, data->mini_env);
-	else if (cmds->pid > 0)
-		ft_waitpid_only_one_cmd(cmds);
+		ft_exec_cmds(data, cmds);
+	ft_waitpid_only_one_cmd(cmds);
 	if (cmds->here_doc > 0 && close(cmds->here_doc) == -1)
 		ft_handle_close_error(data, cmds);
 	ft_handle_signal(1);
@@ -45,6 +43,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds, char **env)
  */
 static int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 {
+	dprintf(2, " -> %s\n", __func__);
 	ft_dup_stdin_stdout(data, cmds);
 	if (cmds->redir)
 		ft_handle_redir(data, cmds);
@@ -58,10 +57,9 @@ static int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 }
 
 // Voir avec Antoine le code erreur
-int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
+int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds)
 {
-	(void)env;
-	dprintf(2, "Je suis dans only_one_cmd\n");
+	dprintf(2, " -> %s\n", __func__);
 	ft_get_path(data, cmds);
 	if (!ft_strcmp(cmds->cmd, ":") || !ft_strcmp(cmds->cmd, "!"))
 	{
@@ -71,13 +69,12 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds, char **env)
 	if (!cmds->args)
 	{
 		ft_dup_stdin_stdout(data, cmds);
-		ft_handle_redir_without_cmd(data, cmds);
+		ft_handle_redir(data, cmds);
 		ft_dup2_and_close_stdin_stdout(data, cmds);
 		return (ft_exit_code(0, GET));
 	}
 	if (ft_is_a_built_in(cmds->cmd))
 		return (ft_only_one_built_in(data, cmds));
 	else
-		return (ft_one_no_built_in_cmd(data, cmds, NULL));
-		//return (ft_one_no_built_in_cmd(data, cmds, data->env));
+		return (ft_one_no_built_in_cmd(data, cmds));
 }

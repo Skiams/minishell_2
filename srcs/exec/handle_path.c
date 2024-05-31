@@ -6,38 +6,18 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 15:09:09 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:11:34 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
-{
-	t_cmds	*cmds;
-
-	cmds = tmp;
-	ft_putstr_fd("ft_free\n\n", 2);
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error, 2);
-	while (cmds && cmds != NULL)
-	{
-		ft_free_tab(cmds->cmd_path);
-		ft_free_tab(data->mini_env);
-		cmds->cmd_path = NULL;
-		data->mini_env = NULL;
-		cmds = cmds->next;
-	}
-	dprintf(2, "on est avant le clean all de ft free\n");
-	ft_clean_all(data);
-}
-
+/*
 char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 {
+	// supprimer char *cmd et peut-etre args
+	dprintf(2, "cmd = %s\n", cmd);
 	char	*tmp;
-	(void)data;
 
 	tmp = ft_strjoin(cmd, "/");
 	if (!tmp)
@@ -56,11 +36,13 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 	free(tmp);
 	return (ft_strdup(cmd));
 }
+*/
 
 static int	ft_is_a_directory(char *argv)
 {
 	char	*tmp;
 
+	dprintf(2, " -> %s\n", __func__);
 	tmp = ft_strjoin(argv, "/");
 	if (!tmp)
 		return (1);
@@ -77,7 +59,8 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 {
 	char	*tmp;
 	char	*tmp2;
-	
+
+	dprintf(2, " -> %s\n", __func__);
 	while (cmds->cmd_path && cmds->cmd_path[i])
 	{
 		tmp = ft_strjoin(cmds->cmd_path[i++], "/");
@@ -104,6 +87,7 @@ char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 {
 	int	i;
 
+	dprintf(2, " -> %s\n", __func__);
 	i = 0;
 	if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/'))
 		ft_handle_no_file_or_dir(data, cmds, cmd);
@@ -115,8 +99,8 @@ char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 			ft_handle_directory(data, cmds, cmd, args);
 		if (access(cmd, X_OK) != 0)
 			ft_handle_rights(data, cmds, cmd, NULL);
-		else
-			return (ft_get_absolute_path(data, cmds, cmd, args));
+//		else
+//			return (ft_get_absolute_path(data, cmds, cmd, args));
 		return (NULL);
 	}
 	return (ft_handle_path(data, cmds, cmd, i));

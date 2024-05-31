@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 18:37:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 18:38:09 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:57:54 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_print_cd_error(char **args)
 		ft_putstr_fd("string not in pwd: ", 2);
 	else
 	{
-		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(strerror(errno), 2);
 	}
-	ft_putstr_fd(args[1], 2);
 	ft_putstr_fd("\n", 2);
 }

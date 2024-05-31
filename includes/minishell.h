@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/29 17:10:41 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/31 17:01:45 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+# define WARNING " → Warning\n"
+# define CORRECT_ARGV " Please enter correct arguments:\n"
+# define ARROW "\t→ "
 
 extern int	g_sig_exit;
 
@@ -107,6 +111,35 @@ bool		ft_add_var_and_value_bis(t_data *data, char *var, char *value,
 				int code);
 int			ft_export_bis(t_data *data, char *dup_arg, int code);
 bool		ft_add_var_env(t_data *data, char *str, int code);
+
+// EXEC
+	// exec_cmds
+int			ft_exec(t_data *data, t_cmds *cmds);
+int			ft_is_only_one_cmd(t_data *data, t_cmds *cmds);
+void		ft_handle_pipes(t_data *data, t_cmds *cmds);
+void		ft_handle_processes(t_data *data, t_cmds *cmd);
+int			ft_is_a_built_in(char *str);
+void		ft_exec_built_in(t_data *data, t_cmds *cmds);
+void		ft_exec_cmds(t_data *data, t_cmds *cmds);
+
+	// redirections
+void		ft_handle_redir(t_data *data, t_cmds *cmds);
+void		ft_handle_output_and_append_redir(t_data *data, t_cmds *cmds);
+void		ft_handle_input_redir(t_data *data, t_cmds *cmds);
+
+	// split
+int			ft_is_space(char c);
+int			ft_count_words(char *str);
+int			ft_count_size_of_word(char *str);
+int			ft_count_size_of_word2(char *str);
+char		*ft_fill_tab(char *str);
+char		*ft_fill_tab_colon(char *str);
+char		**ft_return_tab(char *str);
+char		**ft_split_exec(char *str);
+
+	// free
+void		ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error);
+void		*ft_free_tab(char **tab);
 
 // UTILS
 
