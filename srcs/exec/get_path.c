@@ -6,18 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 15:19:59 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 16:28:22 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	ft_is_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
 
 static int	ft_lstsize_env(t_env *env)
 {
@@ -66,79 +59,6 @@ int	ft_count_size_of_word2(char *str)
 	return (i);
 }
 
-char	*ft_fill_tab2(char *str)
-{
-	int		i;
-	int		size;
-	char	*s;
-
-	i = 0;
-	if (!str)
-		return (NULL);
-	size = ft_count_size_of_word2(str);
-	s = (char *)malloc(sizeof(char) * size + 1);
-	if (!s)
-		return (NULL);
-	while (str[i] != '\0' && !ft_is_space(str[i]))
-	{
-		s[i] = str[i];
-		i += 1;
-	}
-	s[i] = '\0';
-	return (s);
-}
-
-char	*ft_fill_tab3(char *str)
-{
-	int		i;
-	int		size;
-	char	*s;
-
-	i = 0;
-	if (!str)
-		return (NULL);
-	size = ft_count_size_of_word2(str);
-	s = (char *)malloc(sizeof(char) * size + 1);
-	if (!s)
-		return (NULL);
-	while (str[i] != '\0' && str[i] != 58 && !ft_is_space(str[i]))
-	{
-		s[i] = str[i];
-		i += 1;
-	}
-	s[i] = '\0';
-	return (s);
-}
-
-char	**ft_split_exec2(char *str)
-{
-	int		j;
-	char	**tab;
-
-	j = 0;
-	if (!str)
-		return (NULL);
-	tab = ft_return_tab(str);
-	if (!tab)
-		return (NULL);
-	tab[ft_count_words(str)] = NULL;
-	while (*str != '\0')
-	{
-		if (!ft_is_space(*str) && *str != 58)
-		{
-			tab[j] = ft_fill_tab3(str);
-			if (!tab[j++])
-				return (ft_free_tab(tab));
-			while (*str != '\0' && *str != 58
-				&& !(ft_is_space(*str)))
-				str += 1;
-		}
-		else
-			str += 1;
-	}
-	return (tab);
-}
-
 static char	**ft_return_tab_size(int size)
 {
 	char	**tab;
@@ -169,9 +89,9 @@ char	**ft_return_mini_env(t_data *data, t_env *env)
 		var = ft_strjoin(env->var, "=");
 		val = ft_strjoin(var, env->value);
 		if (!ft_strcmp(env->var, "PATH"))
-			data->mini_env[i] = ft_fill_tab2(val);
-		else
 			data->mini_env[i] = ft_fill_tab(val);
+		else
+			data->mini_env[i] = ft_fill_tab_colon(val);
 		if (!data->mini_env[i])
 			return (ft_free_tab(data->mini_env));
 		ft_free_ptr(var);
@@ -189,6 +109,7 @@ static char	*ft_strncmp_exec(t_data *data, char *str, int n)
 	int	j;
 	int	k;
 
+	dprintf(2, " -> %s\n", __func__);
 	i = 0;
 	ft_return_mini_env(data, data->env);
 	if (!data->mini_env)
@@ -214,7 +135,7 @@ void	ft_get_path(t_data *data, t_cmds *cmds)
 	cmds->env_path = ft_strncmp_exec(data, "PATH=", 5);
 	if (cmds->env_path)
 	{
-		cmds->cmd_path = ft_split_exec2(cmds->env_path);
+		cmds->cmd_path = ft_split_exec(cmds->env_path);
 		if (!cmds->cmd_path)
 			return ;
 	}
