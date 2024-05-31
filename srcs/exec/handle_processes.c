@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 18:11:40 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:29:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 	}
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
 	dprintf(2, "\n\nLe fucking right path : %s\n", cmds->right_path);
+	ft_close_hd_in_fork(data->cmd_list, NULL);
 	execve(cmds->right_path, cmds->args, data->mini_env);
 	ft_handle_execve_error(data, cmds);
 }

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 18:07:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:54:15 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	ft_exec(t_data *data, t_cmds *cmds)
 /*
 TESTS QUI NE MARCHENT PAS 
 
-cat << a <, a | cat << a <, a
-cat << a << b << c | echo << a << b << c
-<< ok << ok << ok << ah << ls | cat << a << b << c << d | << ok << ah << d
-<< ok << ok << ok << ah << ls | << ok << ah << d
-<< Makefile cat < infile
+cat << a <, a | cat << a <, a													// OK 
+cat << a << b << c | echo << a << b << c										// OK
+<< ok << ok << ok << ah << ls | cat << a << b << c << d | << ok << ah << d		// OK
+<< ok << ok << ok << ah << ls | << ok << ah << d								// OK
+<< Makefile cat < infile														// OK
 	// => Affiche Makefile
-<< eof cat < infile
+<< eof cat < infile																// OK
 	// => eof no such file or directory
 */

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 18:45:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:42:48 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_read_here_doc(t_data *data, t_cmds *cmds, int *count)
 		if (close(cmds->here_doc) == -1)
 			ft_handle_close_error(data, cmds);
 	}
-	fprintf(stderr, "{{{{%i}}}}[%i]\n", cmds->here_doc, cmds->here_doc_count);
 }
 
 void	ft_handle_redir(t_data *data, t_cmds *cmds)
@@ -35,16 +34,18 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	dprintf(2, " -> %s\n", __func__);
 	while (tmp != NULL)
 	{
+		fprintf(stderr, "handle redir:->>>>>>>>>>>>>>> je suis [%s] et mon type %d\n", tmp->path, tmp->type);
 		if (tmp->type == APPEND)
 			ft_handle_output_and_append_redir(data, cmds);
 		if (tmp->type == HEREDOC)
 			ft_read_here_doc(data, cmds, &count);
 		if (tmp->type == RED_IN)
-			ft_handle_input_redir(data, cmds);
+			ft_handle_input_redir(data, cmds, tmp);
 		if (tmp->type == RED_OUT)
 			ft_handle_output_and_append_redir(data, cmds);
 		tmp = tmp->next;
 	}
+	ft_close_hd_in_fork(data->cmd_list, NULL);
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 }
 
@@ -63,11 +64,13 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
  * Mais depuis ton infile
  * Une fois qu'on a lu l'info, on n'a plus besoin de cet infile, donc on le close
  */
-void	ft_open_input_redir(t_data *data, t_cmds *cmds)
+void	ft_open_input_redir(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
-	cmds->infile = open(cmds->redir->path, O_RDONLY, 0755);
+	cmds->infile = open(tmp->path, O_RDONLY, 0755);
 	if (cmds->infile == -1)
+	{
 		ft_handle_file_error(data, cmds);
+	}
 	else
 	{
 		if (dup2(cmds->infile, 0) == -1)
@@ -77,16 +80,17 @@ void	ft_open_input_redir(t_data *data, t_cmds *cmds)
 	}
 }
 
-void	ft_handle_input_redir(t_data *data, t_cmds *cmds)
+void	ft_handle_input_redir(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
 	int	i;
 
 	i = 0;
-	if (access(cmds->redir->path, F_OK) == 0)
-		ft_open_input_redir(data, cmds);
+	fprintf(stderr, "jessaye d'input ce fichier la->>>>> [%s]\n", tmp->path);
+	if (access(tmp->path, F_OK) == 0)
+		ft_open_input_redir(data, cmds, tmp);
 	else if (ft_is_a_built_in(cmds->cmd))
 	{	
-		ft_putstr_fd(cmds->redir->path, 2);
+		ft_putstr_fd(tmp->path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		if (cmds->args[i])
 		{

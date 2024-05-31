@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 14:56:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:40:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static void	ft_fork_built_in_pipes(t_data *data, t_cmds *cmds)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 		ft_handle_processes(data, cmds);
-	if (cmds->here_doc_count > 0 && close(cmds->here_doc) == -1)
-		ft_handle_close_error(data, cmds);
+	ft_close_hd_in_fork(data->cmd_list, NULL);
 	ft_waitpid_only_one_cmd(cmds);
 }
 
@@ -54,21 +53,20 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds)
 	t_cmds	*tmp;
 
 	tmp = cmds;
-	while (cmds && cmds != NULL)
+	while (tmp && tmp != NULL)
 	{
-		ft_get_path(data, cmds);
-		if (pipe(cmds->curr_pipe) == -1)
-			ft_handle_pipe_error(data, cmds);
-		if (ft_is_a_built_in(cmds->cmd))
-			ft_fork_built_in_pipes(data, cmds);
+		ft_get_path(data, tmp);
+		if (pipe(tmp->curr_pipe) == -1)
+			ft_handle_pipe_error(data, tmp); 
+		if (ft_is_a_built_in(tmp->cmd))
+			ft_fork_built_in_pipes(data, tmp);
 		else
-			ft_fork_no_built_in(data, cmds);
-		ft_swap_pipes(data, cmds);
-		if (cmds->next == NULL)
-			break ;
-		cmds = cmds->next;
+			ft_fork_no_built_in(data, tmp);
+		ft_swap_pipes(data, tmp);
+		tmp = tmp->next;
+		fprintf(stderr,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>v\n");
 	}
-	cmds = tmp;
+	//cmds = tmp;
 	cmds->i = 0;
 	while (cmds->i++ < cmds->cmd_count)
 		ft_waitpid(cmds);
