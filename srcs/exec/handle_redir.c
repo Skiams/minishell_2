@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 17:15:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:45:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 /*
  * Pourquoi ce else ?
  *
- * Si ton infile n'existe pas, tu vas dans ft_handle_infile_error()
+ * Si ton infile n'existe pas, tu vas dans ft_handle_file_error()
  * et la deux options :
  * 	1 - tu es sur un built-in
  * 	2 - tu n'es pas sur un built-in
@@ -67,7 +67,7 @@ void	ft_open_input_redir(t_data *data, t_cmds *cmds)
 {
 	cmds->infile = open(cmds->redir->path, O_RDONLY, 0755);
 	if (cmds->infile == -1)
-		ft_handle_infile_error(data, cmds);
+		ft_handle_file_error(data, cmds);
 	else
 	{
 		if (dup2(cmds->infile, 0) == -1)
@@ -99,7 +99,7 @@ void	ft_handle_input_redir(t_data *data, t_cmds *cmds)
 		}
 	}
 	else
-		ft_handle_infile_error(data, cmds);
+		ft_handle_file_error(data, cmds);
 }
 
 void	ft_handle_output_and_append_redir(t_data *data, t_cmds *cmds)
@@ -112,7 +112,7 @@ void	ft_handle_output_and_append_redir(t_data *data, t_cmds *cmds)
 		flag = O_TRUNC;
 	cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT | flag, 0755);
 	if (cmds->outfile == -1)
-		ft_handle_infile_error(data, cmds);
+		ft_handle_file_error(data, cmds);
 	else
 	{
 		if (dup2(cmds->outfile, 1) == -1)

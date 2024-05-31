@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:22:46 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 14:48:01 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:43:13 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
  * le built-in ne s'execute que si on a un infile
  * Donc si l'infile != -1
  */
-void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
+void	ft_handle_file_error(t_data *data, t_cmds *cmds)
 {
 	dprintf(2, "function name:%s\n", __func__);
 	ft_putstr_fd("minishell: ", 2);
@@ -74,7 +74,8 @@ void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 	}
 }
 
-void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
+/*
+// void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
 {
 	perror(cmds->redir->path);
 	if (cmds->outfile != -1)
@@ -85,6 +86,7 @@ void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
 		ft_waitpid(cmds);
 	ft_exit_properly(data, cmds);
 }
+*/
 
 void	ft_handle_pipe_error(t_data *data, t_cmds *cmds)
 {

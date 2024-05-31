@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 16:28:22 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 19:01:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,6 @@ static int	ft_lstsize_env(t_env *env)
 		i += 1;
 	}
 	env = tmp;
-	return (i);
-}
-
-int	ft_count_words2(char *str)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (i < ft_strlen(str))
-	{
-		if (!ft_is_space(str[i]))
-			j += 1;
-		while (!ft_is_space(str[i]) && str[i] != '\0')
-			i += 1;
-		while (ft_is_space(str[i]) && str[i] != '\0')
-			i += 1;
-	}
-	return (j);
-}
-
-int	ft_count_size_of_word2(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (!ft_is_space(str[i]) && str[i] != '\0')
-		i += 1;
 	return (i);
 }
 

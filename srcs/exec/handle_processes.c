@@ -6,13 +6,13 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 16:46:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:11:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void    ft_exit_properly2(t_data *data, t_cmds *cmds)
+void	ft_exit_properly2(t_data *data, t_cmds *cmds)
 {
 	ft_free_tab(cmds->cmd_path);
 	ft_free_tab(data->mini_env);
@@ -23,7 +23,6 @@ void    ft_exit_properly2(t_data *data, t_cmds *cmds)
 
 void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "je passe dans exec_cmds\n");
 	if (!cmds->args)
 	{
 		ft_dup_stdin_stdout(data, cmds);
@@ -44,7 +43,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 	ft_handle_execve_error(data, cmds);
 }
 
-void     ft_handle_first_cmd(t_data *data, t_cmds *cmds)
+void	ft_handle_first_cmd(t_data *data, t_cmds *cmds)
 {
 	if (close(cmds->prev_pipe[0]) == -1)
 		ft_handle_close_error(data, cmds);
@@ -79,5 +78,4 @@ void	ft_handle_processes(t_data *data, t_cmds *cmds)
 	}
 	ft_waitpid(cmds);
 	ft_exec_cmds(data, cmds);
-	//ft_exec_cmds(data, cmds, data->env);
 }

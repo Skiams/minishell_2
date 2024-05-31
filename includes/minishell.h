@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 17:01:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:58:53 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,17 @@ void		ft_handle_redir(t_data *data, t_cmds *cmds);
 void		ft_handle_output_and_append_redir(t_data *data, t_cmds *cmds);
 void		ft_handle_input_redir(t_data *data, t_cmds *cmds);
 
+	// here_doc
+int			ft_count_here_doc(t_cmds *cmds);
+void		ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
+void		ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir, t_cmds *headcmds);
+void		ft_close_hd_in_fork(t_cmds *headcmds, t_cmds *me);
+
 	// split
 int			ft_is_space(char c);
 int			ft_count_words(char *str);
+int			ft_count_size_of_word_colon(char *str);
 int			ft_count_size_of_word(char *str);
-int			ft_count_size_of_word2(char *str);
 char		*ft_fill_tab(char *str);
 char		*ft_fill_tab_colon(char *str);
 char		**ft_return_tab(char *str);
@@ -140,6 +146,18 @@ char		**ft_split_exec(char *str);
 	// free
 void		ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error);
 void		*ft_free_tab(char **tab);
+
+	// errors
+void		ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd);
+void		ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2);
+void		ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
+void    	ft_handle_file_error(t_data *data, t_cmds *cmds);
+void		ft_handle_pipe_error(t_data *data, t_cmds *cmds);
+void		ft_handle_fork_error(t_data *data, t_cmds *cmds);
+void		ft_handle_close_error(t_data *data, t_cmds *cmds);
+void		ft_handle_execve_error(t_data *data, t_cmds *cmds);
+
+
 
 // UTILS
 
