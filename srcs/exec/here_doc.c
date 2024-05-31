@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 18:43:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:40:03 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 // cat << a << b << c | cat << a << b << c
 void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 {
+	fprintf(stderr, "JESSAYE DE FT CLOSE IN HD!!!!\n");
+
+
 	t_redir	*head;
 	t_cmds	*tmp;
 
@@ -26,7 +29,7 @@ void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 		{
 			if (head->type == HEREDOC)
 			{
-				fprintf(stderr, "trying to close %i\n", tmp->here_doc);
+				fprintf(stderr, ">>>>>>>trying to close %i\n", tmp->here_doc);
 				close(tmp->here_doc);
 			}
 			head = head->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 18:58:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 23:12:42 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 	// redirections
 void		ft_handle_redir(t_data *data, t_cmds *cmds);
 void		ft_handle_output_and_append_redir(t_data *data, t_cmds *cmds);
-void		ft_handle_input_redir(t_data *data, t_cmds *cmds);
+void	ft_handle_input_redir(t_data *data, t_cmds *cmds, t_redir *tmp);
 
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);
