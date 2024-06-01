@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 16:11:34 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:51:44 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 	char	*tmp;
 	char	*tmp2;
 
-	dprintf(2, " -> %s\n", __func__);
 	while (cmds->cmd_path && cmds->cmd_path[i])
 	{
 		tmp = ft_strjoin(cmds->cmd_path[i++], "/");
@@ -79,15 +78,14 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 		}
 		free(tmp2);
 	}
-	ft_free(data, cmds, cmd, "IIIII command not found\n");
+	ft_free(data, cmds, cmd, ": command not found\n");
 	exit (ft_exit_code(127, ADD));
 }
 
-char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
+char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd)
 {
 	int	i;
 
-	dprintf(2, " -> %s\n", __func__);
 	i = 0;
 	if (access(cmd, F_OK) == -1 && ft_strchr(cmd, '/'))
 		ft_handle_no_file_or_dir(data, cmds, cmd);
@@ -96,11 +94,9 @@ char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd, char **args)
 			|| (cmd[0] == '.' && cmd[1] == '/')))
 	{
 		if (ft_is_a_directory(cmd))
-			ft_handle_directory(data, cmds, cmd, args);
+			ft_handle_directory(data, cmds, cmd);
 		if (access(cmd, X_OK) != 0)
 			ft_handle_rights(data, cmds, cmd, NULL);
-//		else
-//			return (ft_get_absolute_path(data, cmds, cmd, args));
 		return (NULL);
 	}
 	return (ft_handle_path(data, cmds, cmd, i));

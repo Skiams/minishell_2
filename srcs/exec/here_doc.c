@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 23:40:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:21:07 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 // cat << a << b << c | cat << a << b << c
 void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 {
-	fprintf(stderr, "JESSAYE DE FT CLOSE IN HD!!!!\n");
-
-
 	t_redir	*head;
 	t_cmds	*tmp;
 
@@ -28,10 +25,7 @@ void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 		while (head != NULL)
 		{
 			if (head->type == HEREDOC)
-			{
-				fprintf(stderr, ">>>>>>>trying to close %i\n", tmp->here_doc);
 				close(tmp->here_doc);
-			}
 			head = head->next;
 		}
 		tmp = tmp->next;
@@ -79,7 +73,7 @@ static void	ft_handle_hd_child(t_data *data, t_cmds *cmds, t_redir *redir,
 	close(cmds->here_doc);
 	ft_write_in_here_doc(cmds, redir);
 	if (close(cmds->fd_w) == -1)
-		ft_handle_file_error(data, cmds);
+		ft_handle_file_error(data, cmds, redir);
 	ft_clean_all(data);
 	exit(0);
 }
@@ -91,11 +85,9 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	int		status;
 
 	ft_generate_hd_name(cmds, redir);
-	fprintf(stderr, "before %i\n", cmds->here_doc);
 	if (cmds->here_doc)
 		close (cmds->here_doc);
 	cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY | O_TRUNC, 0755);
-	fprintf(stderr, "heredoc nb %i\n", cmds->here_doc);
 	cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	unlink(cmds->name);
 	ft_free_ptr(cmds->name);
@@ -104,6 +96,6 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 		ft_handle_hd_child(data, cmds, redir, headcmds);
 	waitpid(pid, &status, 0);
 	if (close(cmds->fd_w) == -1)
-		ft_handle_file_error(data, cmds);
+		ft_handle_file_error(data, cmds, redir);
 	ft_handle_signal(1);
 }

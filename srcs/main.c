@@ -6,13 +6,12 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 14:36:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:50:42 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/minishell.h"
-#include "../includes/pipex.h"
 
 int			g_sig_exit;
 
