@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:04:22 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 16:04:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:07:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 {
 	t_cmds	*cmds;
 
-	dprintf(2, "-> %s\n", __func__);
 	cmds = tmp;
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(cmd, 2);

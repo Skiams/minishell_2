@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 23:12:42 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 17:04:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
-# include "pipex.h"
 # include "printf/srcs/ft_printf.h"
 # include "structures.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <linux/limits.h>
@@ -113,6 +113,19 @@ int			ft_export_bis(t_data *data, char *dup_arg, int code);
 bool		ft_add_var_env(t_data *data, char *str, int code);
 
 // EXEC
+
+	// dup and dup2 stdin and stdout
+void		ft_dup_stdin_stdout(t_data *data, t_cmds *cmds);
+void		ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds);
+void		ft_handle_dup2_error(t_data *data, t_cmds *cmds);
+
+	// path
+char		**ft_return_mini_env(t_data *data, t_env *env);
+void		ft_get_path(t_data *data, t_cmds *cmds);
+char		*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd);
+char		*ft_strdup(char *s);
+char		*ft_strjoin(char *s1, char *s2);
+
 	// exec_cmds
 int			ft_exec(t_data *data, t_cmds *cmds);
 int			ft_is_only_one_cmd(t_data *data, t_cmds *cmds);
@@ -124,8 +137,6 @@ void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 
 	// redirections
 void		ft_handle_redir(t_data *data, t_cmds *cmds);
-void		ft_handle_output_and_append_redir(t_data *data, t_cmds *cmds);
-void	ft_handle_input_redir(t_data *data, t_cmds *cmds, t_redir *tmp);
 
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);
@@ -148,14 +159,23 @@ void		ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error);
 void		*ft_free_tab(char **tab);
 
 	// errors
+void		ft_print_wrong_param(void);
+void		ft_print_header(void);
+void		ft_print_footer(void);
 void		ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd);
 void		ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2);
-void		ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd, char **args);
-void    	ft_handle_file_error(t_data *data, t_cmds *cmds);
+void		ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd);
+void    	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp);
 void		ft_handle_pipe_error(t_data *data, t_cmds *cmds);
 void		ft_handle_fork_error(t_data *data, t_cmds *cmds);
 void		ft_handle_close_error(t_data *data, t_cmds *cmds);
+void		ft_exit_properly(t_data *data, t_cmds *cmds);
 void		ft_handle_execve_error(t_data *data, t_cmds *cmds);
+
+	// close processes
+void		ft_close_processes(t_cmds *cmds);
+void		ft_waitpid_only_one_cmd(t_cmds *cmds);
+void		ft_waitpid(t_cmds *cmds);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:22:46 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 23:21:49 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:55:28 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,15 @@
 // mais a voir s'il faut le changer pour d' autres erreurs
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "function name:%s\n", __func__);
 	ft_close_hd_in_fork(data->cmd_list, NULL);
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
 		ft_free_tab(data->mini_env);
-		fprintf(stderr, "add %p add2 %p\n", cmds->redir, &cmds->redir);
 		ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
 		free(cmds->redir);
 		cmds->cmd_path = NULL;
 		data->mini_env = NULL;
-		
-		// fprintf(stderr,">>>>>>>%i\n", cmds->here_doc);
-		// if (cmds->here_doc > 2)
-			// close(cmds->here_doc);
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);
@@ -51,11 +45,11 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
  * le built-in ne s'execute que si on a un infile
  * Donc si l'infile != -1
  */
-void	ft_handle_file_error(t_data *data, t_cmds *cmds)
+void	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
-	dprintf(2, "function name:%s\n", __func__);
+	(void)tmp;
 	ft_putstr_fd("minishell: ", 2);
-	perror(cmds->redir->path);
+	perror(tmp->path);
 	if (ft_is_a_built_in(cmds->cmd) || !cmds->cmd)
 	{
 		cmds->pid = fork();
@@ -78,20 +72,6 @@ void	ft_handle_file_error(t_data *data, t_cmds *cmds)
 		ft_exit_properly(data, cmds);
 	}
 }
-
-/*
-// void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
-{
-	perror(cmds->redir->path);
-	if (cmds->outfile != -1)
-		close(cmds->outfile);
-	if (cmds->cmd_count == 1)
-		ft_waitpid_only_one_cmd(cmds);
-	else
-		ft_waitpid(cmds);
-	ft_exit_properly(data, cmds);
-}
-*/
 
 void	ft_handle_pipe_error(t_data *data, t_cmds *cmds)
 {
@@ -116,11 +96,4 @@ void	ft_handle_close_error(t_data *data, t_cmds *cmds)
 	close(cmds->outfile);
 	ft_close_processes(cmds);
 	ft_exit_properly(data, cmds);
-	/*
-	   ft_free_tab(cmds->cmd_path);
-	   ft_clean_all(data);
-	   ft_close_processes(cmds);
-	   ft_exit_code(1, ADD);
-	   exit (1);
-	 */
 }

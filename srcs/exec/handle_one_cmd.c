@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 16:45:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:38:19 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 {
 	ft_handle_signal(2);
-	dprintf(2, " -> %s\n", __func__);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -43,7 +42,6 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
  */
 static int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, " -> %s\n", __func__);
 	ft_dup_stdin_stdout(data, cmds);
 	if (cmds->redir)
 		ft_handle_redir(data, cmds);
@@ -59,7 +57,6 @@ static int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 // Voir avec Antoine le code erreur
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, " -> %s\n", __func__);
 	ft_get_path(data, cmds);
 	if (!ft_strcmp(cmds->cmd, ":") || !ft_strcmp(cmds->cmd, "!"))
 	{

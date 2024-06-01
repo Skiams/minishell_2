@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 19:01:06 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:37:39 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static char	*ft_strncmp_exec(t_data *data, char *str, int n)
 	int	j;
 	int	k;
 
-	dprintf(2, " -> %s\n", __func__);
 	i = 0;
 	ft_return_mini_env(data, data->env);
 	if (!data->mini_env)

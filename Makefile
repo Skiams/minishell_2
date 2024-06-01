@@ -51,6 +51,11 @@ $(NAME): $(OBJS)
 	make $(MAKEFLAGS) -C "./includes/libft"
 	$(CC) $(OBJS) -Inc $(FT_PRINTF) -Inc $(FT_LIBFT) -Inc $(GNL) -Inc $(GNL_UTILS) -lreadline -o $(NAME)
 
+valgrind: all
+	valgrind --suppressions=readline.supp --track-fds=yes \
+	--leak-check=full --trace-children=yes --track-origins=yes \
+	--show-leak-kinds=all -s -q \
+	./minishell
 clean:
 	/bin/rm -rf $(OBJS)
 	@echo "\nMinishell removed: $(GREEN)success$(RESET)\n"

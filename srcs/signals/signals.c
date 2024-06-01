@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:41:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/29 15:39:07 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/01 16:38:44 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ft_handle_signal(int code)
 	}
 	if (code == 2)
 	{
-		dprintf(2, "on est dans le code 2\n");
 		signal(SIGQUIT, &ft_bckslsh_handler);
 		signal(SIGINT, &ft_cc_blocking);
 	}
