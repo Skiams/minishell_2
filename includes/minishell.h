@@ -195,7 +195,7 @@ void		ft_syntax_error(char *str);
 // SIGNALS
 
 void		ft_cc_handler(int sig);
-void		ft_handle_signal(int code);
+void		ft_handle_signal(int code, int code2);
 void		ft_handle_sig_heredoc(void);
 void		ft_cc_heredoc(int sig);
 void		ft_cc_blocking(int sig);
@@ -210,6 +210,7 @@ void		ft_lstclear_cmd(t_cmds **cmd_lst, void (*del)(void *));
 int			ft_exit_code(int exit_code, int mode);
 void		ft_clean_all(t_data *data);
 void		ft_clear_redirlst(t_redir **redir_list, void (*del)(void *));
+void	ft_exit_if_malloc(t_data *data);
 
 // DEBUG
 

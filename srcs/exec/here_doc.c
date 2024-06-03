@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 15:06:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 18:41:58 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	if (pid == 0)
 		ft_handle_hd_child(data, cmds, redir, headcmds);
 	waitpid(pid, &status, 0);
-	if (close(cmds->hd_write) == -1)
+	if (ft_strcmp(ft_var_is_exp(data, "SHLVL"), "2") == 0)
+		ft_handle_signal(1, 1);
+	else
+		ft_handle_signal(2, 1);
+	if (close(cmds->fd_w) == -1)
 		ft_handle_file_error(data, cmds, redir);
-	ft_handle_signal(1);
 }

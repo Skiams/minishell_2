@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/01 16:37:39 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/03 14:43:04 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ char	**ft_return_mini_env(t_data *data, t_env *env)
 	while (env != NULL)
 	{
 		var = ft_strjoin(env->var, "=");
-		val = ft_strjoin(var, env->value);
+		if (env->value)
+			val = ft_strjoin(var, env->value);
+		else
+			val = ft_strdup(var);
 		if (!ft_strcmp(env->var, "PATH"))
 			data->mini_env[i] = ft_fill_tab(val);
 		else
