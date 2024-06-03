@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 15:15:45 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:01:04 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(cmds->cmd, 2);
-		ft_putstr_fd(": IIIIII  No such file or directory\n", 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		free(tmp);
 		ft_free_tab(cmds->args);
 		ft_free_tab(cmds->cmd_path);
@@ -38,7 +38,6 @@ static int	ft_is_a_directory(char *argv)
 {
 	char	*tmp;
 
-	dprintf(2, " -> %s\n", __func__);
 	tmp = ft_strjoin(argv, "/");
 	if (!tmp)
 		return (1);
@@ -74,7 +73,7 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 		}
 		free(tmp2);
 	}
-	ft_free(data, cmds, cmd, ": command not found\n");
+	ft_free(data, cmds, cmd, " command not found\n");
 	exit (ft_exit_code(127, ADD));
 }
 
