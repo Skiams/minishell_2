@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/01 16:39:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:46:23 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 		ft_exit_properly2(data, cmds);
 	}
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd);
+	ft_exit_if_malloc(data);
 	ft_close_hd_in_fork(data->cmd_list, NULL);
 	execve(cmds->right_path, cmds->args, data->mini_env);
 	ft_handle_execve_error(data, cmds);
