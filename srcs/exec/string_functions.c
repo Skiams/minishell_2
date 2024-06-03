@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/04/10 18:29:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:54:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char	*ft_strdup(char *s)
+char	*ft_strdup_exec(t_data *data, char *s)
 {
 	int		i;
 	char	*str;
 
 	i = 0;
 	str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
+		ft_exit_if_malloc(data);
 	while (s[i] != '\0')
 	{
 		str[i] = s[i];
