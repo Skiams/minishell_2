@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/01 17:05:16 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/03 15:08:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_read_here_doc(t_data *data, t_cmds *cmds, int *count)
 	*count += 1;
 	if (*count == cmds->here_doc_count)
 	{
-		if (dup2(cmds->here_doc, 0) == -1)
+		if (dup2(cmds->hd_read, 0) == -1)
 			ft_handle_dup2_error(data, cmds);
-		if (close(cmds->here_doc) == -1)
+		if (close(cmds->hd_read) == -1)
 			ft_handle_close_error(data, cmds);
 	}
 }

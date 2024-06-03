@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/01 16:38:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/03 15:07:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 	if (cmds->pid == 0)
 		ft_exec_cmds(data, cmds);
 	ft_waitpid_only_one_cmd(cmds);
-	if (cmds->here_doc > 0 && close(cmds->here_doc) == -1)
+	if (cmds->hd_read > 0 && close(cmds->hd_read) == -1)
 		ft_handle_close_error(data, cmds);
 	ft_handle_signal(1);
 	return (ft_exit_code(0, GET));

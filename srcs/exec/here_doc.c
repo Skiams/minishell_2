@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/01 16:21:07 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/03 15:06:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 		while (head != NULL)
 		{
 			if (head->type == HEREDOC)
-				close(tmp->here_doc);
+				close(tmp->hd_read);
 			head = head->next;
 		}
 		tmp = tmp->next;
@@ -58,7 +58,7 @@ static void	ft_write_in_here_doc(t_cmds *cmds, t_redir *redir)
 		if (!ft_strcmp(line, delimiter))
 			break ;
 		str = ft_strjoin(line, "\n");
-		ft_putstr_fd(str, cmds->fd_w);
+		ft_putstr_fd(str, cmds->hd_write);
 		free(str);
 		free(line);
 	}
@@ -70,9 +70,9 @@ static void	ft_handle_hd_child(t_data *data, t_cmds *cmds, t_redir *redir,
 	t_cmds *headcmds)
 {
 	ft_close_hd_in_fork(headcmds, cmds);
-	close(cmds->here_doc);
+	close(cmds->hd_read);
 	ft_write_in_here_doc(cmds, redir);
-	if (close(cmds->fd_w) == -1)
+	if (close(cmds->hd_write) == -1)
 		ft_handle_file_error(data, cmds, redir);
 	ft_clean_all(data);
 	exit(0);
@@ -85,17 +85,17 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	int		status;
 
 	ft_generate_hd_name(cmds, redir);
-	if (cmds->here_doc)
-		close (cmds->here_doc);
-	cmds->here_doc = open(cmds->name, O_CREAT | O_RDONLY | O_TRUNC, 0755);
-	cmds->fd_w = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
+	if (cmds->hd_read)
+		close (cmds->hd_read);
+	cmds->hd_read = open(cmds->name, O_CREAT | O_RDONLY | O_TRUNC, 0755);
+	cmds->hd_write = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	unlink(cmds->name);
 	ft_free_ptr(cmds->name);
 	pid = fork();
 	if (pid == 0)
 		ft_handle_hd_child(data, cmds, redir, headcmds);
 	waitpid(pid, &status, 0);
-	if (close(cmds->fd_w) == -1)
+	if (close(cmds->hd_write) == -1)
 		ft_handle_file_error(data, cmds, redir);
 	ft_handle_signal(1);
 }
