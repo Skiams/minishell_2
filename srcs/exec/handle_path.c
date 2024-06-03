@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 17:53:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/03 19:51:19 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds)
 		exit (126);
 	}
 	free(tmp);
-	return (ft_strdup(cmds->cmd));
+	return (ft_strdup_exec(data, cmds->cmd));
 }
 
 static int	ft_is_a_directory(char *argv)
