@@ -24,7 +24,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 	if (cmds->pid == 0)
 		ft_exec_cmds(data, cmds);
 	ft_waitpid_only_one_cmd(cmds);
-	if (cmds->here_doc > 0 && close(cmds->here_doc) == -1)
+	if (cmds->hd_read > 0 && close(cmds->hd_read) == -1)
 		ft_handle_close_error(data, cmds);
 	if (ft_strcmp(ft_var_is_exp(data, "SHLVL"), "2") == 0)
 		ft_handle_signal(1, 1);
