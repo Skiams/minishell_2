@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 15:09:09 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:13:39 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 	{
 		tmp = ft_strjoin(cmds->cmd_path[i++], "/");
 		if (!tmp)
-			return (NULL);
+			return (ft_exit_code(12, ADD), NULL);
 		tmp2 = ft_strjoin(tmp, cmd);
 		if (!tmp2)
 			return (free(tmp), NULL);

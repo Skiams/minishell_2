@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/29 14:43:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:40:00 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,10 @@ int	main(int argc, char **argv, char **env)
 //		ft_non_interactive(&data, data.env);
 	while (1)
 	{
-		ft_handle_signal(1);
+		if (ft_strcmp(ft_var_is_exp(&data, "SHLVL"), "2") == 0)
+			ft_handle_signal(1, 1);
+		else
+			ft_handle_signal(2, 1);
 		data.input = readline("1️⃣   minishell$ ");
 		if (!data.input)
 			return(ft_clean_all(&data), ft_putstr_fd("exit\n", 1),

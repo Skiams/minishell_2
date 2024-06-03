@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/29 15:27:48 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:46:23 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds, char **env)
 	}
 	dprintf(2, "coucou, je suis la\n");
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd, cmds->args);
+	ft_exit_if_malloc(data);
 	dprintf(2, "\n\nLe fucking right path : %s\n", cmds->right_path);
 	execve(cmds->right_path, cmds->args, data->mini_env);
 	ft_handle_execve_error(data, cmds);
