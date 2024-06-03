@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/29 19:30:44 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/03 10:57:58 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ typedef struct s_cmds
 	int				code_status;
 	int				dev_stdin;
 	int				dev_stdout;
-	int				here_doc;
+	int				hd_read;
+	int				hd_write;
 	int				infile;
 	int				outfile;
-	int				fd_w;
 	pid_t			pid;
 	struct s_cmds	*next;
 	struct s_cmds	*prev;

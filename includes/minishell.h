@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/03 15:08:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:26:24 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,10 +221,10 @@ void		print_env(t_env *env_lst);
 void		print_cmds(t_cmds *cmd_list);
 void		print_redir(t_redir *redir);
 
-void		ft_lstclear_hd(t_hd **hd_lst, void (*del)(void *));
-void		ft_lstdelone_hd(t_hd *hd, void (*del)(void *));
-t_hd		*ft_last_hd(t_hd *hd);
-void		lst_add_back_hd(t_hd **hd_lst, t_hd *hd);
-t_hd		*lst_new_hd(char *name);
+// void		ft_lstclear_hd(t_hd **hd_lst, void (*del)(void *));
+// void		ft_lstdelone_hd(t_hd *hd, void (*del)(void *));
+// t_hd		*ft_last_hd(t_hd *hd);
+// void		lst_add_back_hd(t_hd **hd_lst, t_hd *hd);
+// t_hd		*lst_new_hd(char *name);
 
 #endif
