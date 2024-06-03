@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 18:41:08 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:02:35 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 {
-	if (ft_strcmp(ft_var_is_exp(data, "SHLVL"), "2") == 0)
+	if (ft_strcmp_sig(ft_var_is_exp(data, "SHLVL"), "2") == 0)
 		ft_handle_signal(1, 2);
 	else
 		ft_handle_signal(2, 2);
@@ -26,7 +26,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 	ft_waitpid_only_one_cmd(cmds);
 	if (cmds->here_doc > 0 && close(cmds->here_doc) == -1)
 		ft_handle_close_error(data, cmds);
-	if (ft_strcmp(ft_var_is_exp(data, "SHLVL"), "2") == 0)
+	if (ft_strcmp_sig(ft_var_is_exp(data, "SHLVL"), "2") == 0)
 		ft_handle_signal(1, 1);
 	else
 		ft_handle_signal(2, 1);

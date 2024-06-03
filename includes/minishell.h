@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 18:38:57 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/03 15:08:55 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ void		ft_handle_signal(int code, int code2);
 void		ft_handle_sig_heredoc(void);
 void		ft_cc_heredoc(int sig);
 void		ft_cc_blocking(int sig);
+int			ft_strcmp_sig(char *argv, const char *str);
 
 // CLEAN & EXIT
 
