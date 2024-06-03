@@ -3,35 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/30 14:35:09 by eltouma          ###   ########.fr       */
-
+/*   Created: 2024/05/30 15:22:46 by eltouma           #+#    #+#             */
+/*   Updated: 2024/06/01 16:55:28 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+// Attention le code de sortie est le bon pour le max de here_doc atteint, 
+// mais a voir s'il faut le changer pour d' autres erreurs
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "ft_exit_properly()\n");
-//	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
-//	if (cmds->name)
-//		ft_free_ptr(cmds->name);
+	ft_close_hd_in_fork(data->cmd_list, NULL);
 	while (cmds && cmds != NULL)
 	{
 		ft_free_tab(cmds->cmd_path);
 		ft_free_tab(data->mini_env);
+		ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+		free(cmds->redir);
 		cmds->cmd_path = NULL;
 		data->mini_env = NULL;
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);
 	ft_exit_code(1, ADD);
-	dprintf(2, "\n\n");
-	//	print_cmds(cmds);
-	// Attention le code de sortie est le bon pour le max de here_doc atteint, mais a voir s'il faut le changer pour d' autres erreurs
 	exit (2);
 }
 
@@ -48,10 +45,11 @@ void	ft_exit_properly(t_data *data, t_cmds *cmds)
  * le built-in ne s'execute que si on a un infile
  * Donc si l'infile != -1
  */
-void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
+void	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
+	(void)tmp;
 	ft_putstr_fd("minishell: ", 2);
-	perror(cmds->redir->path);
+	perror(tmp->path);
 	if (ft_is_a_built_in(cmds->cmd) || !cmds->cmd)
 	{
 		cmds->pid = fork();
@@ -68,27 +66,11 @@ void	ft_handle_infile_error(t_data *data, t_cmds *cmds)
 	else
 	{
 		if (cmds->cmd_count == 1)
-		{
-			dprintf(2, "COUCOU, NOUS SOMMES LA\n");
-	//		dprintf(2, "cmds->args[0] %s\n", cmds->args[0]);
 			ft_waitpid_only_one_cmd(cmds);
-		}
 		else
 			ft_waitpid(cmds);
 		ft_exit_properly(data, cmds);
 	}
-}
-
-void	ft_handle_outfile_error(t_data *data, t_cmds *cmds)
-{
-	perror(cmds->redir->path);
-	if (cmds->outfile != -1)
-		close(cmds->outfile);
-	if (cmds->cmd_count == 1)
-		ft_waitpid_only_one_cmd(cmds);
-	else
-		ft_waitpid(cmds);
-	ft_exit_properly(data, cmds);
 }
 
 void	ft_handle_pipe_error(t_data *data, t_cmds *cmds)
@@ -114,11 +96,4 @@ void	ft_handle_close_error(t_data *data, t_cmds *cmds)
 	close(cmds->outfile);
 	ft_close_processes(cmds);
 	ft_exit_properly(data, cmds);
-	/*
-	   ft_free_tab(cmds->cmd_path);
-	   ft_clean_all(data);
-	   ft_close_processes(cmds);
-	   ft_exit_code(1, ADD);
-	   exit (1);
-	 */
 }

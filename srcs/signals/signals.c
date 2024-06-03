@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:41:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/29 15:39:07 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/05/31 18:40:19 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ void	ft_cc_blocking(int sig)
 	ft_exit_code(130, ADD);
 }
 
+static void	ft_cc_blocking2(int sig)
+{
+	(void)sig;
+	g_sig_exit = 2;
+	ft_exit_code(130, ADD);
+}
+
 void	ft_bckslsh_handler(int sig)
 {
 	(void)sig;
@@ -38,17 +45,38 @@ void	ft_bckslsh_handler(int sig)
 	ft_exit_code(131, ADD);
 }
 
-void	ft_handle_signal(int code)
+void	ft_bckslsh_handler2(int sig)
+{
+	(void)sig;
+	ft_exit_code(131, ADD);
+}
+
+void	ft_handle_signal(int code, int code2)
 {
 	if (code == 1)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &ft_cc_handler);
+		if (code2 == 1)
+		{
+			signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, &ft_cc_handler);
+		}
+		else if (code2 == 2)
+		{
+			signal(SIGQUIT, &ft_bckslsh_handler);
+			signal(SIGINT, &ft_cc_blocking);
+		}
 	}
 	if (code == 2)
 	{
-		dprintf(2, "on est dans le code 2\n");
-		signal(SIGQUIT, &ft_bckslsh_handler);
-		signal(SIGINT, &ft_cc_blocking);
+		if (code2 == 1)
+		{
+			signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, &ft_cc_handler);
+		}
+		else if (code2 == 2)
+		{
+			signal(SIGQUIT, &ft_bckslsh_handler2);
+			signal(SIGINT, &ft_cc_blocking2);
+		}
 	}
 }
