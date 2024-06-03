@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 14:34:21 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/30 17:17:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 16:39:55 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static bool	ft_init_redir_lst(t_cmds *cmd)
 	if (!(cmd->redir))
 	{
 		cmd->redir = (t_redir *)malloc(sizeof(t_redir));
-		fprintf(stderr, "MON ADRESSE EST %p\n", cmd->redir);
 		if (!(cmd->redir))
 			return (false);
 		ft_init_redir_node(cmd->redir);

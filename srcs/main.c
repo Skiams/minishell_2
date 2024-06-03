@@ -12,7 +12,6 @@
 
 
 #include "../includes/minishell.h"
-#include "../includes/pipex.h"
 
 int			g_sig_exit;
 
@@ -36,6 +35,7 @@ static bool ft_add_shlvl(t_data *data, char *value)
 	}
 	return (true);
 }
+
 static bool	ft_increase_shlvl(t_data *data)
 {
 	char	*shlvl;
@@ -81,8 +81,10 @@ static t_env	*ft_no_env(t_data *data)
 		return (ft_exit_code(12, ADD), NULL);
 	return (data->env);
 }
+
 static void	ft_non_interactive(t_data *data, char **env)
 {
+	(void)env;
 	data->input = get_next_line(STDIN_FILENO);
 	if (!data->input)
 	{
@@ -93,7 +95,7 @@ static void	ft_non_interactive(t_data *data, char **env)
 	while (data->input)
 	{
 		if (ft_parsing(data->input, data))
-			ft_exec(data, data->cmd_list, env);
+			ft_exec(data, data->cmd_list);
 		ft_free_data(data);
 		data->input = get_next_line(STDIN_FILENO);
 	}
@@ -134,26 +136,9 @@ int	main(int argc, char **argv, char **env)
 			return(ft_clean_all(&data), ft_putstr_fd("exit\n", 1),
 			ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
-			ft_exec(&data, data.cmd_list, NULL);
+			ft_exec(&data, data.cmd_list);
 		else if (ft_exit_code(0, GET) == 12)
 			break ;
-//		print_tokens(data.token_list);
-
-		// if (!ft_strcmp(data.cmd_list->cmd, "./minishell") && (!ft_increase_shlvl(&data)))
-		// 	return (ft_exit_code(0, GET));
-
-		/*
-				ft_putstr_fd("⚠️ ⚠️ ⚠️  Supprimer print_tokens() et print_cmds() pour tester les redirections sinon ca peut generer des leaks ou segfault\n",
-					1);
-				print_tokens(data.token_list);
-				print_cmds(data.cmd_list);
-		*/
-		//print_tokens(data.token_list);
-		//	print_cmds(data.cmd_list);
-	//	data.cmd_list->name ? dprintf(2, "cmds->name %s DANS LE MAIN\n", data.cmd_list->name) : dprintf(2, "On n'a pas de cmds->name dans le MAIN\n");
-//		if (data.cmd_list->name != NULL)
-	//		ft_free_ptr(data.cmd_list->name);
-		dprintf(2, "Coucou, on a perdu l'entree standard\n");
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);

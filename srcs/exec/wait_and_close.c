@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/22 12:17:09 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/01 15:19:04 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ void	ft_waitpid(t_cmds *cmds)
 	int	status;
 
 	ft_close_processes(cmds);
-	while ((cmds->pid = waitpid(-1, &status, 0)) > 0)
+	cmds->pid = waitpid(-1, &status, 0);
+	while (cmds->pid > 0)
 	{
 		if (WIFEXITED(status))
 			ft_exit_code(WEXITSTATUS(status), ADD);
+		cmds->pid = waitpid(-1, &status, 0);
 	}
 }
 
@@ -36,9 +38,11 @@ void	ft_waitpid_only_one_cmd(t_cmds *cmds)
 {
 	int	status;
 
-	while ((cmds->pid = waitpid(-1, &status, 0)) > 0)
+	cmds->pid = waitpid(-1, &status, 0);
+	while (cmds->pid > 0)
 	{
 		if (WIFEXITED(status))
 			ft_exit_code(WEXITSTATUS(status), ADD);
+		cmds->pid = waitpid(-1, &status, 0);
 	}
 }
