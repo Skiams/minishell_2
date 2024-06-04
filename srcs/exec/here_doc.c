@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 15:29:14 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:33:21 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	if (pid == 0)
 		ft_handle_hd_child(data, cmds, redir, headcmds);
 	waitpid(pid, &status, 0);
-	// if (ft_strcmp(ft_var_is_exp(data, "SHLVL"), "2") == 0)
-	// 	ft_handle_signal(1, 1);
-	// else
-	ft_handle_signal(2, 1);
+	ft_handle_signal(1);
 	if (close(cmds->hd_write) == -1)
 		ft_handle_file_error(data, cmds, redir);
 }
