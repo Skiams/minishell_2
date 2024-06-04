@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:41:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/04 12:35:51 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:10:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_cc_handler(int sig)
 void	ft_cc_blocking(int sig)
 {
 	(void)sig;
-	// ft_putchar(1, '\n');
 	g_sig_exit = 2;
 	ft_exit_code(130, ADD);
 }
@@ -35,7 +34,6 @@ void	ft_bckslsh_handler(int sig)
 {
 	(void)sig;
 	g_sig_exit = 3;
-	// ft_putstr_fd("Quit (core dumped)\n", 1);
 	ft_exit_code(131, ADD);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/04 12:37:27 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/04 16:30:07 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ int	main(int argc, char **argv, char **env)
 		ft_clean_all(&data);
 		return (ft_exit_code(0, GET));
 	}
-// A MODIFIER, PASSER DATA.ENV
-//		ft_non_interactive(&data, data.env);
 	while (1)
 	{
 		ft_handle_signal(1);
@@ -138,7 +136,7 @@ int	main(int argc, char **argv, char **env)
 			ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list);
-		else if (ft_exit_code(0, GET) == 12)
+		if (ft_exit_code(0, GET) == 12)
 			break ;
 		ft_free_data(&data);
 	}

@@ -3,15 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 17:37:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:20:27 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	ft_close_hd_sig(t_data *data, t_cmds *head_cmds)
+{
+	t_redir	*head;
+	t_cmds	*tmp;
+
+	tmp = head_cmds;
+	while (tmp != NULL)
+	{
+		head = tmp->redir;
+		while (head != NULL)
+		{
+			if (head->type == HEREDOC)
+			{
+				if (close(tmp->hd_read) == -1)
+					ft_handle_close_error(data, head_cmds);
+			}
+			head = head->next;
+		}
+		tmp = tmp->next;
+	}
+}
 static void	ft_init_exec(t_cmds *cmds)
 {
 	while (cmds != NULL)
@@ -25,7 +46,9 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	t_redir	*head;
 	t_cmds	*head_cmds;
-
+	t_cmds	*head_sig;
+	
+	head_sig = cmds;
 	head_cmds = cmds;
 	while (cmds != NULL)
 	{
@@ -33,7 +56,10 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 		while (head != NULL)
 		{
 			if (head->type == 2)
-				ft_exec_here_doc(data, cmds, head, head_cmds);
+			{
+				if (!ft_exec_here_doc(data, cmds, head, head_cmds))
+					return (ft_close_hd_sig(data, head_sig), -2);
+			}
 			head = head->next;
 		}
 		cmds = cmds->next;
@@ -48,7 +74,11 @@ int	ft_exec(t_data *data, t_cmds *cmds)
 		return (ft_exit_code(0, GET));
 	ft_init_exec(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
-	ft_handle_here_doc(data, cmds);
+	if (ft_handle_here_doc(data, cmds) == -2)
+	{
+		g_sig_exit = 0;
+		return (ft_exit_code(0, GET));
+	}
 	if (cmds->cmd_count == 1)
 	{
 		ft_is_only_one_cmd(data, cmds);

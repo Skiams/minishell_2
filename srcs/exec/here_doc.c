@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 12:33:21 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/04 17:24:38 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	ft_handle_hd_child(t_data *data, t_cmds *cmds, t_redir *redir,
 	exit(0);
 }
 
-void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
+bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 		t_cmds *headcmds)
 {
 	pid_t	pid;
@@ -95,7 +95,10 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	if (pid == 0)
 		ft_handle_hd_child(data, cmds, redir, headcmds);
 	waitpid(pid, &status, 0);
-	ft_handle_signal(1);
 	if (close(cmds->hd_write) == -1)
 		ft_handle_file_error(data, cmds, redir);
+	if (g_sig_exit == 2)
+		return (false);
+	ft_handle_signal(1);
+	return (true);
 }
