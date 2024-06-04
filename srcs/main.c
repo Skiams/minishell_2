@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/03 17:38:49 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:37:27 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	main(int argc, char **argv, char **env)
 		return (ft_free_data(&data), 12);
 	if (isatty(STDIN_FILENO) == 0)
 	{
+		ft_putstr_fd("Non-interactive mode blocked\n", 2);
 		ft_clean_all(&data);
 		return (ft_exit_code(0, GET));
 	}
@@ -130,10 +131,7 @@ int	main(int argc, char **argv, char **env)
 //		ft_non_interactive(&data, data.env);
 	while (1)
 	{
-		if (ft_strcmp_sig(ft_var_is_exp(&data, "SHLVL"), "2") == 0)
-			ft_handle_signal(1, 1);
-		else
-			ft_handle_signal(2, 1);
+		ft_handle_signal(1);
 		data.input = readline("1️⃣   minishell$ ");
 		if (!data.input)
 			return(ft_clean_all(&data), ft_putstr_fd("exit\n", 1),

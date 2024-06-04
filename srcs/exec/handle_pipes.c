@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 15:06:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:33:17 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ static void	ft_fork_built_in_pipes(t_data *data, t_cmds *cmds)
 
 static	void	ft_fork_no_built_in(t_data *data, t_cmds *cmds)
 {
-	if (ft_strcmp_sig(ft_var_is_exp(data, "SHLVL"), "2") == 0)
-		ft_handle_signal(1, 2);
-	else
-		ft_handle_signal(2, 2);
+	ft_handle_signal(2);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -70,8 +67,5 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds)
 	cmds->i = 0;
 	while (cmds->i++ < cmds->cmd_count)
 		ft_waitpid(cmds);
-	if (ft_strcmp_sig(ft_var_is_exp(data, "SHLVL"), "2") == 0)
-		ft_handle_signal(1, 1);
-	else
-		ft_handle_signal(2, 1);
+	ft_handle_signal(1);
 }

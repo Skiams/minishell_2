@@ -196,11 +196,13 @@ void		ft_syntax_error(char *str);
 // SIGNALS
 
 void		ft_cc_handler(int sig);
-void		ft_handle_signal(int code, int code2);
+void		ft_handle_signal(int code);
 void		ft_handle_sig_heredoc(void);
 void		ft_cc_heredoc(int sig);
 void		ft_cc_blocking(int sig);
 int			ft_strcmp_sig(char *argv, const char *str);
+void    	set_signal_action(int sig_case);
+void		ft_cc_handler2(int sig);
 
 // CLEAN & EXIT
 
