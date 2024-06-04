@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 17:48:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:03:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	ft_handle_output_and_append(t_data *data, t_cmds *cmds, t_redir *redir)
 {
 	int	flag;
 
-	if (cmds->redir->type == APPEND)
+	if (redir->type == APPEND)
 		flag = O_APPEND;
 	else
 		flag = O_TRUNC;
-	cmds->outfile = open(cmds->redir->path, O_WRONLY | O_CREAT | flag, 0755);
+	cmds->outfile = open(redir->path, O_WRONLY | O_CREAT | flag, 0755);
 	if (cmds->outfile == -1)
 		ft_handle_file_error(data, cmds, redir);
 	else
