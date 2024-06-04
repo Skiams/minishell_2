@@ -123,7 +123,7 @@ void		ft_handle_dup2_error(t_data *data, t_cmds *cmds);
 char		**ft_return_mini_env(t_data *data, t_env *env);
 void		ft_get_path(t_data *data, t_cmds *cmds);
 char		*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd);
-char		*ft_strdup(char *s);
+char		*ft_strdup_exec(t_data *data, char *s);
 char		*ft_strjoin(char *s1, char *s2);
 
 	// exec_cmds
