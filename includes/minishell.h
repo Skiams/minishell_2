@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/04 12:33:00 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:05:36 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,11 +120,12 @@ void		ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds);
 void		ft_handle_dup2_error(t_data *data, t_cmds *cmds);
 
 	// path
+int			ft_lstsize_env(t_env *env);
 char		**ft_return_mini_env(t_data *data, t_env *env);
 void		ft_get_path(t_data *data, t_cmds *cmds);
 char		*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd);
 char		*ft_strdup_exec(t_data *data, char *s);
-char		*ft_strjoin(char *s1, char *s2);
+char		*ft_strjoin_exec(t_data *data, char *s1, char *s2);
 
 	// exec_cmds
 int			ft_exec(t_data *data, t_cmds *cmds);
@@ -149,10 +150,10 @@ int			ft_is_space(char c);
 int			ft_count_words(char *str);
 int			ft_count_size_of_word_colon(char *str);
 int			ft_count_size_of_word(char *str);
-char		*ft_fill_tab(char *str);
-char		*ft_fill_tab_colon(char *str);
-char		**ft_return_tab(char *str);
-char		**ft_split_exec(char *str);
+char		*ft_fill_tab(t_data *data, char *str);
+char		*ft_fill_tab_colon(t_data *data, char *str);
+// char		**ft_return_tab(t_data *data, char *str);
+char		**ft_split_exec(t_data *data, char *str);
 
 	// free
 void		ft_free(t_data *data, t_cmds *cmds, char *cmd, char *error);

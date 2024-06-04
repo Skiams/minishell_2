@@ -6,74 +6,59 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 19:51:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 16:21:15 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	ft_lstsize_env(t_env *env)
-{
-	int		i;
-	t_env	*tmp;
-
-	i = 0;
-	tmp = env;
-	if (!env)
-		return (0);
-	while (env != NULL)
-	{
-		env = env->next;
-		i += 1;
-	}
-	env = tmp;
-	return (i);
-}
-
-static char	**ft_return_tab_size(int size)
+static char	**ft_return_tab_size(t_data *data, int size)
 {
 	char	**tab;
 
 	tab = (char **)malloc(sizeof(char *) * (size + 1));
 	if (!tab)
-		return (NULL);
+		ft_exit_if_malloc(data);
 	return (tab);
+}
+
+void	ft_init_mini_env(t_data *data, t_env *env)
+{
+	int		size;
+
+	size = ft_lstsize_env(env);
+	data->mini_env = ft_return_tab_size(data, size);
+	data->mini_env[size] = NULL;
 }
 
 char	**ft_return_mini_env(t_data *data, t_env *env)
 {
 	int		i;
-	int		size;
 	char	*var;
 	char	*val;
 	t_env	*tmp;
 
 	tmp = env;
 	i = 0;
-	size = ft_lstsize_env(env);
-	data->mini_env = ft_return_tab_size(size);
-	if (!data->mini_env)
-		return (NULL);
-	data->mini_env[size] = NULL;
-	while (env != NULL)
+	ft_init_mini_env(data, env);
+	while (tmp != NULL)
 	{
-		var = ft_strjoin(env->var, "=");
-		if (env->value)
-			val = ft_strjoin(var, env->value);
+		var = ft_strjoin_exec(data, tmp->var, "=");
+		if (tmp->value)
+			val = ft_strjoin_exec(data, var, tmp->value);
 		else
 			val = ft_strdup_exec(data, var);
-		if (!ft_strcmp(env->var, "PATH"))
-			data->mini_env[i] = ft_fill_tab(val);
+		if (!ft_strcmp(tmp->var, "PATH"))
+			data->mini_env[i] = ft_fill_tab(data, val);
 		else
-			data->mini_env[i] = ft_fill_tab_colon(val);
+			data->mini_env[i] = ft_fill_tab_colon(data, val);
 		if (!data->mini_env[i])
 			return (ft_free_tab(data->mini_env));
 		ft_free_ptr(var);
 		ft_free_ptr(val);
 		i += 1;
-		env = env->next;
+		tmp = tmp->next;
 	}
-	env = tmp;
 	return (data->mini_env);
 }	
 
@@ -108,7 +93,7 @@ void	ft_get_path(t_data *data, t_cmds *cmds)
 	cmds->env_path = ft_strncmp_exec(data, "PATH=", 5);
 	if (cmds->env_path)
 	{
-		cmds->cmd_path = ft_split_exec(cmds->env_path);
+		cmds->cmd_path = ft_split_exec(data, cmds->env_path);
 		if (!cmds->cmd_path)
 			return ;
 	}

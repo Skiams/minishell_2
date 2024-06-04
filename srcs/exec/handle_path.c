@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 19:51:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:53:03 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(cmds->cmd, "/");
-	if (!tmp)
-		return (NULL);
+	tmp = ft_strjoin_exec(data, cmds->cmd, "/");
 	if (access(tmp, F_OK) == 0)
 	{
 		ft_putstr_fd("minishell: ", 2);
@@ -34,13 +32,11 @@ char	*ft_get_absolute_path(t_data *data, t_cmds *cmds)
 	return (ft_strdup_exec(data, cmds->cmd));
 }
 
-static int	ft_is_a_directory(char *argv)
+static int	ft_is_a_directory(t_data *data, char *argv)
 {
 	char	*tmp;
 
-	tmp = ft_strjoin(argv, "/");
-	if (!tmp)
-		return (1);
+	tmp = ft_strjoin_exec(data, argv, "/");
 	if (access(tmp, F_OK) == 0)
 	{
 		free(tmp);
@@ -57,12 +53,8 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 
 	while (cmds->cmd_path && cmds->cmd_path[i])
 	{
-		tmp = ft_strjoin(cmds->cmd_path[i++], "/");
-		if (!tmp)
-			return (ft_exit_code(12, ADD), NULL);
-		tmp2 = ft_strjoin(tmp, cmd);
-		if (!tmp2)
-			return (free(tmp), NULL);
+		tmp = ft_strjoin_exec(data, cmds->cmd_path[i++], "/");
+		tmp2 = ft_strjoin_exec(data, tmp, cmd);
 		free(tmp);
 		if (access(tmp2, F_OK) == 0)
 		{
@@ -88,7 +80,7 @@ char	*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd)
 			|| (cmd[0] == '.' && cmd[1] == '.' && cmd[2] == '/')
 			|| (cmd[0] == '.' && cmd[1] == '/')))
 	{
-		if (ft_is_a_directory(cmd))
+		if (ft_is_a_directory(data, cmd))
 			ft_handle_directory(data, cmds, cmd);
 		if (access(cmd, X_OK) != 0)
 			ft_handle_rights(data, cmds, cmd, NULL);
