@@ -6,13 +6,12 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 19:50:42 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:02:39 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// cat << a << b << c | cat << a << b << c
 void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 {
 	t_redir	*head;
@@ -32,11 +31,11 @@ void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 	}
 }
 
-static void	ft_generate_hd_name(t_cmds *cmds, t_redir *redir)
+static void	ft_generate_hd_name(t_data *data, t_cmds *cmds, t_redir *redir)
 {
-	cmds->tmp_file = ft_strjoin(".hd_", redir->path);
+	cmds->tmp_file = ft_strjoin_exec(data, ".hd_", redir->path);
 	cmds->index = ft_itoa(cmds->i);
-	cmds->name = ft_strjoin(cmds->tmp_file, cmds->index);
+	cmds->name = ft_strjoin_exec(data, cmds->tmp_file, cmds->index);
 	ft_free_ptr(cmds->tmp_file);
 	ft_free_ptr(cmds->index);
 	cmds->i += 1;
@@ -57,7 +56,7 @@ static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 			break ;
 		if (!ft_strcmp(line, delimiter))
 			break ;
-		str = ft_strjoin(line, "\n");
+		str = ft_strjoin_exec(data, line, "\n");
 		ft_putstr_fd(str, cmds->hd_write);
 		free(str);
 		free(line);
@@ -84,7 +83,7 @@ void	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	pid_t	pid;
 	int		status;
 
-	ft_generate_hd_name(cmds, redir);
+	ft_generate_hd_name(data, cmds, redir);
 	if (cmds->hd_read)
 		close (cmds->hd_read);
 	cmds->hd_read = open(cmds->name, O_CREAT | O_RDONLY | O_TRUNC, 0755);

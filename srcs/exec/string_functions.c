@@ -6,13 +6,13 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 19:54:40 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:08:49 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_exec(t_data *data, char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -26,7 +26,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	size = ft_strlen(s1) + ft_strlen(s2);
 	str = (char *)malloc(sizeof(char) * (size + 1));
 	if (!str)
-		return (NULL);
+		ft_exit_if_malloc(data);
 	while (s1[i] != '\0')
 	{
 		str[i] = s1[i];
