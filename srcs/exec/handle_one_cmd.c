@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_one_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/03 17:38:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:33:11 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 {
-	if (ft_strcmp_sig(ft_var_is_exp(data, "SHLVL"), "2") == 0)
-		ft_handle_signal(1, 2);
-	else
-		ft_handle_signal(2, 2);
+	ft_handle_signal(2);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -26,10 +23,6 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 	ft_waitpid_only_one_cmd(cmds);
 	if (cmds->hd_read > 0 && close(cmds->hd_read) == -1)
 		ft_handle_close_error(data, cmds);
-	if (ft_strcmp_sig(ft_var_is_exp(data, "SHLVL"), "2") == 0)
-		ft_handle_signal(1, 1);
-	else
-		ft_handle_signal(2, 1);
 	return (ft_exit_code(0, GET));
 }
 
