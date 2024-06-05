@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/05 22:23:28 by skiam            ###   ########.fr       */
+/*   Updated: 2024/06/05 23:54:12 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 		{
 			if (head->type == 2)
 			{
-				ft_exec_here_doc(data, cmds, head, head_cmds);
-				return(-2);
+				if (!ft_exec_here_doc(data, cmds, head, head_cmds))
+					return(-2);
 			}
 			head = head->next;
 		}
