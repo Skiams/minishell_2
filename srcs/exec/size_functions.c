@@ -6,11 +6,29 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:15:31 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/01 16:22:51 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:05:42 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	ft_lstsize_env(t_env *env)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env;
+	if (!env)
+		return (0);
+	while (env != NULL)
+	{
+		env = env->next;
+		i += 1;
+	}
+	env = tmp;
+	return (i);
+}
 
 int	ft_count_words(char *str)
 {
