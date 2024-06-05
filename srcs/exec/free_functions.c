@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:04:22 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/01 16:07:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:06:18 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,20 @@ void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 		cmds = cmds->next;
 	}
 	ft_clean_all(data);
+}
+
+void	ft_free_cmds_args(t_cmds *cmds)
+{
+	int	i;
+
+	i = 0;
+	if (cmds->args[i])
+	{
+		while (cmds->args[i++])
+		{
+			free(cmds->args[i]);
+			cmds->args[i] = NULL;
+		}
+	}
+
 }

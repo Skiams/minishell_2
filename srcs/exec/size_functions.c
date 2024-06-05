@@ -6,11 +6,21 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 14:15:31 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 14:05:42 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 13:40:35 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	**ft_return_tab_size(t_data *data, int size)
+{
+	char	**tab;
+
+	tab = (char **)malloc(sizeof(char *) * (size + 1));
+	if (!tab)
+		ft_exit_if_malloc(data);
+	return (tab);
+}
 
 int	ft_lstsize_env(t_env *env)
 {
