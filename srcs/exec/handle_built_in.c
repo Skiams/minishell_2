@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/31 13:59:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/05 13:44:53 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 		ft_cd(cmds, data);
 	if (!ft_strcmp(cmds->cmd, "unset"))
 		ft_unset(data, cmds->args);
-	// if (ft_exit_code(0, GET) == 12)
-	// 	dprintf(2, "Attention tout le monde ! Je vaut 12\n");
 	ft_exit_if_malloc(data);
 }
 

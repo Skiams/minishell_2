@@ -6,23 +6,13 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 22:12:16 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 16:21:15 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 13:42:20 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	**ft_return_tab_size(t_data *data, int size)
-{
-	char	**tab;
-
-	tab = (char **)malloc(sizeof(char *) * (size + 1));
-	if (!tab)
-		ft_exit_if_malloc(data);
-	return (tab);
-}
-
-void	ft_init_mini_env(t_data *data, t_env *env)
+static void	ft_init_mini_env(t_data *data, t_env *env)
 {
 	int		size;
 
@@ -31,7 +21,18 @@ void	ft_init_mini_env(t_data *data, t_env *env)
 	data->mini_env[size] = NULL;
 }
 
-char	**ft_return_mini_env(t_data *data, t_env *env)
+static char	**ft_fill_mini_env(t_data *data, t_env *env, int *i, char *val)
+{
+	if (!ft_strcmp(env->var, "PATH"))
+		data->mini_env[*i] = ft_fill_tab(data, val);
+	else
+		data->mini_env[*i] = ft_fill_tab_colon(data, val);
+	if (!data->mini_env[*i])
+		return (ft_free_tab(data->mini_env));
+	return (data->mini_env);
+}
+
+static char	**ft_return_mini_env(t_data *data, t_env *env)
 {
 	int		i;
 	char	*var;
@@ -48,12 +49,7 @@ char	**ft_return_mini_env(t_data *data, t_env *env)
 			val = ft_strjoin_exec(data, var, tmp->value);
 		else
 			val = ft_strdup_exec(data, var);
-		if (!ft_strcmp(tmp->var, "PATH"))
-			data->mini_env[i] = ft_fill_tab(data, val);
-		else
-			data->mini_env[i] = ft_fill_tab_colon(data, val);
-		if (!data->mini_env[i])
-			return (ft_free_tab(data->mini_env));
+		ft_fill_mini_env(data, tmp, &i, val);
 		ft_free_ptr(var);
 		ft_free_ptr(val);
 		i += 1;

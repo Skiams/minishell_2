@@ -6,17 +6,15 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/03 17:38:49 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 13:58:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../includes/minishell.h"
 
 int			g_sig_exit;
 
-
-static bool ft_add_shlvl(t_data *data, char *value)
+static bool	ft_add_shlvl(t_data *data, char *value)
 {
 	t_env	*tmp;
 
@@ -110,7 +108,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	g_sig_exit = 0;
 	if (argc != 1)
-		ft_print_wrong_param();	
+		ft_print_wrong_param();
 	ft_memset(&data, 0, sizeof(t_data));
 	if (env && env[0])
 	{
@@ -136,8 +134,8 @@ int	main(int argc, char **argv, char **env)
 			ft_handle_signal(2, 1);
 		data.input = readline("1️⃣   minishell$ ");
 		if (!data.input)
-			return(ft_clean_all(&data), ft_putstr_fd("exit\n", 1),
-			ft_exit_code(0, GET));
+			return (ft_clean_all(&data), ft_putstr_fd("exit\n", 1),
+				ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list);
 		else if (ft_exit_code(0, GET) == 12)

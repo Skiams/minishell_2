@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/04 14:05:36 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:07:09 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void		ft_handle_dup2_error(t_data *data, t_cmds *cmds);
 
 	// path
 int			ft_lstsize_env(t_env *env);
-char		**ft_return_mini_env(t_data *data, t_env *env);
+char		**ft_return_tab_size(t_data *data, int size);
 void		ft_get_path(t_data *data, t_cmds *cmds);
 char		*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd);
 char		*ft_strdup_exec(t_data *data, char *s);
@@ -138,11 +138,13 @@ void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 
 	// redirections
 void		ft_handle_redir(t_data *data, t_cmds *cmds);
+void		ft_free_cmds_args(t_cmds *cmds);
 
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);
 void		ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
-void		ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir, t_cmds *headcmds);
+void		ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
+				t_cmds *headcmds);
 void		ft_close_hd_in_fork(t_cmds *headcmds, t_cmds *me);
 
 	// split
@@ -152,7 +154,6 @@ int			ft_count_size_of_word_colon(char *str);
 int			ft_count_size_of_word(char *str);
 char		*ft_fill_tab(t_data *data, char *str);
 char		*ft_fill_tab_colon(t_data *data, char *str);
-// char		**ft_return_tab(t_data *data, char *str);
 char		**ft_split_exec(t_data *data, char *str);
 
 	// free
@@ -166,7 +167,7 @@ void		ft_print_footer(void);
 void		ft_handle_no_file_or_dir(t_data *data, t_cmds *cmds, char *cmd);
 void		ft_handle_rights(t_data *data, t_cmds *cmds, char *cmd, char *tmp2);
 void		ft_handle_directory(t_data *data, t_cmds *cmds, char *cmd);
-void    	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp);
+void		ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp);
 void		ft_handle_pipe_error(t_data *data, t_cmds *cmds);
 void		ft_handle_fork_error(t_data *data, t_cmds *cmds);
 void		ft_handle_close_error(t_data *data, t_cmds *cmds);
@@ -177,8 +178,6 @@ void		ft_handle_execve_error(t_data *data, t_cmds *cmds);
 void		ft_close_processes(t_cmds *cmds);
 void		ft_waitpid_only_one_cmd(t_cmds *cmds);
 void		ft_waitpid(t_cmds *cmds);
-
-
 
 // UTILS
 
@@ -212,7 +211,7 @@ void		ft_lstclear_cmd(t_cmds **cmd_lst, void (*del)(void *));
 int			ft_exit_code(int exit_code, int mode);
 void		ft_clean_all(t_data *data);
 void		ft_clear_redirlst(t_redir **redir_list, void (*del)(void *));
-void	ft_exit_if_malloc(t_data *data);
+void		ft_exit_if_malloc(t_data *data);
 
 // DEBUG
 

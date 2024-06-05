@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:10:38 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 17:19:34 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 16:59:47 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_handle_execve_error(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "ICI -> %s\n", __func__);
-	dprintf(2, "Attention tout le monde ! Je fail !\n");
 	ft_putstr_fd("minishell: ", 2);
 	perror(cmds->right_path);
 	free(cmds->right_path);
