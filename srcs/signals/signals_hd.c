@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:07 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 18:08:28 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/06 16:19:55 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_cc_heredoc(int sig)
 {
 	(void)sig;
+	dprintf(2, "on est dans cc heredoc\n");
 	ft_putchar(1, '\n');
 	close(0);
 	g_sig_exit = 2;
