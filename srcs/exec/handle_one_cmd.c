@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 12:33:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/06 02:20:03 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ static int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 	ft_dup_stdin_stdout(data, cmds);
 	if (cmds->redir)
 		ft_handle_redir(data, cmds);
-	if (cmds->infile != -1 && cmds->outfile != -1)
+	if (cmds->infile != -1 && cmds->outfile != -1) //&& g_sig_exit != 2)
 	{
+		dprintf(2, "il est psse ici\n");
 		ft_handle_exit_built_in(data, cmds);
 		ft_exec_built_in(data, cmds);
 	}
@@ -64,13 +65,18 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds)
 	}
 	if (!cmds->args)
 	{
+		// dprintf(2, "coucou, je n'ai pas d'arg\n");
 		ft_dup_stdin_stdout(data, cmds);
 		ft_handle_redir(data, cmds);
 		ft_dup2_and_close_stdin_stdout(data, cmds);
 		return (ft_exit_code(0, GET));
+		// dprintf(2, "apres le dup2\n");
 	}
 	if (ft_is_a_built_in(cmds->cmd))
+	{
+	//	dprintf(2, "il est psse ici\n");
 		return (ft_only_one_built_in(data, cmds));
+	}
 	else
 		return (ft_one_no_built_in_cmd(data, cmds));
 }

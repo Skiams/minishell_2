@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/05 23:06:41 by skiam            ###   ########.fr       */
+/*   Updated: 2024/06/06 01:54:22 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,45 +151,70 @@ static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	}
 	free(line);
 	free(delimiter);
+	// dprintf(2, "\t->\t%s\n", __func__);
 }
 
 static void	ft_handle_hd_child(t_data *data, t_cmds *cmds, t_redir *redir,
 	t_cmds *headcmds)
 {
+	(void)headcmds;
 	ft_handle_sig_heredoc();
-	// signal(SIGINT, SIG_IGN);
-	ft_close_hd_in_fork(headcmds, cmds);
-	close(cmds->hd_read);
+	// dprintf(2, "ici\n");
+	//signal(SIGINT, SIG_IGN);
+	//ft_close_hd_in_fork(headcmds, cmds);
+	//close(cmds->hd_read);
 	ft_write_in_here_doc(data, cmds, redir);
+	// dprintf(2, "\t->\t%s\n", __func__);
 	if (close(cmds->hd_write) == -1)
+	{
+		// dprintf(2, "je passe dans l'erreur du close\n");
 		ft_handle_file_error(data, cmds, redir);
-	ft_clean_all(data);
-	exit(0);
+	}	
+	//ft_clean_all(data);
+//	exit(0);
 }
 
 bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 		t_cmds *headcmds)
 {
-	pid_t	pid;
-	int		status;
+//	pid_t	pid;
+//	int		status;
+	int save;
 
 	ft_generate_hd_name(data, cmds, redir);
-	if (cmds->hd_read)
-		close (cmds->hd_read);
+	//if (cmds->hd_read)
+	//	close (cmds->hd_read);
+	save = dup(0);
 	cmds->hd_read = open(cmds->name, O_CREAT | O_RDONLY | O_TRUNC, 0755);
+	// dprintf(2, "AVANT LE CTRL C var globale dans %s, %d\n", __func__, g_sig_exit);
+	//ft_handle_sig_heredoc();
+	
 	cmds->hd_write = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	unlink(cmds->name);
 	ft_free_ptr(cmds->name);
-	signal(SIGINT, SIG_IGN);
-	// ft_handle_sig_heredoc();
-	pid = fork();
-	if (pid == 0)
-		ft_handle_hd_child(data, cmds, redir, headcmds);
-	waitpid(pid, &status, 0);
-	if (close(cmds->hd_write) == -1)
-		ft_handle_file_error(data, cmds, redir);
+	// signal(SIGINT, SIG_IGN);
+	
+//	ft_handle_sig_heredoc();
+//	pid = fork();
+	//if (pid == 0)
+	ft_handle_hd_child(data, cmds, redir, headcmds);
+	
+	// dprintf(2, "je suis apres handle_hf_child\n");
 	if (g_sig_exit == 2)
-		return (false);
+		dup2(save, 0);
+	// {
+	// 	dprintf(2, "je return TRUE\n");
+	// //	return (true);
+	// }
+	// dprintf(2, "APRES LE CTRL C var globale dans %s, %d\n", __func__, g_sig_exit);
+//	waitpid(pid, &status, 0);
+	//if (close(cmds->hd_write) == -1)
+	//	ft_handle_file_error(data, cmds, redir);
+	//if (close(cmds->hd_read) == -1)
+	//	ft_handle_file_error(data, cmds, redir);
+	// if (g_sig_exit == 2)
+	// 	return ;
 	ft_handle_signal(1);
+	close(save);
 	return (true);
 }

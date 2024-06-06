@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/05 21:37:30 by skiam            ###   ########.fr       */
+/*   Updated: 2024/06/06 02:12:20 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,20 @@
 
 void	ft_read_here_doc(t_data *data, t_cmds *cmds, int *count)
 {
+	dprintf(2, "\t->%s\n", __func__);
 	*count += 1;
 	if (*count == cmds->here_doc_count)
 	{
 		if (dup2(cmds->hd_read, 0) == -1)
+		{
+			dprintf(2, "est-ce que j'exit ?\n");
 			ft_handle_dup2_error(data, cmds);
+		}
 		if (close(cmds->hd_read) == -1)
+		{
+			dprintf(2, "est-ce que je close ?\n");
 			ft_handle_close_error(data, cmds);
+		}
 	}
 }
 
@@ -75,19 +82,21 @@ void	ft_open_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 
 void	ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
+	//dprintf(2, "\t->%s\n", __func__);
 	if (access(tmp->path, F_OK) == 0)
 		ft_open_input(data, cmds, tmp);
 	else if (ft_is_a_built_in(cmds->cmd))
 	{	
 		ft_putstr_fd("minishell: ", 2);
-		if (cmds != NULL)
-		{
-			ft_free_ptr(cmds->cmd);
-			cmds->cmd = NULL;
-		}
+		// if (cmds != NULL)
+		// {
+		// 	ft_free_ptr(cmds->cmd);
+		// 	cmds->cmd = NULL;
+		// }
 		ft_putstr_fd(tmp->path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		ft_free_cmds_args(cmds);
+		return ;
 	}
 	else
 		ft_handle_file_error(data, cmds, tmp);
@@ -114,4 +123,5 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 	}
 	ft_close_hd_in_fork(data->cmd_list, NULL);
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+	dprintf(2, "\t->%s\n", __func__);
 }

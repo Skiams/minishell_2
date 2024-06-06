@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/05 17:03:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/06 02:23:21 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_handle_signal(1);
 		data.input = readline("1️⃣   minishell$ ");
+		g_sig_exit = 0;
 		if (!data.input)
 			return (ft_clean_all(&data), ft_putstr_fd("exit\n", 1),
 				ft_exit_code(0, GET));

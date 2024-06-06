@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_duplications.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:15:12 by eltouma           #+#    #+#             */
-/*   Updated: 2024/05/24 20:23:46 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/06 02:29:50 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	ft_handle_dup_error(t_data *data, t_cmds *cmds)
 {
+	 dprintf(2, "\t%s\n", __func__);
 	perror(cmds->cmd);
 	ft_free_tab(cmds->cmd_path);
 	ft_free_tab(data->mini_env);
@@ -25,7 +26,10 @@ void	ft_dup_stdin_stdout(t_data *data, t_cmds *cmds)
 {
 	cmds->dev_stdin = dup(0);
 	if (cmds->dev_stdin == -1)
+	{
+		dprintf(2, "ATTENTION TOUT LE MONDE, JE FAIL\n");
 		ft_handle_dup_error(data, cmds);
+	}
 	cmds->dev_stdout = dup(1);
 	if (cmds->dev_stdout == -1)
 		ft_handle_dup_error(data, cmds);
@@ -41,6 +45,7 @@ void	ft_dup2_and_close_stdin_stdout(t_data *data, t_cmds *cmds)
 		ft_handle_dup2_error(data, cmds);
 	if (close(cmds->dev_stdout) == -1)
 		ft_handle_close_error(data, cmds);
+	dprintf(2, "\t%s\n", __func__);
 }
 
 void	ft_handle_dup2_error(t_data *data, t_cmds *cmds)
