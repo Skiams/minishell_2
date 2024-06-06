@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/05 17:03:53 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 18:16:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,6 @@ int	main(int argc, char **argv, char **env)
 		ft_clean_all(&data);
 		return (ft_exit_code(0, GET));
 	}
-// A MODIFIER, PASSER DATA.ENV
-//		ft_non_interactive(&data, data.env);
 	while (1)
 	{
 		ft_handle_signal(1);

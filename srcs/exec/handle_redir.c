@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/05 17:00:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/05 21:37:43 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,6 @@ void	ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 	else if (ft_is_a_built_in(cmds->cmd))
 	{	
 		ft_putstr_fd("minishell: ", 2);
-		if (cmds != NULL)
-		{
-			ft_free_ptr(cmds->cmd);
-			cmds->cmd = NULL;
-		}
 		ft_putstr_fd(tmp->path, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 		ft_free_cmds_args(cmds);
