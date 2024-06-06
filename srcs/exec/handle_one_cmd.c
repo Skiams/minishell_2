@@ -40,12 +40,12 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
  * 		qu'on avait ouvert avant de quitter
  * 	2 - la commande n'est pas exit, on l'execute
  */
-static int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
+int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 {
 	ft_dup_stdin_stdout(data, cmds);
-	if (cmds->redir)
-		ft_handle_redir(data, cmds);
-	if (cmds->infile != -1 && cmds->outfile != -1)
+//	if (cmds->redir)
+//		ft_handle_redir(data, cmds);
+	if (ft_handle_redir(data, cmds) && cmds->infile != -1 && cmds->outfile != -1)
 	{
 		ft_handle_exit_built_in(data, cmds);
 		ft_exec_built_in(data, cmds);

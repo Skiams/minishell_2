@@ -125,8 +125,6 @@ int	main(int argc, char **argv, char **env)
 		ft_clean_all(&data);
 		return (ft_exit_code(0, GET));
 	}
-// A MODIFIER, PASSER DATA.ENV
-//		ft_non_interactive(&data, data.env);
 	while (1)
 	{
 		ft_handle_signal(1);

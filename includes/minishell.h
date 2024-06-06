@@ -130,6 +130,7 @@ char		*ft_strjoin_exec(t_data *data, char *s1, char *s2);
 	// exec_cmds
 int			ft_exec(t_data *data, t_cmds *cmds);
 int			ft_is_only_one_cmd(t_data *data, t_cmds *cmds);
+int			ft_only_one_built_in(t_data *data, t_cmds *cmds);
 void		ft_handle_pipes(t_data *data, t_cmds *cmds);
 void		ft_handle_processes(t_data *data, t_cmds *cmd);
 int			ft_is_a_built_in(char *str);
@@ -137,7 +138,7 @@ void		ft_exec_built_in(t_data *data, t_cmds *cmds);
 void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 
 	// redirections
-void		ft_handle_redir(t_data *data, t_cmds *cmds);
+int			ft_handle_redir(t_data *data, t_cmds *cmds);
 void		ft_free_cmds_args(t_cmds *cmds);
 
 	// here_doc

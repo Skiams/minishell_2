@@ -77,23 +77,11 @@ void	ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
 	if (access(tmp->path, F_OK) == 0)
 		ft_open_input(data, cmds, tmp);
-	else if (ft_is_a_built_in(cmds->cmd))
-	{	
-		ft_putstr_fd("minishell: ", 2);
-		if (cmds != NULL)
-		{
-			ft_free_ptr(cmds->cmd);
-			cmds->cmd = NULL;
-		}
-		ft_putstr_fd(tmp->path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		ft_free_cmds_args(cmds);
-	}
 	else
 		ft_handle_file_error(data, cmds, tmp);
 }
 
-void	ft_handle_redir(t_data *data, t_cmds *cmds)
+int	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
 	t_redir	*tmp;
 	int		count;
@@ -107,11 +95,25 @@ void	ft_handle_redir(t_data *data, t_cmds *cmds)
 		if (tmp->type == HEREDOC)
 			ft_read_here_doc(data, cmds, &count);
 		if (tmp->type == RED_IN)
-			ft_handle_input(data, cmds, tmp);
+		{
+			if (ft_is_a_built_in(cmds->cmd))
+			{
+				if (access(tmp->path, F_OK) != 0)
+				{
+					ft_putstr_fd("minishell: ", 2);
+					ft_putstr_fd(tmp->path, 2);
+					ft_putstr_fd(": No such file or directory\n", 2);
+					return (0);
+				}
+			}
+			else
+				ft_handle_input(data, cmds, tmp);
+		}
 		if (tmp->type == RED_OUT)
 			ft_handle_output_and_append(data, cmds, tmp);
 		tmp = tmp->next;
 	}
 	ft_close_hd_in_fork(data->cmd_list, NULL);
 	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+	return (1);
 }
