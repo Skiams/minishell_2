@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 12:33:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/06 15:40:30 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 	if (cmds->pid == 0)
 		ft_exec_cmds(data, cmds);
 	ft_waitpid_only_one_cmd(cmds);
+	//ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 	if (cmds->hd_read > 0 && close(cmds->hd_read) == -1)
 		ft_handle_close_error(data, cmds);
 	return (ft_exit_code(0, GET));

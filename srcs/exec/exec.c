@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/05 23:54:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:27:54 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	ft_exec(t_data *data, t_cmds *cmds)
 	ft_init_exec(cmds);
 	ft_is_max_here_doc_nb_reached(data, cmds);
 	if (ft_handle_here_doc(data, cmds) == -2)
+	{
+		//ft_close_hd_in_fork(cmds, NULL);
 		return (ft_exit_code(0, GET));
+	}
 	if (cmds->cmd_count == 1)
 	{
 		ft_is_only_one_cmd(data, cmds);
