@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 14:01:33 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/06 17:25:09 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,17 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 		ft_dup2_and_close_stdin_stdout(data, cmds);
 		ft_exit_properly2(data, cmds);
 	}
-	if (cmds->redir)
-		ft_handle_redir(data, cmds);
 	if (ft_is_a_built_in(cmds->cmd))
 	{
+		if (!ft_handle_redir(data, cmds))
+			ft_exit_properly2(data, cmds);
+		if (cmds->redir)
+			ft_handle_redir(data, cmds);
 		ft_exec_built_in(data, cmds);
 		ft_exit_properly2(data, cmds);
 	}
+	if (cmds->redir)
+		ft_handle_redir(data, cmds);
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd);
 	ft_exit_if_malloc(data);
 	ft_close_hd_in_fork(data->cmd_list, NULL);
