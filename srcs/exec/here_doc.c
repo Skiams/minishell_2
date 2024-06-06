@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/06 17:25:29 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/06 17:57:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 	t_redir	*head;
 	t_cmds	*tmp;
 
-	dprintf(2,"\t->%s\n", __func__);
 	tmp = head_cmds;
 	while (tmp != NULL && tmp != cmds)
 	{
