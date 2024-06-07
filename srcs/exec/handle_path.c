@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 12:53:03 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/07 15:49:17 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 		}
 		free(tmp2);
 	}
-	ft_free(data, cmds, cmd, " command not found\n");
+	ft_free(data, cmds, cmd, "command not found\n");
 	exit (ft_exit_code(127, ADD));
 }
 

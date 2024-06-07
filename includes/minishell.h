@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/06 16:15:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:31:57 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 
 	// redirections
 int			ft_handle_redir(t_data *data, t_cmds *cmds);
-void		ft_free_cmds_args(t_cmds *cmds);
 
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);
@@ -201,7 +200,7 @@ void		ft_handle_sig_heredoc(void);
 void		ft_cc_heredoc(int sig);
 void		ft_cc_blocking(int sig);
 int			ft_strcmp_sig(char *argv, const char *str);
-void    	set_signal_action(int sig_case);
+void		set_signal_action(int sig_case);
 void		ft_cc_handler2(int sig);
 
 // CLEAN & EXIT
@@ -223,11 +222,5 @@ void		print_tab(char **tab);
 void		print_env(t_env *env_lst);
 void		print_cmds(t_cmds *cmd_list);
 void		print_redir(t_redir *redir);
-
-// void		ft_lstclear_hd(t_hd **hd_lst, void (*del)(void *));
-// void		ft_lstdelone_hd(t_hd *hd, void (*del)(void *));
-// t_hd		*ft_last_hd(t_hd *hd);
-// void		lst_add_back_hd(t_hd **hd_lst, t_hd *hd);
-// t_hd		*lst_new_hd(char *name);
 
 #endif

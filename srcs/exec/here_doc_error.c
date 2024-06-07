@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/05 17:18:47 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:23:03 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,17 @@ void	ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd("maximun here-doc count exceeded\n", 2);
-			// a modifier opur eviter les leaks si > 16 n'est pas le premier hd inout de minishell
-			ft_exit_properly(data, tmp);
+			ft_close_hd_in_fork(data->cmd_list, NULL);
+			ft_free_tab(tmp->cmd_path);
+			if (tmp->hd_read)
+				ft_free_tab(data->mini_env);
+			ft_clear_redirlst(&tmp->redir, &ft_free_ptr);
+			free(tmp->redir);
+			tmp->cmd_path = NULL;
+			data->mini_env = NULL;
+			ft_clean_all(data);
+			ft_exit_code(1, ADD);
+			exit (2);
 		}
 		tmp = tmp->next;
 	}
