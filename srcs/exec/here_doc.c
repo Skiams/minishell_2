@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/06 17:57:31 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:38:08 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,8 @@ static void	ft_handle_hd_child(t_data *data, t_cmds *cmds, t_redir *redir,
 	t_cmds *headcmds)
 {
 	ft_handle_sig_heredoc();
-	ft_close_hd_in_fork(headcmds, cmds);
-	//close(cmds->hd_read);
+//	ft_close_hd_in_fork(headcmds, cmds);
+	close(cmds->hd_read);
 	ft_write_in_here_doc(data, cmds, redir, headcmds);
 	if (close(cmds->hd_write) == -1)
 		ft_handle_file_error(data, cmds, redir);
