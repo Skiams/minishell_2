@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:57:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/03 15:08:50 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/07 17:33:57 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	ft_strcmp_sig(char *argv, const char *str)
 {
 	int	i;
-	int res;
-	
+	int	res;
+
 	i = 0;
 	if (!argv || !str)
 		return (1);

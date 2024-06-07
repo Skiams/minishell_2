@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+antoine
+iceland.jpg
+includes
+infile
+Makefile
+minishell
+objs
+outfile
+readline.supp
+srcs
+=======
 
 NAME = minishell
 
@@ -63,3 +75,4 @@ fclean:	clean
 re: fclean all
 
 .PHONY: all clean fclean re
+>>>>>>> 6293ee156da73b628529f7395f03b58d3c7b0051
