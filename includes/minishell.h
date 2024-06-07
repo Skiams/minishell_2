@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/07 17:31:57 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:38:31 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int			ft_handle_redir(t_data *data, t_cmds *cmds);
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);
 void		ft_is_max_here_doc_nb_reached(t_data *data, t_cmds *cmds);
-void		ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
+bool		ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 				t_cmds *headcmds);
 void		ft_close_hd_in_fork(t_cmds *headcmds, t_cmds *me);
 
