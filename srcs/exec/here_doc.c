@@ -12,11 +12,12 @@
 
 #include "../../includes/minishell.h"
 
-static bool    quit_da_cmd(int *pid, t_cmds *cmds)
+static bool    quit_da_cmd(int *pid, t_cmds *head_cmds, t_cmds *cmds)
 {
 	waitpid(*pid, pid, 0);
 	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
 	{
+		ft_close_hd_in_fork(head_cmds, cmds);
 		close(cmds->hd_read);
 		close(cmds->hd_write);
 		return (ft_exit_code(130, ADD), true);
@@ -115,7 +116,7 @@ bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	pid = fork();
 	if (pid == 0)
 		ft_handle_hd_child(data, cmds, redir, headcmds);
-	if (quit_da_cmd(&pid, cmds))
+	if (quit_da_cmd(&pid, headcmds, cmds))
 		return (dprintf(2, "on return false\n"), (false));
 	if (close(cmds->hd_write) == -1)
 		ft_handle_file_error(data, cmds, redir);
