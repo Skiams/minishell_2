@@ -6,17 +6,21 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/08 17:47:23 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/08 18:20:04 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool    quit_da_cmd(int *pid)
+static bool    quit_da_cmd(int *pid, t_cmds *cmds)
 {
 	waitpid(*pid, pid, 0);
 	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
+	{
+		close(cmds->hd_read);
+		close(cmds->hd_write);
 		return (ft_exit_code(130, ADD), true);
+	}
 	return (false);
 }
 
@@ -99,7 +103,6 @@ bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 		t_cmds *headcmds)
 {
 	pid_t	pid;
-	//int		status;
 
 	ft_generate_hd_name(data, cmds, redir);
 	if (cmds->hd_read)
@@ -112,7 +115,7 @@ bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	pid = fork();
 	if (pid == 0)
 		ft_handle_hd_child(data, cmds, redir, headcmds);
-	if (quit_da_cmd(&pid))
+	if (quit_da_cmd(&pid, cmds))
 		return (dprintf(2, "on return false\n"), (false));
 	if (close(cmds->hd_write) == -1)
 		ft_handle_file_error(data, cmds, redir);
