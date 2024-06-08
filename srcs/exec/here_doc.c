@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/08 17:44:10 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/08 17:47:23 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static bool    quit_da_cmd(int *pid)
 {
-    waitpid(*pid, pid, 0);
-    if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
+	waitpid(*pid, pid, 0);
+	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
 		return (ft_exit_code(130, ADD), true);
-    return (false);
+	return (false);
 }
 
 void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
@@ -61,13 +61,14 @@ static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir, t_c
 	{
 		line = readline("> ");
 		if (g_sig_exit == 2)
-        {
+		{
 			free(line);
 			free(delimiter);
+			close(cmds->hd_write);
 			//ft_close_hd_in_fork(headcmds, NULL);
-            ft_clean_all(data);
-            exit(2);
-        }
+			ft_clean_all(data);
+			exit(2);
+		}
 		if (!line)
 			break ;
 		if (!ft_strcmp(line, delimiter))
@@ -82,10 +83,10 @@ static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir, t_c
 }
 
 static void	ft_handle_hd_child(t_data *data, t_cmds *cmds, t_redir *redir,
-	t_cmds *headcmds)
+		t_cmds *headcmds)
 {
 	ft_handle_sig_heredoc();
-//	ft_close_hd_in_fork(headcmds, cmds);
+	ft_close_hd_in_fork(headcmds, cmds);
 	close(cmds->hd_read);
 	ft_write_in_here_doc(data, cmds, redir, headcmds);
 	if (close(cmds->hd_write) == -1)
