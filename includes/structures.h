@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/03 10:57:58 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/04 17:08:43 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_token
 
 typedef struct s_data
 {
+	int				hd_sig;
 	char			*input;
 	char			**mini_env;
 	t_token			*token_list;

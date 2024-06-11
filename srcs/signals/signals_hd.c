@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:07 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/11 11:41:44 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:58:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_ctrl_c_heredoc(int sig)
 
 void	ft_handle_sig_heredoc(void)
 {
+	// signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_ctrl_c_heredoc);
 }

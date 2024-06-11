@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/05 21:37:30 by skiam            ###   ########.fr       */
+/*   Updated: 2024/06/11 15:16:43 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	ft_handle_redir(t_data *data, t_cmds *cmds)
 					ft_putstr_fd("minishell: ", 2);
 					ft_putstr_fd(tmp->path, 2);
 					ft_putstr_fd(": No such file or directory\n", 2);
+					ft_exit_code(1, ADD);
 					return (0);
 				}
 			}
