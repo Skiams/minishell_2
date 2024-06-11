@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 15:16:43 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/11 23:46:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,10 @@ int	ft_handle_redir(t_data *data, t_cmds *cmds)
 		{
 			if (ft_is_a_built_in(cmds->cmd))
 			{
-				if (access(tmp->path, F_OK) != 0)
+				if (access(tmp->path, F_OK) != 0 || access(tmp->path, X_OK) != 0)
 				{
 					ft_putstr_fd("minishell: ", 2);
-					ft_putstr_fd(tmp->path, 2);
-					ft_putstr_fd(": No such file or directory\n", 2);
+					perror(tmp->path);
 					ft_exit_code(1, ADD);
 					return (0);
 				}
