@@ -6,7 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:07 by ahayon            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/06/11 11:41:44 by eltouma          ###   ########.fr       */
+=======
+/*   Updated: 2024/06/04 17:17:43 by ahayon           ###   ########.fr       */
+>>>>>>> 57129ec20534e3a6a9df404b8cb44afa22d705c2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +27,7 @@ void	ft_ctrl_c_heredoc(int sig)
 
 void	ft_handle_sig_heredoc(void)
 {
+	// signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_ctrl_c_heredoc);
 }
