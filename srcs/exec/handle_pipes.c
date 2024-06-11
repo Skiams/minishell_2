@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 12:41:31 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 14:38:36 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	ft_swap_pipes(t_data *data, t_cmds *cmds)
 
 static void	ft_fork_built_in_pipes(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "->\t\t%s\n\n", __func__);	
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
@@ -40,7 +39,6 @@ static void	ft_fork_built_in_pipes(t_data *data, t_cmds *cmds)
 
 static	void	ft_fork_no_built_in(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "->\t\t%s\n\n", __func__);	
 	ft_handle_signal(2);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
