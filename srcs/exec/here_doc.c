@@ -6,24 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/08 18:20:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 11:43:29 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static bool    quit_da_cmd(int *pid, t_cmds *head_cmds, t_cmds *cmds)
-{
-	waitpid(*pid, pid, 0);
-	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
-	{
-		ft_close_hd_in_fork(head_cmds, cmds);
-		close(cmds->hd_read);
-		close(cmds->hd_write);
-		return (ft_exit_code(130, ADD), true);
-	}
-	return (false);
-}
 
 void	ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
 {
@@ -54,26 +41,18 @@ static void	ft_generate_hd_name(t_data *data, t_cmds *cmds, t_redir *redir)
 	cmds->i += 1;
 }
 
-static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir, t_cmds *headcmds)
+static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 {
 	char	*line;
 	char	*str;
 	char	*delimiter;
-	(void)headcmds;
 
 	delimiter = ft_strdup_exec(data, redir->path);
 	while (1)
 	{
 		line = readline("> ");
 		if (g_sig_exit == 2)
-		{
-			free(line);
-			free(delimiter);
-			close(cmds->hd_write);
-			//ft_close_hd_in_fork(headcmds, NULL);
-			ft_clean_all(data);
-			exit(2);
-		}
+			ft_quit_in_fork(data, cmds, line, delimiter);
 		if (!line)
 			break ;
 		if (!ft_strcmp(line, delimiter))
@@ -88,26 +67,27 @@ static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir, t_c
 }
 
 static void	ft_handle_hd_child(t_data *data, t_cmds *cmds, t_redir *redir,
-		t_cmds *headcmds)
+		t_cmds *head_cmds)
 {
 	ft_handle_sig_heredoc();
-	ft_close_hd_in_fork(headcmds, cmds);
-	close(cmds->hd_read);
-	ft_write_in_here_doc(data, cmds, redir, headcmds);
+	ft_close_hd_in_fork(head_cmds, cmds);
+	if (close(cmds->hd_read) == -1)
+		ft_handle_close_error(data, cmds);
+	ft_write_in_here_doc(data, cmds, redir);
 	if (close(cmds->hd_write) == -1)
-		ft_handle_file_error(data, cmds, redir);
+		ft_handle_close_error(data, cmds);
 	ft_clean_all(data);
 	exit(0);
 }
 
 bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
-		t_cmds *headcmds)
+		t_cmds *head_cmds)
 {
 	pid_t	pid;
 
 	ft_generate_hd_name(data, cmds, redir);
-	if (cmds->hd_read)
-		close (cmds->hd_read);
+	if (cmds->hd_read && close(cmds->hd_read) == -1)
+		ft_handle_close_error(data, cmds);
 	cmds->hd_read = open(cmds->name, O_CREAT | O_RDONLY | O_TRUNC, 0755);
 	cmds->hd_write = open(cmds->name, O_CREAT | O_WRONLY | O_TRUNC, 0755);
 	unlink(cmds->name);
@@ -115,11 +95,11 @@ bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
-		ft_handle_hd_child(data, cmds, redir, headcmds);
-	if (quit_da_cmd(&pid, headcmds, cmds))
-		return (dprintf(2, "on return false\n"), (false));
+		ft_handle_hd_child(data, cmds, redir, head_cmds);
+	if (ft_quit_ctrl_c(&pid, data, head_cmds, cmds))
+		return (false);
 	if (close(cmds->hd_write) == -1)
-		ft_handle_file_error(data, cmds, redir);
+		ft_handle_close_error(data, cmds);
 	g_sig_exit = 0;
 	ft_handle_signal(1);
 	return (true);

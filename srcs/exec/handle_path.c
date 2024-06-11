@@ -6,7 +6,7 @@
 /*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/07 17:39:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 12:39:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 		free(tmp2);
 	}
 	ft_free(data, cmds, cmd, "command not found\n");
+	dprintf(2, "->\t\tle code erreur est : %d\n\n", g_sig_exit);
+	dprintf(2, "->\t\t%s\n\n", __func__);
 	exit (ft_exit_code(127, ADD));
 }
 

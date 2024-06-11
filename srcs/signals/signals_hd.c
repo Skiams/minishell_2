@@ -6,16 +6,15 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:07 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/06 16:19:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/11 11:41:44 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_cc_heredoc(int sig)
+void	ft_ctrl_c_heredoc(int sig)
 {
 	(void)sig;
-	dprintf(2, "on est dans cc heredoc\n");
 	ft_putchar(1, '\n');
 	close(0);
 	g_sig_exit = 2;
@@ -25,5 +24,31 @@ void	ft_cc_heredoc(int sig)
 void	ft_handle_sig_heredoc(void)
 {
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, &ft_cc_heredoc);
+	signal(SIGINT, &ft_ctrl_c_heredoc);
 }
+
+bool	ft_quit_ctrl_c(int *pid, t_data *data, t_cmds *head_cmds, t_cmds *cmds)
+{
+	waitpid(*pid, pid, 0); 
+	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
+	{
+		ft_close_hd_in_fork(head_cmds, cmds);
+		if (close(cmds->hd_read) == -1)
+			ft_handle_close_error(data, cmds);
+		if (close(cmds->hd_write) == -1)
+			ft_handle_close_error(data, cmds);
+		return (ft_exit_code(130, ADD), true);
+	}
+	return (false);
+}
+
+void	ft_quit_in_fork(t_data *data, t_cmds *cmds, char *line, char *delimiter)
+{
+	free(line);
+	free(delimiter);
+	if (close(cmds->hd_write) == -1)
+		ft_handle_close_error(data, cmds);
+	ft_clean_all(data);
+	exit(2);
+}
+
