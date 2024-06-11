@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 12:25:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:25:30 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_waitpid(t_cmds *cmds)
 	{
 		if (WIFEXITED(status))
 			ft_exit_code(WEXITSTATUS(status), ADD);
-		else if (WIFSIGNALED(status)) 
+		else if (WIFSIGNALED(status) && g_sig_exit != 0) 
 		{
 			ft_exit_code(WTERMSIG(status) + 128, ADD);
 			if (WTERMSIG(status) == 2)
