@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 16:42:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/11 15:50:43 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/11 16:00:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,5 @@ void	ft_echo(char **args)
 	}
 	if (n == 0)
 		ft_putchar_fd('\n', 1);
-	dprintf(2,"HELLO");
 	ft_exit_code(0, ADD);
 }
