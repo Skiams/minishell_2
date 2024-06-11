@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:04:27 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/28 15:04:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/11 17:31:08 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	ft_error_export(char *str, int code)
 		ft_exit_code(2, ADD);
 		ft_free_ptr(str);
 	}
+	ft_free_ptr(str);
 }
 
 void	ft_order_export_env(t_env **export_env)

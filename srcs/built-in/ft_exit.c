@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/28 14:16:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 18:24:35 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 {
 	if (!cmd->next && !cmd->prev)
 		ft_putstr_fd("exit\n", 1);
-	if (cmd->prev || cmd->next)
-		return ;
+	// if (cmd->prev || cmd->next)
+	// 	return ;
 	if (cmd->args[1] && !ft_is_number(cmd->args[1]))
 	{
 		ft_exit_errors(1, cmd->args[1]);
@@ -91,9 +91,11 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 		if (ft_get_status(cmd->args[1]) == -1)
 			ft_exit_errors(1, cmd->args[1]);
 		else
-			(ft_exit_code(ft_get_status(cmd->args[1]), ADD));
-		if (cmd->prev || cmd->next)
-			return ;
+			ft_exit_code(ft_get_status(cmd->args[1]), ADD);	
+		
+		//	(ft_exit_code(ft_get_status(cmd->args[1]), ADD));
+		// if (cmd->prev || cmd->next)
+		// 	return ;
 	}
 	else if (cmd->args && cmd->args[1] && cmd->args[2])
 		return (ft_exit_errors(2, cmd->args[1]));
@@ -104,5 +106,8 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
 {
 	if (!ft_strcmp(cmds->cmd, "exit"))
+	{
+		ft_dup2_and_close_stdin_stdout(data, cmds);
 		ft_exit(data, cmds);
+	}
 }
