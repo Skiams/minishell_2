@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 12:33:41 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:46:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	ft_exit_properly2(t_data *data, t_cmds *cmds)
 	ft_free_tab(cmds->cmd_path);
 	ft_free_tab(data->mini_env);
 	ft_clean_all(data);
-	ft_exit_code(0, GET);
-	exit (1);
+	exit (ft_exit_code(0, GET));
 }
 
 void	ft_exec_cmds(t_data *data, t_cmds *cmds)
@@ -44,7 +43,6 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 	cmds->right_path = ft_get_cmd_path(data, cmds, cmds->cmd);
 	ft_exit_if_malloc(data);
 	ft_close_hd_in_fork(data->cmd_list, NULL);
-//	dprintf(2, "->\t\tle code erreur est : %d\n\n", g_sig_exit);
 	execve(cmds->right_path, cmds->args, data->mini_env);
 	ft_handle_execve_error(data, cmds);
 }

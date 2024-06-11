@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/11 12:41:29 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:03:45 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,6 @@ static t_env	*ft_no_env(t_data *data)
 		return (ft_exit_code(12, ADD), NULL);
 	return (data->env);
 }
-
-// static void	ft_non_interactive(t_data *data, char **env)
-// {
-// 	(void)env;
-// 	data->input = get_next_line(STDIN_FILENO);
-// 	if (!data->input)
-// 	{
-// 		ft_clean_all(data);
-// 		ft_putstr_fd("exit\n", 1);
-// 		ft_exit_code(0, GET);
-// 	}
-// 	while (data->input)
-// 	{
-// 		if (ft_parsing(data->input, data))
-// 			ft_exec(data, data->cmd_list);
-// 		ft_free_data(data);
-// 		data->input = get_next_line(STDIN_FILENO);
-// 	}
-// 	ft_clean_all(data);
-// 	exit(ft_exit_code(0, GET));
-// }
 
 int	main(int argc, char **argv, char **env)
 {
