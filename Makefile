@@ -23,7 +23,7 @@ SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c ft_export_utils_bis.c ft
 		debug.c \
 		get_env.c lst_env.c \
 		error_handle.c \
-		expand.c expand_utils.c expand_utils_bis.c \
+		expand.c expand_utils.c expand_utils_bis.c expand_utils_tri.c\
 		tokenization.c lst_token.c check_syntax.c parsing_utils.c parsing_utils_2.c \
 		signals.c signals_bis.c signals_hd.c \
 		get_path.c handle_access.c handle_errors.c handle_execve_error.c handle_duplications.c handle_path.c \

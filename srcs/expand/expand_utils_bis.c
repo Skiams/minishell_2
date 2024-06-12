@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:30:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/09 18:56:00 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/12 22:13:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	ft_classic_exp_bis(char *str, size_t *i, int code)
 {
 	if (code == NO_QUOTES)
 	{
-		while (str[*i] && str[*i] != '$' && str[*i] != '=' && str[*i] != '"')
+		while (str[*i] && str[*i] != '$' && str[*i] != '=' && str[*i] != '"'
+			&& str[*i] != '/')
 			(*i)++;
 	}
 	else if (code == QUOTES)
@@ -69,6 +70,7 @@ char	*ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 	if (!env_var)
 		return (ft_exit_code(12, ADD), NULL);
 	env_value = ft_var_is_exp(data, env_var);
+	env_value = ft_remove_space(env_value);
 	if (env_value)
 		return (ft_free_ptr(env_var), env_value);
 	else
