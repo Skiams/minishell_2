@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:04:37 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/28 15:04:39 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:27:56 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_env	*ft_create_export_env(t_data *data)
 int	ft_export_bis(t_data *data, char *dup_arg, int code)
 {
 	if (!ft_isalpha(dup_arg[0]) && dup_arg[0] != '_' && code != 0)
-		ft_error_export(dup_arg, 1);
+		return (ft_error_export(dup_arg, 1), 1);
 	else if ((code >= 1 && code <= 3) && !ft_add_var_env(data, dup_arg,
 			code))
 		return (ft_exit_code(12, ADD));
