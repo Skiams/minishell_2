@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:04:50 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/11 17:28:00 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/12 15:31:33 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,9 @@ int	ft_export(t_data *data, char **args)
 		if (code == 0)
 			break ;
 		if (ft_export_bis(data, dup_arg, code) != 0)
-			break ;
+			return (ft_exit_code(0, GET));
 		i++;
 	}
-	dprintf(2, "le code d'export = %d\n", code);
 	if (ft_exit_code(0, GET) != 12 && code != 0 && code != 1)
 		ft_exit_code(0, ADD);
 	return (ft_exit_code(0, GET));
