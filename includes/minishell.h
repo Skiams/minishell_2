@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/11 15:57:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/12 22:09:33 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char		*ft_strjoin_exp(char *s1, char *s2);
 char		*ft_var_is_exp(t_data *data, char *str);
 int			ft_expand_code(int expand_code, int mode);
 char		*ft_classic_exp(t_data *data, char *str, size_t *i, int code);
+char 		*ft_remove_space(char *str);
 
 // COMMANDS
 
