@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:22:46 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 15:47:52 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 16:50:25 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // mais a voir s'il faut le changer pour d' autres erreurs
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
+	dprintf(2, "\t-> %s\n\n", __func__);
 	ft_close_hd_in_fork(data->cmd_list, NULL);
 	while (cmds && cmds != NULL)
 	{
