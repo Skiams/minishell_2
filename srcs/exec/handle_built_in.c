@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:28:03 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 18:21:05 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 17:35:56 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_exec_built_in(t_data *data, t_cmds *cmds)
 		ft_cd(cmds, data);
 	if (!ft_strcmp(cmds->cmd, "unset"))
 		ft_unset(data, cmds->args);
+	//if (!ft_strcmp(cmds->cmd, "\0"))
+	//	(ft_putstr_fd("Command not found\n", 2));
 	ft_exit_if_malloc(data);
 }
 
