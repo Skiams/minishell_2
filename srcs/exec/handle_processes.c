@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 17:42:57 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:11:26 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_handle_processes(t_data *data, t_cmds *cmds)
 		if (dup2(cmds->curr_pipe[1], STDOUT_FILENO) == -1)
 			ft_handle_dup2_error(data, cmds);
 	}
-	ft_waitpid(cmds);
+	ft_close_processes(cmds);
+	ft_waitpid();
 	ft_exec_cmds(data, cmds);
 }

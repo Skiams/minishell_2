@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 17:49:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:27:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 		ft_exec_cmds(data, cmds);
-	ft_waitpid_only_one_cmd(cmds);
-	//ft_close_hd_in_fork(t_cmds *head_cmds, cmds)
+	ft_waitpid();
 	if (cmds->hd_read > 0 && close(cmds->hd_read) == -1)
 		ft_handle_close_error(data, cmds);
 	return (ft_exit_code(0, GET));
@@ -50,10 +49,10 @@ int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 	ft_dup_stdin_stdout(data, cmds);
 //	if (cmds->redir)
 //		ft_handle_redir(data, cmds);
-	if (ft_handle_redir(data, cmds) && cmds->infile != -1 && cmds->outfile != -1)
+	if (ft_handle_redir(data, cmds)
+		&& cmds->infile != -1 && cmds->outfile != -1)
 	{
 		ft_handle_exit_built_in(data, cmds);
-		dprintf(2, "%s\n\n", __func__);
 		ft_exec_built_in(data, cmds);
 	}
 	ft_dup2_and_close_stdin_stdout(data, cmds);

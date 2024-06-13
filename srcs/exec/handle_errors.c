@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:22:46 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 16:50:25 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/13 18:08:06 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ void	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp)
 				ft_dup2_and_close_stdin_stdout(data, cmds);
 			ft_exit_properly(data, cmds);
 		}
-		ft_waitpid_only_one_cmd(cmds);
+		ft_waitpid();
 	}
 	else
 	{
-		if (cmds->cmd_count == 1)
-			ft_waitpid_only_one_cmd(cmds);
-		else
-			ft_waitpid(cmds);
+		if (cmds->cmd_count > 1)
+			ft_close_processes(cmds);
+		ft_waitpid();
 		ft_exit_properly(data, cmds);
 	}
 }

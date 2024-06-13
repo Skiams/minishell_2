@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/12 22:09:33 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:58:24 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char		*ft_strjoin_exp(char *s1, char *s2);
 char		*ft_var_is_exp(t_data *data, char *str);
 int			ft_expand_code(int expand_code, int mode);
 char		*ft_classic_exp(t_data *data, char *str, size_t *i, int code);
-char 		*ft_remove_space(char *str);
+char		*ft_remove_space(char *str);
 
 // COMMANDS
 
@@ -140,6 +140,10 @@ void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 
 	// redirections
 int			ft_handle_redir(t_data *data, t_cmds *cmds);
+void		ft_read_here_doc(t_data *data, t_cmds *cmds, int *count);
+void		ft_handle_output_and_append(t_data *data, t_cmds *cmds,
+				t_redir *redir);
+int			ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp);
 
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);
@@ -177,8 +181,8 @@ void		ft_handle_execve_error(t_data *data, t_cmds *cmds);
 
 	// close processes
 void		ft_close_processes(t_cmds *cmds);
-void		ft_waitpid_only_one_cmd(t_cmds *cmds);
-void		ft_waitpid(t_cmds *cmds);
+//void		ft_waitpid_only_one_cmd(t_cmds *cmds);
+void		ft_waitpid(void);
 
 // UTILS
 
