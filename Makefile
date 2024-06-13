@@ -29,7 +29,8 @@ SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c ft_export_utils_bis.c ft
 		get_path.c handle_access.c handle_errors.c handle_execve_error.c handle_duplications.c handle_path.c \
 		handle_pipes.c handle_one_cmd.c free_functions.c \
 		handle_processes.c here_doc.c here_doc_error.c exec.c \
-		print_errors.c size_functions.c split.c string_functions.c wait_and_close.c handle_built_in.c handle_redir.c \
+		print_errors.c size_functions.c split.c string_functions.c wait_and_close.c \
+		handle_built_in.c handle_redir.c handle_redir_utils.c \
 		main.c
 	
 vpath %.c $(foreach dir, $(SRCS_PATH), $(dir):)
