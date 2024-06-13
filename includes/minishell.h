@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 18:58:24 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/13 19:57:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ extern int	g_sig_exit;
 
 int			ft_add_sep(t_token **token_lst, int type, char *str, int i);
 int			ft_define_token_type(char *str, int i);
-t_token		*ft_lstnew_token(char *value, t_token_tp type);
+t_token		*ft_lstnew_token(char *value, t_token_tp type, int flag);
 void		ft_lstadd_back_token(t_token **token_lst, t_token *new_token);
 t_token		*ft_lstlast_token(t_token *token);
 bool		ft_tokenization(t_data *data);

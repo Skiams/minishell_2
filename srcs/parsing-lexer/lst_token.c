@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 13:21:55 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 15:48:17 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 19:57:58 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_lstadd_back_token(t_token **token_lst, t_token *new_token)
 	}
 }
 
-t_token	*ft_lstnew_token(char *value, t_token_tp type)
+t_token	*ft_lstnew_token(char *value, t_token_tp type, int flag)
 {
 	t_token	*newel;
 
@@ -63,6 +63,7 @@ t_token	*ft_lstnew_token(char *value, t_token_tp type)
 		return (NULL);
 	newel->value = value;
 	newel->type = type;
+	newel->flag_exp = flag;
 	newel->next = NULL;
 	newel->prev = NULL;
 	return (newel);

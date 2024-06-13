@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 17:16:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:15:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	ft_add_word_bis(char *str, int *i, int *len)
 	return (0);
 }
 
-static int	ft_add_word_tri(t_token **token_lst, char *exp_value, char *value)
+static int	ft_add_word_tri(t_data *data, t_token **token_lst, char *exp_value, char *value)
 {
 	t_token	*new_token;
 
@@ -51,9 +51,13 @@ static int	ft_add_word_tri(t_token **token_lst, char *exp_value, char *value)
 	}
 	else
 	{
-		new_token = ft_lstnew_token(exp_value, WORD);
+		if (data->flag_null_exp == 1)
+			new_token = ft_lstnew_token(exp_value, WORD, 1);
+		else
+			new_token = ft_lstnew_token(exp_value, WORD, 0);
 		if (!new_token)
 			return (ft_exit_code(12, ADD), -1);
+		data->flag_null_exp = 0;
 		ft_lstadd_back_token(token_lst, new_token);
 	}
 	ft_expand_code(0, ADD);
@@ -84,7 +88,7 @@ static int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	}
 	else
 		exp_value = ft_remove_quotes(ft_expand(data, value), 1);
-	if (ft_add_word_tri(token_lst, exp_value, value) == -1)
+	if (ft_add_word_tri(data, token_lst, exp_value, value) == -1)
 		return (-1);
 	return (i);
 }
@@ -119,6 +123,5 @@ bool	ft_tokenization(t_data *data)
 			return (ft_free_ptr(str), false);
 	}
 	ft_free_ptr(str);
-	//print_tokens(data->token_list);
 	return (true);
 }

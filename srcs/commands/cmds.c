@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 17:21:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:15:40 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ static bool	ft_cmd_word(t_cmds **cmd_list, t_token **token_list)
 		if (!tmp->prev || (tmp->prev && tmp->prev->type == PIPE)
 			|| !last_cmd->cmd)
 		{
-			// if ((ft_strcmp(tmp->value, "\0") != 0) && (!ft_cmd_word_bis(tmp,
-			// 			last_cmd)))
-			if (!ft_cmd_word_bis(tmp, last_cmd))
+			if ((tmp->flag_exp == 0) && (!ft_cmd_word_bis(tmp, last_cmd)))
 				return (false);
 			else
 				tmp = tmp->next;
