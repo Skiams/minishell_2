@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:30:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 19:18:45 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:07:05 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ char	*ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 	if (!env_var)
 		return (ft_exit_code(12, ADD), NULL);
 	env_value = ft_var_is_exp(data, env_var);
+	if (env_value[0] == '\0')
+		data->flag_null_exp = 1;
 	if (env_value)
 		env_value = ft_remove_space(env_value);
 	if (env_value)
