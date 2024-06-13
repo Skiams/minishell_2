@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 18:21:39 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 17:49:01 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,18 @@
 static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 {
 	ft_handle_signal(2);
+	if (cmds->cmd[0] == '\0')
+	{
+		ft_putstr_fd("minishell$: command not found\n", 2);
+		return (ft_exit_code(127, ADD));
+	}
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 		ft_exec_cmds(data, cmds);
 	ft_waitpid_only_one_cmd(cmds);
-	//ft_close_hd_in_fork(t_cmds *head_cmds, t_cmds *cmds)
+	//ft_close_hd_in_fork(t_cmds *head_cmds, cmds)
 	if (cmds->hd_read > 0 && close(cmds->hd_read) == -1)
 		ft_handle_close_error(data, cmds);
 	return (ft_exit_code(0, GET));
@@ -48,13 +53,13 @@ int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 	if (ft_handle_redir(data, cmds) && cmds->infile != -1 && cmds->outfile != -1)
 	{
 		ft_handle_exit_built_in(data, cmds);
+		dprintf(2, "%s\n\n", __func__);
 		ft_exec_built_in(data, cmds);
 	}
 	ft_dup2_and_close_stdin_stdout(data, cmds);
 	return (ft_exit_code(0, GET));
 }
 
-// Voir avec Antoine le code erreur
 int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds)
 {
 	ft_get_path(data, cmds);

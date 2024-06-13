@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/12 22:28:41 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 17:16:11 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ bool	ft_tokenization(t_data *data)
 			return (ft_free_ptr(str), false);
 	}
 	ft_free_ptr(str);
+	//print_tokens(data->token_list);
 	return (true);
 }
