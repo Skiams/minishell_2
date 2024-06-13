@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 19:58:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 21:01:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ typedef enum e_token_tp
 	WORD,
 	WHITESPACE,
 }					t_token_tp;
-
-typedef struct s_hd
-{
-	char			*hdname;
-	struct s_hd		*next;
-	struct s_hd		*prev;
-}					t_hd;
 
 typedef struct s_env
 {
@@ -99,14 +92,12 @@ typedef struct s_token
 typedef struct s_data
 {
 	int				flag_null_exp;
-	int				hd_sig;
 	char			*input;
 	char			**mini_env;
 	t_token			*token_list;
 	t_cmds			*cmd_list;
 	t_env			*env;
 	t_env			*env_export;
-	t_hd			*hd_list;
 }					t_data;
 
 #endif
