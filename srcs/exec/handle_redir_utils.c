@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 18:56:56 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/13 20:35:17 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
 	if (ft_is_a_built_in(cmds->cmd))
 	{
-		if (access(tmp->path, F_OK) != 0 || access(tmp->path, X_OK) != 0)
+		if (access(tmp->path, F_OK) == -1
+			|| access(tmp->path, R_OK) == -1 || access(tmp->path, W_OK) == -1)
 		{
 			ft_putstr_fd("minishell: ", 2);
 			perror(tmp->path);
@@ -93,6 +94,7 @@ int	ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 			return (0);
 		}
 	}
-	ft_handle_input_no_built_in(data, cmds, tmp);
+	else
+		ft_handle_input_no_built_in(data, cmds, tmp);
 	return (1);
 }

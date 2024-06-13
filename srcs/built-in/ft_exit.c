@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 17:09:58 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:35:11 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 
 void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "handle exit\n");
 	if (!ft_strcmp(cmds->cmd, "exit"))
 	{
 		if (cmds->cmd_count == 1 && !cmds->args[2])
