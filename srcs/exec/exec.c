@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/11 15:56:20 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 18:25:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_close_hd_sig(t_data *data, t_cmds *head_cmds)
 		tmp = tmp->next;
 	}
 }
+
 static void	ft_init_exec(t_cmds *cmds)
 {
 	while (cmds != NULL)
@@ -46,9 +47,7 @@ int	ft_handle_here_doc(t_data *data, t_cmds *cmds)
 {
 	t_redir	*head;
 	t_cmds	*head_cmds;
-	t_cmds	*head_sig;
-	
-	head_sig = cmds;
+
 	head_cmds = cmds;
 	while (cmds != NULL)
 	{

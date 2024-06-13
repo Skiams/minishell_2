@@ -6,7 +6,7 @@
 /*   By: eltouma <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:04:22 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 16:57:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/13 18:26:14 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	*ft_free_tab(char **tab)
 
 void	ft_free(t_data *data, t_cmds *tmp, char *cmd, char *error)
 {
-	dprintf(2, "\t->%s\n\n", __func__);
 	t_cmds	*cmds;
 
 	cmds = tmp;
