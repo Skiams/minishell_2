@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/11 16:42:05 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:26:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	ft_add_shlvl(t_data *data, char *value)
 			tmp->value = ft_strdup(value);
 			ft_free_ptr(value);
 			if (!tmp->value)
-				return (ft_exit_code(12, ADD), false);
+				return (ft_exit_code(300, ADD), false);
 		}
 		tmp = tmp->next;
 	}
@@ -72,11 +72,11 @@ static t_env	*ft_no_env(t_data *data)
 
 	pwd = getcwd(NULL, 0);
 	if (!ft_lstinit_env(&data->env, "SHLVL", "2"))
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	if (!ft_lstinit_env(&data->env, "PWD", pwd))
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	if (!ft_lstinit_env(&data->env, "_", "/usr/bin/env"))
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	return (data->env);
 }
 
@@ -96,8 +96,8 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 		data.env = ft_no_env(&data);
-	if (ft_exit_code(0, GET) == 12)
-		return (ft_free_data(&data), 12);
+	if (ft_exit_code(0, GET) == 300)
+		return (ft_free_data(&data), 255);
 	if (isatty(STDIN_FILENO) == 0)
 	{
 		ft_putstr_fd("Non-interactive mode blocked\n", 2);
@@ -113,10 +113,12 @@ int	main(int argc, char **argv, char **env)
 				ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list);
-		if (ft_exit_code(0, GET) == 12)
+		if (ft_exit_code(0, GET) == 300)
 			break ;
 		ft_free_data(&data);
 	}
 	ft_clean_all(&data);
+	if (ft_exit_code(0, GET) == 300)
+		ft_exit_code(255, ADD);
 	return (ft_exit_code(0, GET));
 }

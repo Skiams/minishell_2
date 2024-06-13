@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:15:47 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/17 14:46:59 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:21:02 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ static char	**ft_new_args_tab(t_token **token_lst, t_cmds *last_cmd,
 	{
 		new_args[i] = ft_strdup(last_cmd->args[i]);
 		if (!new_args[i])
-			return (ft_exit_code(12, ADD), ft_free_tab(new_args), NULL);
+			return (ft_exit_code(300, ADD), ft_free_tab(new_args), NULL);
 		i++;
 	}
 	while (i < len)
 	{
 		new_args[i] = ft_strdup((*token_lst)->value);
 		if (!new_args[i])
-			return (ft_exit_code(12, ADD), ft_free_tab(new_args), NULL);
+			return (ft_exit_code(300, ADD), ft_free_tab(new_args), NULL);
 		i++;
 		*token_lst = (*token_lst)->next;
 	}
@@ -82,7 +82,7 @@ static bool	ft_add_args(t_token **token_list, t_cmds *last_cmd, int *index)
 	{
 		last_cmd->args[*index] = ft_strdup((*token_list)->value);
 		if (!last_cmd->args[*index])
-			return (ft_exit_code(12, ADD), false);
+			return (ft_exit_code(300, ADD), false);
 		*token_list = (*token_list)->next;
 		(*index)++;
 	}
@@ -102,12 +102,12 @@ bool	ft_set_args(t_cmds *last_cmd, t_token **token_list)
 	nb = ft_count_args(tmp);
 	last_cmd->args = malloc(sizeof(char *) * (nb + 2));
 	if (!last_cmd->args)
-		return (ft_exit_code(12, ADD), false);
+		return (ft_exit_code(300, ADD), false);
 	while (j++ <= nb)
 		last_cmd->args[j] = NULL;
 	last_cmd->args[i] = ft_strdup(last_cmd->cmd);
 	if (!last_cmd->args[i])
-		return (ft_exit_code(12, ADD), false);
+		return (ft_exit_code(300, ADD), false);
 	i++;
 	if (!ft_add_args(&tmp, last_cmd, &i))
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:27:39 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/12 22:30:33 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:21:58 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*ft_remove_quotes(char *str, int code)
 	quote_nb = ft_count_quotes(str);
 	new_str = malloc(sizeof(char) * (ft_strlen(str) - quote_nb) + 1);
 	if (!new_str)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	ft_remove_quotes_bis(str, new_str, &i, &j);
 	new_str[j] = '\0';
 	if (code == 1)
@@ -103,14 +103,14 @@ char	*ft_var_is_exp(t_data *data, char *str)
 		{
 			dup_value = ft_strdup(tmp->value);
 			if (!dup_value)
-				return (ft_exit_code(12, ADD), NULL);
+				return (ft_exit_code(300, ADD), NULL);
 			return (dup_value);
 		}
 		tmp = tmp->next;
 	}
 	dup_value = malloc(sizeof(char));
 	if (!dup_value)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	dup_value[0] = '\0';
 	return (dup_value);
 }

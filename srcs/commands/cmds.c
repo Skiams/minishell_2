@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:34:32 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 20:15:40 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:21:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	ft_cmd_word_bis(t_token *tmp, t_cmds *last_cmd)
 {
 	last_cmd->cmd = ft_strdup(tmp->value);
 	if (!last_cmd->cmd)
-		return (ft_exit_code(12, ADD), false);
+		return (ft_exit_code(300, ADD), false);
 	tmp = tmp->next;
 	return (true);
 }
@@ -81,7 +81,7 @@ static bool	ft_set_new_cmd(t_data *data, t_token **token_lst)
 		new_cmd = lst_new_cmd();
 		ft_memset(new_cmd, 0, sizeof(t_cmds));
 		if (!new_cmd)
-			return (ft_exit_code(12, ADD), false);
+			return (ft_exit_code(300, ADD), false);
 		lst_add_back_cmd(&data->cmd_list, new_cmd);
 		if ((*token_lst)->type == PIPE)
 			*token_lst = (*token_lst)->next;

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/12 21:21:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:22:08 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_normal_str(char *str, size_t *i)
 		(*i)++;
 	normal_str = ft_substr(str, start, *i - start);
 	if (!normal_str)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	return (normal_str);
 }
 
@@ -36,7 +36,7 @@ static char	*ft_normal_dq_str(char *str, size_t *i)
 		(*i)++;
 	dq_str = ft_substr(str, start, *i - start);
 	if (!dq_str)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	return (dq_str);
 }
 
@@ -46,7 +46,7 @@ static char	*ft_exp_dquotes(t_data *data, char *str, size_t *i)
 
 	dq_str = ft_strdup("\"");
 	if (!dq_str)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	(*i)++;
 	while (str[*i] && str[*i] != '"')
 	{
@@ -56,12 +56,12 @@ static char	*ft_exp_dquotes(t_data *data, char *str, size_t *i)
 		else
 			dq_str = ft_strjoin_exp(dq_str, ft_normal_dq_str(str, i));
 		if (!dq_str)
-			return (ft_exit_code(12, ADD), NULL);
+			return (ft_exit_code(300, ADD), NULL);
 	}
 	(*i)++;
 	dq_str = ft_strjoin_exp(dq_str, ft_strdup("\""));
 	if (!dq_str)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	return (dq_str);
 }
 
@@ -77,7 +77,7 @@ static char	*ft_exp_squotes(char *str, size_t *i)
 	(*i)++;
 	sq_str = ft_substr(str, start, (*i) - start);
 	if (!sq_str)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	return (sq_str);
 }
 
@@ -88,7 +88,7 @@ char	*ft_expand(t_data *data, char *str)
 
 	exp_str = ft_strdup("");
 	if (!exp_str)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	i = 0;
 	while (str[i])
 	{
@@ -105,7 +105,7 @@ char	*ft_expand(t_data *data, char *str)
 		else
 			exp_str = ft_strjoin_exp(exp_str, ft_normal_str(str, &i));
 		if (!exp_str)
-			return (ft_exit_code(12, ADD), NULL);
+			return (ft_exit_code(300, ADD), NULL);
 	}
 	return (exp_str);
 }
