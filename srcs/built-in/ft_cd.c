@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:37:23 by ahayon            #+#    #+#             */
-/*   Updated: 2024/05/31 14:10:03 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:20:09 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	ft_add_value_cd(t_data *data, char *var, char *value)
 			ft_free_ptr(tmp->value);
 			tmp->value = ft_strdup(value);
 			if (!tmp->value)
-				return (ft_exit_code(12, ADD), false);
+				return (ft_exit_code(300, ADD), false);
 			ft_free_ptr(value);
 			if (tmp->next)
 				tmp = tmp->next;
@@ -44,7 +44,7 @@ static bool	ft_new_pwds(t_data *data, int code)
 		return (ft_exit_code(1, ADD), false);
 	pwd = ft_strdup(cwd);
 	if (!pwd)
-		return (ft_exit_code(12, ADD), false);
+		return (ft_exit_code(300, ADD), false);
 	if (ft_var_is_in_env(data, "OLDPWD") && code == OLDPWD)
 	{
 		if (!ft_add_value_cd(data, "OLDPWD", pwd))
@@ -65,7 +65,7 @@ static char	*ft_change_dir_prev(t_data *data, char *new_dir, int exit_code)
 			ft_exit_code(1, ADD), NULL);
 	new_dir = ft_var_is_exp(data, "OLDPWD");
 	if (!new_dir)
-		return (ft_exit_code(12, ADD), NULL);
+		return (ft_exit_code(300, ADD), NULL);
 	exit_code = chdir(new_dir);
 	if (exit_code == -1)
 	{
@@ -96,7 +96,7 @@ static int	ft_change_dir(t_data *data, int code)
 			return (ft_putstr_fd("minishell: cd: HOME is not set\n", 2), 1);
 		new_dir = ft_var_is_exp(data, "HOME");
 		if (!new_dir)
-			return (ft_exit_code(12, ADD));
+			return (ft_exit_code(300, ADD));
 	}
 	else if (code == PREV)
 	{

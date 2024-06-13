@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:10:40 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 19:59:32 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/13 20:34:04 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	ft_add_sep(t_token **token_lst, int type, char *str, int i)
 		len = 1;
 	value = ft_substr(str, i, len);
 	if (!value)
-		return (ft_exit_code(12, ADD), -1);
+		return (ft_exit_code(300, ADD), -1);
 	i += len;
 	new_token = ft_lstnew_token(value, type, 0);
 	if (!new_token)
-		return (ft_exit_code(12, ADD), -1);
+		return (ft_exit_code(300, ADD), -1);
 	ft_lstadd_back_token(token_lst, new_token);
 	return (i);
 }
@@ -86,10 +86,10 @@ static bool	ft_add_exp_token_bis(t_token **token_lst, char *str, char *cmd,
 		(*i)++;
 	arg = ft_substr(str, start, *i - start);
 	if (!arg)
-		return (ft_exit_code(12, ADD), false);
+		return (ft_exit_code(300, ADD), false);
 	rest_token = ft_lstnew_token(arg, WORD, 0);
 	if (!rest_token)
-		return (ft_free_ptr(cmd), ft_free_ptr(arg), ft_exit_code(12, ADD),
+		return (ft_free_ptr(cmd), ft_free_ptr(arg), ft_exit_code(300, ADD),
 			false);
 	ft_lstadd_back_token(token_lst, rest_token);
 	return (true);
@@ -111,10 +111,10 @@ bool	ft_add_exp_token(t_token **token_lst, char *str)
 		i++;
 	cmd = ft_substr(str, start, i - start);
 	if (!cmd)
-		return (ft_exit_code(12, ADD), false);
+		return (ft_exit_code(300, ADD), false);
 	new_token = ft_lstnew_token(cmd, WORD, 0);
 	if (!new_token)
-		return (ft_free_ptr(cmd), ft_exit_code(12, ADD), false);
+		return (ft_free_ptr(cmd), ft_exit_code(300, ADD), false);
 	ft_lstadd_back_token(token_lst, new_token);
 	if (!ft_add_exp_token_bis(token_lst, str, cmd, &i))
 		return (false);
