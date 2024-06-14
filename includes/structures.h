@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 21:01:10 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:49:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_token
 
 typedef struct s_data
 {
+	int				pidlist[1024];
 	int				flag_null_exp;
 	char			*input;
 	char			**mini_env;

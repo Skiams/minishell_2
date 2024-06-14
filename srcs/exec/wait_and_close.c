@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/14 18:12:49 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:38:32 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,36 @@ void	ft_waitpid(void)
 				ft_putstr_fd("Quit (core dumped)\n", 2);
 		}
 	}
+}
+
+void    ft_ft_waitpid(t_data *data)
+{
+    int i;
+    int status;
+
+    i = 0;
+    while(i < 1024 && data->pidlist[i] != -1)
+    {
+        waitpid(data->pidlist[i], &status, 0);
+        if (WIFEXITED(status))
+            ft_exit_code(WEXITSTATUS(status), ADD);
+        else if (WIFSIGNALED(status) && g_sig_exit != 0)
+        {
+            ft_exit_code(WTERMSIG(status) + 128, ADD);
+            if (WTERMSIG(status) == 2)
+                ft_putstr_fd("\n", 2);
+            if (WTERMSIG(status) == 3)
+                ft_putstr_fd("Quit (core dumped)\n", 2);
+        }
+        data->pidlist[i] = -1;
+        ++i;
+    }
+}
+
+void    ft_add_pid(t_data *data, int pid)
+{
+    int i = 0;
+    while (data->pidlist[i] != -1 && i < 1024)
+        ++i;
+    data->pidlist[i] = pid;
 }

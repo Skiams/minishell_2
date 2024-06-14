@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 18:12:38 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:26:32 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,8 @@ void		ft_handle_execve_error(t_data *data, t_cmds *cmds);
 void		ft_close_processes(t_cmds *cmds);
 //void		ft_waitpid_only_one_cmd(t_cmds *cmds);
 void		ft_waitpid(void);
+void    	ft_add_pid(t_data *data, int pid);
+void    	ft_ft_waitpid(t_data *data);
 
 // UTILS
 
