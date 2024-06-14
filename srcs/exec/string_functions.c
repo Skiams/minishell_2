@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 12:08:49 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/14 12:57:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_strjoin_exec(t_data *data, char *s1, char *s2)
 	size = ft_strlen(s1) + ft_strlen(s2);
 	str = (char *)malloc(sizeof(char) * (size + 1));
 	if (!str)
-		ft_exit_if_malloc(data);
+		(ft_exit_code(300, ADD), ft_exit_if_malloc(data));
 	while (s1[i] != '\0')
 	{
 		str[i] = s1[i];
@@ -46,7 +46,7 @@ char	*ft_strdup_exec(t_data *data, char *s)
 	i = 0;
 	str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
 	if (!str)
-		ft_exit_if_malloc(data);
+		(ft_exit_code(300, ADD), ft_exit_if_malloc(data));
 	while (s[i] != '\0')
 	{
 		str[i] = s[i];
@@ -54,4 +54,31 @@ char	*ft_strdup_exec(t_data *data, char *s)
 	}
 	str[i] = '\0';
 	return (str);
+}
+
+char	*ft_substr_exec(t_data *data, char *s, size_t start, size_t len)
+{
+	char			*subs;
+	size_t			i;
+	size_t			s_size;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	s_size = ft_strlen(s);
+	if (start >= s_size)
+		len = 0;
+	if (len > s_size - start)
+		len = s_size - start;
+	subs = (char *)malloc(sizeof(char) * (len + 1));
+	if (!subs)
+		(ft_exit_code(300, ADD), ft_exit_if_malloc(data));
+	while (i < len)
+	{
+		subs[i] = s[start];
+		start++;
+		i++;
+	}
+	subs[i] = '\0';
+	return (subs);
 }

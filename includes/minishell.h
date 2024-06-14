@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 19:57:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 12:14:47 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void		ft_get_path(t_data *data, t_cmds *cmds);
 char		*ft_get_cmd_path(t_data *data, t_cmds *cmds, char *cmd);
 char		*ft_strdup_exec(t_data *data, char *s);
 char		*ft_strjoin_exec(t_data *data, char *s1, char *s2);
+char		*ft_substr_exec(t_data *data, char *s, size_t start, size_t len);
 
 	// exec_cmds
 int			ft_exec(t_data *data, t_cmds *cmds);

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 20:23:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 12:28:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static int	ft_add_word_bis(char *str, int *i, int *len)
 	return (0);
 }
 
-static int	ft_add_word_tri(t_data *data, t_token **token_lst, char *exp_value, char *value)
+static int	ft_add_word_tri(t_data *data, t_token **token_lst,
+char *exp_value, char *value)
 {
 	t_token	*new_token;
 

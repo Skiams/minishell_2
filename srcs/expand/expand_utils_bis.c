@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:30:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 20:21:37 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 12:18:29 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static char	*ft_exp_pid(t_data *data)
 	pid = getpid();
 	str = ft_itoa(pid);
 	if (!str)
-		return (NULL);
+	{
+		ft_exit_code(300, ADD);
+		ft_exit_if_malloc(data);
+	}
 	return (str);
 }
 
@@ -59,20 +62,20 @@ char	*ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 
 	(*i)++;
 	if (str[*i] == '\0')
-		return (ft_strdup("$"));
+		return (ft_strdup_exec(data, "$"));
 	if (str[*i] == '?')
 		return ((*i)++, ft_exp_question_m(data));
 	else if (str[*i] == '$')
 		return ((*i)++, ft_exp_pid(data));
+	else if (str[*i] == '\'' || str[*i] == '"')
+		return (ft_strdup_exec(data, "\0"));
 	start = *i;
 	ft_classic_exp_bis(str, i, code);
-	env_var = ft_substr(str, start, *i - start);
-	if (!env_var)
-		return (ft_exit_code(300, ADD), NULL);
+	env_var = ft_substr_exec(data, str, start, *i - start);
 	env_value = ft_var_is_exp(data, env_var);
 	if (env_value[0] == '\0')
 		data->flag_null_exp = 1;
-	if (env_value)
+	else
 		env_value = ft_remove_space(env_value);
 	if (env_value)
 		return (ft_free_ptr(env_var), env_value);

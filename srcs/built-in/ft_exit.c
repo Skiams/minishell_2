@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 20:35:11 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/14 12:26:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 		if (ft_get_status(cmd->args[1]) == -1)
 			ft_exit_errors(1, cmd->args[1]);
 		else
-			ft_exit_code(ft_get_status(cmd->args[1]), ADD);	
+			ft_exit_code(ft_get_status(cmd->args[1]), ADD);
 		//	(ft_exit_code(ft_get_status(cmd->args[1]), ADD));
 		// if (cmd->prev || cmd->next)
 		// 	return ;
@@ -114,8 +114,7 @@ void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
 		}
 		// if (cmds->cmd_count == 1)
 		// {
-		// 	ft_dup2_and_close_stdin_stdout(data, cmds);
-			
+		// 	ft_dup2_and_close_stdin_stdout(data, cmds);	
 		// }
 		// ft_exit(data, cmds);
 	}
