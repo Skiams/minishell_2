@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 19:26:32 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 21:28:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,12 @@ void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 
 	// redirections
 int			ft_handle_redir(t_data *data, t_cmds *cmds);
+/*
 void		ft_read_here_doc(t_data *data, t_cmds *cmds, int *count);
 void		ft_handle_output_and_append(t_data *data, t_cmds *cmds,
 				t_redir *redir);
 int			ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp);
+*/
 
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);

@@ -6,12 +6,13 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 20:35:17 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/14 21:28:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
 void	ft_read_here_doc(t_data *data, t_cmds *cmds, int *count)
 {
 	*count += 1;
@@ -44,6 +45,7 @@ void	ft_handle_output_and_append(t_data *data, t_cmds *cmds, t_redir *redir)
 	}
 }
 
+*/
 /*
  * Pourquoi ce else ?
  *
@@ -59,6 +61,7 @@ void	ft_handle_output_and_append(t_data *data, t_cmds *cmds, t_redir *redir)
  * Mais depuis ton infile
  * Une fois qu'on a lu l'info, on n'a plus besoin de cet infile, donc on le close
  */
+/*
 void	ft_open_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 {
 	cmds->infile = open(tmp->path, O_RDONLY, 0755);
@@ -98,3 +101,4 @@ int	ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 		ft_handle_input_no_built_in(data, cmds, tmp);
 	return (1);
 }
+*/
