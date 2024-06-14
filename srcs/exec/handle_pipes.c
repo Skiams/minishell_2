@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 18:18:34 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/14 12:33:05 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	ft_fork_in_pipes(t_data *data, t_cmds *cmds)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 		ft_handle_processes(data, cmds);
-	ft_waitpid();
+	//ft_waitpid();
 }
 
 void	ft_handle_pipes(t_data *data, t_cmds *cmds)
