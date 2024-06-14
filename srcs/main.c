@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 19:49:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 20:32:06 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ int	main(int argc, char **argv, char **env)
 	}
 	if (ft_exit_code(0, GET) == 300)
 		return (ft_free_data(&data), 255);
+	for (int i = 0; i < 1024; i++)
+		data.pidlist[i] = -1;
 	while (1)
 	{
 		ft_handle_signal(1);
