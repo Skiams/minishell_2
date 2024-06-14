@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 21:28:52 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/14 21:54:00 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,12 +144,11 @@ void		ft_exec_cmds(t_data *data, t_cmds *cmds);
 
 	// redirections
 int			ft_handle_redir(t_data *data, t_cmds *cmds);
-/*
 void		ft_read_here_doc(t_data *data, t_cmds *cmds, int *count);
 void		ft_handle_output_and_append(t_data *data, t_cmds *cmds,
 				t_redir *redir);
-int			ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp);
-*/
+void		ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp);
+int			ft_handle_built_in_error(t_redir *tmp);
 
 	// here_doc
 int			ft_count_here_doc(t_cmds *cmds);
@@ -187,10 +186,8 @@ void		ft_handle_execve_error(t_data *data, t_cmds *cmds);
 
 	// close processes
 void		ft_close_processes(t_cmds *cmds);
-//void		ft_waitpid_only_one_cmd(t_cmds *cmds);
-void		ft_waitpid(void);
 void    	ft_add_pid(t_data *data, int pid);
-void    	ft_ft_waitpid(t_data *data);
+void    	ft_waitpid(t_data *data);
 
 // UTILS
 

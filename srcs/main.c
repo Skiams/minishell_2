@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 20:32:06 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 21:47:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	int		fd;
+	int		i;
 
 	(void)argv;
+	i = 0;
 	g_sig_exit = 0;
 	if (argc != 1)
 		ft_print_wrong_param();
@@ -111,8 +113,11 @@ int	main(int argc, char **argv, char **env)
 	}
 	if (ft_exit_code(0, GET) == 300)
 		return (ft_free_data(&data), 255);
-	for (int i = 0; i < 1024; i++)
+	while (i < 1024)
+	{
 		data.pidlist[i] = -1;
+		i += 1;
+	}
 	while (1)
 	{
 		ft_handle_signal(1);
@@ -122,7 +127,7 @@ int	main(int argc, char **argv, char **env)
 				ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list);
-		ft_ft_waitpid(&data);
+		ft_waitpid(&data);
 		if (ft_exit_code(0, GET) == 300)
 			break ;
 		ft_free_data(&data);
