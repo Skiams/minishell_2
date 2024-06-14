@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 22:10:33 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 14:26:45 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 16:25:39 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,15 @@ void	ft_classic_exp_bis(char *str, size_t *i, int code)
 		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 			(*i)++;
 	}
+}
+
+char	*ft_expand_bis(char *tmp, char *exp_str)
+{
+	if (!tmp)
+		return (free(exp_str), ft_exit_code(300, ADD), NULL);
+	exp_str = ft_strjoin_exp(exp_str, tmp);
+	if (!exp_str)
+		return (ft_exit_code(300, ADD), NULL);
+	ft_expand_code(1, ADD);
+	return (exp_str);
 }

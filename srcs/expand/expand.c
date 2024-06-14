@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 14:45:57 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 16:26:52 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,7 @@ char	*ft_expand(t_data *data, char *str)
 		else if (str[i] == '$')
 		{
 			tmp = ft_classic_exp(data, str, &i, NO_QUOTES);
-			if (!tmp)
-				return (free(exp_str), ft_exit_code(300, ADD), NULL);
-			exp_str = ft_strjoin_exp(exp_str, tmp);
-			ft_expand_code(1, ADD);
+			exp_str = ft_expand_bis(tmp, exp_str);
 		}
 		else
 			exp_str = ft_strjoin_exp(exp_str, ft_normal_str(str, &i));

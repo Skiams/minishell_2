@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/14 12:55:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 17:48:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	ft_fork_in_pipes(t_data *data, t_cmds *cmds)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 		ft_handle_processes(data, cmds);
-	ft_waitpid();
+	// if (ft_strcmp(cmds->cmd, "cat") != 0 && ft_strcmp(cmds->cmd, "grep") != 0)
+	//ft_waitpid();
 }
 
 void	ft_handle_pipes(t_data *data, t_cmds *cmds)

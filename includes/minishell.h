@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 14:27:05 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 18:12:38 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ bool		ft_clean_quotes(t_data *data);
 char		*ft_remove_quotes(char *str, int code);
 bool		ft_add_exp_token(t_token **token_lst, char *str);
 bool		ft_check_space_expand(char *str);
+int			ft_add_token(t_data *data, char *str, int type, int i);
 
 // EXPAND
 
@@ -64,6 +65,7 @@ int			ft_expand_code(int expand_code, int mode);
 char		*ft_classic_exp(t_data *data, char *str, size_t *i, int code);
 char		*ft_remove_space(char *str);
 void		ft_classic_exp_bis(char *str, size_t *i, int code);
+char		*ft_expand_bis(char *tmp, char *exp_str);
 
 // COMMANDS
 
