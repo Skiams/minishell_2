@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 15:04:37 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 19:49:30 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	main(int argc, char **argv, char **env)
 				ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list);
+		ft_ft_waitpid(&data);
 		if (ft_exit_code(0, GET) == 300)
 			break ;
 		ft_free_data(&data);
