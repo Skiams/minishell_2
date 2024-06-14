@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 12:14:47 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 14:27:05 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char		*ft_var_is_exp(t_data *data, char *str);
 int			ft_expand_code(int expand_code, int mode);
 char		*ft_classic_exp(t_data *data, char *str, size_t *i, int code);
 char		*ft_remove_space(char *str);
+void		ft_classic_exp_bis(char *str, size_t *i, int code);
 
 // COMMANDS
 
@@ -223,6 +224,7 @@ int			ft_exit_code(int exit_code, int mode);
 void		ft_clean_all(t_data *data);
 void		ft_clear_redirlst(t_redir **redir_list, void (*del)(void *));
 void		ft_exit_if_malloc(t_data *data);
+void		ft_exit_if_malloc_parsing(t_data *data);
 
 // DEBUG
 

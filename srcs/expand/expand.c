@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 23:08:34 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 20:22:08 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 14:45:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static char	*ft_exp_squotes(char *str, size_t *i)
 char	*ft_expand(t_data *data, char *str)
 {
 	char	*exp_str;
+	char	*tmp;
 	size_t	i;
 
 	exp_str = ft_strdup("");
@@ -98,8 +99,10 @@ char	*ft_expand(t_data *data, char *str)
 			exp_str = ft_strjoin_exp(exp_str, ft_exp_dquotes(data, str, &i));
 		else if (str[i] == '$')
 		{
-			exp_str = ft_strjoin_exp(exp_str, ft_classic_exp(data, str, &i,
-						NO_QUOTES));
+			tmp = ft_classic_exp(data, str, &i, NO_QUOTES);
+			if (!tmp)
+				return (free(exp_str), ft_exit_code(300, ADD), NULL);
+			exp_str = ft_strjoin_exp(exp_str, tmp);
 			ft_expand_code(1, ADD);
 		}
 		else

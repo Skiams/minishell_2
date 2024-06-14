@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:54:22 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 12:28:10 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 14:02:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,17 @@ static int	ft_add_word(t_data *data, t_token **token_lst, char *str, int i)
 	{
 		exp_value = ft_remove_quotes(value, 0);
 		if (!exp_value)
-			return (ft_free_ptr(value), free(exp_value), -1);
+			return (ft_free_ptr(value), -1);
 	}
 	else
-		exp_value = ft_remove_quotes(ft_expand(data, value), 1);
+	{
+		exp_value = ft_expand(data, value);
+		if (!exp_value)
+			return (ft_free_ptr(value), ft_exit_code(300, ADD), -1);
+		exp_value = ft_remove_quotes(exp_value, 1);
+		if (!exp_value)
+			return (ft_free_ptr(value), ft_exit_code(300, ADD), -1);
+	}
 	if (ft_add_word_tri(data, token_lst, exp_value, value) == -1)
 		return (-1);
 	return (i);

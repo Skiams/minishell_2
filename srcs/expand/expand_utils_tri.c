@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 22:10:33 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 19:25:53 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 14:26:45 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,19 @@ char	*ft_remove_space(char *str)
 		return (ft_free_ptr(str), res);
 	}
 	return (str);
+}
+
+void	ft_classic_exp_bis(char *str, size_t *i, int code)
+{
+	if (code == NO_QUOTES)
+	{
+		while (str[*i] && str[*i] != '$' && str[*i] != '=' && str[*i] != '"'
+			&& str[*i] != '/')
+			(*i)++;
+	}
+	else if (code == QUOTES)
+	{
+		while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+			(*i)++;
+	}
 }

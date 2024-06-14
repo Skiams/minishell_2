@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 20:26:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/14 15:04:37 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,14 @@ static t_env	*ft_no_env(t_data *data)
 int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
+	int		fd;
 
 	(void)argv;
 	g_sig_exit = 0;
 	if (argc != 1)
 		ft_print_wrong_param();
 	ft_memset(&data, 0, sizeof(t_data));
+	
 	if (env && env[0])
 	{
 		data.env = ft_get_env(&data, env);
@@ -96,14 +98,19 @@ int	main(int argc, char **argv, char **env)
 	}
 	else
 		data.env = ft_no_env(&data);
-	if (ft_exit_code(0, GET) == 300)
-		return (ft_free_data(&data), 255);
 	if (isatty(STDIN_FILENO) == 0)
 	{
 		ft_putstr_fd("Non-interactive mode blocked\n", 2);
 		ft_clean_all(&data);
 		return (ft_exit_code(0, GET));
 	}
+	if (isatty(0) == 1)
+	{
+		fd = open("/dev/stdin", O_RDWR);
+		(dup2(fd, STDOUT_FILENO), close(fd));
+	}
+	if (ft_exit_code(0, GET) == 300)
+		return (ft_free_data(&data), 255);
 	while (1)
 	{
 		ft_handle_signal(1);
