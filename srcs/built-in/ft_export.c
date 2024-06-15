@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:04:50 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 20:20:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/15 14:56:19 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ bool	ft_add_var_and_value(t_data *data, char *str, int code)
 		return (ft_exit_code(300, ADD), false);
 	if (code == 2)
 		value = ft_substr(str, i + 1, ft_strlen(str) - i + 1);
-	else if (code == 3 && str[i + 2])
+	else if (code == 3)
 		value = ft_substr(str, i + 2, ft_strlen(str) - i);
 	if (!value)
 		return (ft_free_ptr(var), ft_exit_code(300, ADD), false);
