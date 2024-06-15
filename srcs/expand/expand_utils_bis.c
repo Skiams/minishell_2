@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_bis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 17:30:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 14:42:54 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/15 20:42:22 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static char	*ft_exp_first_check(t_data *data, char *str, size_t **i)
 {
 	if (str[**i] == '\0')
 		return (ft_strdup("$"));
+	if (str[**i] == 32 || str[**i] == 9)
+		return (ft_strdup("$"));
 	if (str[**i] == '?')
 		return ((**i)++, ft_exp_question_m(data));
 	else if (str[**i] == '$')
@@ -57,7 +59,7 @@ char	*ft_classic_exp(t_data *data, char *str, size_t *i, int code)
 
 	(*i)++;
 	if (str[*i] == '\0' || str[*i] == '?' || str[*i] == '$'
-		|| str[*i] == '\'' || str[*i] == '"')
+		|| str[*i] == '\'' || str[*i] == '"' || str[*i] == 32 || str[*i] == 9)
 		return (ft_exp_first_check(data, str, &i));
 	start = *i;
 	ft_classic_exp_bis(str, i, code);
