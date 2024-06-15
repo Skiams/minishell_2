@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/14 22:01:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:02:50 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds)
 	{
 		ft_close_processes(cmds);
 		ft_add_pid(data, cmds->pid);
+//		ft_waitpid(data);
 	}
 	ft_handle_signal(1);
 }

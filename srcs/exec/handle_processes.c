@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/14 22:01:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:05:54 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	ft_handle_processes(t_data *data, t_cmds *cmds)
 			ft_handle_dup2_error(data, cmds);
 	}
 	ft_close_processes(cmds);
+//	Pas sur que ce add_pid soit utile, a mon avis il ne sert a rien
 	ft_add_pid(data, cmds->pid);
 	ft_exec_cmds(data, cmds);
 }

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/14 22:00:08 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:05:00 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,28 @@ void	ft_waitpid(t_data *data)
 	i = 0;
 	while (i < 1024 && data->pidlist[i] != -1)
 	{
+//		dprintf(2, "%s\n", __func__);
 		waitpid(data->pidlist[i], &status, 0);
 		if (WIFEXITED(status))
+		{
+//			dprintf(2, "on rentre dans le if\n");
 			ft_exit_code(WEXITSTATUS(status), ADD);
+		}
 		else if (WIFSIGNALED(status) && g_sig_exit != 0)
 		{
+//			dprintf(2, "Dans le else de %s\n", __func__);
 			ft_exit_code(WTERMSIG(status) + 128, ADD);
 			if (WTERMSIG(status) == 2)
 				ft_putstr_fd("\n", 2);
 			if (WTERMSIG(status) == 3)
+			{
+//				dprintf(2, "status est a 3\n");
 				ft_putstr_fd("Quit (core dumped)\n", 2);
+			//		Pour eviter les conditionnals jumps
+				data->pidlist[i] = -1;
+				i += 1;
+				break ;
+			}
 		}
 		data->pidlist[i] = -1;
 		i += 1;

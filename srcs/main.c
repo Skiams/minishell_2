@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 21:47:38 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/15 17:07:47 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ int	main(int argc, char **argv, char **env)
 	if (argc != 1)
 		ft_print_wrong_param();
 	ft_memset(&data, 0, sizeof(t_data));
-	
+	while (i < 1024)
+	{
+		data.pidlist[i] = -1;
+		i += 1;
+	}
 	if (env && env[0])
 	{
 		data.env = ft_get_env(&data, env);
@@ -113,11 +117,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	if (ft_exit_code(0, GET) == 300)
 		return (ft_free_data(&data), 255);
-	while (i < 1024)
-	{
-		data.pidlist[i] = -1;
-		i += 1;
-	}
 	while (1)
 	{
 		ft_handle_signal(1);
@@ -127,6 +126,7 @@ int	main(int argc, char **argv, char **env)
 				ft_exit_code(0, GET));
 		if (ft_parsing(data.input, &data))
 			ft_exec(&data, data.cmd_list);
+		// J'avais mis ce waitpid en commentaire, et je l'avais mis dans exec
 		ft_waitpid(&data);
 		if (ft_exit_code(0, GET) == 300)
 			break ;
