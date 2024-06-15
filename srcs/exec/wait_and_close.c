@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/15 17:05:00 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/15 20:50:04 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ void	ft_waitpid(t_data *data)
 //			dprintf(2, "Dans le else de %s\n", __func__);
 			ft_exit_code(WTERMSIG(status) + 128, ADD);
 			if (WTERMSIG(status) == 2)
-				ft_putstr_fd("\n", 2);
+			{
+				ft_putchar(2, '\n');
+				data->pidlist[i] = -1;
+				i += 1;
+				break ;
+			}
 			if (WTERMSIG(status) == 3)
 			{
 //				dprintf(2, "status est a 3\n");

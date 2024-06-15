@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/15 17:02:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/15 18:21:12 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ static void	ft_swap_pipes(t_data *data, t_cmds *cmds)
 
 static void	ft_fork_in_pipes(t_data *data, t_cmds *cmds)
 {
+	signal(SIGINT, SIG_IGN);
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
+	{
+		ft_handle_signal(2);
 		ft_handle_processes(data, cmds);
+	}
 	ft_add_pid(data, cmds->pid);
 }
 
@@ -47,8 +51,8 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds)
 		ft_get_path(data, tmp);
 		if (pipe(tmp->curr_pipe) == -1)
 			ft_handle_pipe_error(data, tmp);
-		if (!ft_is_a_built_in(tmp->cmd))
-			ft_handle_signal(2);
+		// if (!ft_is_a_built_in(tmp->cmd))
+		// 	ft_handle_signal(2);
 		ft_fork_in_pipes(data, tmp);
 		ft_swap_pipes(data, tmp);
 		tmp = tmp->next;

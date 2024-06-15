@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 17:15:47 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/13 22:13:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/15 20:16:02 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ static bool	ft_add_args(t_token **token_list, t_cmds *last_cmd, int *index)
 {
 	while (*token_list && ((*token_list)->type == WORD))
 	{
-		if ((*token_list)->flag_exp == 1)
-			*token_list = (*token_list)->next;
-		else
-		{
+		// if ((*token_list)->flag_exp == 1)
+		// 	*token_list = (*token_list)->next;
+		// else
+		// {
 			last_cmd->args[*index] = ft_strdup((*token_list)->value);
 			if (!last_cmd->args[*index])
 				return (ft_exit_code(300, ADD), false);
 			*token_list = (*token_list)->next;
-		}
+		// }
 		(*index)++;
 	}
 	return (true);
