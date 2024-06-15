@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:04:27 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/11 17:31:08 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/15 14:57:54 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_check_export_case(char *str)
 		else if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=')
 		{
 			ft_error_export(str, 1);
-			return (ft_free_ptr(str), 0);
+			return (0);
 		}
 		else if (str[i] == '=')
 			return (2);
