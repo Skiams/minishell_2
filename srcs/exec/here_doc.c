@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 18:20:05 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/15 15:13:56 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	ft_write_in_here_doc(t_data *data, t_cmds *cmds, t_redir *redir)
 	while (1)
 	{
 		line = readline("> ");
-		if (g_sig_exit == 2)
+		if (g_sig_exit == 4)
 			ft_quit_in_fork(data, cmds, line, delimiter);
 		if (!line)
 			break ;
