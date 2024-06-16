@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/16 20:59:51 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 00:39:10 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,13 @@ int	ft_is_only_one_cmd(t_data *data, t_cmds *cmds)
 	if (!ft_strcmp(cmds->cmd, ":") || !ft_strcmp(cmds->cmd, "!"))
 	{
 		ft_putstr_fd("", 1);
+		if (!ft_strcmp(cmds->cmd, "!"))
+			return (ft_exit_code(1, ADD));
 		return (ft_exit_code(0, GET));
 	}
 	if (!cmds->args)
 	{
+		dprintf(2, "je passe la\n");
 		ft_dup_stdin_stdout(data, cmds);
 		ft_handle_redir(data, cmds);
 		ft_dup2_and_close_stdin_stdout(data, cmds);
