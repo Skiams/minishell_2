@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_and_close.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/15 20:50:04 by skiam            ###   ########.fr       */
+/*   Updated: 2024/06/16 21:26:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,31 @@ void	ft_waitpid(t_data *data)
 	i = 0;
 	while (i < 1024 && data->pidlist[i] != -1)
 	{
-//		dprintf(2, "%s\n", __func__);
+	//	waitpid(*pid, pid, 0);
 		waitpid(data->pidlist[i], &status, 0);
 		if (WIFEXITED(status))
 		{
-//			dprintf(2, "on rentre dans le if\n");
 			ft_exit_code(WEXITSTATUS(status), ADD);
 		}
 		else if (WIFSIGNALED(status) && g_sig_exit != 0)
 		{
-//			dprintf(2, "Dans le else de %s\n", __func__);
 			ft_exit_code(WTERMSIG(status) + 128, ADD);
 			if (WTERMSIG(status) == 2)
 			{
-				ft_putchar(2, '\n');
+				dprintf(2, "WTERMSIG == 2\n");
+				//ft_putchar(2, '\n');
 				data->pidlist[i] = -1;
 				i += 1;
+				g_sig_exit = 0;
 				break ;
 			}
 			if (WTERMSIG(status) == 3)
 			{
-//				dprintf(2, "status est a 3\n");
+				dprintf(2, "WTERMSIG == 3\n");
 				ft_putstr_fd("Quit (core dumped)\n", 2);
-			//		Pour eviter les conditionnals jumps
 				data->pidlist[i] = -1;
 				i += 1;
+				g_sig_exit = 0;
 				break ;
 			}
 		}

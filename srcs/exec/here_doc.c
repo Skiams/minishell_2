@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 22:19:04 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/15 15:13:56 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/16 21:00:02 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ bool	ft_exec_here_doc(t_data *data, t_cmds *cmds, t_redir *redir,
 	if (close(cmds->hd_write) == -1)
 		ft_handle_close_error(data, cmds);
 	g_sig_exit = 0;
-	ft_handle_signal(1);
+	ft_handle_signal();
 	return (true);
 }

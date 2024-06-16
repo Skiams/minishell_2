@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 18:25:50 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/16 20:58:06 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	ft_exec(t_data *data, t_cmds *cmds)
 	}
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		if (pipe(cmds->prev_pipe) == -1)
 			ft_handle_pipe_error(data, cmds);
 		ft_handle_pipes(data, cmds);

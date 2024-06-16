@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/15 18:21:12 by skiam            ###   ########.fr       */
+/*   Updated: 2024/06/16 21:54:47 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static void	ft_swap_pipes(t_data *data, t_cmds *cmds)
 
 static void	ft_fork_in_pipes(t_data *data, t_cmds *cmds)
 {
-	signal(SIGINT, SIG_IGN);
+	ft_handle_sig_child();
 	cmds->pid = fork();
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
 	{
-		ft_handle_signal(2);
+		//ft_handle_sig_child();
 		ft_handle_processes(data, cmds);
 	}
 	ft_add_pid(data, cmds->pid);
@@ -64,5 +64,5 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds)
 		ft_add_pid(data, cmds->pid);
 //		ft_waitpid(data);
 	}
-	ft_handle_signal(1);
+	ft_handle_sig_child();
 }
