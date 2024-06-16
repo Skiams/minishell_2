@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/15 17:01:19 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/16 20:59:51 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_one_no_built_in_cmd(t_data *data, t_cmds *cmds)
 {
-	ft_handle_signal(2);
+	ft_handle_sig_child();
 	if (cmds->cmd[0] == '\0')
 	{
 		ft_putstr_fd("minishell$: command not found\n", 2);

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/14 21:54:00 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/16 20:59:18 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void		ft_syntax_error(char *str);
 // SIGNALS
 
 void		ft_cc_handler(int sig);
-void		ft_handle_signal(int code);
+void		ft_handle_signal();
 void		ft_handle_sig_heredoc(void);
 bool		ft_quit_ctrl_c(int *pid, t_data *data, t_cmds *head_cmds,
 				t_cmds *cmds);
@@ -215,6 +215,7 @@ void		ft_cc_blocking(int sig);
 int			ft_strcmp_sig(char *argv, const char *str);
 void		set_signal_action(int sig_case);
 void		ft_cc_handler2(int sig);
+void	ft_handle_sig_child();
 
 // CLEAN & EXIT
 
