@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/16 22:22:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:55:58 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_close_processes(t_cmds *cmds)
 	close(cmds->curr_pipe[1]);
 }
 
-static int	ft_waitbis(t_data *data, int *i, int code)
+static int	ft_wait_sig(t_data *data, int *i, int code)
 {
 	if (code == 2)
 		ft_putstr_fd("Quit (core dumped)\n", 2);
@@ -44,9 +44,9 @@ void	ft_waitpid(t_data *data)
 		else if (WIFSIGNALED(status) && g_sig_exit != 0)
 		{
 			ft_exit_code(WTERMSIG(status) + 128, ADD);
-			if (WTERMSIG(status) == 2 && ft_test(data, &i, 1) == 0)
+			if (WTERMSIG(status) == 2 && ft_wait_sig(data, &i, 1) == 0)
 				break ;
-			if (WTERMSIG(status) == 3 && ft_test(data, &i, 2) == 0)
+			if (WTERMSIG(status) == 3 && ft_wait_sig(data, &i, 2) == 0)
 				break ;
 		}
 		data->pidlist[i] = -1;
