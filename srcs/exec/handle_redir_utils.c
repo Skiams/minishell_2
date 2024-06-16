@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/14 21:56:28 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/16 15:48:43 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,9 @@ void	ft_handle_input(t_data *data, t_cmds *cmds, t_redir *tmp)
 
 int	ft_handle_built_in_error(t_redir *tmp)
 {
-	if (access(tmp->path, F_OK) != 0)
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(tmp->path, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		return (0);
-	}
-	return (1);
+	ft_putstr_fd("minishell: ", 2);
+	perror(tmp->path);
+	return (0);
 }
 
 /*
