@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/16 21:54:47 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/16 22:31:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static void	ft_fork_in_pipes(t_data *data, t_cmds *cmds)
 	if (cmds->pid == -1)
 		ft_handle_fork_error(data, cmds);
 	if (cmds->pid == 0)
-	{
-		//ft_handle_sig_child();
 		ft_handle_processes(data, cmds);
-	}
 	ft_add_pid(data, cmds->pid);
 }
 
@@ -51,8 +48,6 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds)
 		ft_get_path(data, tmp);
 		if (pipe(tmp->curr_pipe) == -1)
 			ft_handle_pipe_error(data, tmp);
-		// if (!ft_is_a_built_in(tmp->cmd))
-		// 	ft_handle_signal(2);
 		ft_fork_in_pipes(data, tmp);
 		ft_swap_pipes(data, tmp);
 		tmp = tmp->next;
@@ -62,7 +57,6 @@ void	ft_handle_pipes(t_data *data, t_cmds *cmds)
 	{
 		ft_close_processes(cmds);
 		ft_add_pid(data, cmds->pid);
-//		ft_waitpid(data);
 	}
 	ft_handle_sig_child();
 }
