@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:45:50 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/17 20:39:09 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 20:41:55 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	ft_increase_shlvl(t_data *data)
 	char	*shlvl;
 	int		count;
 	char	*count_str;
-	
+
 	if (ft_var_is_in_env(data, "SHLVL"))
 	{
 		shlvl = ft_var_is_exp(data, "SHLVL");
@@ -107,7 +107,7 @@ void	ft_init_minish(t_data *data, char **env, int argc)
 		data->env = ft_get_env(data, env);
 		if (ft_exit_code(0, GET) == 300)
 			(ft_clean_all(data), exit(255));
-		if (!ft_increase_shlvl(data));
+		if (!ft_increase_shlvl(data))
 			(ft_clean_all(data), exit(255));
 	}
 	else
