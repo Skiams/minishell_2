@@ -6,16 +6,17 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/16 21:53:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 02:16:52 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ft_exit_errors(int code, char *str)
+static void	ft_exit_errors(t_data *data, t_cmds *cmds, int code, char *str)
 {
 	if (code == 1)
 	{
+		ft_dup2_and_close_stdin_stdout(data, cmds);
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
@@ -74,23 +75,27 @@ static int	ft_get_status(char *nb)
 	return ((res * sign) % 256);
 }
 
-void	ft_exit(t_data *data, t_cmds *cmd)
+static void	ft_exit_bis(t_data *data, t_cmds *cmd)
 {
 	dprintf(2, "%s\n", __func__);
 	if (!cmd->next && !cmd->prev)
 		ft_putstr_fd("exit\n", 1);
 	if (cmd->args[1] && !ft_is_number(cmd->args[1]))
 	{
-		ft_exit_errors(1, cmd->args[1]);
+		ft_exit_errors(data, cmd, 1, cmd->args[1]);
 		if (cmd->prev || cmd->next)
 			return ;
 	}
-	else if (cmd->args && cmd->args[1] && cmd->args[2])
-		return (ft_exit_errors(2, cmd->args[1]));
+	else if (cmd->args && cmd->args[1] && ft_is_number(cmd->args[1]) && cmd->args[2])
+	{
+		ft_exit_errors(data, cmd, 2, cmd->args[1]);
+		return ;
+	}
+
 	else if (cmd->args[1] && ft_is_number(cmd->args[1]))
 	{
 		if (ft_get_status(cmd->args[1]) == -1)
-			ft_exit_errors(1, cmd->args[1]);
+			ft_exit_errors(data, cmd, 1, cmd->args[1]);
 		else
 			ft_exit_code(ft_get_status(cmd->args[1]), ADD);
 	}
@@ -98,20 +103,22 @@ void	ft_exit(t_data *data, t_cmds *cmd)
 	exit (ft_exit_code(0, GET));
 }
 
-void	ft_handle_exit_built_in(t_data *data, t_cmds *cmds)
+void	ft_exit(t_data *data, t_cmds *cmds)
 {
 	if (!ft_strcmp(cmds->cmd, "exit"))
 	{
-		if (cmds->cmd_count == 1)
+		if (!cmds->next && !cmds->prev)
 		{
-			ft_dup2_and_close_stdin_stdout(data, cmds);
-			if (cmds->args[1])
+			if (cmds->args[2])
+				ft_exit_bis(data, cmds);
+			else
 			{
-				if (!cmds->args[2])
-				{
-					ft_exit(data, cmds);
-				}
+				ft_dup2_and_close_stdin_stdout(data, cmds);
+				if (cmds->args[1])
+						ft_exit_bis(data, cmds);
 			}
 		}
+		else
+			ft_exit_bis(data, cmds);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/16 22:55:58 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 01:37:00 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	ft_close_processes(t_cmds *cmds)
 
 static int	ft_wait_sig(t_data *data, int *i, int code)
 {
-	if (code == 2)
+	if (code == 1)
+		ft_putstr_fd("\n", 2);
+	else if (code == 2)
 		ft_putstr_fd("Quit (core dumped)\n", 2);
 	data->pidlist[*i] = -1;
 	*i += 1;
