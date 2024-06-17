@@ -6,12 +6,11 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/17 04:49:21 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:41:55 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	ft_exit_pipes(t_data *data, t_cmds *cmds)
 {
@@ -20,7 +19,6 @@ void	ft_exit_pipes(t_data *data, t_cmds *cmds)
 	ft_clean_all(data);
 	exit (ft_exit_code(0, GET));
 }
-
 
 void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 {
@@ -82,7 +80,5 @@ void	ft_handle_processes(t_data *data, t_cmds *cmds)
 			ft_handle_dup2_error(data, cmds);
 	}
 	ft_close_processes(cmds);
-//	Pas sur que ce add_pid soit utile, a mon avis il ne sert a rien
-//	ft_add_pid(data, cmds->pid);
 	ft_exec_cmds(data, cmds);
 }

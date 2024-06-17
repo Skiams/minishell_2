@@ -6,11 +6,17 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/17 18:00:36 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:36:33 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	ft_red_out_and_append(t_data *data, t_cmds *cmds, t_redir *tmp)
+{
+	if (tmp->type == APPEND || tmp->type == RED_OUT)
+		ft_handle_output_and_append(data, cmds, tmp);
+}
 
 int	ft_handle_redir(t_data *data, t_cmds *cmds)
 {
@@ -21,8 +27,7 @@ int	ft_handle_redir(t_data *data, t_cmds *cmds)
 	count = 0;
 	while (tmp != NULL)
 	{
-		if (tmp->type == APPEND || tmp->type == RED_OUT)
-			ft_handle_output_and_append(data, cmds, tmp);
+		ft_red_out_and_append(data, cmds, tmp);
 		if (tmp->type == HEREDOC)
 			ft_read_here_doc(data, cmds, &count);
 		if (tmp->type == RED_IN)
@@ -38,5 +43,6 @@ int	ft_handle_redir(t_data *data, t_cmds *cmds)
 		tmp = tmp->next;
 	}
 	ft_close_hd_in_fork(data->cmd_list, NULL);
-	return (ft_clear_redirlst(&cmds->redir, &ft_free_ptr), 1);
+	ft_clear_redirlst(&cmds->redir, &ft_free_ptr);
+	return (ft_exit_code(0, GET), 1);
 }
