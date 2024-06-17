@@ -52,7 +52,7 @@ int	ft_only_one_built_in(t_data *data, t_cmds *cmds)
 	if (ft_handle_redir(data, cmds)
 		&& cmds->infile != -1 && cmds->outfile != -1)
 	{
-		ft_handle_exit_built_in(data, cmds);
+		//ft_handle_exit_built_in(data, cmds);
 		ft_exec_built_in(data, cmds);
 	}
 	ft_dup2_and_close_stdin_stdout(data, cmds);
