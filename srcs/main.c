@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 17:18:15 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/17 19:07:56 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:11:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 	t_data	data;
 
 	(void)argv;
-	dprintf(2, "coucouc\n");
+	dprintf(2, "coucouxc\n");
 	g_sig_exit = 0;
 	ft_init_minish(&data, env, argc);
 	ft_is_it_atty(&data);
