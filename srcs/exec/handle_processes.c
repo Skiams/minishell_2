@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   handle_processes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/17 01:17:43 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 04:49:21 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-void	ft_exit_properly2(t_data *data, t_cmds *cmds)
+
+void	ft_exit_pipes(t_data *data, t_cmds *cmds)
 {
 	ft_free_tab(cmds->cmd_path);
 	ft_free_tab(data->mini_env);
@@ -21,7 +21,7 @@ void	ft_exit_properly2(t_data *data, t_cmds *cmds)
 	exit (ft_exit_code(0, GET));
 }
 
-*/
+
 void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 {
 	if (!cmds->args)
@@ -29,16 +29,16 @@ void	ft_exec_cmds(t_data *data, t_cmds *cmds)
 		ft_dup_stdin_stdout(data, cmds);
 		ft_handle_redir(data, cmds);
 		ft_dup2_and_close_stdin_stdout(data, cmds);
-		ft_exit_properly(data, cmds);
+		ft_exit_pipes(data, cmds);
 	}
 	if (ft_is_a_built_in(cmds->cmd))
 	{
 		if (!ft_handle_redir(data, cmds))
-			ft_exit_properly(data, cmds);
+			ft_exit_pipes(data, cmds);
 		if (cmds->redir)
 			ft_handle_redir(data, cmds);
 		ft_exec_built_in(data, cmds);
-		ft_exit_properly(data, cmds);
+		ft_exit_pipes(data, cmds);
 	}
 	if (cmds->redir)
 		ft_handle_redir(data, cmds);
