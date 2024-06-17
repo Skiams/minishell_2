@@ -77,7 +77,6 @@ static int	ft_get_status(char *nb)
 
 static void	ft_exit_bis(t_data *data, t_cmds *cmd)
 {
-	dprintf(2, "%s\n", __func__);
 	if (!cmd->next && !cmd->prev)
 		ft_putstr_fd("exit\n", 1);
 	if (cmd->args[1] && !ft_is_number(cmd->args[1]))

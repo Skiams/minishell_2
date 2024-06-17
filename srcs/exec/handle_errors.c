@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:22:46 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/17 00:35:04 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 01:09:48 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 // mais a voir s'il faut le changer pour d' autres erreurs
 void	ft_exit_properly(t_data *data, t_cmds *cmds)
 {
-	dprintf(2, "\t-> %s\n\n", __func__);
 	ft_close_hd_in_fork(data->cmd_list, NULL);
 	while (cmds && cmds != NULL)
 	{
@@ -53,9 +52,7 @@ void	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp)
 	perror(tmp->path);
 	if (ft_is_a_built_in(cmds->cmd) || !cmds->cmd)
 	{
-		dprintf(2, "je suis dans le if\n");
 		cmds->pid = fork();
-	//	ft_add_pid(data, cmds->pid);
 		if (cmds->pid == -1)
 			ft_handle_fork_error(data, cmds);
 		if (cmds->pid == 0)
@@ -68,10 +65,8 @@ void	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp)
 	}
 	else
 	{
-		dprintf(2, "je suis dans le else\n");
 		if (cmds->cmd_count > 1)
 			ft_close_processes(cmds);
-	//	ft_add_pid(data, cmds->pid);
 		ft_exit_properly(data, cmds);
 	}
 }
