@@ -53,7 +53,6 @@ void	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp)
 	if (ft_is_a_built_in(cmds->cmd) || !cmds->cmd)
 	{
 		cmds->pid = fork();
-		ft_add_pid(data, cmds->pid);
 		if (cmds->pid == -1)
 			ft_handle_fork_error(data, cmds);
 		if (cmds->pid == 0)
@@ -62,6 +61,7 @@ void	ft_handle_file_error(t_data *data, t_cmds *cmds, t_redir *tmp)
 				ft_dup2_and_close_stdin_stdout(data, cmds);
 			ft_exit_properly(data, cmds);
 		}
+		ft_add_pid(data, cmds->pid);
 	}
 	else
 	{

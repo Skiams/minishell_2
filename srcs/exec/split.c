@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 15:17:27 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/04 12:28:29 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 01:15:52 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_fill_tab_colon(t_data *data, char *str)
 	size = ft_count_size_of_word_colon(str);
 	s = (char *)malloc(sizeof(char) * size + 1);
 	if (!s)
-		ft_exit_if_malloc(data);
+		(ft_exit_code(300, ADD), ft_exit_if_malloc(data));
 	while (str[i] != '\0' && str[i] != 58 && !ft_is_space(str[i]))
 	{
 		s[i] = str[i];
@@ -53,7 +53,7 @@ char	*ft_fill_tab(t_data *data, char *str)
 	size = ft_count_size_of_word(str);
 	s = (char *)malloc(sizeof(char) * size + 1);
 	if (!s)
-		ft_exit_if_malloc(data);
+		(ft_exit_code(300, ADD), ft_exit_if_malloc(data));
 	while (str[i] != '\0' && !ft_is_space(str[i]))
 	{
 		s[i] = str[i];
@@ -71,7 +71,7 @@ static char	**ft_return_tab(t_data *data, char *str)
 		return (NULL);
 	tab = (char **)malloc(sizeof(char *) * (ft_count_words(str) + 1));
 	if (!tab)
-		ft_exit_if_malloc(data);
+		(ft_exit_code(300, ADD), ft_exit_if_malloc(data));
 	return (tab);
 }
 
