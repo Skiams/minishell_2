@@ -6,7 +6,7 @@
 /*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:37:07 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/15 15:15:42 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 01:11:56 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_ctrl_c_heredoc(int sig)
 
 void	ft_handle_sig_heredoc(void)
 {
-	dprintf(2, "%s\n", __func__);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, &ft_ctrl_c_heredoc);
 }
@@ -33,7 +32,6 @@ bool	ft_quit_ctrl_c(int *pid, t_data *data, t_cmds *head_cmds, t_cmds *cmds)
 	waitpid(*pid, pid, 0);
 	if (WIFEXITED(*pid) && WEXITSTATUS(*pid) == SIGINT)
 	{
-		dprintf(2, "%s\n", __func__);
 		ft_close_hd_in_fork(head_cmds, cmds);
 		if (close(cmds->hd_read) == -1)
 			ft_handle_close_error(data, cmds);

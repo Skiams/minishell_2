@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:41:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/16 21:52:41 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 01:11:46 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_cc_handler(int sig)
 
 void	ft_cc_blocking(int sig)
 {
-	dprintf(2, "%s", __func__);
 	(void)sig;
 	g_sig_exit = 2;
 	ft_exit_code(130, ADD);
@@ -33,7 +32,6 @@ void	ft_cc_blocking(int sig)
 
 void	ft_bckslsh_handler(int sig)
 {
-	dprintf(2, "%s\n", __func__);
 	(void)sig;
 	g_sig_exit = 3;
 	ft_exit_code(131, ADD);

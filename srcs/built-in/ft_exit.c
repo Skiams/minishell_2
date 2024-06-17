@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/16 21:53:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 01:31:40 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static int	ft_get_status(char *nb)
 
 void	ft_exit(t_data *data, t_cmds *cmd)
 {
-	dprintf(2, "%s\n", __func__);
 	if (!cmd->next && !cmd->prev)
 		ft_putstr_fd("exit\n", 1);
 	if (cmd->args[1] && !ft_is_number(cmd->args[1]))
