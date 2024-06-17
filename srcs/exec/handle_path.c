@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eltouma <eltouma@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:46:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/13 16:57:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 20:15:38 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ static char	*ft_handle_path(t_data *data, t_cmds *cmds, char *cmd, int i)
 	while (cmds->cmd_path && cmds->cmd_path[i])
 	{
 		tmp = ft_strjoin_exec(data, cmds->cmd_path[i++], "/");
-		tmp2 = ft_strjoin_exec(data, tmp, cmd);
+		tmp2 = ft_strjoin(tmp, cmd);
 		free(tmp);
+		if (!tmp2)
+			(ft_exit_code(300, ADD), ft_exit_if_malloc(data));
 		if (access(tmp2, F_OK) == 0)
 		{
 			if (access(tmp2, X_OK) == 0)
