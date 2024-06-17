@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:45:50 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/17 18:53:23 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:57:12 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ static t_env	*ft_no_env(t_data *data)
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	if (!ft_lstinit_env(&data->env, "SHLVL", "2"))
+	if (!ft_lstinit_env(&data->env, ft_strdup_exec(data, "SHLVL"),
+			ft_strdup_exec(data, "2")))
 		return (ft_exit_code(300, ADD), NULL);
-	if (!ft_lstinit_env(&data->env, "PWD", pwd))
+	if (!ft_lstinit_env(&data->env, ft_strdup_exec(data, "PWD"),
+			ft_strdup_exec(data, pwd)))
 		return (ft_exit_code(300, ADD), NULL);
-	if (!ft_lstinit_env(&data->env, "_", "/usr/bin/env"))
+	if (!ft_lstinit_env(&data->env, ft_strdup_exec(data, "_"),
+			ft_strdup_exec(data, "/usr/bin/env")))
 		return (ft_exit_code(300, ADD), NULL);
 	return (data->env);
 }
