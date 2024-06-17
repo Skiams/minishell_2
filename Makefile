@@ -20,7 +20,6 @@ SRCS_PATH = $(shell find srcs -type d)
 SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c ft_export_utils_bis.c ft_unset.c ft_exit.c ft_exit_utils.c ft_cd.c ft_cd_utils.c ft_pwd.c \
 		clean.c singletons.c \
 		cmds.c cmd_args.c lst_cmds.c lst_cmds_bis.c redir_cmds.c redir_cmds_bis.c \
-		debug.c \
 		get_env.c lst_env.c \
 		error_handle.c \
 		expand.c expand_utils.c expand_utils_bis.c expand_utils_tri.c\
@@ -31,7 +30,7 @@ SRCS = ft_echo.c ft_env.c ft_export.c ft_export_utils.c ft_export_utils_bis.c ft
 		handle_processes.c here_doc.c here_doc_error.c exec.c \
 		print_errors.c size_functions.c split.c string_functions.c wait_and_close.c \
 		handle_built_in.c handle_redir.c handle_redir_utils.c \
-		main.c
+		init_minish.c main.c 
 	
 vpath %.c $(foreach dir, $(SRCS_PATH), $(dir):)
 

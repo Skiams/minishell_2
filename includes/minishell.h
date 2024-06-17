@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 18:08:04 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/17 18:00:29 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:54:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 # define ARROW "\t→ "
 
 extern int	g_sig_exit;
+
+void		ft_is_it_atty(t_data *data);
+void		ft_init_minish(t_data *data, char **env, int argc);
 
 // TOKENIZATION
 
@@ -229,13 +232,5 @@ void		ft_clean_all(t_data *data);
 void		ft_clear_redirlst(t_redir **redir_list, void (*del)(void *));
 void		ft_exit_if_malloc(t_data *data);
 void		ft_exit_if_malloc_parsing(t_data *data);
-
-// DEBUG
-
-void		print_tokens(t_token *token_lst);
-void		print_tab(char **tab);
-void		print_env(t_env *env_lst);
-void		print_cmds(t_cmds *cmd_list);
-void		print_redir(t_redir *redir);
 
 #endif

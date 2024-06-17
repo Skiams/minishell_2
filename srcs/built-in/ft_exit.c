@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 11:47:17 by ahayon            #+#    #+#             */
-/*   Updated: 2024/06/17 04:03:26 by eltouma          ###   ########.fr       */
+/*   Updated: 2024/06/17 18:54:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static void	ft_exit_errors(t_data *data, t_cmds *cmds, int code, char *str)
 {
+	(void)data;
+	(void)cmds;
 	if (code == 1)
 	{
-		ft_dup2_and_close_stdin_stdout(data, cmds);
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
@@ -85,12 +86,12 @@ static void	ft_exit_bis(t_data *data, t_cmds *cmd)
 		if (cmd->prev || cmd->next)
 			return ;
 	}
-	else if (cmd->args && cmd->args[1] && ft_is_number(cmd->args[1]) && cmd->args[2])
+	else if (cmd->args && cmd->args[1]
+		&& ft_is_number(cmd->args[1]) && cmd->args[2])
 	{
 		ft_exit_errors(data, cmd, 2, cmd->args[1]);
 		return ;
 	}
-
 	else if (cmd->args[1] && ft_is_number(cmd->args[1]))
 	{
 		if (ft_get_status(cmd->args[1]) == -1)
@@ -104,20 +105,20 @@ static void	ft_exit_bis(t_data *data, t_cmds *cmd)
 
 void	ft_exit(t_data *data, t_cmds *cmds)
 {
-	if (!ft_strcmp(cmds->cmd, "exit"))
+	if (!cmds->next && !cmds->prev)
 	{
-		if (!cmds->next && !cmds->prev)
+		if (cmds->args[1] && ft_is_number(cmds->args[1]))
 		{
-			if (cmds->args[2])
-				ft_exit_bis(data, cmds);
-			else
-			{
+			if (!cmds->args[2])
 				ft_dup2_and_close_stdin_stdout(data, cmds);
-				if (cmds->args[1])
-						ft_exit_bis(data, cmds);
-			}
-		}
-		else
 			ft_exit_bis(data, cmds);
+		}	
+		else
+		{
+			ft_dup2_and_close_stdin_stdout(data, cmds);
+			ft_exit_bis(data, cmds);
+		}
 	}
+	else
+		ft_exit_bis(data, cmds);
 }
