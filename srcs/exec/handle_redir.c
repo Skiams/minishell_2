@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 14:14:15 by eltouma           #+#    #+#             */
-/*   Updated: 2024/06/17 00:15:28 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/06/17 18:00:36 by eltouma          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	ft_handle_redir(t_data *data, t_cmds *cmds)
 			ft_read_here_doc(data, cmds, &count);
 		if (tmp->type == RED_IN)
 		{
-			if (ft_is_a_built_in(cmds->cmd))
+			if (ft_is_a_built_in(cmds->cmd) || !cmds->cmd)
 			{
 				if (access(tmp->path, F_OK | R_OK | W_OK) != 0)
-					return (ft_handle_built_in_error(tmp));
+					return (ft_handle_built_in_error(data, tmp));
 			}
 			else
 				ft_handle_input(data, cmds, tmp);
